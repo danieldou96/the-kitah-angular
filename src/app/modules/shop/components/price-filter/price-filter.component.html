@@ -1,0 +1,60 @@
+<div class="title">{{ title }}</div>
+<div class="range-slider">
+	<div class="range-slider__slider">
+		<div class="range-slider__horizontal-bar-container">
+			<div class="range-slider__horizontal-bar" style="transform: translate(0%, 0px) scale(1, 1);"></div>
+		</div>
+		<div class="range-slider__handle-container" style="transform: translate(-1000%, 0px); z-index: 5;">
+			<div
+				class="range-slider__handle range-slider__handle--lower"
+				[style.left.px]="lowerHandlePosition$ | async"
+				(panstart)="onPanStart($event, EHandle.Lower)"
+				(panend)="onPanEnd($event)"
+				(panleft)="onPanSlider($event)"
+				(panright)="onPanSlider($event)">
+				<div class="range-slider__handle-touch-area"></div>
+				<div class="range-slider__handle-tooltip">$0</div>
+			</div>
+		</div>
+		<div class="range-slider__handle-container" style="transform: translate(0%, 0px); z-index: 4;">
+			<div
+				class="range-slider__handle range-slider__handle--upper"
+				[style.right.px]="upperHandlePosition$ | async"
+				(panstart)="onPanStart($event, EHandle.Upper)"
+				(panend)="onPanEnd($event)"
+				(panleft)="onPanSlider($event)"
+				(panright)="onPanSlider($event)">
+				<div class="range-slider__handle-touch-area"></div>
+				<div class="range-slider__handle-tooltip">$100</div>
+			</div>
+		</div>
+	</div>
+	<div class="pips">
+		<ng-container *ngFor="let step of steps$ | async">
+			<div class="pips__step" [style.left.%]="step.position">
+				<div class="pips__step-marker"></div>
+				<div class="pips__step-value">{{ step.value }}</div>
+			</div>
+		</ng-container>
+	</div>
+</div>
+<form method="get" action="http://s603556811.onlinehome.fr/shop/">
+	<div class="d-flex pb-1">
+		<div class="w-50 pr-2 mr-2">
+			<div class="input-group input-group-sm">
+				<div class="input-group-prepend">
+					<span class="input-group-text">$</span>
+				</div>
+				<input type="text" name="min_price" class="form-control cz-range-slider-value-min">
+			</div>
+		</div>
+		<div class="w-50 pl-2">
+			<div class="input-group input-group-sm">
+				<div class="input-group-prepend">
+					<span class="input-group-text">$</span>
+				</div>
+				<input type="text" name="max_price" class="form-control cz-range-slider-value-max">
+			</div>
+		</div>
+	</div>
+</form>

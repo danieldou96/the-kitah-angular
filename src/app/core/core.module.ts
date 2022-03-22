@@ -4,20 +4,31 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.component';
 import { RouterModule } from '@angular/router';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { HandheldToolbarComponent } from './components/handheld-toolbar/handheld-toolbar.component';
+import { CartWidgetComponent } from './components/cart-widget/cart-widget.component';
+import { DrawerComponent } from './components/drawer/drawer.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
-    DefaultLayoutComponent
+    DefaultLayoutComponent,
+    NotFoundComponent,
+    HandheldToolbarComponent,
+    CartWidgetComponent,
+    DrawerComponent
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    LayoutModule
   ],
   exports: [
-    DefaultLayoutComponent
+    DefaultLayoutComponent,
+    NotFoundComponent
   ]
 })
 export class CoreModule { }

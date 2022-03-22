@@ -1,0 +1,36 @@
+<ng-container *ngrxLet="childrenExpanded$ as childrenExpanded">
+	<div class="filter-row__item">
+		<div
+			class="filter-row__label">
+			<div class="filter-row__input-container">
+				<input
+					type="checkbox"
+					class="checkbox"
+					[(ngModel)]="checked"
+					(ngModelChange)="toggle($event)"
+					#checkbox>
+			</div>
+			<div 
+				class="filter-row__title-container"
+				[class.filter-row__title-container--has-children]="item.children?.length"
+				(click)="item.children?.length ? toggleChildren() : checkbox.click()">
+				<span class="filter-row__title">
+					{{ item.text }}
+				</span>
+			</div>
+			<span
+				*ngIf="item.children?.length"
+				class="filter-row__toggle-children"
+				[class.filter-row__toggle-children--expanded]="childrenExpanded"
+				[class.filter-row__toggle-children--contracted]="!childrenExpanded"
+				(click)="toggleChildren()">
+			</span>
+		</div>
+		<div
+			*ngIf="item.children?.length"
+			class="filter-row__children-container"
+			[@slideInOut]="childrenExpanded">
+			<app-product-filter-row *ngFor="let subitem of item.children" [item]="subitem"></app-product-filter-row>
+		</div>
+	</div>
+</ng-container>

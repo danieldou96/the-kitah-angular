@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HeaderService } from '../services/header/header.service';
 
 @Component({
   selector: 'app-header',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  stickyHeader$: Observable<boolean>;
+
+  constructor(private headerService: HeaderService) {
+    this.stickyHeader$ = this.headerService.stickyHeader$;
+  }
 
   ngOnInit(): void {
   }

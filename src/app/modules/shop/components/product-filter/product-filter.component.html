@@ -1,0 +1,4 @@
+<div class="title">{{ title }}</div>
+<div class="checkbox-list">
+	<app-product-filter-row *ngFor="let item of items" [item]="item" (changed)="selectItem($event, item)"></app-product-filter-row>
+</div>

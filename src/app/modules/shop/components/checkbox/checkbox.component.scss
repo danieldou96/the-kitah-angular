@@ -1,0 +1,46 @@
+@import "/src/assets/scss/vars";
+@import "/src/assets/scss/mixins";
+
+:host {
+	display: contents;
+}
+
+.checkbox-container {
+  font-weight: 400;
+  font-size: 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+	color: #111111;
+	transition: all 300ms ease;
+	margin: 0;
+
+	&:hover {
+		color: #8d8d8d;
+	}
+}
+
+.checkbox {
+	display: inline-block;
+  cursor: pointer;
+  height: 16px;
+  width: 16px;
+  overflow: hidden;
+  margin-top: 0;
+  vertical-align: middle;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: transparent;
+  background-repeat: no-repeat;
+	background-position: 65% 50%;
+  background-size: 65%;
+  border: 1px solid #e5e5e5;
+  border-radius: 2px;
+  transition: 0.2s ease-in-out;
+  transition-property: background-color, border;
+  margin: 0px;
+
+	&:checked {
+		background-image: url(data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2214%22%20height%3D%2210%22%20viewBox%3D%220%200%2014%2010%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M1%204.00018L5.5%208.50018L13.0004%201%22%20stroke%3D%22%23111111%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E%0A);
+	}
+}
