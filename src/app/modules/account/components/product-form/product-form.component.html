@@ -32,11 +32,11 @@
 				<input type="radio" value="auto" formControlName="previewsType">
 				<span>Auto generate thumbnails from the product file</span>
 			</label>
-			<div class="generated-previews__container" [hidden]="formControls['previewsType'].value != 'auto'" *ngIf="generatedPreviewImages.length == 0">
-				<div class="generated-previews__placeholder" [class.generated-previews__placeholder--error]="">
+			<div class="generated-previews__container" [hidden]="formControls['previewsType'].value != 'auto'">
+				<div class="generated-previews__placeholder" [class.generated-previews__placeholder--error]="" *ngIf="generatedPreviewImages.length == 0">
 					Thumbnails will generate once you upload your product file
 				</div>
-				<ng-container *ngIf="generatedPreviewImages.length != 0">
+				<ng-container *ngIf="generatedPreviewImages.length > 0">
 					<div class="generated-previews__result-container">
 						<div class="generated-previews__result-item" *ngFor="let previewImage of generatedPreviewImages; let i = index">
 							<div class="generated-previews__result-image-container">
