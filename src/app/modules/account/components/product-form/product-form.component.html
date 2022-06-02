@@ -40,7 +40,7 @@
 					<div class="generated-previews__result-container">
 						<div class="generated-previews__result-item" *ngFor="let previewImage of generatedPreviewImages; let i = index">
 							<div class="generated-previews__result-image-container">
-								<img [src]="previewImage">
+								<img [src]="previewImage.url">
 							</div>
 							<div class="generated-previews__page-number">Page {{ i + 1 }}</div>
 						</div>

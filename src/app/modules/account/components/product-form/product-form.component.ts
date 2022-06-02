@@ -39,7 +39,7 @@ export class ProductFormComponent implements OnInit {
   @Input() product!: IProduct;
   @Output() submitFormEvent = new EventEmitter();
   form!: FormGroup;
-  generatedPreviewImages: string[] = [];
+  generatedPreviewImages: IFile[] = [];
   fileUploaded = false;
   productFile!: IFile;
 

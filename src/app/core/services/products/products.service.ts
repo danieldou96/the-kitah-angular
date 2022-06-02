@@ -5,7 +5,7 @@ import { map, Observable } from 'rxjs';
 import { ApiResponse } from 'src/app/shared/models/api-response';
 import { PageRequest } from 'src/app/shared/models/pagination/page-request.model';
 import { Page } from 'src/app/shared/models/pagination/page.model';
-import { IProduct } from 'src/app/shared/models/product';
+import { IFile, IProduct } from 'src/app/shared/models/product';
 import { ShopFilters, ShopPageRequest } from 'src/app/shared/models/shop';
 import { environment } from 'src/environments/environment';
 import { AbstractCrudService } from '../crud/abstract-crud.service';
@@ -55,14 +55,14 @@ export class ProductsService extends AbstractCrudService<IProduct, number, ShopP
   }
 
   /** @description Saves user registration to the Kinus */
-  public uploadProductFile(pictureFile: File, generateThumbnails: boolean = true): Observable<{ generatedThumbnails?: string[]; fileUrl: string; }> {
+  public uploadProductFile(pictureFile: File, generateThumbnails: boolean = true): Observable<{ generatedThumbnails?: IFile[]; fileUrl: string; }> {
     const formData = new FormData();
     formData.append("file", pictureFile);
     formData.append("generateThumbnails", generateThumbnails.toString());
 
     const url = `${environment.apiUrl}/products/upload/product_file`;
     return this._http.post<ApiResponse>(url, formData).pipe(
-      map((apiResponse: ApiResponse) => apiResponse.data as { generatedThumbnails?: string[]; fileUrl: string; })
+      map((apiResponse: ApiResponse) => apiResponse.data as { generatedThumbnails?: IFile[]; fileUrl: string; })
     );
   }
 }
