@@ -33,6 +33,10 @@ input[type="radio"] {
 			border-radius: 0 0 0.3125rem 0.3125rem;
 			border: 1px solid #CCCCCC !important;
 			border-top: 0 !important;
+
+			&.show-placeholder > div:nth-child(1) > a[href*="https://www.froala.com/wysiwyg-editor?k=u"] {
+				display: none !important;
+			}
 		}
 		
 		.fr-second-toolbar {

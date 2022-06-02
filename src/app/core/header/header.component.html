@@ -115,7 +115,7 @@
                     <button class="cart__remove-item" (click)="cartService.removeCartItem(item)">×</button>
                     <div class="cart__item">
                       <a class="cart__item-image" [routerLink]="['/product/' + item.product.id]">
-                        <img width="350" height="263" src="http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png" loading="lazy">
+                        <img width="350" height="263" [src]="item.product.mainPicture?.url ?? 'http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png'" loading="lazy">
                       </a>
                       <div class="cart__item-details">
                         <div class="cart__item-title" [routerLink]="['/product/' + item.product.id]">{{ item.product.name }}</div>
