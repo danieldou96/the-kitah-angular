@@ -2,7 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
-import { FilterItem } from 'src/app/shared/models/filter';
+import { IFilterItem } from 'src/app/shared/models/filter';
 
 @Component({
   selector: 'app-product-filter-row',
@@ -33,8 +33,9 @@ import { FilterItem } from 'src/app/shared/models/filter';
 export class ProductFilterRowComponent implements ControlValueAccessor {
 
 	@Input() checked = false;
-  @Input() item!: FilterItem;
-	@Output() private readonly changed = new EventEmitter<boolean>();
+  @Input() item!: IFilterItem;
+  @Input() selectedItems: string[] = [];
+	@Output() private readonly changed = new EventEmitter<{ value?: string, checked: boolean; }>();
 
   readonly childrenExpanded$ = new BehaviorSubject<boolean>(false);
 
@@ -55,7 +56,15 @@ export class ProductFilterRowComponent implements ControlValueAccessor {
   registerOnTouched(fn: any) { }
 
 	toggle(checked: boolean) {
-		this.changed.emit(checked);
+		this.changed.emit({ checked, value: this.item.value });
 		this.propagateChange(checked);
 	}
+
+  selectSubItem(event: { value?: string, checked: boolean; }) {
+    this.changed.emit(event);
+  }
+
+  isChecked(itemValue: string) {
+    return this.selectedItems.includes(itemValue);
+  }
 }

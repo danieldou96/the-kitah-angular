@@ -7,13 +7,30 @@
 //@import "~bootstrap/scss/type";
 //@import "~bootstrap/scss/reboot";
 //@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/card";
 @import "~bootstrap/scss/bootstrap-grid";
 @import "~bootstrap/scss/bootstrap-utilities";
 
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+//@import "./assets/css/cartzilla-icons.css";
+
 @import './assets/scss/vars';
+@import './assets/scss/mixins';
 @import './assets/scss/reset';
+@import './assets/scss/buttons';
+@import './assets/scss/input';
+@import './assets/scss/select';
 @import './assets/scss/icons';
 @import './assets/scss/fonts';
+
+@import 'swiper/scss';
+@import 'swiper/scss/navigation';
+@import 'swiper/scss/pagination';
+
+.invalid-feedback {
+  display: block !important;
+}
 
 body,
 html {
@@ -39,6 +56,14 @@ body {
 
 ::-moz-selection {
   background: rgba(78, 84, 200, 0.15);
+}
+
+[hidden] {
+	display: none !important;
+}
+
+button:active {
+	outline: none;
 }
 
 // General bad CSS

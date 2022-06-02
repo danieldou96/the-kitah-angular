@@ -30,7 +30,7 @@
 			*ngIf="item.children?.length"
 			class="filter-row__children-container"
 			[@slideInOut]="childrenExpanded">
-			<app-product-filter-row *ngFor="let subitem of item.children" [item]="subitem"></app-product-filter-row>
+			<app-product-filter-row *ngFor="let subitem of item.children" [checked]="isChecked(subitem.value)" [item]="subitem" [selectedItems]="selectedItems" (changed)="selectSubItem($event)"></app-product-filter-row>
 		</div>
 	</div>
 </ng-container>

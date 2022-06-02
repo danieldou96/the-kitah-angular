@@ -1,0 +1,13 @@
+<div class="upload-preview" appDrag (fileDropped)="fileDropped($event)" (click)="fileInput.click()">
+  <div class="upload-preview__label" *ngIf="!galleryItem">
+    <div class="upload-preview__title">{{ label }}</div>
+    <div class="upload-preview__fileinfo">Select file or drag and drop</div>
+    <div class="upload-preview__filesize">Up to 2 MB</div>
+  </div>
+	<div class="upload-preview__label" *ngIf="galleryItem">
+    <div class="upload-preview__title">{{ label }}</div>
+    <div class="upload-preview__fileinfo">{{ galleryItem.name }}</div>
+    <div class="upload-preview__filesize">{{ galleryItem.size | filesize }}</div>
+	</div>
+	<input type="file" (change)="uploadFile($event)" #fileInput />
+</div>

@@ -1,6 +1,7 @@
-import { Component, forwardRef, Input } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, forwardRef, Input, QueryList, ViewChildren } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FilterItem } from 'src/app/shared/models/filter';
+import { IFilterItem } from 'src/app/shared/models/filter';
+import { ProductFilterRowComponent } from '../product-filter-row/product-filter-row.component';
 
 @Component({
   selector: 'app-product-filter',
@@ -14,25 +15,31 @@ import { FilterItem } from 'src/app/shared/models/filter';
     }
   ]
 })
-export class ProductFilterComponent implements ControlValueAccessor {
+export class ProductFilterComponent implements ControlValueAccessor, AfterViewInit {
 
   @Input() title!: string;
   @Input() searchable = false;
-  @Input() items: FilterItem[] = [];
+  @Input() items: IFilterItem[] = [];
+  //@ViewChildren(ProductFilterRowComponent) productFilterRowComponents!: QueryList<ProductFilterRowComponent>;
 
-  selectedItems: FilterItem[] = [];
+  selectedItems: string[] = [];
 
-  constructor(private fb: FormBuilder) { }
+  constructor() { }
 
-  writeValue(selectedItems: FilterItem[]) {
-		this.selectedItems = selectedItems;
+  writeValue(selectedItems: string[] | null) {
+		this.selectedItems = selectedItems ?? [];
 	}
 
-  selectItem(checked: boolean, item: FilterItem) {
-    if (checked) {
-      this.selectedItems.push(item);
+  ngAfterViewInit() {
+    /*console.log(this.selectedItems)
+    this.productFilterRowComponents*/
+  }
+
+  selectItem(event: { value?: string, checked: boolean; }) {
+    if (event.checked) {
+      this.selectedItems.push(event.value!);
     } else {
-      this.selectedItems = this.selectedItems.filter(i => i.value != item.value);
+      this.selectedItems = this.selectedItems.filter(i => i != event.value);
     }
     this.propagateChange(this.selectedItems);
   }
@@ -45,4 +52,7 @@ export class ProductFilterComponent implements ControlValueAccessor {
 
   registerOnTouched(fn: any) { }
 
+  isChecked(itemValue: string) {
+    return this.selectedItems.includes(itemValue);
+  }
 }

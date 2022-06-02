@@ -1,0 +1,107 @@
+/*! CSS Used from: http://s603556811.onlinehome.fr/wp-includes/css/dist/block-library/style.min.css?ver=5.9.2 ; media=all */
+@media all {
+  p {
+    overflow-wrap: break-word;
+  }
+
+  html :where(img) {
+    height: auto;
+    max-width: 100%;
+  }
+}
+
+/*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/style.css?ver=1.0.5 ; media=all */
+@media all {
+
+  p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  img {
+    vertical-align: middle;
+    border-style: none;
+  }
+
+  @media (min-width: 992px) {
+    .d-lg-flex {
+      display: flex !important;
+    }
+  }
+
+  .justify-content-end {
+    justify-content: flex-end !important;
+  }
+
+  .align-items-center {
+    align-items: center !important;
+  }
+
+  .mr-2 {
+    margin-right: 0.5rem !important;
+  }
+
+  .mb-4 {
+    margin-bottom: 1.5rem !important;
+  }
+
+  .pb-4 {
+    padding-bottom: 1.5rem !important;
+  }
+
+  @media (min-width: 992px) {
+    .mb-lg-3 {
+      margin-bottom: 1rem !important;
+    }
+
+    .pt-lg-3 {
+      padding-top: 1rem !important;
+    }
+
+    .pb-lg-5 {
+      padding-bottom: 3rem !important;
+    }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+  }
+
+  ::selection {
+    background: rgba(78, 84, 200, 0.15);
+  }
+
+  ::-moz-selection {
+    background: rgba(78, 84, 200, 0.15);
+  }
+
+  * {
+    word-break: break-word;
+  }
+}
+
+
+
+
+  /*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/style.css?ver=1.0.5 ; media=all */
+  @media all{
+  h6{margin-top:0;margin-bottom:0.75rem;}
+  table{border-collapse:collapse;}
+  th{text-align:inherit;}
+  h6{margin-bottom:0.75rem;font-weight:500;line-height:1.2;color:#373f50;}
+  h6{font-size:1.0625rem;}
+  .table,table{width:100%;margin-bottom:1rem;color:#4b566b;}
+  .table th,table th,.table td,table td{padding:0.75rem;vertical-align:top;border-top:1px solid #e3e9ef;}
+  .table thead th,table thead th{vertical-align:bottom;border-bottom:2px solid #e3e9ef;}
+  .table-responsive{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .table:not(.table-dark) thead:not(.thead-dark) th,table:not(.table-dark) thead:not(.thead-dark) th{color:#373f50;}
+  thead th,th{font-weight:500;}
+  .product-title > a{transition:color 0.25s ease-in-out;color:#373f50;text-decoration:none!important;}
+  .product-title > a:hover{color:#fe696a;}
+  .font-size-sm{font-size:0.875rem!important;}
+  *{word-break:break-word;}
+  table{margin:0 0 1.5em;}
+  table th{word-break:normal;}
+  }

@@ -1,0 +1,54 @@
+<h2 class="title">Withdraw</h2>
+            
+	<article class="dokan-withdraw-area">
+
+			<div class="entry-content">
+
+					<div class="dokan-alert dokan-alert-warning">
+<strong>Current Balance: <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>0.<small>00</small></span> <br>Withdraw Threshold: 0 days </strong>
+</div>
+<ul class="list-inline subsubsub">
+<li class="active">
+<a href="http://s603556811.onlinehome.fr/dashboard/withdraw/">Withdraw Request</a>
+</li>
+<li>
+<a href="http://s603556811.onlinehome.fr/dashboard/withdraw/?type=approved">Approved Requests</a>
+</li>
+<li>
+<a href="http://s603556811.onlinehome.fr/dashboard/withdraw/?type=cancelled">Cancelled Requests</a>
+</li>
+</ul><form class="dokan-form-horizontal withdraw" role="form" method="post" novalidate="novalidate">
+<div class="dokan-form-group">
+<label for="withdraw-amount" class="dokan-w3 dokan-control-label">
+	Withdraw Amount        </label>
+
+<div class="dokan-w5 dokan-text-left">
+	<div class="dokan-input-group">
+			<span class="dokan-input-group-addon">$</span>
+			<input name="withdraw_amount" required="" class="wc_input_price dokan-form-control" id="withdraw-amount" type="text" placeholder="0.00" value="">
+	</div>
+</div>
+</div>
+
+<div class="dokan-form-group">
+<label for="withdraw-method" class="dokan-w3 dokan-control-label">
+	Payment Method        </label>
+
+<div class="dokan-w5 dokan-text-left">
+	<select class="dokan-form-control" required="" name="withdraw_method" id="withdraw-method">
+													<option value="paypal">PayPal</option>
+									</select>
+</div>
+</div>
+
+<div class="dokan-form-group">
+<div class="dokan-w3 ajax_prev" style="margin-left:19%; width: 200px;">
+	<input type="hidden" id="dokan_withdraw_nonce" name="dokan_withdraw_nonce" value="b8cc257051"><input type="hidden" name="_wp_http_referer" value="/dashboard/withdraw/">            <input type="submit" class="dokan-btn dokan-btn-theme" value="Submit Request">
+	<input type="hidden" name="dokan_handle_withdraw_request" value="approval">
+</div>
+</div>
+</form>
+
+			</div><!-- .entry-content -->
+
+	</article>

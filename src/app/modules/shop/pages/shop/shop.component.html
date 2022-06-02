@@ -1,17 +1,16 @@
 <app-page-title title="Marketplace Products"></app-page-title>
 <div class="container pb-5 mb-2 mb-md-4">
-
   <div class="row">
     <div class="content-area col-lg-8 order-lg-2">
 
       <div
         class="d-flex justify-content-center justify-content-sm-between align-items-center pt-2 pt-lg-2 pb-4 pb-lg-5 mb-2 mb-lg-0">
-        <div class="d-flex flex-wrap">
+        <div *ngIf="currentPage?.elements?.length! > 0" class="d-flex flex-wrap">
           <div class="form-inline flex-nowrap mr-3 mr-sm-4 pb-3">
             <form class="woocommerce-ordering form-inline flex-nowrap" method="get">
               <label class="text-light opacity-75 text-nowrap mr-2 d-none d-sm-block" for="orderby">Sort by:</label>
 
-              <select name="orderby" class="orderby form-control custom-select" aria-label="Shop order" id="orderby">
+              <select name="orderby" class="orderby form-control custom-select">
                 <option value="popularity" selected="selected">Popularity</option>
                 <option value="price">Low - High Price</option>
                 <option value="price-desc">High - Low Price</option>
@@ -20,1088 +19,150 @@
                 <option value="title-desc">Z - A Order</option>
               </select>
 
-              <input type="hidden" name="paged" value="1">
-
-              <span class="font-size-sm text-light opacity-75 text-nowrap ml-2 d-none d-md-block">of 24 products </span>
+              <span class="font-size-sm text-light opacity-75 text-nowrap ml-2 d-none d-md-block">of {{ currentPage?.totalElements }} products </span>
 
             </form>
           </div>
         </div>
         <div class="d-flex pb-3">
-          <span class="font-size-md text-light">1 / 2</span>
-          <a class="nav-link-style nav-link-light ml-3" href="http://s603556811.onlinehome.fr/shop/page/2/">
-            <i class="czi-arrow-right"></i>
+          <a class="nav-link-style nav-link-light mr-3" *ngIf="currentPage?.current?.page != 1 && currentPage?.elements?.length! > 0" (click)="prevPage()">
+            <i class="ci-arrow-left"></i>
+          </a>
+          <span class="font-size-md text-light">{{ currentPage?.current?.page }} / {{ currentPage?.totalPages }}</span>
+          <a class="nav-link-style nav-link-light ml-3" *ngIf="currentPage?.current?.page != currentPage?.totalPages && currentPage?.elements?.length! > 0" (click)="nextPage()">
+            <i class="ci-arrow-right"></i>
           </a>
         </div>
         <div class="d-none d-sm-flex pb-3">
           <a class="btn btn-icon nav-link-style ml-2 nav-link-light" href="/shop/?view=grid"><i
-              class="czi-view-grid"></i></a><a
+              class="ci-view-grid"></i></a><a
             class="btn btn-icon nav-link-style ml-2 bg-light text-dark disabled opacity-100" href="/shop/?view=list"><i
-              class="czi-view-list"></i></a>
+              class="ci-view-list"></i></a>
         </div>
       </div>
-      <div class="list-view">
-        <ul class="list-unstyled products columns-4">
-
-          <li
-            class="product type-product post-1551 status-publish first instock product_cat-administrative has-post-thumbnail shipping-taxable purchasable product-type-simple">
-            <div class="cartzilla-product-grid">
-              <div class="card product-card"><a class="card-img-top d-block overflow-hidden"
-                  href="http://s603556811.onlinehome.fr/product/benjamin-moore/"><img width="350" height="263"
-                    src="http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png"
-                    class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy"></a>
-                <div class="card-body py-2"><span class="woocommerce-loop-product__categories"><a
-                      href="http://s603556811.onlinehome.fr/product-category/grades/administrative/"
-                      class="d-inline-block product-meta font-size-xs pb-1" rel="tag">Administrative</a></span>
-                  <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                      href="http://s603556811.onlinehome.fr/product/benjamin-moore/">Benjamin Moore</a></h3>
-                  <div class="d-flex justify-content-between">
-                    <div class="product-price">
-                      <span class="text-accent"><span class="woocommerce-Price-amount amount"><span
-                            class="woocommerce-Price-currencySymbol">$</span>2.<small>00</small></span></span>
+      
+      <div *ngIf="true && currentPage?.elements?.length! > 0" class="list-view">
+        <ul class="list-view__products-list">
+          <li *ngFor="let product of currentPage?.elements" class="list-view__product-container">
+            <div class="list-view__product-card">
+              <div class="list-view__product">
+                <div class="list-view__product-image-container">
+                  <a class="list-view__product-image-link" [routerLink]="['/product/' + product.id]">
+                    <img width="350" height="263"
+                    [src]="product.mainPicture?.url ?? 'http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png'"
+                    class="list-view__product-image" loading="lazy">
+                  </a>
+                </div>
+                <div class="list-view__product-content">
+                  <div class="list-view__product-name">
+                    <a [routerLink]="['/product/' + product.id]">
+                      {{ product.name | titlecase }}
+                    </a>
+                  </div>
+                  <div class="list-view__store">
+                    By <a [routerLink]="['/store/' + product.store?.url]" class="list-view__store-link">{{ product.store?.name }}</a>
+                  </div>
+                  <div class="list-view__product-description" [innerHTML]="product.description">
+                  </div>
+                  <div class="list-view__product-categories">
+                    <div class="list-view__product-grades">
+                      <span>Grades:</span> {{ (product.grades | pluck:'name').join(', ') }}
+                    </div>
+                    <div class="list-view__product-subjects">
+                      <span>Subjects:</span> {{ (product.subjects | pluck:'name').join(', ') }}
+                    </div>
+                    <div class="list-view__product-resource-types">
+                      <span>Resource Types:</span> {{ (product.resourceTypes | pluck:'name').join(', ') }}
                     </div>
                   </div>
                 </div>
-                <div class="card-body card-body-hidden"><a href="?add-to-cart=1551" data-quantity="1"
-                    class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
-                    data-product_id="1551" data-product_sku="" aria-label="Add “Benjamin Moore” to your cart"
-                    rel="nofollow" data-toggle="toast" data-target="#cart-toast"><i
-                      class="czi-cart font-size-sm mr-1"></i>Add to cart</a> <a href="#quick-view" rel="nofollow"
-                    data-product_id="1551" class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
-                    data-target="#quick-view">
-                    <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
-              </div>
-              <hr class="d-sm-none">
-            </div>
-            <div class="cartzilla-product-list">
-              <div class="card product-card product-list">
-                <div class="d-sm-flex align-items-center"><a class="product-list-thumb"
-                    href="http://s603556811.onlinehome.fr/product/benjamin-moore/"><img width="350" height="263"
-                      src="http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png"
-                      class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy"></a>
-                  <div class="card-body py-2"><span class="woocommerce-loop-product__categories"><a
-                        href="http://s603556811.onlinehome.fr/product-category/grades/administrative/"
-                        class="d-inline-block product-meta font-size-xs pb-1" rel="tag">Administrative</a></span>
-                    <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                        href="http://s603556811.onlinehome.fr/product/benjamin-moore/">Benjamin Moore</a></h3>
-                    <div class="d-flex justify-content-between">
-                      <div class="product-price">
-                        <span class="text-accent"><span class="woocommerce-Price-amount amount"><span
-                              class="woocommerce-Price-currencySymbol">$</span>2.<small>00</small></span></span>
-                      </div>
-                    </div>
-                    <div class="card-body card-body-hidden"><a href="?add-to-cart=1551" data-quantity="1"
-                        class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
-                        data-product_id="1551" data-product_sku="" aria-label="Add “Benjamin Moore” to your cart"
-                        rel="nofollow" data-toggle="toast" data-target="#cart-toast"><i
-                          class="czi-cart font-size-sm mr-1"></i>Add to cart</a> <a href="#quick-view" rel="nofollow"
-                        data-product_id="1551" class="nav-link-style font-size-ms product_quick_view"
-                        data-toggle="modal" data-target="#quick-view">
-                        <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
+                <div class="list-view__product-details">
+                  <div class="list-view__product-price">
+                    {{ product.price | currency }}
                   </div>
+                  <div class="list-view__product-stars" *ngIf="product.rating">
+                    <bar-rating [rate]="product.rating" [max]="5" [readOnly]="true">
+                      <ng-template ratingActive>
+                        <i class="ci-star-filled"></i>
+                      </ng-template>
+                      <ng-template ratingInactive>
+                        <i class="ci-star"></i>
+                      </ng-template>
+                      <ng-template ratingFraction>
+                        <i class="ci-star-half"></i>
+                      </ng-template>
+                    </bar-rating> {{ product.ratingCount! | shortNumber }}
+                  </div>
+                  <div class="list-view__product-format">
+                    <i class="ci-document"></i> {{ product.format | uppercase }}
+                  </div>
+                  <button type="button" (click)="addCartItem(product)" class="list-view__product-add-to-cart"><i class="ci-cart"></i> Add to cart</button>
                 </div>
               </div>
-              <hr class="pt-3 mt-3">
-            </div>
-          </li>
-          <li
-            class="product type-product post-1546 status-publish instock product_cat-10th has-post-thumbnail virtual product-type-simple">
-            <div class="cartzilla-product-grid">
-              <div class="card product-card"><a class="card-img-top d-block overflow-hidden"
-                  href="http://s603556811.onlinehome.fr/product/firsst/"><img width="189" height="165"
-                    src="http://s603556811.onlinehome.fr/wp-content/uploads/2022/01/cart-item-3.png"
-                    class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" loading="lazy"></a>
-                <div class="card-body py-2"><span class="woocommerce-loop-product__categories"><a
-                      href="http://s603556811.onlinehome.fr/product-category/grades/10th/"
-                      class="d-inline-block product-meta font-size-xs pb-1" rel="tag">10th</a></span>
-                  <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                      href="http://s603556811.onlinehome.fr/product/firsst/">firsst</a></h3>
-                  <div class="d-flex justify-content-between">
-                  </div>
-                </div>
-                <div class="card-body card-body-hidden"><a href="http://s603556811.onlinehome.fr/product/firsst/"
-                    data-quantity="1" class="btn btn-secondary btn-sm mb-2 button product_type_simple"
-                    data-product_id="1546" data-product_sku="" aria-label="Read more about “firsst”" rel="nofollow"
-                    data-toggle="toast" data-target="#cart-toast">Read more</a> <a href="#quick-view" rel="nofollow"
-                    data-product_id="1546" class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
-                    data-target="#quick-view">
-                    <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
-              </div>
-              <hr class="d-sm-none">
-            </div>
-            <div class="cartzilla-product-list">
-              <div class="card product-card product-list">
-                <div class="d-sm-flex align-items-center"><a class="product-list-thumb"
-                    href="http://s603556811.onlinehome.fr/product/firsst/"><img width="189" height="165"
-                      src="http://s603556811.onlinehome.fr/wp-content/uploads/2022/01/cart-item-3.png"
-                      class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" loading="lazy"></a>
-                  <div class="card-body py-2"><span class="woocommerce-loop-product__categories"><a
-                        href="http://s603556811.onlinehome.fr/product-category/grades/10th/"
-                        class="d-inline-block product-meta font-size-xs pb-1" rel="tag">10th</a></span>
-                    <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                        href="http://s603556811.onlinehome.fr/product/firsst/">firsst</a></h3>
-                    <div class="d-flex justify-content-between">
-                    </div>
-                    <div class="card-body card-body-hidden"><a href="http://s603556811.onlinehome.fr/product/firsst/"
-                        data-quantity="1" class="btn btn-secondary btn-sm mb-2 button product_type_simple"
-                        data-product_id="1546" data-product_sku="" aria-label="Read more about “firsst”" rel="nofollow"
-                        data-toggle="toast" data-target="#cart-toast">Read more</a> <a href="#quick-view" rel="nofollow"
-                        data-product_id="1546" class="nav-link-style font-size-ms product_quick_view"
-                        data-toggle="modal" data-target="#quick-view">
-                        <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
-                  </div>
-                </div>
-              </div>
-              <hr class="pt-3 mt-3">
-            </div>
-          </li>
-          <li
-            class="product type-product post-1513 status-publish instock product_cat-grades shipping-taxable purchasable product-type-simple">
-            <div class="cartzilla-product-grid">
-              <div class="card product-card"><a class="card-img-top d-block overflow-hidden"
-                  href="http://s603556811.onlinehome.fr/product/gg/"><img width="350" height="263"
-                    src="http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png"
-                    class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy"></a>
-                <div class="card-body py-2"><span class="woocommerce-loop-product__categories"><a
-                      href="http://s603556811.onlinehome.fr/product-category/grades/"
-                      class="d-inline-block product-meta font-size-xs pb-1" rel="tag">Grades</a></span>
-                  <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                      href="http://s603556811.onlinehome.fr/product/gg/">gg</a></h3>
-                  <div class="d-flex justify-content-between">
-                    <div class="product-price">
-                      <span class="text-accent"><span class="woocommerce-Price-amount amount"><span
-                            class="woocommerce-Price-currencySymbol">$</span>15.<small>00</small></span></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-body card-body-hidden"><a href="?add-to-cart=1513" data-quantity="1"
-                    class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
-                    data-product_id="1513" data-product_sku="" aria-label="Add “gg” to your cart" rel="nofollow"
-                    data-toggle="toast" data-target="#cart-toast"><i class="czi-cart font-size-sm mr-1"></i>Add to
-                    cart</a> <a href="#quick-view" rel="nofollow" data-product_id="1513"
-                    class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
-                    data-target="#quick-view">
-                    <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
-              </div>
-              <hr class="d-sm-none">
-            </div>
-            <div class="cartzilla-product-list">
-              <div class="card product-card product-list">
-                <div class="d-sm-flex align-items-center"><a class="product-list-thumb"
-                    href="http://s603556811.onlinehome.fr/product/gg/"><img width="350" height="263"
-                      src="http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png"
-                      class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy"></a>
-                  <div class="card-body py-2"><span class="woocommerce-loop-product__categories"><a
-                        href="http://s603556811.onlinehome.fr/product-category/grades/"
-                        class="d-inline-block product-meta font-size-xs pb-1" rel="tag">Grades</a></span>
-                    <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                        href="http://s603556811.onlinehome.fr/product/gg/">gg</a></h3>
-                    <div class="d-flex justify-content-between">
-                      <div class="product-price">
-                        <span class="text-accent"><span class="woocommerce-Price-amount amount"><span
-                              class="woocommerce-Price-currencySymbol">$</span>15.<small>00</small></span></span>
-                      </div>
-                    </div>
-                    <div class="card-body card-body-hidden"><a href="?add-to-cart=1513" data-quantity="1"
-                        class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
-                        data-product_id="1513" data-product_sku="" aria-label="Add “gg” to your cart" rel="nofollow"
-                        data-toggle="toast" data-target="#cart-toast"><i class="czi-cart font-size-sm mr-1"></i>Add to
-                        cart</a> <a href="#quick-view" rel="nofollow" data-product_id="1513"
-                        class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
-                        data-target="#quick-view">
-                        <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
-                  </div>
-                </div>
-              </div>
-              <hr class="pt-3 mt-3">
-            </div>
-          </li>
-          <li
-            class="product type-product post-1544 status-publish last instock product_cat-sichos downloadable virtual purchasable product-type-simple">
-            <div class="cartzilla-product-grid">
-              <div class="card product-card"><a class="card-img-top d-block overflow-hidden"
-                  href="http://s603556811.onlinehome.fr/product/paj/"><img width="350" height="263"
-                    src="http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png"
-                    class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy"></a>
-                <div class="card-body py-2"><span class="woocommerce-loop-product__categories"><a
-                      href="http://s603556811.onlinehome.fr/product-category/subjects/chassidus/sichos/"
-                      class="d-inline-block product-meta font-size-xs pb-1" rel="tag">Sichos</a></span>
-                  <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                      href="http://s603556811.onlinehome.fr/product/paj/">paj</a></h3>
-                  <div class="d-flex justify-content-between">
-                    <div class="product-price">
-                      <span class="text-accent"><span class="woocommerce-Price-amount amount"><span
-                            class="woocommerce-Price-currencySymbol">$</span>4.<small>00</small></span></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-body card-body-hidden"><a href="?add-to-cart=1544" data-quantity="1"
-                    class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
-                    data-product_id="1544" data-product_sku="" aria-label="Add “paj” to your cart" rel="nofollow"
-                    data-toggle="toast" data-target="#cart-toast"><i class="czi-cart font-size-sm mr-1"></i>Add to
-                    cart</a> <a href="#quick-view" rel="nofollow" data-product_id="1544"
-                    class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
-                    data-target="#quick-view">
-                    <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
-              </div>
-              <hr class="d-sm-none">
-            </div>
-            <div class="cartzilla-product-list">
-              <div class="card product-card product-list">
-                <div class="d-sm-flex align-items-center"><a class="product-list-thumb"
-                    href="http://s603556811.onlinehome.fr/product/paj/"><img width="350" height="263"
-                      src="http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png"
-                      class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy"></a>
-                  <div class="card-body py-2"><span class="woocommerce-loop-product__categories"><a
-                        href="http://s603556811.onlinehome.fr/product-category/subjects/chassidus/sichos/"
-                        class="d-inline-block product-meta font-size-xs pb-1" rel="tag">Sichos</a></span>
-                    <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                        href="http://s603556811.onlinehome.fr/product/paj/">paj</a></h3>
-                    <div class="d-flex justify-content-between">
-                      <div class="product-price">
-                        <span class="text-accent"><span class="woocommerce-Price-amount amount"><span
-                              class="woocommerce-Price-currencySymbol">$</span>4.<small>00</small></span></span>
-                      </div>
-                    </div>
-                    <div class="card-body card-body-hidden"><a href="?add-to-cart=1544" data-quantity="1"
-                        class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
-                        data-product_id="1544" data-product_sku="" aria-label="Add “paj” to your cart" rel="nofollow"
-                        data-toggle="toast" data-target="#cart-toast"><i class="czi-cart font-size-sm mr-1"></i>Add to
-                        cart</a> <a href="#quick-view" rel="nofollow" data-product_id="1544"
-                        class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
-                        data-target="#quick-view">
-                        <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
-                  </div>
-                </div>
-              </div>
-              <hr class="pt-3 mt-3">
-            </div>
-          </li>
-          <li
-            class="product type-product post-1492 status-publish first instock product_cat-11th product_cat-asara-beteves downloadable virtual purchasable product-type-simple">
-            <div class="cartzilla-product-grid">
-              <div class="card product-card"><a class="card-img-top d-block overflow-hidden"
-                  href="http://s603556811.onlinehome.fr/product/sample-product/"><img width="350" height="263"
-                    src="http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png"
-                    class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy"></a>
-                <div class="card-body py-2"><span class="woocommerce-loop-product__categories"><a
-                      href="http://s603556811.onlinehome.fr/product-category/grades/11th/"
-                      class="d-inline-block product-meta font-size-xs pb-1" rel="tag">11th</a><span
-                      class="text-muted">,</span> <a
-                      href="http://s603556811.onlinehome.fr/product-category/subjects/fasts/asara-beteves/"
-                      class="d-inline-block product-meta font-size-xs pb-1" rel="tag">Asara Beteves</a></span>
-                  <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                      href="http://s603556811.onlinehome.fr/product/sample-product/">sample product</a></h3>
-                  <div class="d-flex justify-content-between">
-                    <div class="product-price">
-                      <span class="text-accent"><span class="woocommerce-Price-amount amount"><span
-                            class="woocommerce-Price-currencySymbol">$</span>35.<small>00</small></span></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-body card-body-hidden"><a href="?add-to-cart=1492" data-quantity="1"
-                    class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
-                    data-product_id="1492" data-product_sku="" aria-label="Add “sample product” to your cart"
-                    rel="nofollow" data-toggle="toast" data-target="#cart-toast"><i
-                      class="czi-cart font-size-sm mr-1"></i>Add to cart</a> <a href="#quick-view" rel="nofollow"
-                    data-product_id="1492" class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
-                    data-target="#quick-view">
-                    <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
-              </div>
-              <hr class="d-sm-none">
-            </div>
-            <div class="cartzilla-product-list">
-              <div class="card product-card product-list">
-                <div class="d-sm-flex align-items-center"><a class="product-list-thumb"
-                    href="http://s603556811.onlinehome.fr/product/sample-product/"><img width="350" height="263"
-                      src="http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png"
-                      class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy"></a>
-                  <div class="card-body py-2"><span class="woocommerce-loop-product__categories"><a
-                        href="http://s603556811.onlinehome.fr/product-category/grades/11th/"
-                        class="d-inline-block product-meta font-size-xs pb-1" rel="tag">11th</a><span
-                        class="text-muted">,</span> <a
-                        href="http://s603556811.onlinehome.fr/product-category/subjects/fasts/asara-beteves/"
-                        class="d-inline-block product-meta font-size-xs pb-1" rel="tag">Asara Beteves</a></span>
-                    <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                        href="http://s603556811.onlinehome.fr/product/sample-product/">sample product</a></h3>
-                    <div class="d-flex justify-content-between">
-                      <div class="product-price">
-                        <span class="text-accent"><span class="woocommerce-Price-amount amount"><span
-                              class="woocommerce-Price-currencySymbol">$</span>35.<small>00</small></span></span>
-                      </div>
-                    </div>
-                    <div class="card-body card-body-hidden"><a href="?add-to-cart=1492" data-quantity="1"
-                        class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
-                        data-product_id="1492" data-product_sku="" aria-label="Add “sample product” to your cart"
-                        rel="nofollow" data-toggle="toast" data-target="#cart-toast"><i
-                          class="czi-cart font-size-sm mr-1"></i>Add to cart</a> <a href="#quick-view" rel="nofollow"
-                        data-product_id="1492" class="nav-link-style font-size-ms product_quick_view"
-                        data-toggle="modal" data-target="#quick-view">
-                        <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
-                  </div>
-                </div>
-              </div>
-              <hr class="pt-3 mt-3">
-            </div>
-          </li>
-          <li
-            class="product type-product post-1536 status-publish instock product_cat-11th shipping-taxable purchasable product-type-simple">
-            <div class="cartzilla-product-grid">
-              <div class="card product-card"><a class="card-img-top d-block overflow-hidden"
-                  href="http://s603556811.onlinehome.fr/product/test-6/"><img width="350" height="263"
-                    src="http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png"
-                    class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy"></a>
-                <div class="card-body py-2"><span class="woocommerce-loop-product__categories"><a
-                      href="http://s603556811.onlinehome.fr/product-category/grades/11th/"
-                      class="d-inline-block product-meta font-size-xs pb-1" rel="tag">11th</a></span>
-                  <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                      href="http://s603556811.onlinehome.fr/product/test-6/">test</a></h3>
-                  <div class="d-flex justify-content-between">
-                    <div class="product-price">
-                      <span class="text-accent"><span class="woocommerce-Price-amount amount"><span
-                            class="woocommerce-Price-currencySymbol">$</span>4.<small>00</small></span></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-body card-body-hidden"><a href="?add-to-cart=1536" data-quantity="1"
-                    class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
-                    data-product_id="1536" data-product_sku="" aria-label="Add “test” to your cart" rel="nofollow"
-                    data-toggle="toast" data-target="#cart-toast"><i class="czi-cart font-size-sm mr-1"></i>Add to
-                    cart</a> <a href="#quick-view" rel="nofollow" data-product_id="1536"
-                    class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
-                    data-target="#quick-view">
-                    <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
-              </div>
-              <hr class="d-sm-none">
-            </div>
-            <div class="cartzilla-product-list">
-              <div class="card product-card product-list">
-                <div class="d-sm-flex align-items-center"><a class="product-list-thumb"
-                    href="http://s603556811.onlinehome.fr/product/test-6/"><img width="350" height="263"
-                      src="http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png"
-                      class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy"></a>
-                  <div class="card-body py-2"><span class="woocommerce-loop-product__categories"><a
-                        href="http://s603556811.onlinehome.fr/product-category/grades/11th/"
-                        class="d-inline-block product-meta font-size-xs pb-1" rel="tag">11th</a></span>
-                    <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                        href="http://s603556811.onlinehome.fr/product/test-6/">test</a></h3>
-                    <div class="d-flex justify-content-between">
-                      <div class="product-price">
-                        <span class="text-accent"><span class="woocommerce-Price-amount amount"><span
-                              class="woocommerce-Price-currencySymbol">$</span>4.<small>00</small></span></span>
-                      </div>
-                    </div>
-                    <div class="card-body card-body-hidden"><a href="?add-to-cart=1536" data-quantity="1"
-                        class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
-                        data-product_id="1536" data-product_sku="" aria-label="Add “test” to your cart" rel="nofollow"
-                        data-toggle="toast" data-target="#cart-toast"><i class="czi-cart font-size-sm mr-1"></i>Add to
-                        cart</a> <a href="#quick-view" rel="nofollow" data-product_id="1536"
-                        class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
-                        data-target="#quick-view">
-                        <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
-                  </div>
-                </div>
-              </div>
-              <hr class="pt-3 mt-3">
-            </div>
-          </li>
-          <li
-            class="product type-product post-1540 status-publish instock product_cat-11th shipping-taxable purchasable product-type-simple">
-            <div class="cartzilla-product-grid">
-              <div class="card product-card"><a class="card-img-top d-block overflow-hidden"
-                  href="http://s603556811.onlinehome.fr/product/test-7/"><img width="350" height="263"
-                    src="http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png"
-                    class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy"></a>
-                <div class="card-body py-2"><span class="woocommerce-loop-product__categories"><a
-                      href="http://s603556811.onlinehome.fr/product-category/grades/11th/"
-                      class="d-inline-block product-meta font-size-xs pb-1" rel="tag">11th</a></span>
-                  <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                      href="http://s603556811.onlinehome.fr/product/test-7/">test</a></h3>
-                  <div class="d-flex justify-content-between">
-                    <div class="product-price">
-                      <span class="text-accent"><span class="woocommerce-Price-amount amount"><span
-                            class="woocommerce-Price-currencySymbol">$</span>1.<small>00</small></span></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-body card-body-hidden"><a href="?add-to-cart=1540" data-quantity="1"
-                    class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
-                    data-product_id="1540" data-product_sku="" aria-label="Add “test” to your cart" rel="nofollow"
-                    data-toggle="toast" data-target="#cart-toast"><i class="czi-cart font-size-sm mr-1"></i>Add to
-                    cart</a> <a href="#quick-view" rel="nofollow" data-product_id="1540"
-                    class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
-                    data-target="#quick-view">
-                    <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
-              </div>
-              <hr class="d-sm-none">
-            </div>
-            <div class="cartzilla-product-list">
-              <div class="card product-card product-list">
-                <div class="d-sm-flex align-items-center"><a class="product-list-thumb"
-                    href="http://s603556811.onlinehome.fr/product/test-7/"><img width="350" height="263"
-                      src="http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png"
-                      class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy"></a>
-                  <div class="card-body py-2"><span class="woocommerce-loop-product__categories"><a
-                        href="http://s603556811.onlinehome.fr/product-category/grades/11th/"
-                        class="d-inline-block product-meta font-size-xs pb-1" rel="tag">11th</a></span>
-                    <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                        href="http://s603556811.onlinehome.fr/product/test-7/">test</a></h3>
-                    <div class="d-flex justify-content-between">
-                      <div class="product-price">
-                        <span class="text-accent"><span class="woocommerce-Price-amount amount"><span
-                              class="woocommerce-Price-currencySymbol">$</span>1.<small>00</small></span></span>
-                      </div>
-                    </div>
-                    <div class="card-body card-body-hidden"><a href="?add-to-cart=1540" data-quantity="1"
-                        class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
-                        data-product_id="1540" data-product_sku="" aria-label="Add “test” to your cart" rel="nofollow"
-                        data-toggle="toast" data-target="#cart-toast"><i class="czi-cart font-size-sm mr-1"></i>Add to
-                        cart</a> <a href="#quick-view" rel="nofollow" data-product_id="1540"
-                        class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
-                        data-target="#quick-view">
-                        <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
-                  </div>
-                </div>
-              </div>
-              <hr class="pt-3 mt-3">
-            </div>
-          </li>
-          <li
-            class="product type-product post-1543 status-publish last instock product_cat-11th product_cat-2nd shipping-taxable purchasable product-type-simple">
-            <div class="cartzilla-product-grid">
-              <div class="card product-card"><a class="card-img-top d-block overflow-hidden"
-                  href="http://s603556811.onlinehome.fr/product/test-8/"><img width="350" height="263"
-                    src="http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png"
-                    class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy"></a>
-                <div class="card-body py-2"><span class="woocommerce-loop-product__categories"><a
-                      href="http://s603556811.onlinehome.fr/product-category/grades/11th/"
-                      class="d-inline-block product-meta font-size-xs pb-1" rel="tag">11th</a><span
-                      class="text-muted">,</span> <a href="http://s603556811.onlinehome.fr/product-category/grades/2nd/"
-                      class="d-inline-block product-meta font-size-xs pb-1" rel="tag">2nd</a></span>
-                  <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                      href="http://s603556811.onlinehome.fr/product/test-8/">test</a></h3>
-                  <div class="d-flex justify-content-between">
-                    <div class="product-price">
-                      <span class="text-accent"><span class="woocommerce-Price-amount amount"><span
-                            class="woocommerce-Price-currencySymbol">$</span>40.<small>00</small></span></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-body card-body-hidden"><a href="?add-to-cart=1543" data-quantity="1"
-                    class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
-                    data-product_id="1543" data-product_sku="" aria-label="Add “test” to your cart" rel="nofollow"
-                    data-toggle="toast" data-target="#cart-toast"><i class="czi-cart font-size-sm mr-1"></i>Add to
-                    cart</a> <a href="#quick-view" rel="nofollow" data-product_id="1543"
-                    class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
-                    data-target="#quick-view">
-                    <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
-              </div>
-              <hr class="d-sm-none">
-            </div>
-            <div class="cartzilla-product-list">
-              <div class="card product-card product-list">
-                <div class="d-sm-flex align-items-center"><a class="product-list-thumb"
-                    href="http://s603556811.onlinehome.fr/product/test-8/"><img width="350" height="263"
-                      src="http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png"
-                      class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy"></a>
-                  <div class="card-body py-2"><span class="woocommerce-loop-product__categories"><a
-                        href="http://s603556811.onlinehome.fr/product-category/grades/11th/"
-                        class="d-inline-block product-meta font-size-xs pb-1" rel="tag">11th</a><span
-                        class="text-muted">,</span> <a
-                        href="http://s603556811.onlinehome.fr/product-category/grades/2nd/"
-                        class="d-inline-block product-meta font-size-xs pb-1" rel="tag">2nd</a></span>
-                    <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                        href="http://s603556811.onlinehome.fr/product/test-8/">test</a></h3>
-                    <div class="d-flex justify-content-between">
-                      <div class="product-price">
-                        <span class="text-accent"><span class="woocommerce-Price-amount amount"><span
-                              class="woocommerce-Price-currencySymbol">$</span>40.<small>00</small></span></span>
-                      </div>
-                    </div>
-                    <div class="card-body card-body-hidden"><a href="?add-to-cart=1543" data-quantity="1"
-                        class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
-                        data-product_id="1543" data-product_sku="" aria-label="Add “test” to your cart" rel="nofollow"
-                        data-toggle="toast" data-target="#cart-toast"><i class="czi-cart font-size-sm mr-1"></i>Add to
-                        cart</a> <a href="#quick-view" rel="nofollow" data-product_id="1543"
-                        class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
-                        data-target="#quick-view">
-                        <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
-                  </div>
-                </div>
-              </div>
-              <hr class="pt-3 mt-3">
-            </div>
-          </li>
-          <li
-            class="product type-product post-1548 status-publish first instock product_cat-12th has-post-thumbnail downloadable virtual purchasable product-type-simple">
-            <div class="cartzilla-product-grid">
-              <div class="card product-card"><a class="card-img-top d-block overflow-hidden"
-                  href="http://s603556811.onlinehome.fr/product/test-10/"><img width="350" height="263"
-                    src="http://s603556811.onlinehome.fr/wp-content/uploads/2022/01/01-350x263.png"
-                    class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" loading="lazy"></a>
-                <div class="card-body py-2"><span class="woocommerce-loop-product__categories"><a
-                      href="http://s603556811.onlinehome.fr/product-category/grades/12th/"
-                      class="d-inline-block product-meta font-size-xs pb-1" rel="tag">12th</a></span>
-                  <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                      href="http://s603556811.onlinehome.fr/product/test-10/">test</a></h3>
-                  <div class="d-flex justify-content-between">
-                    <div class="product-price">
-                      <span class="text-accent"><span class="woocommerce-Price-amount amount"><span
-                            class="woocommerce-Price-currencySymbol">$</span>10.<small>00</small></span></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-body card-body-hidden"><a href="?add-to-cart=1548" data-quantity="1"
-                    class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
-                    data-product_id="1548" data-product_sku="" aria-label="Add “test” to your cart" rel="nofollow"
-                    data-toggle="toast" data-target="#cart-toast"><i class="czi-cart font-size-sm mr-1"></i>Add to
-                    cart</a> <a href="#quick-view" rel="nofollow" data-product_id="1548"
-                    class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
-                    data-target="#quick-view">
-                    <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
-              </div>
-              <hr class="d-sm-none">
-            </div>
-            <div class="cartzilla-product-list">
-              <div class="card product-card product-list">
-                <div class="d-sm-flex align-items-center"><a class="product-list-thumb"
-                    href="http://s603556811.onlinehome.fr/product/test-10/"><img width="350" height="263"
-                      src="http://s603556811.onlinehome.fr/wp-content/uploads/2022/01/01-350x263.png"
-                      class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" loading="lazy"></a>
-                  <div class="card-body py-2"><span class="woocommerce-loop-product__categories"><a
-                        href="http://s603556811.onlinehome.fr/product-category/grades/12th/"
-                        class="d-inline-block product-meta font-size-xs pb-1" rel="tag">12th</a></span>
-                    <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                        href="http://s603556811.onlinehome.fr/product/test-10/">test</a></h3>
-                    <div class="d-flex justify-content-between">
-                      <div class="product-price">
-                        <span class="text-accent"><span class="woocommerce-Price-amount amount"><span
-                              class="woocommerce-Price-currencySymbol">$</span>10.<small>00</small></span></span>
-                      </div>
-                    </div>
-                    <div class="card-body card-body-hidden"><a href="?add-to-cart=1548" data-quantity="1"
-                        class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
-                        data-product_id="1548" data-product_sku="" aria-label="Add “test” to your cart" rel="nofollow"
-                        data-toggle="toast" data-target="#cart-toast"><i class="czi-cart font-size-sm mr-1"></i>Add to
-                        cart</a> <a href="#quick-view" rel="nofollow" data-product_id="1548"
-                        class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
-                        data-target="#quick-view">
-                        <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
-                  </div>
-                </div>
-              </div>
-              <hr class="pt-3 mt-3">
-            </div>
-          </li>
-          <li
-            class="product type-product post-1372 status-publish instock product_cat-10th product_cat-chodshei-hashana has-post-thumbnail downloadable virtual purchasable product-type-simple">
-            <div class="cartzilla-product-grid">
-              <div class="card product-card"><a class="card-img-top d-block overflow-hidden"
-                  href="http://s603556811.onlinehome.fr/product/test/"><img width="350" height="263"
-                    src="http://s603556811.onlinehome.fr/wp-content/uploads/2021/10/All-Jewish-holy-books-350x263.jpg"
-                    class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" loading="lazy"
-                    srcset="http://s603556811.onlinehome.fr/wp-content/uploads/2021/10/All-Jewish-holy-books-350x263.jpg 350w, http://s603556811.onlinehome.fr/wp-content/uploads/2021/10/All-Jewish-holy-books-300x225.jpg 300w, http://s603556811.onlinehome.fr/wp-content/uploads/2021/10/All-Jewish-holy-books-768x576.jpg 768w, http://s603556811.onlinehome.fr/wp-content/uploads/2021/10/All-Jewish-holy-books-600x450.jpg 600w, http://s603556811.onlinehome.fr/wp-content/uploads/2021/10/All-Jewish-holy-books.jpg 992w"
-                    sizes="(max-width: 350px) 100vw, 350px"></a>
-                <div class="card-body py-2"><span class="woocommerce-loop-product__categories"><a
-                      href="http://s603556811.onlinehome.fr/product-category/grades/10th/"
-                      class="d-inline-block product-meta font-size-xs pb-1" rel="tag">10th</a><span
-                      class="text-muted">,</span> <a
-                      href="http://s603556811.onlinehome.fr/product-category/subjects/chodshei-hashana/"
-                      class="d-inline-block product-meta font-size-xs pb-1" rel="tag">Chodshei Hashana</a></span>
-                  <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                      href="http://s603556811.onlinehome.fr/product/test/">Test</a></h3>
-                  <div class="d-flex justify-content-between">
-                    <div class="product-price">
-                      <span class="text-accent"><span class="woocommerce-Price-amount amount"><span
-                            class="woocommerce-Price-currencySymbol">$</span>10.<small>00</small></span></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-body card-body-hidden"><a href="?add-to-cart=1372" data-quantity="1"
-                    class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
-                    data-product_id="1372" data-product_sku="" aria-label="Add “Test” to your cart" rel="nofollow"
-                    data-toggle="toast" data-target="#cart-toast"><i class="czi-cart font-size-sm mr-1"></i>Add to
-                    cart</a> <a href="#quick-view" rel="nofollow" data-product_id="1372"
-                    class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
-                    data-target="#quick-view">
-                    <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
-              </div>
-              <hr class="d-sm-none">
-            </div>
-            <div class="cartzilla-product-list">
-              <div class="card product-card product-list">
-                <div class="d-sm-flex align-items-center"><a class="product-list-thumb"
-                    href="http://s603556811.onlinehome.fr/product/test/"><img width="350" height="263"
-                      src="http://s603556811.onlinehome.fr/wp-content/uploads/2021/10/All-Jewish-holy-books-350x263.jpg"
-                      class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" loading="lazy"
-                      srcset="http://s603556811.onlinehome.fr/wp-content/uploads/2021/10/All-Jewish-holy-books-350x263.jpg 350w, http://s603556811.onlinehome.fr/wp-content/uploads/2021/10/All-Jewish-holy-books-300x225.jpg 300w, http://s603556811.onlinehome.fr/wp-content/uploads/2021/10/All-Jewish-holy-books-768x576.jpg 768w, http://s603556811.onlinehome.fr/wp-content/uploads/2021/10/All-Jewish-holy-books-600x450.jpg 600w, http://s603556811.onlinehome.fr/wp-content/uploads/2021/10/All-Jewish-holy-books.jpg 992w"
-                      sizes="(max-width: 350px) 100vw, 350px"></a>
-                  <div class="card-body py-2"><span class="woocommerce-loop-product__categories"><a
-                        href="http://s603556811.onlinehome.fr/product-category/grades/10th/"
-                        class="d-inline-block product-meta font-size-xs pb-1" rel="tag">10th</a><span
-                        class="text-muted">,</span> <a
-                        href="http://s603556811.onlinehome.fr/product-category/subjects/chodshei-hashana/"
-                        class="d-inline-block product-meta font-size-xs pb-1" rel="tag">Chodshei Hashana</a></span>
-                    <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                        href="http://s603556811.onlinehome.fr/product/test/">Test</a></h3>
-                    <div class="d-flex justify-content-between">
-                      <div class="product-price">
-                        <span class="text-accent"><span class="woocommerce-Price-amount amount"><span
-                              class="woocommerce-Price-currencySymbol">$</span>10.<small>00</small></span></span>
-                      </div>
-                    </div>
-                    <div class="card-body card-body-hidden"><a href="?add-to-cart=1372" data-quantity="1"
-                        class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
-                        data-product_id="1372" data-product_sku="" aria-label="Add “Test” to your cart" rel="nofollow"
-                        data-toggle="toast" data-target="#cart-toast"><i class="czi-cart font-size-sm mr-1"></i>Add to
-                        cart</a> <a href="#quick-view" rel="nofollow" data-product_id="1372"
-                        class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
-                        data-target="#quick-view">
-                        <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
-                  </div>
-                </div>
-              </div>
-              <hr class="pt-3 mt-3">
-            </div>
-          </li>
-          <li
-            class="product type-product post-1507 status-publish instock product_cat-11th downloadable virtual purchasable product-type-simple">
-            <div class="cartzilla-product-grid">
-              <div class="card product-card"><a class="card-img-top d-block overflow-hidden"
-                  href="http://s603556811.onlinehome.fr/product/test-2/"><img width="350" height="263"
-                    src="http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png"
-                    class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy"></a>
-                <div class="card-body py-2"><span class="woocommerce-loop-product__categories"><a
-                      href="http://s603556811.onlinehome.fr/product-category/grades/11th/"
-                      class="d-inline-block product-meta font-size-xs pb-1" rel="tag">11th</a></span>
-                  <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                      href="http://s603556811.onlinehome.fr/product/test-2/">test</a></h3>
-                  <div class="d-flex justify-content-between">
-                    <div class="product-price">
-                      <span class="text-accent"><span class="woocommerce-Price-amount amount"><span
-                            class="woocommerce-Price-currencySymbol">$</span>40.<small>00</small></span></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-body card-body-hidden"><a href="?add-to-cart=1507" data-quantity="1"
-                    class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
-                    data-product_id="1507" data-product_sku="" aria-label="Add “test” to your cart" rel="nofollow"
-                    data-toggle="toast" data-target="#cart-toast"><i class="czi-cart font-size-sm mr-1"></i>Add to
-                    cart</a> <a href="#quick-view" rel="nofollow" data-product_id="1507"
-                    class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
-                    data-target="#quick-view">
-                    <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
-              </div>
-              <hr class="d-sm-none">
-            </div>
-            <div class="cartzilla-product-list">
-              <div class="card product-card product-list">
-                <div class="d-sm-flex align-items-center"><a class="product-list-thumb"
-                    href="http://s603556811.onlinehome.fr/product/test-2/"><img width="350" height="263"
-                      src="http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png"
-                      class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy"></a>
-                  <div class="card-body py-2"><span class="woocommerce-loop-product__categories"><a
-                        href="http://s603556811.onlinehome.fr/product-category/grades/11th/"
-                        class="d-inline-block product-meta font-size-xs pb-1" rel="tag">11th</a></span>
-                    <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                        href="http://s603556811.onlinehome.fr/product/test-2/">test</a></h3>
-                    <div class="d-flex justify-content-between">
-                      <div class="product-price">
-                        <span class="text-accent"><span class="woocommerce-Price-amount amount"><span
-                              class="woocommerce-Price-currencySymbol">$</span>40.<small>00</small></span></span>
-                      </div>
-                    </div>
-                    <div class="card-body card-body-hidden"><a href="?add-to-cart=1507" data-quantity="1"
-                        class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
-                        data-product_id="1507" data-product_sku="" aria-label="Add “test” to your cart" rel="nofollow"
-                        data-toggle="toast" data-target="#cart-toast"><i class="czi-cart font-size-sm mr-1"></i>Add to
-                        cart</a> <a href="#quick-view" rel="nofollow" data-product_id="1507"
-                        class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
-                        data-target="#quick-view">
-                        <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
-                  </div>
-                </div>
-              </div>
-              <hr class="pt-3 mt-3">
-            </div>
-          </li>
-          <li
-            class="product type-product post-1514 status-publish last instock product_cat-10th product_cat-1st downloadable virtual purchasable product-type-simple">
-            <div class="cartzilla-product-grid">
-              <div class="card product-card"><a class="card-img-top d-block overflow-hidden"
-                  href="http://s603556811.onlinehome.fr/product/test-3/"><img width="350" height="263"
-                    src="http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png"
-                    class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy"></a>
-                <div class="card-body py-2"><span class="woocommerce-loop-product__categories"><a
-                      href="http://s603556811.onlinehome.fr/product-category/grades/10th/"
-                      class="d-inline-block product-meta font-size-xs pb-1" rel="tag">10th</a><span
-                      class="text-muted">,</span> <a href="http://s603556811.onlinehome.fr/product-category/grades/1st/"
-                      class="d-inline-block product-meta font-size-xs pb-1" rel="tag">1st</a></span>
-                  <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                      href="http://s603556811.onlinehome.fr/product/test-3/">test</a></h3>
-                  <div class="d-flex justify-content-between">
-                    <div class="product-price">
-                      <span class="text-accent"><span class="woocommerce-Price-amount amount"><span
-                            class="woocommerce-Price-currencySymbol">$</span>100.<small>00</small></span></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-body card-body-hidden"><a href="?add-to-cart=1514" data-quantity="1"
-                    class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
-                    data-product_id="1514" data-product_sku="" aria-label="Add “test” to your cart" rel="nofollow"
-                    data-toggle="toast" data-target="#cart-toast"><i class="czi-cart font-size-sm mr-1"></i>Add to
-                    cart</a> <a href="#quick-view" rel="nofollow" data-product_id="1514"
-                    class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
-                    data-target="#quick-view">
-                    <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
-              </div>
-              <hr class="d-sm-none">
-            </div>
-            <div class="cartzilla-product-list">
-              <div class="card product-card product-list">
-                <div class="d-sm-flex align-items-center"><a class="product-list-thumb"
-                    href="http://s603556811.onlinehome.fr/product/test-3/"><img width="350" height="263"
-                      src="http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png"
-                      class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy"></a>
-                  <div class="card-body py-2"><span class="woocommerce-loop-product__categories"><a
-                        href="http://s603556811.onlinehome.fr/product-category/grades/10th/"
-                        class="d-inline-block product-meta font-size-xs pb-1" rel="tag">10th</a><span
-                        class="text-muted">,</span> <a
-                        href="http://s603556811.onlinehome.fr/product-category/grades/1st/"
-                        class="d-inline-block product-meta font-size-xs pb-1" rel="tag">1st</a></span>
-                    <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                        href="http://s603556811.onlinehome.fr/product/test-3/">test</a></h3>
-                    <div class="d-flex justify-content-between">
-                      <div class="product-price">
-                        <span class="text-accent"><span class="woocommerce-Price-amount amount"><span
-                              class="woocommerce-Price-currencySymbol">$</span>100.<small>00</small></span></span>
-                      </div>
-                    </div>
-                    <div class="card-body card-body-hidden"><a href="?add-to-cart=1514" data-quantity="1"
-                        class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
-                        data-product_id="1514" data-product_sku="" aria-label="Add “test” to your cart" rel="nofollow"
-                        data-toggle="toast" data-target="#cart-toast"><i class="czi-cart font-size-sm mr-1"></i>Add to
-                        cart</a> <a href="#quick-view" rel="nofollow" data-product_id="1514"
-                        class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
-                        data-target="#quick-view">
-                        <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
-                  </div>
-                </div>
-              </div>
-              <hr class="pt-3 mt-3">
             </div>
           </li>
         </ul>
       </div>
-      <nav class="d-flex justify-content-between pt-2 cartzilla-shop-pagination w-100" aria-label="Page navigation">
+      <div *ngIf="false && currentPage?.elements?.length! > 0" class="grid-view">
+      </div>
+      <div *ngIf="!currentPage?.elements?.length" class="container text-center py-5 my-2 my-md-4">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJAAAACuCAIAAABWVBMyAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA5xpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ1IDc5LjE2MzQ5OSwgMjAxOC8wOC8xMy0xNjo0MDoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpCNDNGNDRCMTBFQTQxMUVBODBCM0Q4MDExMTYzNDlEMyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpCNDNGNDRCMDBFQTQxMUVBODBCM0Q4MDExMTYzNDlEMyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOSBNYWNpbnRvc2giPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0iRTYwMTcxRTY4QkI1Njc3RjgwNEE4QkYyODkyRTgwNjgiIHN0UmVmOmRvY3VtZW50SUQ9IkU2MDE3MUU2OEJCNTY3N0Y4MDRBOEJGMjg5MkU4MDY4Ii8+IDxkYzpjcmVhdG9yPiA8cmRmOlNlcT4gPHJkZjpsaT5WZWN0b3JTdG9jay5jb20vMTc2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" width="72" class="d-block mx-auto mb-4" alt="No products found">
+        <p class="woocommerce-info pb-2">No products were found matching your selection.<br>Do you want to become the first seller of this product?</p>
+        <div class="no-products-actions">
+          <a class="classic-button" [routerLink]="['/dashboard/new-product']">
+            Sell your product
+          </a>
+          <button class="classic-button" (click)="resetFilters()">
+            Reset filters
+          </button>
+        </div>
+      </div>
+      <nav *ngIf="currentPage?.elements?.length! > 0" class="d-flex justify-content-between pt-2 cartzilla-shop-pagination w-100">
         <ul class="pagination">
+          <li class="page-item">
+            <a *ngIf="currentPage?.current?.page != 1" class="page-link" (click)="prevPage()">
+              <i class="ci-arrow-left mr-2"></i>Prev
+            </a>
+          </li>
         </ul>
         <ul class="pagination">
           <li class="page-item d-sm-none">
             <span class="page-link page-link-static">1 / 2</span>
           </li>
-          <li class="page-item active d-none d-sm-block">
-            <span aria-current="page" class="page-link current">1</span>
-          </li>
-          <li class="page-item d-none d-sm-block">
-            <a class="page-link" href="http://s603556811.onlinehome.fr/shop/page/2/">2</a>
+          <li *ngFor="let pageNumber of pageNumbers" class="page-item d-none d-sm-block" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
+            <span *ngIf="pageNumber == currentPage?.current?.page" class="page-link current">{{ pageNumber }}</span>
+            <a *ngIf="pageNumber != currentPage?.current?.page" class="page-link" [routerLink]="['./']" [queryParams]="{ page: pageNumber }" queryParamsHandling="merge">{{ pageNumber }}</a>
           </li>
         </ul>
         <ul class="pagination">
           <li class="page-item">
-            <a class="page-link" href="http://s603556811.onlinehome.fr/shop/page/2/">Next <i
-                class="czi-arrow-right ml-2"></i>
+            <a *ngIf="currentPage?.current?.page != currentPage?.totalPages" class="page-link" (click)="nextPage()">Next <i
+                class="ci-arrow-right ml-2"></i>
             </a>
           </li>
         </ul>
       </nav>
-
     </div>
-
     <div id="secondary" class="shop-sidebar col-lg-4" role="complementary">
       <div class="cz-sidebar rounded-lg box-shadow-lg" id="shop-sidebar">
         <div class="cz-sidebar-header box-shadow-sm">
-          <button class="close ml-auto" type="button" data-dismiss="sidebar" aria-label="Close">
+          <button class="close ml-auto" type="button">
             <span class="d-inline-block font-size-xs font-weight-normal align-middle">
               Close sidebar </span>
-            <span class="d-inline-block align-middle ml-2" aria-hidden="true">×</span>
+            <span class="d-inline-block align-middle ml-2">×</span>
           </button>
         </div>
-        <div class="cz-sidebar-body" data-simplebar="init" data-simplebar-auto-hide="true">
-          <div class="simplebar-wrapper" style="margin: -30px;">
-            <div class="simplebar-height-auto-observer-wrapper">
-              <div class="simplebar-height-auto-observer"></div>
-            </div>
-            <div class="simplebar-mask">
-              <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
-                <div class="simplebar-content-wrapper" style="height: auto; overflow: hidden;">
-                  <div class="simplebar-content" style="padding: 30px;">
-										<div [formGroup]="filtersForm">
-											<app-product-filter formControlName="grades" title="Grades" [items]="(grades$ | async)!"></app-product-filter>
-											<app-product-filter formControlName="subjects" title="Subjects" [items]="(subjects$ | async)!"></app-product-filter>
-											<app-product-filter formControlName="ressourceTypes" title="Ressource types" [items]="(ressourceTypes$ | async)!"></app-product-filter>
-                      <app-price-filter title="Filter by price" [steps]="5" [min]="0" [max]="193"></app-price-filter>
-										</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="simplebar-placeholder" style="width: auto; height: 1158px;"></div>
-          </div>
-          <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
-            <div class="simplebar-scrollbar" style="transform: translate3d(0px, 0px, 0px); display: none;"></div>
-          </div>
-          <div class="simplebar-track simplebar-vertical" style="visibility: hidden;">
-            <div class="simplebar-scrollbar" style="transform: translate3d(0px, 0px, 0px); display: none;"></div>
-          </div>
-          <div id="woocommerce_price_filter-2" class="widget woocommerce widget_price_filter">
-            <h3 class="widget-title">Filter by price</h3>
-
-            <div class="cz-range-slider" data-start-min="0" data-start-max="100" data-min="0" data-max="100"
-              data-step="1" data-currency-symbol="$">
-              <div class="cz-range-slider-ui noUi-target noUi-ltr noUi-horizontal noUi-txt-dir-ltr">
-                <div class="noUi-base">
-                  <div class="noUi-connects">
-                    <div class="noUi-connect" style="transform: translate(0%, 0px) scale(1, 1);"></div>
-                  </div>
-                  <div class="noUi-origin" style="transform: translate(-1000%, 0px); z-index: 5;">
-                    <div class="noUi-handle noUi-handle-lower" data-handle="0" tabindex="0" role="slider"
-                      aria-orientation="horizontal" aria-valuemin="0.0" aria-valuemax="100.0" aria-valuenow="0.0"
-                      aria-valuetext="$0">
-                      <div class="noUi-touch-area"></div>
-                      <div class="noUi-tooltip">$0</div>
-                    </div>
-                  </div>
-                  <div class="noUi-origin" style="transform: translate(0%, 0px); z-index: 4;">
-                    <div class="noUi-handle noUi-handle-upper" data-handle="1" tabindex="0" role="slider"
-                      aria-orientation="horizontal" aria-valuemin="0.0" aria-valuemax="100.0" aria-valuenow="100.0"
-                      aria-valuetext="$100">
-                      <div class="noUi-touch-area"></div>
-                      <div class="noUi-tooltip">$100</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="noUi-pips noUi-pips-horizontal">
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-large" style="left: 0%;"></div>
-                  <div class="noUi-value noUi-value-horizontal noUi-value-large" data-value="0" style="left: 0%;">0
-                  </div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 1%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 2%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 3%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 4%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 5%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 6%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 7%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 8%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 9%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 10%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 11%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 12%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 13%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 14%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 15%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 16%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 17%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 18%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 19%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 20%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 21%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 22%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 23%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 24%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-large" style="left: 25%;"></div>
-                  <div class="noUi-value noUi-value-horizontal noUi-value-large" data-value="25" style="left: 25%;">25
-                  </div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 26%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 27%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 28%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 29%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 30%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 31%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 32%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 33%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 34%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 35%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 36%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 37%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 38%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 39%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 40%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 41%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 42%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 43%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 44%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 45%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 46%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 47%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 48%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 49%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-large" style="left: 50%;"></div>
-                  <div class="noUi-value noUi-value-horizontal noUi-value-large" data-value="50" style="left: 50%;">50
-                  </div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 51%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 52%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 53%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 54%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 55%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 56%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 57%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 58%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 59%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 60%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 61%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 62%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 63%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 64%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 65%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 66%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 67%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 68%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 69%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 70%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 71%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 72%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 73%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 74%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-large" style="left: 75%;"></div>
-                  <div class="noUi-value noUi-value-horizontal noUi-value-large" data-value="75" style="left: 75%;">75
-                  </div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 76%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 77%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 78%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 79%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 80%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 81%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 82%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 83%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 84%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 85%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 86%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 87%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 88%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 89%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 90%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 91%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 92%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 93%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 94%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 95%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 96%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 97%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 98%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-normal" style="left: 99%;"></div>
-                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-large" style="left: 100%;"></div>
-                  <div class="noUi-value noUi-value-horizontal noUi-value-large" data-value="100" style="left: 100%;">
-                    100</div>
-                </div>
-              </div>
-              <form method="get" action="http://s603556811.onlinehome.fr/shop/">
-                <div class="d-flex pb-1">
-                  <div class="w-50 pr-2 mr-2">
-                    <div class="input-group input-group-sm">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text">$</span>
-                      </div>
-                      <input type="text" name="min_price" class="form-control cz-range-slider-value-min">
-                    </div>
-                  </div>
-                  <div class="w-50 pl-2">
-                    <div class="input-group input-group-sm">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text">$</span>
-                      </div>
-                      <input type="text" name="max_price" class="form-control cz-range-slider-value-max">
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-
-          </div>
-          <div id="cartzilla_wc_attribute_filter-3" class="widget widget_cartzilla_wc_attribute_filter">
-            <h3 class="widget-title">Tes</h3>
-            <div class="cz-filter">
-              <div class="input-group-overlay input-group-sm mb-2">
-                <input class="cz-filter-search form-control form-control-sm appended-form-control" type="text"
-                  placeholder="Search">
-                <div class="input-group-append-overlay">
-                  <span class="input-group-text"><i class="czi-search"></i></span>
-                </div>
-              </div>
-              <ul class="widget-list cz-filter-list list-unstyled pt-1" style="max-height: 12rem;" data-simplebar="init"
-                data-simplebar-auto-hide="false">
-                <div class="simplebar-wrapper" style="margin: -4px -16px 0px 0px;">
-                  <div class="simplebar-height-auto-observer-wrapper">
-                    <div class="simplebar-height-auto-observer"></div>
-                  </div>
-                  <div class="simplebar-mask">
-                    <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
-                      <div class="simplebar-content-wrapper" style="height: auto; overflow: hidden;">
-                        <div class="simplebar-content" style="padding: 4px 16px 0px 0px;">
-                          <li
-                            class="cz-filter-item d-flex justify-content-between align-items-center mb-1 woocommerce-widget-layered-nav-list__item wc-layered-nav-term ">
-                            <div class="custom-control custom-checkbox">
-                              <a rel="nofollow"
-                                href="http://s603556811.onlinehome.fr/shop/?filter_ressource-type=activity"
-                                class="custom-control-label cz-filter-item-text">Activity</a>
-                            </div>
-                            <span class="font-size-xs text-muted">1</span>
-                          </li>
-                          <li
-                            class="cz-filter-item d-flex justify-content-between align-items-center mb-1 woocommerce-widget-layered-nav-list__item wc-layered-nav-term ">
-                            <div class="custom-control custom-checkbox">
-                              <a rel="nofollow"
-                                href="http://s603556811.onlinehome.fr/shop/?filter_ressource-type=booklet"
-                                class="custom-control-label cz-filter-item-text">Booklet</a>
-                            </div>
-                            <span class="font-size-xs text-muted">4</span>
-                          </li>
-                          <li
-                            class="cz-filter-item d-flex justify-content-between align-items-center mb-1 woocommerce-widget-layered-nav-list__item wc-layered-nav-term ">
-                            <div class="custom-control custom-checkbox">
-                              <a rel="nofollow"
-                                href="http://s603556811.onlinehome.fr/shop/?filter_ressource-type=clip-art"
-                                class="custom-control-label cz-filter-item-text">Clip art</a>
-                            </div>
-                            <span class="font-size-xs text-muted">1</span>
-                          </li>
-                          <li
-                            class="cz-filter-item d-flex justify-content-between align-items-center mb-1 woocommerce-widget-layered-nav-list__item wc-layered-nav-term ">
-                            <div class="custom-control custom-checkbox">
-                              <a rel="nofollow" href="http://s603556811.onlinehome.fr/shop/?filter_ressource-type=craft"
-                                class="custom-control-label cz-filter-item-text">Craft</a>
-                            </div>
-                            <span class="font-size-xs text-muted">1</span>
-                          </li>
-                          <li
-                            class="cz-filter-item d-flex justify-content-between align-items-center mb-1 woocommerce-widget-layered-nav-list__item wc-layered-nav-term ">
-                            <div class="custom-control custom-checkbox">
-                              <a rel="nofollow"
-                                href="http://s603556811.onlinehome.fr/shop/?filter_ressource-type=lesson-plan"
-                                class="custom-control-label cz-filter-item-text">Lesson Plan</a>
-                            </div>
-                            <span class="font-size-xs text-muted">2</span>
-                          </li>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="simplebar-placeholder" style="width: auto; height: 144px;"></div>
-                </div>
-                <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
-                  <div class="simplebar-scrollbar simplebar-visible"
-                    style="transform: translate3d(0px, 0px, 0px); display: none;"></div>
-                </div>
-                <div class="simplebar-track simplebar-vertical" style="visibility: hidden;">
-                  <div class="simplebar-scrollbar simplebar-visible"
-                    style="transform: translate3d(0px, 0px, 0px); display: none;"></div>
-                </div>
-              </ul>
+        <div class="cz-sidebar-body">
+          <div class="simplebar-content">
+            <div [queryParamGroup]="filtersForm">
+              <app-product-filter queryParamName="grades" title="Grades" [items]="(grades$ | async)!"></app-product-filter>
+              <app-product-filter queryParamName="subjects" title="Subjects" [items]="(subjects$ | async)!"></app-product-filter>
+              <app-product-filter queryParamName="resourceTypes" title="Ressource types" [items]="(resourceTypes$ | async)!"></app-product-filter>
+              <app-price-filter queryParamName="priceRange" title="Filter by price"></app-price-filter>
             </div>
           </div>
         </div>
       </div>
-    </div><!-- #secondary -->
-
+    </div>
   </div>
 </div>

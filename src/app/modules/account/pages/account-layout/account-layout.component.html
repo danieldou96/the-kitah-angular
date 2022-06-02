@@ -1,0 +1,28 @@
+<app-page-title [title]="(title$ | async)!"></app-page-title>
+<ng-container *ngrxLet="loggedInUser$ as loggedInUser">
+  <div *ngIf="loggedInUser?.role == 'buyer'" class="container pb-5 mb-2 mb-md-3">
+    <div class="row">
+      <app-account-side-menu></app-account-side-menu>
+      <section class="col-lg-8">
+        <div class="woocommerce-MyAccount-content">
+          <div class="d-flex justify-content-end align-items-center pt-lg-2 pb-4 pb-lg-5 mb-lg-3">
+            <a class="classic-button" (click)="logout()">
+              <i class="ci-sign-out mr-2"></i>
+              Logout </a>
+          </div>
+          <router-outlet></router-outlet>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div *ngIf="loggedInUser?.role == 'vendor' || loggedInUser?.role == 'admin'" class="container mb-5 pb-3">
+		<div class="dashboard-container">
+			<app-account-side-menu></app-account-side-menu>
+			<section class="col-lg-8 dahsboard-page-container">
+				<div class="dashboard-page">
+					<router-outlet></router-outlet>
+				</div>
+			</section>
+		</div>
+  </div>
+</ng-container>

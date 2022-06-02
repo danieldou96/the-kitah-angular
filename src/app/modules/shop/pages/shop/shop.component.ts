@@ -1,8 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Observable, of } from 'rxjs';
-import { FilterItem } from 'src/app/shared/models/filter';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { QueryParamBuilder, QueryParamGroup } from '@ngqp/core';
+import { map, Observable, take } from 'rxjs';
+import { ApiService } from 'src/app/core/http/api.service';
+import { CartService } from 'src/app/core/services/cart/cart.service';
+import { ProductsService } from 'src/app/core/services/products/products.service';
+import { categoryToFilterItem } from 'src/app/shared/models/category';
+import { IFilterItem } from 'src/app/shared/models/filter';
+import { Page } from 'src/app/shared/models/pagination/page.model';
+import { IProduct } from 'src/app/shared/models/product';
+import { ShopFilters, ShopPageRequest } from 'src/app/shared/models/shop';
+import { getAllNumbersBetween } from 'src/app/shared/utils';
 
+@UntilDestroy()
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.component.html',
@@ -10,65 +21,119 @@ import { FilterItem } from 'src/app/shared/models/filter';
 })
 export class ShopComponent implements OnInit {
 
-  filtersForm: FormGroup;
-  grades$: Observable<FilterItem[]>;
-  subjects$: Observable<FilterItem[]>;
-  ressourceTypes$: Observable<FilterItem[]>;
+  public currentPage!: Page<IProduct, ShopPageRequest>;
+  public currentFilters!: ShopFilters;
+
+  filtersForm: QueryParamGroup;
+  grades$: Observable<IFilterItem[]>;
+  subjects$: Observable<IFilterItem[]>;
+  resourceTypes$: Observable<IFilterItem[]>;
 
   constructor(
-    private fb: FormBuilder
+    private router: Router,
+    private route: ActivatedRoute,
+    private apiService: ApiService,
+    private qpb: QueryParamBuilder,
+    private cartService: CartService,
+    private _productsService: ProductsService
   ) {
-    this.filtersForm = this.fb.group({
-      grades: new FormControl([]),
-      subjects: new FormControl([]),
-      ressourceTypes: new FormControl([])
+    //this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+
+    this.grades$ = this.apiService.getGrades().pipe(
+      map(grades => categoryToFilterItem(grades))
+    );
+    this.subjects$ = this.apiService.getSubjects().pipe(
+      map(subjects => categoryToFilterItem(subjects))
+    );
+    this.resourceTypes$ = this.apiService.getResourceTypes().pipe(
+      map(resourceTypes => categoryToFilterItem(resourceTypes))
+    );
+
+    this.filtersForm = this.qpb.group({
+      grades: qpb.param('grades', {
+        serialize: grades => grades?.join(','),
+        deserialize: value => value?.split(',')
+      }),
+      subjects: qpb.param('subjects', {
+        serialize: subjects => subjects?.join(','),
+        deserialize: value => value?.split(',')
+      }),
+      resourceTypes: qpb.param('resourceTypes', {
+        serialize: resourceTypes => resourceTypes?.join(','),
+        deserialize: value => value?.split(',')
+      }),
+      priceRange: qpb.stringParam('priceRange')
     });
-    this.grades$ = of([
-      {
-        text: '1st',
-        value: '1st'
-      },
-      {
-        text: '2nd',
-        value: '2nd'
-      },
-      {
-        text: '3rd',
-        value: '3rd'
-      }
-    ] as FilterItem[]);
-    this.subjects$ = of([
-      {
-        text: 'Classroom Basics/starter kit',
-        value: 'Classroom Basics/starter kit'
-      },
-      {
-        text: 'Classroom Decor',
-        value: 'Classroom Decor'
-      },
-      {
-        text: 'Clip art',
-        value: 'Clip art'
-      }
-    ] as FilterItem[]);
-    this.ressourceTypes$ = of([
-      {
-        text: 'Activity',
-        value: 'Activity'
-      },
-      {
-        text: 'Assessment',
-        value: 'Assessment'
-      },
-      {
-        text: 'Booklet',
-        value: 'Booklet'
-      }
-    ] as FilterItem[]);
   }
 
-  ngOnInit(): void {
-    this.filtersForm.valueChanges.subscribe(t=>console.log(t))
+  ngOnInit() {
+    //this._fetchPageOfProducts(new ShopPageRequest(this.currentFilters, this.route.snapshot.queryParams['page'] ?? undefined));
+    this.filtersForm.valueChanges.pipe(
+      untilDestroyed(this)
+    ).subscribe(filterValues => {
+      const grades = filterValues['grades'];
+      const subjects = filterValues['subjects'];
+      const resourceTypes = filterValues['resourceTypes'];
+      const priceRange = filterValues['priceRange'];
+
+      this.currentFilters = {
+        ...(grades?.length! > 0 && { grades }),
+        ...(subjects?.length! > 0 && { subjects }),
+        ...(resourceTypes?.length! > 0 && { resourceTypes }),
+        ...(priceRange && { priceRange })
+      };
+      this._fetchPageOfProducts(new ShopPageRequest(this.currentFilters, 1));
+    });
   }
 
+  isLinkActive(url: string): boolean {
+    const queryParamsIndex = this.router.url.indexOf('?');
+    const baseUrl = queryParamsIndex === -1 ? this.router.url : this.router.url.slice(0, queryParamsIndex);
+    return baseUrl === url;
+ }
+
+  get pageNumbers() {
+    return getAllNumbersBetween(this.currentPage?.totalPages!);
+  }
+
+  public nextPage(): void {
+    this._fetchPageOfProducts(new ShopPageRequest(this.currentFilters, this.currentPage.next?.page, this.currentPage.next?.size, this.currentPage.next?.sort));
+  }
+
+  public prevPage(): void {
+    this._fetchPageOfProducts(new ShopPageRequest(this.currentFilters, this.currentPage.previous?.page, this.currentPage.previous?.size, this.currentPage.previous?.sort));
+  }
+
+  private _fetchPageOfProducts(pageRequest?: ShopPageRequest): void {
+    this._productsService.findAllPaginated(pageRequest).pipe(
+      take(1)
+    ).subscribe(page => {
+      this.router.navigate(['/shop'], {
+        queryParams: {
+          page: page.current?.page
+        },
+        queryParamsHandling: 'merge'
+      });
+      this.currentPage = page;
+    });
+  }
+
+  addCartItem(item: IProduct) {
+    this.cartService.addCartItem({
+      quantity: 1,
+      product: item
+    });
+  }
+
+  resetFilters() {
+    this.router.navigate(['/shop'], {
+      queryParams: {
+        grades: null,
+        subjects: null,
+        resourceTypes: null,
+        priceRange: null
+      },
+      queryParamsHandling: 'merge'
+    });
+  }
 }

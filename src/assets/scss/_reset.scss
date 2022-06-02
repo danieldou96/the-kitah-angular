@@ -9,6 +9,10 @@ p {
 	margin-bottom: 1rem;
 }
 
+h3 {
+	margin-top:0;
+}
+
 ul {
 	margin-top: 0;
 	margin-bottom: 1rem;
@@ -19,14 +23,8 @@ ul ul {
 }
 
 a {
-	color: #fe696a;
 	text-decoration: none;
 	background-color: transparent;
-}
-
-a:hover {
-	color: #fe3638;
-	text-decoration: none;
 }
 
 img {
@@ -40,7 +38,11 @@ label {
 }
 
 button {
-	border-radius: 0;
+	border: 0;
+	outline: none;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 button:focus {

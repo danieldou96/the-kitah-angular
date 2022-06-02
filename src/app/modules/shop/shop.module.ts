@@ -19,6 +19,15 @@ import { SliderComponent } from './components/slider/slider.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ProductFilterComponent } from './components/product-filter/product-filter.component';
 import { ProductFilterRowComponent } from './components/product-filter-row/product-filter-row.component';
+import { ProductResolverService } from 'src/app/core/resolvers/product-resolver/product-resolver.service';
+import { BarRatingModule } from 'ngx-bar-rating';
+import { GalleryModule } from  'ng-gallery';
+import { StripeTokenResolverService } from 'src/app/core/resolvers/stripe-token-resolver/stripe-token-resolver.service';
+import { NgxStripeModule } from 'ngx-stripe';
+import { CheckoutSuccessComponent } from './pages/checkout-success/checkout-success.component';
+import { OrderResolverService } from 'src/app/core/resolvers/order-resolver/order-resolver.service';
+import { SwiperModule } from 'swiper/angular';
+import { QueryParamModule } from '@ngqp/core';
 
 const routes: Routes = [
   {
@@ -26,11 +35,12 @@ const routes: Routes = [
 		component: ShopComponent
 	},
   {
-		path: 'product',
-		component: ProductComponent
+		path: 'product/:id',
+		component: ProductComponent,
+    resolve: { product: ProductResolverService },
 	},
   {
-		path: 'store',
+		path: 'store/:url',
 		component: StoreComponent
 	},
   {
@@ -39,7 +49,17 @@ const routes: Routes = [
 	},
   {
 		path: 'checkout',
-		component: CheckoutComponent
+		component: CheckoutComponent,
+    resolve: {
+      intentSecret: StripeTokenResolverService
+    }
+	},
+  {
+		path: 'checkout-success/:id',
+		component: CheckoutSuccessComponent,
+    resolve: {
+      order: OrderResolverService
+    }
 	},
 ];
 
@@ -60,12 +80,18 @@ const routes: Routes = [
     PriceFilterComponent,
     SliderComponent,
     ProductFilterComponent,
-    ProductFilterRowComponent
+    ProductFilterRowComponent,
+    CheckoutSuccessComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
+    BarRatingModule,
+    GalleryModule,
+    SwiperModule,
+    QueryParamModule,
     MatTabsModule,
+    NgxStripeModule,
     RouterModule.forChild(routes)
   ]
 })

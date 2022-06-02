@@ -1,0 +1,72 @@
+<h2 class="title">Your Products</h2>
+<div class="mb-3">
+	<a [routerLink]="['../new-product']" class="classic-button">
+		<i class="fal fa-plus"></i> Add new product
+	</a>
+</div>
+<div class="row">
+	<div class="col-12">
+		<div class="filters">
+			<div class="input-group search-input-group">
+				<input type="text" class="classic-input" placeholder="Search Products">
+				<button type="submit" class="classic-button">Search</button>
+			</div>
+			<select class="classic-select sort-select">
+				<option selected value="MOST_RECENTLY_POSTED">Most Recently Posted</option>
+				<option value="LAST_MODIFIED">Last Modified Date</option>
+				<option value="PRICE_ASCENDING">Price (low to high)</option>
+				<option value="PRICE_DESCENDING">Price (high to low)</option>
+				<option value="ALPHABETICAL">Alphabetically</option>
+			</select>
+		</div>
+	</div>
+</div>
+<div class="products-list">
+	<table>
+		<thead>
+			<tr>
+				<th>Product</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let product of myProducts">
+				<td>
+					<div class="product">
+						<a [routerLink]="['../edit-product/' + product.id]" class="product__image-link">
+							<img loading="lazy" width="480" height="328" [src]="product?.mainPicture?.url" [alt]="product?.name" class="product__image">
+						</a>
+						<div class="product__body">
+							<h3 class="product_title">
+								<a [routerLink]="['../edit-product/' + product.id]" class="product__title-link">
+									{{ product.name | titlecase }}
+								</a>
+							</h3>
+							<div class="product__price">
+								{{ product.price | currency }}
+							</div>
+							<div class="product__format">
+								{{ product.format | uppercase }}
+							</div>
+							<div class="product__actions">
+								<a class="product__edit" [routerLink]="['../edit-product/' + product.id]">
+									Edit | 
+								</a>
+								<a class="product__delete" (click)="deleteProduct(product.id!)">
+									Delete Permanently | 
+								</a>
+								<a class="product__view" [routerLink]="['/product/' + product.id]">
+									View | 
+								</a>
+							</div>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr *ngIf="myProducts.length == 0">
+				<td>
+					No products
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

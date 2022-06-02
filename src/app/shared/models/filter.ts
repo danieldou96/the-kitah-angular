@@ -1,5 +1,5 @@
-export interface FilterItem {
+export interface IFilterItem {
 	text: string;
-	value: string | boolean | number;
-	children?: FilterItem[];
+	value: string;
+	children?: IFilterItem[];
 }

@@ -1,0 +1,52 @@
+:host {
+	display: contents;
+}
+
+.upload-preview {
+	padding: 15px;
+  background-color: #fff;
+  transition: 0.2s;
+  border: 2px dashed #dae1e7;
+  border-radius: 0.3125rem;
+  position: relative;
+  display: flex;
+  text-align: center;
+	flex: 1 0 0;
+	height: auto;
+	align-items: center;
+	cursor: pointer;
+	justify-content: center;
+
+	input {
+		display: none;
+	}
+
+	&:hover {
+		background-color: #f5f5f5 !important;
+	}
+
+	&::before {
+    content: '';
+    display: block;
+    padding-top: 100%;
+	}
+
+	&__label {
+		display: flex;
+		gap: 4px;
+		flex-direction: column;
+	}
+
+	&__title {
+		font-weight: bold;
+  	font-size: 14px;
+	}
+
+	&__fileinfo {
+  	font-size: 12px;
+	}
+
+	&__filesize {
+  	font-size: 12px;
+	}
+}

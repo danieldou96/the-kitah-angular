@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mx-md-auto">
+      <div class="card">
+        <div class="card-body">
+          <h2>Login</h2>
+
+          <form [formGroup]="loginForm" (submit)="login()">
+            <div class="row">
+              <div class="col-12">
+                <label>Username or email address <span class="text-danger">*</span></label>
+                <input class="classic-input" type="text" formControlName="email">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <label>Password <span class="text-danger">*</span></label>
+                <div class="password-toggle">
+                  <span class="password-input">
+                    <input
+                      class="classic-input"
+                      formControlName="password"
+                      [type]="showPassword.value ? 'text' : 'password'"
+                      
+                      autocomplete="current-password">
+                      <span class="show-password-input"></span>
+                  </span>
+                  <label class="password-toggle-btn">
+                    <input [formControl]="showPassword" class="custom-control-input" type="checkbox">
+                    <i class="ci-eye password-toggle-indicator"></i>
+                    <span class="sr-only">Show password</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="form-group d-flex flex-wrap justify-content-between mb-0">
+              <div class="mb-2">
+                <label>
+                  <input formControlName="remember" type="checkbox">
+                  Remember me
+                </label>
+              </div>
+              <div class="lost_password">
+                <a class="font-size-sm" [routerLink]="['/forgot-password']">Lost your
+                  password?</a>
+              </div>
+            </div>
+
+            <hr class="mt-3">
+            <div class="text-right pt-3">
+              <button type="submit" class="classic-button">
+                <i class="ci-sign-in mr-2 ml-n21"></i> Log in</button>
+            </div>
+
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

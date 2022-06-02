@@ -1,0 +1,79 @@
+<div class="container py-5 my-3">
+  <div class="woocommerce-order">
+    <h1 class="woocommerce-thankyou-order-received h4 pb-3 text-center">Thank you. Your order has been received.</h1>
+    <div
+      class="woocommerce-order-overview woocommerce-thankyou-order-details order_details row mx-n2 justify-content-center">
+      <div class="woocommerce-order-overview__order order col-md-4 col-sm-6 mb-3 px-2">
+        <div class="bg-secondary rounded-lg p-3 text-center font-size-md">
+          Order number: <span class="font-weight-medium">{{ order.id }}</span>
+        </div>
+      </div>
+      <div class="woocommerce-order-overview__date date col-md-4 col-sm-6 mb-3 px-2">
+        <div class="bg-secondary rounded-lg p-3 text-center font-size-md">
+          Date: <span class="font-weight-medium">{{ order.date | date }}</span>
+        </div>
+      </div>
+      <div class="woocommerce-order-overview__total total col-md-4 col-sm-6 mb-3 px-2">
+        <div class="bg-secondary rounded-lg p-3 text-center font-size-md">
+          Total: <span class="font-weight-medium">{{ order.amount | currency }}</span>
+        </div>
+      </div>
+      <div class="woocommerce-order-overview__payment-method method col-sm-6 mb-3 px-2">
+        <div class="bg-secondary rounded-lg p-3 text-center font-size-md">
+          Payment method: <span class="font-weight-medium">Credit Card</span>
+        </div>
+      </div>
+    </div>
+    <div class="woocommerce-order-details card">
+      <div class="card-header">
+        <h2 class="woocommerce-order-details__title h6 mb-0">Order details</h2>
+      </div>
+      <div class="card-body">
+        <div class="row mx-n2">
+          <div class="col-md-7">
+            <div class="widget widget_products">
+              <ul class="product_list_widget">
+                <li class="woocommerce-table__line-item order_item" *ngFor="let item of order.orderItems">
+                  <div class="media align-items-center">
+                    <a [routerLink]="['/product/' + item.product.id]" class="widget-product-thumb">
+                      <img width="350" height="263"
+                        src="http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png"
+                        class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy"> </a>
+                    <div class="media-body">
+                      <h6 class="widget-product-title">
+                        <a [routerLink]="['/product/' + item.product.id]">{{ item.product.name }}</a>
+                      </h6>
+                      <div class="widget-product-meta">
+                        <span class="text-accent mr-1">{{ item.price | currency }}</span>
+                        <span class="text-muted">× {{ item.quantity }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-5 pt-4 pt-md-0">
+            <div class="bg-secondary rounded-lg p-4 h-100">
+              <div class="d-flex justify-content-between align-items-center font-size-md mb-2 pb-1">
+                <span class="mr-2">Subtotal:</span>
+                <span class="text-right">{{ order.amount | currency }}</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center font-size-md mb-2 pb-1">
+                <span class="mr-2">Payment method:</span>
+                <span class="text-right">Credit Card</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center font-size-md mb-2 pb-1">
+                <span class="mr-2">Total:</span>
+                <span class="text-right">{{ order.amount | currency }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center my-4">
+    <a [routerLink]="['/my-account/downloads']" class="classic-button">Go to download page</a>
+  </div>
+</div>

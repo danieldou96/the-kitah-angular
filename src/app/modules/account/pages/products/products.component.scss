@@ -1,0 +1,165 @@
+.filters {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 15px;
+}
+
+.search-input-group {
+	width: auto;
+}
+
+.sort-select {
+	width: 230px;
+}
+
+.products-list {
+
+	table {
+		width: 100%;
+		margin-bottom: 1rem;
+		color: #4b566b;
+		max-width: 100%;
+		margin: 0 0 1.5em;
+		border-collapse: collapse;
+
+		tr {
+			background: transparent;
+		}
+
+		th {
+			color: #373f50;
+			padding: 8px;
+			line-height: 1.42;
+		}
+
+		td {
+			padding: 8px;
+			line-height: 1.42;
+			vertical-align: top;
+			border-top: 1px solid #EDEDED;
+		}
+
+		& > thead:first-child > tr:first-child > th {
+			border-top: 0;
+		}
+	}
+}
+
+.product {
+	padding-bottom: 1.5rem;
+	padding-top: 1.5rem;
+	align-items: center;
+	display: flex;
+
+	&__image-link {
+		width: 12.5rem;
+		margin-left: auto;
+		display: block;
+
+		@media (min-width: 576px) {
+			margin-right: 1.5rem;
+			margin-bottom: 0;
+		} 
+	}
+
+	&__image {
+		max-width: 12.5rem;
+		max-height: 12.5rem;
+		border-radius: 0.4375rem;
+		width: auto;
+		height: auto;
+	}
+
+	&__body {
+		text-align: left;
+		flex: 1;
+	}
+
+	&__title {
+		margin-bottom: 0.5rem;
+	}
+
+	&__title-link {
+		transition: color 0.25s ease-in-out;
+		color: #373f50;
+		text-decoration: none;
+		font-size: 1.0625rem;
+		font-weight: 500;
+		line-height: 1.2;
+
+		&:hover {
+			color: #dea249;
+		}
+	}
+
+	&__price {
+		display: inline-block;
+		color: #2f3252;
+	}
+
+	&__format {
+		display: inline-block;
+		font-size: 0.8125rem;
+		color: #7d879c;
+		padding-left: 0.5rem;
+		margin-left: 0.5rem;
+		border-left: 1px solid #e3e9ef;
+	}
+
+	&__actions {
+		padding-top: 1rem;
+		display: flex;
+		justify-content: flex-start;
+		gap: 0.5rem;
+	}
+
+	&__edit, &__delete, &__view {
+		padding: 0.625rem 0.875rem;
+		display: inline-block;
+		font-weight: normal;
+		color: #4b566b;
+		text-align: center;
+		vertical-align: middle;
+		user-select: none;
+		border: 1px solid transparent;
+		line-height: 1.5;
+		border-radius: 0.3125rem;
+		transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out, border-color 0.25s ease-in-out, box-shadow 0.2s ease-in-out;
+		cursor: pointer;
+		white-space: nowrap;
+		font-size: 0;
+
+		&::before {
+			font-family: 'cartzilla-icons';
+			display: inline-block;
+			font-size: 15px;
+		}
+	}
+	
+	&__edit {
+		background: rgba(105, 179, 254, 0.1);
+
+		&::before {
+			content: "\e933";
+			color: #69b3fe;
+		}
+	}
+
+	&__delete {
+		background: rgba(243, 71, 112, 0.08);
+
+		&::before {
+			content: "\e987";
+			color: #f34770;
+		}
+	}
+
+	&__view {
+		background: rgba(78, 84, 200, 0.1);
+
+		&::before {
+			content: "\e937";
+			color: #2f3252;
+		}
+	}
+}

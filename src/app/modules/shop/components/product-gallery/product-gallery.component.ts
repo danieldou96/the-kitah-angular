@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IGalleryItem } from 'src/app/shared/models/product';
+import { IGalleryItem } from 'src/app/shared/models/gallery-item';
 
 @Component({
   selector: 'app-product-gallery',

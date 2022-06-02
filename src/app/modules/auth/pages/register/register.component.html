@@ -1,0 +1,97 @@
+<div class="container pt-5 bt-2 pb-5 mb-2 mb-md-4">
+	<div class="row">
+		<div class="col-md-6 mx-md-auto">
+			<div class="card border-0 box-shadow">
+				<div class="card-body">
+					<h2 class="h4 mb-3">Register</h2>
+					<form [formGroup]="registerForm" (submit)="register()">
+						<div class="row">
+							<div class="col-12 col-sm-6">
+								<label>Firstname <span class="text-danger">*</span></label>
+								<input type="text" class="classic-input" formControlName="firstname">
+								<div *ngIf="submitted && formControls['firstname'].errors" class="invalid-feedback">
+									<div *ngIf="formControls['firstname'].errors['required']">The firstname is required</div>
+								</div>
+							</div>
+							<div class="col-12 col-sm-6">
+								<label>Lastname <span class="text-danger">*</span></label>
+								<input type="text" class="classic-input" formControlName="lastname">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12 col-sm-8">
+								<label>Email address <span class="text-danger">*</span></label>
+								<input type="email" class="classic-input" formControlName="email">
+							</div>
+							<div class="col-12 col-sm-4">
+								<label>Username <span class="text-danger">*</span></label>
+								<input type="text" class="classic-input" formControlName="username">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12 col-sm-6">
+								<label>Password <span class="text-danger">*</span></label>
+								<input type="password" class="classic-input" formControlName="password">
+							</div>
+							<div class="col-12 col-sm-6">
+								<label>Repeat password <span class="text-danger">*</span></label>
+								<input type="password" class="classic-input" formControlName="repeatPassword">
+							</div>
+						</div>
+						<div *ngIf="formControls['registrationType'].value == 'vendor'">
+							<div class="row">
+								<div class="col-12 col-sm-6">
+									<label>Shop Name <span class="text-danger">*</span></label>
+									<input type="text" class="classic-input" formControlName="shopName">
+								</div>
+								<div class="col-12 col-sm-6">
+									<label class="pull-left">Shop URL <span class="text-danger">*</span></label>
+									<strong class="pull-right"></strong>
+									<input type="text" class="classic-input" formControlName="shopUrl">
+									<small>http://s603556811.onlinehome.fr/store/<strong></strong></small>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<label>Phone Number <span class="text-danger">*</span></label>
+									<input type="text" class="classic-input" formControlName="phone">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<label>
+									<input type="radio" formControlName="registrationType" value="buyer">
+									I am a customer
+								</label>
+								<label>
+									<input type="radio" formControlName="registrationType" value="vendor">
+									I am a vendor
+								</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<label>
+									<input type="checkbox" formControlName="terms">
+									I have read and agree to the <a target="_blank"
+										href="http://s603556811.onlinehome.fr/terms-conditions/">Terms &amp; Conditions</a>.
+								</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="text-right">
+									<button type="submit" class="classic-button">
+										<i class="ci-user mr-2 ml-n1"></i>
+										Register
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

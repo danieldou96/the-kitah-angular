@@ -1,0 +1,106 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+	<div class="row mb-3">
+		<div class="col-md-6 col-12">
+			<label>Title</label>
+			<input type="text" formControlName="title" class="classic-input" placeholder="Title">
+		</div>
+		<div class="col-md-6 col-12">
+			<label>Price</label>
+			<input type="number" formControlName="price" class="classic-input" placeholder="Price">
+		</div>
+	</div>
+	<div class="row my-3">
+		<div class="col-12">
+			<label>File</label>
+			<div class="upload-file__drag-zone" appDrag (fileDropped)="fileDropped($event)">
+				<div class="upload-file__infos">
+					<div *ngIf="!formControls['file'].value">Downloadable File</div>
+					<div *ngIf="formControls['file'].value">{{ formControls['file'].value.name }}</div>
+					<small *ngIf="formControls['file'].value">{{ formControls['file'].value.size | filesize }}</small>
+				</div>
+				<div class="upload-file__select-file">
+					<button type="button" class="classic-button" (click)="fileInput.click()">Select file</button>
+					<small>Or drap and drop</small>
+				</div>
+				<input type="file" (change)="uploadFile($event)" #fileInput />
+			</div>
+		</div>
+	</div>
+	<div class="row my-3">
+		<div class="col-12">
+			<label>
+				<input type="radio" value="auto" formControlName="previewsType">
+				<span>Auto generate thumbnails from the product file</span>
+			</label>
+			<div class="generated-previews__container" [hidden]="formControls['previewsType'].value != 'auto'" *ngIf="generatedPreviewImages.length == 0">
+				<div class="generated-previews__placeholder" [class.generated-previews__placeholder--error]="">
+					Thumbnails will generate once you upload your product file
+				</div>
+				<ng-container *ngIf="generatedPreviewImages.length != 0">
+					<div class="generated-previews__result-container">
+						<div class="generated-previews__result-item" *ngFor="let previewImage of generatedPreviewImages; let i = index">
+							<div class="generated-previews__result-image-container">
+								<img [src]="previewImage">
+							</div>
+							<div class="generated-previews__page-number">Page {{ i + 1 }}</div>
+						</div>
+					</div>
+				</ng-container>
+				<div *ngIf="fileUploaded && generatedPreviewImages.length == 0" class="generated-previews__error-message">We cannot generate images from your file. Please upload a different file or your own thumbnail images.</div>
+			</div>
+			<label>
+				<input type="radio" value="upload" formControlName="previewsType">
+				<span>Upload thumbnails now</span>
+			</label>
+			<div class="upload-previews" [hidden]="formControls['previewsType'].value != 'upload'">
+				<app-upload-product-preview label="Main cover (Required)" formControlName="uploadedPreview1"></app-upload-product-preview>
+				<app-upload-product-preview label="Thumbnail (Optional)" formControlName="uploadedPreview2"></app-upload-product-preview>
+				<app-upload-product-preview label="Thumbnail (Optional)" formControlName="uploadedPreview3"></app-upload-product-preview>
+				<app-upload-product-preview label="Thumbnail (Optional)" formControlName="uploadedPreview4"></app-upload-product-preview>
+			</div>
+			<label>
+				<input type="radio" value="later" formControlName="previewsType">
+				<span>Upload thumbnails later</span>
+			</label>
+		</div>
+	</div>
+	<div class="row my-3">
+		<div class="col-md-4 col-12">
+			<label>Grades</label>
+			<ng-select formControlName="grades" [multiple]="true">
+				<ng-option *ngFor="let grade of (categoriesService.grades$ | async)" [value]="grade.id">{{ grade.name }}</ng-option>
+			</ng-select>
+		</div>
+		<div class="col-md-4 col-12">
+			<label>Subjects</label>
+			<ng-select formControlName="subjects" [multiple]="true">
+				<ng-container *ngFor="let subject of (categoriesService.subjects$ | async)">
+					<ng-option [value]="subject.id">{{ subject.name }}</ng-option>
+					<ng-container *ngFor="let subSubject of subject.children">
+						<ng-option [value]="subSubject.id">- {{ subSubject.name }}</ng-option>
+						<ng-container *ngFor="let subSubSubject of subSubject.children">
+							<ng-option [value]="subSubSubject.id">-- {{ subSubSubject.name }}</ng-option>
+						</ng-container>
+					</ng-container>
+				</ng-container>
+			</ng-select>
+		</div>
+		<div class="col-md-4 col-12">
+			<label>Resource types</label>
+			<ng-select formControlName="resourceTypes" [multiple]="true">
+				<ng-option *ngFor="let resourceType of (categoriesService.resourceTypes$ | async)" [value]="resourceType.id">{{ resourceType.name }}</ng-option>
+			</ng-select>
+		</div>
+	</div>
+	<div class="row my-3">
+		<div class="col-12">
+			<label>Description</label>
+			<div class="froala-editor" formControlName="description" [froalaEditor]="options"></div>
+		</div>
+	</div>
+	<div class="row my-3">
+		<div class="col-12">
+			<button type="submit" class="classic-button">Submit</button>
+		</div>
+	</div>
+</form>

@@ -1,4 +1,4 @@
-<app-page-title title="Product name"></app-page-title>
+<app-page-title [title]="product.name | titlecase"></app-page-title>
 <div id="product-1372"
   class="product type-product post-1372 status-publish first instock product_cat-10th product_cat-chodshei-hashana has-post-thumbnail downloadable virtual purchasable product-type-simple">
 
@@ -7,32 +7,39 @@
       <div class="row">
         <section class="col-lg-8 pt-2 pt-lg-4 pb-4 mb-lg-3">
           <div class="pt-2 px-4 pr-lg-0 pl-xl-5 cz-gallery">
-            <div
-              class="woocommerce-product-gallery woocommerce-product-gallery--with-images woocommerce-product-gallery--columns-4 images"
-              data-columns="4" style="opacity: 1; transition: opacity 0.25s ease-in-out 0s;"><a href="#"
-                class="woocommerce-product-gallery__trigger">
-								<img draggable="false" role="img" class="emoji" alt="🔍"
-                  src="https://s.w.org/images/core/emoji/13.1.0/svg/1f50d.svg"></a>
-              <figure class="woocommerce-product-gallery__wrapper">
-                <div
-                  data-thumb="http://s603556811.onlinehome.fr/wp-content/uploads/2021/10/All-Jewish-holy-books-600x450.jpg"
-                  data-thumb-alt="" class="woocommerce-product-gallery__image"
-                  style="position: relative; overflow: hidden;"><a
-                    href="http://s603556811.onlinehome.fr/wp-content/uploads/2021/10/All-Jewish-holy-books.jpg"><img
-                      width="600" height="450"
-                      src="http://s603556811.onlinehome.fr/wp-content/uploads/2021/10/All-Jewish-holy-books-600x450.jpg"
-                      class="wp-post-image" alt="" loading="lazy" title="All-Jewish-holy-books" data-caption=""
-                      data-src="http://s603556811.onlinehome.fr/wp-content/uploads/2021/10/All-Jewish-holy-books.jpg"
-                      data-large_image="http://s603556811.onlinehome.fr/wp-content/uploads/2021/10/All-Jewish-holy-books.jpg"
-                      data-large_image_width="992" data-large_image_height="744"
-                      srcset="http://s603556811.onlinehome.fr/wp-content/uploads/2021/10/All-Jewish-holy-books-600x450.jpg 600w, http://s603556811.onlinehome.fr/wp-content/uploads/2021/10/All-Jewish-holy-books-300x225.jpg 300w, http://s603556811.onlinehome.fr/wp-content/uploads/2021/10/All-Jewish-holy-books-768x576.jpg 768w, http://s603556811.onlinehome.fr/wp-content/uploads/2021/10/All-Jewish-holy-books-350x263.jpg 350w, http://s603556811.onlinehome.fr/wp-content/uploads/2021/10/All-Jewish-holy-books.jpg 992w"
-                      sizes="(max-width: 600px) 100vw, 600px"></a><img role="presentation" alt=""
-                    src="http://s603556811.onlinehome.fr/wp-content/uploads/2021/10/All-Jewish-holy-books.jpg"
-                    class="zoomImg"
-                    style="position: absolute; top: -165.529px; left: -193.78px; opacity: 0; width: 992px; height: 744px; border: none; max-width: none; max-height: none;">
-                </div>
-              </figure>
+            <div class="swiper-container"  *ngIf="galleryItems.length > 0">
+              <swiper
+                [style.--swiper-navigation-color]="'#fff'"
+                [style.--swiper-pagination-color]="'#fff'"
+                [style.--swiper-navigation-size]="'38px'"
+                [spaceBetween]="10"
+                [navigation]="true"
+                [pagination]="{	type: 'fraction' }"
+                [lazy]="true"
+                [zoom]="true"
+                [loop]="true"
+                [thumbs]="{ swiper: thumbsSwiper }"
+                [keyboard]="{ enabled: true	}"
+                class="photoGallery">
+                  <ng-template swiperSlide *ngFor="let item of galleryItems">
+                    <div class="swiper-zoom-container">
+                      <img [attr.data-src]="item" class="swiper-lazy" />
+                    </div>
+                  </ng-template>
+              </swiper>
+              <swiper
+                (swiper)="thumbsSwiper = $event"
+                [spaceBetween]="5"
+                [slidesPerView]="5"
+                [freeMode]="true"
+                [watchSlidesProgress]="true"
+                class="photoThumbsGallery">
+                <ng-template swiperSlide *ngFor="let item of galleryItems">
+                  <img [src]="item" />
+                </ng-template>
+              </swiper>
             </div>
+            <img src="http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-600x600.png" *ngIf="galleryItems.length == 0">
             <div class="d-flex flex-wrap justify-content-between align-items-center border-top pt-3">
               <div class="py-2 mr-2">
               </div>
@@ -62,7 +69,7 @@
 
                   <button type="submit" name="add-to-cart" value="1372"
                     class="single_add_to_cart_button btn btn-primary btn-shadow btn-block">
-                    <i class="czi-cart font-size-lg mr-2"></i>
+                    <i class="ci-cart font-size-lg mr-2"></i>
                     Add to cart </button>
 
                 </div>
@@ -327,11 +334,11 @@
                     <div class="card-body card-body-hidden"><a href="?add-to-cart=1440" data-quantity="1"
                         class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
                         data-product_id="1440" data-product_sku="" aria-label="Add “TTestt” to your cart" rel="nofollow"
-                        data-toggle="toast" data-target="#cart-toast"><i class="czi-cart font-size-sm mr-1"></i>Add to
+                        data-toggle="toast" data-target="#cart-toast"><i class="ci-cart font-size-sm mr-1"></i>Add to
                         cart</a> <a href="#quick-view" rel="nofollow" data-product_id="1440"
                         class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
                         data-target="#quick-view">
-                        <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
+                        <i class="ci-eye align-middle mr-1"></i> Quick View </a> </div>
                   </div>
                   <hr class="d-sm-none">
                 </div>
@@ -356,10 +363,10 @@
                             class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
                             data-product_id="1440" data-product_sku="" aria-label="Add “TTestt” to your cart"
                             rel="nofollow" data-toggle="toast" data-target="#cart-toast"><i
-                              class="czi-cart font-size-sm mr-1"></i>Add to cart</a> <a href="#quick-view"
+                              class="ci-cart font-size-sm mr-1"></i>Add to cart</a> <a href="#quick-view"
                             rel="nofollow" data-product_id="1440" class="nav-link-style font-size-ms product_quick_view"
                             data-toggle="modal" data-target="#quick-view">
-                            <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
+                            <i class="ci-eye align-middle mr-1"></i> Quick View </a> </div>
                       </div>
                     </div>
                   </div>
@@ -417,10 +424,10 @@
                             class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
                             data-product_id="1541" data-product_sku="" aria-label="Add “tset” to your cart"
                             rel="nofollow" data-toggle="toast" data-target="#cart-toast" tabindex="0"><i
-                              class="czi-cart font-size-sm mr-1"></i>Add to cart</a> <a href="#quick-view"
+                              class="ci-cart font-size-sm mr-1"></i>Add to cart</a> <a href="#quick-view"
                             rel="nofollow" data-product_id="1541" class="nav-link-style font-size-ms product_quick_view"
                             data-toggle="modal" data-target="#quick-view" tabindex="0">
-                            <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
+                            <i class="ci-eye align-middle mr-1"></i> Quick View </a> </div>
                       </div>
                       <hr class="d-sm-none">
                     </div>
@@ -447,11 +454,11 @@
                                 class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
                                 data-product_id="1541" data-product_sku="" aria-label="Add “tset” to your cart"
                                 rel="nofollow" data-toggle="toast" data-target="#cart-toast" tabindex="0"><i
-                                  class="czi-cart font-size-sm mr-1"></i>Add to cart</a> <a href="#quick-view"
+                                  class="ci-cart font-size-sm mr-1"></i>Add to cart</a> <a href="#quick-view"
                                 rel="nofollow" data-product_id="1541"
                                 class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
                                 data-target="#quick-view" tabindex="0">
-                                <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
+                                <i class="ci-eye align-middle mr-1"></i> Quick View </a> </div>
                           </div>
                         </div>
                       </div>
@@ -497,10 +504,10 @@
                             class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
                             data-product_id="1531" data-product_sku="" aria-label="Add “Test” to your cart"
                             rel="nofollow" data-toggle="toast" data-target="#cart-toast" tabindex="0"><i
-                              class="czi-cart font-size-sm mr-1"></i>Add to cart</a> <a href="#quick-view"
+                              class="ci-cart font-size-sm mr-1"></i>Add to cart</a> <a href="#quick-view"
                             rel="nofollow" data-product_id="1531" class="nav-link-style font-size-ms product_quick_view"
                             data-toggle="modal" data-target="#quick-view" tabindex="0">
-                            <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
+                            <i class="ci-eye align-middle mr-1"></i> Quick View </a> </div>
                       </div>
                       <hr class="d-sm-none">
                     </div>
@@ -536,11 +543,11 @@
                                 class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
                                 data-product_id="1531" data-product_sku="" aria-label="Add “Test” to your cart"
                                 rel="nofollow" data-toggle="toast" data-target="#cart-toast" tabindex="0"><i
-                                  class="czi-cart font-size-sm mr-1"></i>Add to cart</a> <a href="#quick-view"
+                                  class="ci-cart font-size-sm mr-1"></i>Add to cart</a> <a href="#quick-view"
                                 rel="nofollow" data-product_id="1531"
                                 class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
                                 data-target="#quick-view" tabindex="0">
-                                <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
+                                <i class="ci-eye align-middle mr-1"></i> Quick View </a> </div>
                           </div>
                         </div>
                       </div>
@@ -580,10 +587,10 @@
                             class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
                             data-product_id="1514" data-product_sku="" aria-label="Add “test” to your cart"
                             rel="nofollow" data-toggle="toast" data-target="#cart-toast" tabindex="0"><i
-                              class="czi-cart font-size-sm mr-1"></i>Add to cart</a> <a href="#quick-view"
+                              class="ci-cart font-size-sm mr-1"></i>Add to cart</a> <a href="#quick-view"
                             rel="nofollow" data-product_id="1514" class="nav-link-style font-size-ms product_quick_view"
                             data-toggle="modal" data-target="#quick-view" tabindex="0">
-                            <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
+                            <i class="ci-eye align-middle mr-1"></i> Quick View </a> </div>
                       </div>
                       <hr class="d-sm-none">
                     </div>
@@ -613,11 +620,11 @@
                                 class="btn btn-primary btn-sm mb-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
                                 data-product_id="1514" data-product_sku="" aria-label="Add “test” to your cart"
                                 rel="nofollow" data-toggle="toast" data-target="#cart-toast" tabindex="0"><i
-                                  class="czi-cart font-size-sm mr-1"></i>Add to cart</a> <a href="#quick-view"
+                                  class="ci-cart font-size-sm mr-1"></i>Add to cart</a> <a href="#quick-view"
                                 rel="nofollow" data-product_id="1514"
                                 class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
                                 data-target="#quick-view" tabindex="0">
-                                <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
+                                <i class="ci-eye align-middle mr-1"></i> Quick View </a> </div>
                           </div>
                         </div>
                       </div>
@@ -654,7 +661,7 @@
                             data-target="#cart-toast" tabindex="0">Read more</a> <a href="#quick-view" rel="nofollow"
                             data-product_id="1546" class="nav-link-style font-size-ms product_quick_view"
                             data-toggle="modal" data-target="#quick-view" tabindex="0">
-                            <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
+                            <i class="ci-eye align-middle mr-1"></i> Quick View </a> </div>
                       </div>
                       <hr class="d-sm-none">
                     </div>
@@ -682,7 +689,7 @@
                                 href="#quick-view" rel="nofollow" data-product_id="1546"
                                 class="nav-link-style font-size-ms product_quick_view" data-toggle="modal"
                                 data-target="#quick-view" tabindex="0">
-                                <i class="czi-eye align-middle mr-1"></i> Quick View </a> </div>
+                                <i class="ci-eye align-middle mr-1"></i> Quick View </a> </div>
                           </div>
                         </div>
                       </div>

@@ -1,0 +1,105 @@
+/*! CSS Used from: http://s603556811.onlinehome.fr/wp-includes/css/dist/block-library/style.min.css?ver=5.9.3 ; media=all */
+@media all{
+	h2,h3{overflow-wrap:break-word;}
+	p{overflow-wrap:break-word;}
+	}
+	/*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/plugins/dokan-lite/assets/css/style.css?ver=1638749855 ; media=all */
+	@media all{
+	.dokan-alert{padding:15px;margin-bottom:20px;border:1px solid transparent;border-radius:4px;}
+	.dokan-alert-info{background-color:#d9edf7;border-color:#bce8f1;color:#31708f;}
+	.dokan-panel{margin-bottom:20px;background-color:#fff;border:1px solid transparent;border-radius:4px;-webkit-box-shadow:0 1px 1px rgba(0, 0, 0, 0.05);box-shadow:0 1px 1px rgba(0, 0, 0, 0.05);}
+	.dokan-panel-body{padding:15px;}
+	.dokan-panel-default{border-color:#ddd;}
+	.dokan-dashboard .dokan-dashboard-wrap *{box-sizing:border-box;}
+	}
+	/*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/style.css?ver=1.0.5 ; media=all */
+	@media all{
+	*,*::before,*::after{box-sizing:border-box;}
+	h2,h3{margin-top:0;margin-bottom:0.75rem;}
+	p{margin-top:0;margin-bottom:1rem;}
+	small{font-size:80%;}
+	a{color:#fe696a;text-decoration:none;background-color:transparent;}
+	a:hover{color:#fe3638;text-decoration:none;}
+	table{border-collapse:collapse;}
+	h2,h3,.h2,.h3{margin-bottom:0.75rem;font-weight:500;line-height:1.2;color:#373f50;}
+	h2,.h2{font-size:2rem;}
+	h3,.h3{font-size:1.75rem;}
+	small{font-size:80%;font-weight:400;}
+	.row{display:flex;flex-wrap:wrap;margin-right:-15px;margin-left:-15px;}
+	.col-sm-6,.col-sm-12,.col-md-4,.col-lg-4,.col-lg-8{position:relative;width:100%;padding-right:15px;padding-left:15px;}
+	@media (min-width: 576px){
+	.col-sm-6{flex:0 0 50%;max-width:50%;}
+	.col-sm-12{flex:0 0 100%;max-width:100%;}
+	}
+	@media (min-width: 768px){
+	.col-md-4{flex:0 0 33.3333333333%;max-width:33.3333333333%;}
+	}
+	@media (min-width: 992px){
+	.col-lg-4{flex:0 0 33.3333333333%;max-width:33.3333333333%;}
+	.col-lg-8{flex:0 0 66.6666666667%;max-width:66.6666666667%;}
+	}
+	table{width:100%;margin-bottom:1rem;color:#4b566b;}
+	table td{padding:0.75rem;vertical-align:top;border-top:1px solid #e3e9ef;}
+	.card{position:relative;display:flex;flex-direction:column;min-width:0;word-wrap:break-word;background-color:#fff;background-clip:border-box;border:1px solid rgba(0, 0, 0, 0.085);border-radius:0.4375rem;}
+	.card-body{flex:1 1 auto;min-height:1px;padding:1.25rem;}
+	.bg-secondary{background-color:#f3f5f9!important;}
+	.border-bottom{border-bottom:1px solid #e3e9ef!important;}
+	.rounded-lg{border-radius:0.4375rem!important;}
+	.d-flex{display:flex!important;}
+	.justify-content-between{justify-content:space-between!important;}
+	.align-items-center{align-items:center!important;}
+	.h-100{height:100%!important;}
+	.mb-0{margin-bottom:0!important;}
+	.mb-2{margin-bottom:0.5rem!important;}
+	.mb-4{margin-bottom:1.5rem!important;}
+	.pt-2,.py-2{padding-top:0.5rem!important;}
+	.px-2{padding-right:0.5rem!important;}
+	.py-2{padding-bottom:0.5rem!important;}
+	.px-2{padding-left:0.5rem!important;}
+	.pb-3{padding-bottom:1rem!important;}
+	.p-4{padding:1.5rem!important;}
+	.px-4{padding-right:1.5rem!important;}
+	.px-4{padding-left:1.5rem!important;}
+	.mx-n2{margin-right:-0.5rem!important;}
+	.mx-n2{margin-left:-0.5rem!important;}
+	@media (min-width: 992px){
+	.pl-lg-0{padding-left:0!important;}
+	}
+	@media (min-width: 1280px){
+	.pr-xl-5{padding-right:3rem!important;}
+	}
+	.text-center{text-align:center!important;}
+	@media (min-width: 576px){
+	.text-sm-left{text-align:left!important;}
+	}
+	.font-weight-normal{font-weight:400!important;}
+	.text-muted{color:#7d879c!important;}
+	html *{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+	a:focus{outline:none;}
+	a{transition:color 0.25s ease-in-out;}
+	::selection{background:rgba(78, 84, 200, 0.15);}
+	::-moz-selection{background:rgba(78, 84, 200, 0.15);}
+	small{font-weight:inherit;}
+	.card *{min-height:.01px;}
+	.bg-secondary{background-color:#f6f9fc!important;}
+	.font-size-sm{font-size:0.875rem!important;}
+	.font-size-ms{font-size:0.8125rem!important;}
+	.font-size-xs{font-size:0.75rem!important;}
+	.rounded-lg{border-radius:0.4375rem!important;}
+	*{word-break:break-word;}
+	table{margin:0 0 1.5em;}
+	@media (max-width: 767.98px){
+	.dokan-dashboard table > tbody tr td{display:block;}
+	}
+	}
+	/*! CSS Used from: Embedded */
+	a{color:#dea249;}
+	a:hover{color:#d4983f;}
+	/*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/plugins/dokan-pro/assets/css/dokan-pro.min.css?ver=3.3.9 ; media=all */
+	@media all{
+	.dokan-progress{background-color:#f5f5f5;border-radius:5px;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);box-shadow:inset 0 1px 2px rgba(0,0,0,.1);height:20px;margin-bottom:20px;overflow:hidden;}
+	.dokan-progress-bar{background-color:#337ab7;-webkit-box-shadow:inset 0 -1px 0 rgba(0,0,0,.15);box-shadow:inset 0 -1px 0 rgba(0,0,0,.15);color:#fff;float:left;font-size:12px;height:100%;line-height:20px;text-align:center;-webkit-transition:width .6s ease;transition:width .6s ease;width:0;}
+	.dokan-progress-bar-striped{background-image:-webkit-linear-gradient(45deg,hsla(0,0%,100%,.15) 25%,transparent 0,transparent 50%,hsla(0,0%,100%,.15) 0,hsla(0,0%,100%,.15) 75%,transparent 0,transparent);background-image:linear-gradient(45deg,hsla(0,0%,100%,.15) 25%,transparent 0,transparent 50%,hsla(0,0%,100%,.15) 0,hsla(0,0%,100%,.15) 75%,transparent 0,transparent);background-size:40px 40px;}
+	.dokan-progress-bar-info{background-color:#5bc0de;}
+	.dokan-profile-completeness .dokan-alert{margin-bottom:0;}
+	}

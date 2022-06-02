@@ -9,6 +9,8 @@ import { HandheldToolbarComponent } from './components/handheld-toolbar/handheld
 import { CartWidgetComponent } from './components/cart-widget/cart-widget.component';
 import { DrawerComponent } from './components/drawer/drawer.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { ReactiveComponentModule } from '@ngrx/component';
+import { NgPipesModule } from 'ngx-pipes';
 
 
 @NgModule({
@@ -24,6 +26,8 @@ import { LayoutModule } from '@angular/cdk/layout';
   imports: [
     CommonModule,
     RouterModule,
+    NgPipesModule,
+    ReactiveComponentModule,
     LayoutModule
   ],
   exports: [

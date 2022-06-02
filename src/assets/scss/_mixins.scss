@@ -1,13 +1,32 @@
-@mixin setBgColorAndHover($baseColor) {
-	background-color: $baseColor;
+@mixin setTextColorAndHover($baseColor) {
+	color: $baseColor;
+	
 	&:hover {
-		background-color: darken($baseColor, 5%);
+		color: darken($baseColor, 10%);
+	}
+	&:active {
+		color: darken($baseColor, 15%);
 	}
 }
 
 @mixin setBorderColorAndHover($baseColor) {
 	border-color: $baseColor;
+	
 	&:hover {
-		border-color: darken($baseColor, 5%);
+		border-color: darken($baseColor, 10%);
+	}
+	&:active {
+		border-color: darken($baseColor, 15%);
+	}
+}
+
+@mixin setBgColorAndHover($baseColor) {
+	background-color: $baseColor;
+	
+	&:hover {
+		background-color: darken($baseColor, 3%);
+	}
+	&:active {
+		background-color: darken($baseColor, 5%);
 	}
 }

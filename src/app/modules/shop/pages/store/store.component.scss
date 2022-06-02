@@ -206,32 +206,6 @@
   }
 }
 
-/*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/css/cartzilla-icons.css?ver=1.0.5 ; media=screen */
-@media screen {
-  [class^="czi-"] {
-    display: inline-block;
-    font-family: 'cartzilla-icons' !important;
-    speak: never;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-  }
-
-  .czi-cart::before {
-    content: "\e91a";
-  }
-
-  .czi-eye::before {
-    content: "\e937";
-  }
-
-  .czi-phone::before {
-    content: "\e965";
-  }
-}
-
 /*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/style.css?ver=1.0.5 ; media=all */
 @media all {
 

@@ -1,0 +1,21 @@
+/*! CSS Used from: http://s603556811.onlinehome.fr/wp-includes/css/dist/block-library/style.min.css?ver=5.9.2 ; media=all */
+@media all{
+	p{overflow-wrap:break-word;}
+	}
+	/*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/plugins/dokan-lite/assets/css/style.css?ver=1638749855 ; media=all */
+	@media all{
+	.dokan-error{padding:15px 15px 15px 50px;margin:5px 0 15px 0;position:relative;background:#fff;border-bottom:1px solid #EDEDED;border-left:1px solid #EDEDED;border-right:1px solid #EDEDED;-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;}
+	.dokan-error:before{position:absolute;top:0;left:15px;padding-top:15px;font-family:sans-serif;color:#fff;width:20px;border-bottom-left-radius:4px;border-bottom-right-radius:4px;text-align:center;}
+	.dokan-error{border-top:3px solid #b81c23;}
+	.dokan-error:before{background-color:#b81c23;content:'\00d7';font-weight:700;}
+	#dokan-seller-listing-wrap .seller-listing-content .dokan-error{margin:15px;}
+	}
+	/*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/style.css?ver=1.0.5 ; media=all */
+	@media all{
+	*,*::before,*::after{box-sizing:border-box;}
+	p{margin-top:0;margin-bottom:1rem;}
+	html *{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+	::selection{background:rgba(78, 84, 200, 0.15);}
+	::-moz-selection{background:rgba(78, 84, 200, 0.15);}
+	*{word-break:break-word;}
+	}

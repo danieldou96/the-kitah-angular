@@ -125,17 +125,6 @@
     white-space: nowrap;
   }
 
-  .select2-hidden-accessible {
-    border: 0 !important;
-    clip: rect(0 0 0 0) !important;
-    height: 1px !important;
-    margin: -1px !important;
-    overflow: hidden !important;
-    padding: 0 !important;
-    position: absolute !important;
-    width: 1px !important;
-  }
-
   .select2-container--default .select2-selection--single {
     background-color: #fff;
     border: 1px solid #aaa;
@@ -179,24 +168,6 @@
   button::-moz-focus-inner {
     padding: 0;
     border: 0;
-  }
-}
-
-/*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/css/cartzilla-icons.css?ver=1.0.5 ; media=screen */
-@media screen {
-  [class^="czi-"] {
-    display: inline-block;
-    font-family: 'cartzilla-icons' !important;
-    speak: never;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-  }
-
-  .czi-arrow-left::before {
-    content: "\e908";
   }
 }
 
@@ -936,9 +907,6 @@
   }
 
   .widget {
-    margin-bottom: 30px;
-    padding-bottom: 30px;
-    border-bottom: 1px solid #e3e9ef;
     font-size: 0.875rem;
   }
 
@@ -1063,7 +1031,7 @@
   }
 
   .widget {
-    margin: 0 0 1.5em;
+    padding-bottom: 0.6666666667rem;
   }
 
   .select2.select2-container .select2-selection--single {
@@ -1155,4 +1123,34 @@ select:focus,
   src: url("http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/fonts/cartzilla-icons.ttf?v4xwry") format("truetype"), url("http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/fonts/cartzilla-icons.woff?v4xwry") format("woff"), url("http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/fonts/cartzilla-icons.svg?v4xwry#cartzilla-icons") format("svg");
   font-weight: normal;
   font-style: normal;
+}
+
+
+.woocommerce-input-wrapper.stripe {
+  display: block;
+  height: calc(1.5em + 1.25rem + 2px);
+  padding: 0.625rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #4b566b;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #dae1e7;
+  border-radius: 0.3125rem;
+  box-shadow: 0 0 0 0 transparent;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+	font-family: inherit;
+
+	&::selection {
+		background: rgba(78, 84, 200, 0.15);
+	}
+
+	&:focus {
+		border-color: rgba(222, 162, 73, 0.3);
+		box-shadow: 0 0 0 0 transparent, 0 0.375rem 0.625rem -0.3125rem rgb(222 162 73 / 15%);
+		color: #4b566b;
+  	background-color: #fff;
+		outline: 0;
+	}
 }

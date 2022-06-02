@@ -1,0 +1,2 @@
+<h2 class="title">Edit product: {{ product.name | titlecase }}</h2>
+<app-product-form (submitFormEvent)="updateProduct($event)" [product]="product"></app-product-form>
