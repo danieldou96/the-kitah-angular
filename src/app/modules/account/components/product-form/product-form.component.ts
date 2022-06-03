@@ -54,7 +54,7 @@ export class ProductFormComponent implements OnInit {
       title: new FormControl(this.product?.name ?? null, [Validators.required]),
       price: new FormControl(this.product?.price ?? null, [Validators.required]),
       file: new FormControl(this.product?.file ?? null, [Validators.required]),
-      previewsType: new FormControl(this.product?.previewsType ?? 'auto', [Validators.required]),
+      previewsType: new FormControl(this.product?.previewsType ? 'later' : 'auto', [Validators.required]),
       previews: new FormControl(this.product?.previewsType == 'auto' ? [
         this.product.mainPicture,
         ...this.product?.gallery
@@ -129,11 +129,11 @@ export class ProductFormComponent implements OnInit {
       file: this.productFile,
       previewsType: this.form.controls['previewsType'].value,
       ...(this.form.controls['previewsType'].value != 'later' && {
-        mainPicture: this.form.controls['uploadedPreview1'].value ?? this.generatedPreviewImages[0],
+        mainPicture: this.form.controls['uploadedPreview1'].value ?? this.generatedPreviewImages[0] ?? null,
         gallery: ([
-          this.form.controls['uploadedPreview2'].value ?? this.generatedPreviewImages[1],
-          this.form.controls['uploadedPreview3'].value ?? this.generatedPreviewImages[2],
-          this.form.controls['uploadedPreview4'].value ?? this.generatedPreviewImages[3]
+          this.form.controls['uploadedPreview2'].value ?? this.generatedPreviewImages[1] ?? null,
+          this.form.controls['uploadedPreview3'].value ?? this.generatedPreviewImages[2] ?? null,
+          this.form.controls['uploadedPreview4'].value ?? this.generatedPreviewImages[3] ?? null
         ] as IFile[]).filter(g => g != null && g != undefined)
       }),
       description: this.form.controls['description'].value,
