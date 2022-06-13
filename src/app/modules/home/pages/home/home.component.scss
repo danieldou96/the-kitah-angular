@@ -502,16 +502,6 @@ a:hover {
   margin-bottom: 33px !important;
 }
 
-/*! CSS Used fontfaces */
-@font-face {
-  font-family: "djb-chalk-it-up";
-  src: url("http://s603556811.onlinehome.fr/wp-content/uploads/useanyfont/4898DJB-Chalk-It-Up.woff2")
-      format("woff2"),
-    url("http://s603556811.onlinehome.fr/wp-content/uploads/useanyfont/4898DJB-Chalk-It-Up.woff")
-      format("woff");
-  font-display: auto;
-}
-
 ::ng-deep {
   .swiper-pagination-bullet.swiper-pagination-bullet-active.swiper-pagination-bullet-active-main {
     background: #dea249;

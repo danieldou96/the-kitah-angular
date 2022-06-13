@@ -40,8 +40,6 @@ export class RecentlyViewedProductService {
             return of(JSON.parse(this.localStorage.getItem('recentlyViewedProducts') ?? '[]') as IRecentlyViewedProductItem[]);
           }
         })
-      ).pipe(
-        tap(t=>console.log(t)),
       )
     ]).pipe(
       scan((acc: IRecentlyViewedProductItem[], [item, initialValue]: [(IRecentlyViewedProductItem | null), IRecentlyViewedProductItem[]]) => {
@@ -53,7 +51,6 @@ export class RecentlyViewedProductService {
         // Set inital value from db/localStorage
         return [...initialValue];
       }, []),
-      tap(t=>console.log(t)),
       withLatestFrom(this.authService.loggedInUser$, this._recentlyViewedProductsAdd$),
       tap(([newRecentlyViewedProductsValue, loggedInUser, item]) => {
         if (item === null) {

@@ -2087,21 +2087,6 @@ select:focus,
   border: 1px solid #4b566b;
 }
 
-/*! CSS Used fontfaces */
-@font-face {
-  font-family: "wcpf";
-  src: url("http://s603556811.onlinehome.fr/wp-content/plugins/woocommerce-product-filters/assets/fonts/wcpf/wcpf.eot");
-  src: url("http://s603556811.onlinehome.fr/wp-content/plugins/woocommerce-product-filters/assets/fonts/wcpf/wcpf.eot#iefix") format("embedded-opentype"), url("http://s603556811.onlinehome.fr/wp-content/plugins/woocommerce-product-filters/assets/fonts/wcpf/wcpf.woff") format("woff"), url("http://s603556811.onlinehome.fr/wp-content/plugins/woocommerce-product-filters/assets/fonts/wcpf/wcpf.ttf") format("truetype"), url("http://s603556811.onlinehome.fr/wp-content/plugins/woocommerce-product-filters/assets/fonts/wcpf/wcpf.svg#wcpf") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'cartzilla-icons';
-  src: url("http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/fonts/cartzilla-icons.ttf?v4xwry") format("truetype"), url("http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/fonts/cartzilla-icons.woff?v4xwry") format("woff"), url("http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/fonts/cartzilla-icons.svg?v4xwry#cartzilla-icons") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
   /*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/style.css?ver=1.0.5 ; media=all */
   @media all{
   .mr-3{margin-right:1rem!important;}
@@ -2118,8 +2103,6 @@ select:focus,
   /*! CSS Used from: Embedded */
   .nav-link-style.nav-link-light{color:#4b566b!important;}
   /*! CSS Used fontfaces */
-  @font-face{font-family:'cartzilla-icons';src:url("http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/fonts/cartzilla-icons.ttf?v4xwry") format("truetype"), url("http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/fonts/cartzilla-icons.woff?v4xwry") format("woff"), url("http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/fonts/cartzilla-icons.svg?v4xwry#cartzilla-icons") format("svg");font-weight:normal;font-style:normal;}
-
 
   .list-view {
 
