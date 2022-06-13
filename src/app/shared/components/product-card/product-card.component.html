@@ -8,7 +8,7 @@
 					width="350"
 					height="263"
 					class="woocommerce-placeholder wp-post-image"
-					[src]="product.mainPicture ?? 'http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png'"
+					[src]="product.mainPicture ?? 'assets/img/product-placeholder.png'"
 					alt="Placeholder"
 					loading="lazy">
 			</a>
@@ -51,7 +51,7 @@
 				<img
 					width="350"
 					height="263"
-					[src]="product.mainPicture?.url ?? 'http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png'"
+					[src]="product.mainPicture?.url ?? 'assets/img/product-placeholder.png'"
 					class="woocommerce-placeholder wp-post-image"
 					alt="Placeholder"
 					loading="lazy">
@@ -59,7 +59,7 @@
 			<div class="card-body">
 				<div class="d-flex flex-wrap justify-content-between align-items-start pb-2 product-category-list">
 					<div class="text-muted font-size-xs mr-1">
-						<span class="cartzilla-store-name">
+						<span class="cartzilla-store-name" *ngIf="product.store">
 							by <a class="product-meta font-weight-medium" [routerLink]="['/store/' + product.store?.url]">
 								{{ product.store?.name | titlecase }}
 							</a>
@@ -89,7 +89,7 @@
 						width="350"
 						height="263"
             class="woocommerce-placeholder wp-post-image"
-            [src]="product.mainPicture ?? 'http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png'"
+            [src]="product.mainPicture ?? 'assets/img/product-placeholder.png'"
 						alt="Placeholder"
 						loading="lazy">
 				</a>

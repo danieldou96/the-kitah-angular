@@ -124,7 +124,7 @@
                     <li *ngFor="let item of cartItems" class="cart_item media align-items-center">
                       <a [routerLink]="['/product/' + item.product.id]" class="widget-product-thumb"><img width="350"
                           height="263"
-                          [src]="item.product.mainPicture?.url ?? 'http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png'"
+                          [src]="item.product.mainPicture?.url ?? 'assets/img/product-placeholder.png'"
                           class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy"></a>
                       <div class="media-body">
                         <h6 class="widget-product-title">

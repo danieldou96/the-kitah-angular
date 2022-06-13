@@ -2,10 +2,10 @@
   <nav class="navbar">
     <div class="container">
       <a [routerLink]="['/']" class="navbar__logo-desktop">
-        <img src="http://s603556811.onlinehome.fr/wp-content/uploads/2021/10/cropped-cropped-the-real-logo-e1635647605497.png">
+        <img src="assets/img/the-kitah-logo.png">
       </a>
       <a [routerLink]="['/']" class="navbar__logo-mobile">
-        <img src="http://s603556811.onlinehome.fr/wp-content/uploads/2021/11/The-Kitah-Favicon-e1636609412871.png">
+        <img src="assets/img/the-kitah-favicon-logo.png">
       </a>
       <div class="navbar__toolbar">
         <div class="navbar__toggler">
@@ -20,7 +20,7 @@
           </a>
           <div *ngIf="loggedInUser" class="navbar__user-dropdown">
             <a [routerLink]="['/my-account']" class="navbar__user-avatar">
-              <img src="http://2.gravatar.com/avatar/e8963eb2c3b519d5ed88a6ea49bd05bf?s=96&d=mm&r=g">
+              <img src="https://2.gravatar.com/avatar/e8963eb2c3b519d5ed88a6ea49bd05bf?s=96&d=mm&r=g">
             </a>
             <a [routerLink]="['/my-account']" class="navbar__user-infos">
               <ng-container *ngIf="loggedInUser.role == 'vendor' || loggedInUser.role == 'admin'">
@@ -42,7 +42,7 @@
                 <a><i class="ci-settings"></i> Settings</a>
               </li>
               <li class="user-dropdown__item">
-                <a><i class="ci-basket"></i> Orders
+                <a [routerLink]="['/my-account/orders/']"><i class="ci-basket"></i> Orders
                 </a>
               </li>
               <li class="user-dropdown__divider"></li>
@@ -115,7 +115,7 @@
                     <button class="cart__remove-item" (click)="cartService.removeCartItem(item)">×</button>
                     <div class="cart__item">
                       <a class="cart__item-image" [routerLink]="['/product/' + item.product.id]">
-                        <img width="350" height="263" [src]="item.product.mainPicture?.url ?? 'http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png'" loading="lazy">
+                        <img width="350" height="263" [src]="item.product.mainPicture?.url ?? 'assets/img/product-placeholder.png'" loading="lazy">
                       </a>
                       <div class="cart__item-details">
                         <div class="cart__item-title" [routerLink]="['/product/' + item.product.id]">{{ item.product.name }}</div>

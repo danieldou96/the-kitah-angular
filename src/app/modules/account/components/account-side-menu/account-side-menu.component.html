@@ -4,10 +4,10 @@
 			<div class="px-4 mb-4">
 				<div class="media align-items-center">
 					<div class="img-thumbnail rounded-circle position-relative" style="width: 6.375rem;">
-						<img alt="testttt" src="http://0.gravatar.com/avatar/6b74d41797646fc0de0653f83c8f5908?s=90&amp;d=mm&amp;r=g"
-							srcset="http://0.gravatar.com/avatar/6b74d41797646fc0de0653f83c8f5908?s=180&amp;d=mm&amp;r=g 2x"
+						<img alt="testttt" src="https://0.gravatar.com/avatar/6b74d41797646fc0de0653f83c8f5908?s=90&amp;d=mm&amp;r=g"
+							srcset="https://0.gravatar.com/avatar/6b74d41797646fc0de0653f83c8f5908?s=180&amp;d=mm&amp;r=g 2x"
 							class="avatar avatar-90 photo rounded-circle" height="90" width="90"
-							gurl="http://0.gravatar.com/avatar/6b74d41797646fc0de0653f83c8f5908?s=90&amp;d=mm&amp;r=g" loading="lazy">
+							gurl="https://0.gravatar.com/avatar/6b74d41797646fc0de0653f83c8f5908?s=90&amp;d=mm&amp;r=g" loading="lazy">
 					</div>
 					<div class="media-body pl-3">
 						<h3 class="font-size-base mb-0">{{ loggedInUser?.username }}</h3>
@@ -78,10 +78,10 @@
 		    </div>
 		    <ul class="dokan-dashboard-menu list-unstyled mb-0">
 		      <li class="border-bottom mb-0 settings"><a
-		          href="http://s603556811.onlinehome.fr/dashboard/settings/store/"
+							[routerLink]="['/dashboard/settings']"
 		          class="nav-link-style d-flex align-items-center px-4 py-3"><i class="ci-settings opacity-60 mr-2"></i>
 		          Settings</a></li>
-		      <li class="border-bottom mb-0 orders"><a href="http://s603556811.onlinehome.fr/dashboard/orders/"
+		      <li class="border-bottom mb-0 orders"><a [routerLink]="['/my-account/orders/']"
 		          class="nav-link-style d-flex align-items-center px-4 py-3"><i class="ci-basket opacity-60 mr-2"></i>
 		          Purchases</a></li>
 		    </ul>

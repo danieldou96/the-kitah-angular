@@ -6,9 +6,9 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./page-title.component.scss']
 })
 export class PageTitleComponent {
-  @Input() title!: string;
-  @Input() store!: boolean;
-  @Input() avatar!: string;
-  @Input() memberSince!: Date;
-  @Input() sales!: number;
+  @Input() title?: string;
+  @Input() store?: boolean;
+  @Input() avatar?: string;
+  @Input() memberSince?: Date;
+  @Input() sales?: number;
 }

@@ -1,209 +1,214 @@
-<app-page-title [title]="product.name | titlecase"></app-page-title>
-<div class="product">
-  <div class="container">
-    <div class="product-summary bg-light box-shadow-lg rounded-lg overflow-hidden mb-3">
-      <div class="row">
-        <section class="col-lg-8 pt-2 pt-lg-4 pb-4 mb-lg-3">
-          <div class="pt-2 px-4 pr-lg-0 pl-xl-5 cz-gallery">
-            <div class="swiper-container" *ngIf="galleryItems.length > 0">
-              <swiper [style.--swiper-navigation-color]="'#fff'" [style.--swiper-pagination-color]="'#fff'"
-                [style.--swiper-navigation-size]="'38px'" [spaceBetween]="10" [navigation]="true"
-                [pagination]="{	type: 'fraction' }" [lazy]="true" [zoom]="true" [loop]="true"
-                [thumbs]="{ swiper: thumbsSwiper }" [keyboard]="{ enabled: true	}" class="photoGallery">
-                <ng-template swiperSlide *ngFor="let item of galleryItems">
-                  <div class="swiper-zoom-container">
-                    <img [attr.data-src]="item" class="swiper-lazy" />
-                  </div>
-                </ng-template>
-              </swiper>
-              <swiper (swiper)="thumbsSwiper = $event" [spaceBetween]="5" [slidesPerView]="5" [freeMode]="true"
-                [watchSlidesProgress]="true" class="photoThumbsGallery">
-                <ng-template swiperSlide *ngFor="let item of galleryItems">
-                  <img [src]="item" />
-                </ng-template>
-              </swiper>
-            </div>
-            <img *ngIf="galleryItems.length == 0" src="http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-600x600.png">
-          </div>
-        </section>
-        <aside class="col-lg-4">
-          <div class="cz-sidebar-static h-100 ml-auto border-left">
-            <div class="summary entry-summary">
-              <div class="position-relative d-flex align-items-center">
-                <div class="price mb-3">
-                  <span class="woocommerce-Price-amount amount">{{ product.price | currency }}</span>
-                </div>
-              </div>
-              <form class="cart">
-                <div class="form-group d-flex align-items-center py-2">
-                  <!-- <div class="quantity">
-                    <label class="screen-reader-text">Test quantity</label>
-                    <input type="number" class="form-control" step="1" min="1" max="" value="1" title="Qty" size="4" inputmode="numeric">
-                  </div> -->
-                  <button type="submit" (click)="cartService.addCartItem({ quantity: 1, product })" class="classic-button">
-                    <i class="ci-cart font-size-lg mr-2"></i> Add to cart </button>
-                </div>
-              </form>
-              <!--<div class="yith-wcwl-add-to-wishlist add-to-wishlist-1372  wishlist-fragment on-first-load">
-                <div class="yith-wcwl-add-button">
-                  <a href="?add_to_wishlist=1372" rel="nofollow" class="add_to_wishlist single_add_to_wishlist">
-                    <i class="yith-wcwl-icon fa fa-heart-o"></i> <span class="wishlist-text">Add to wishlist</span>
-                  </a>
-                </div>
-              </div>-->
-              <div class="bg-secondary rounded p-3 mb-2">
-                <a class="media align-items-center" [routerLink]="['/store/' + product.store?.url]">
-                  <img class="rounded-circle" width="50"
-                    src="http://0.gravatar.com/avatar/6d29517ae3ba7c92749e62bd79530cca?s=96&amp;d=mm&amp;r=g"
-                    alt="Test">
-                  <div class="media-body pl-2">
-                    <span class="font-size-ms text-muted">Created by</span>
-                    <h6 class="font-size-sm mb-0">{{ product.store?.name }}</h6>
-                  </div>
-                </a>
-              </div>
-              <div class="bg-secondary rounded p-3 mb-2" *ngIf="product.sales! > 0">
-                <i class="ci-download h5 text-muted align-middle mb-0 mt-n1 mr-2"></i>
-                <span class="d-inline-block h6 mb-0 mr-1">{{ product.sales }}</span><span
-                  class="font-size-sm">Sales</span>
-              </div>
-              <ul class="list-unstyled font-size-sm product-meta-items">
-                <li class="d-flex justify-content-between mb-3 pb-3 border-bottom">
-                  <span class="text-dark font-weight-medium">Last update</span>
-                  <span class="text-muted">{{ product.updatedAt | date }}</span>
-                </li>
-                <li class="d-flex justify-content-between mb-3 pb-3 border-bottom">
-                  <span class="text-dark font-weight-medium">Released</span>
-                  <span class="text-muted">{{ product.createdAt | date }}</span>
-                </li>
-                <li class="d-flex justify-content-between mb-3 pb-3 border-bottom">
-                  <span class="text-dark font-weight-medium">Grades</span>
-                  <span class="text-muted">
-                    <ng-container *ngFor="let grade of product.grades; let first = first; let last = last;">
-                      <a rel="tag">{{ grade.name | titlecase }}</a>
-                      <ng-container *ngIf="!last">, </ng-container>
-                    </ng-container>
-                  </span>
-                </li>
-                <li class="d-flex justify-content-between mb-3 pb-3 border-bottom">
-                  <span class="text-dark font-weight-medium">Subjects</span>
-                  <span class="text-muted">
-                    <ng-container *ngFor="let subject of product.subjects; let first = first; let last = last;">
-                      <a rel="tag">{{ subject.name | titlecase }}</a>
-                      <ng-container *ngIf="!last">, </ng-container>
-                    </ng-container>
-                  </span>
-                </li>
-                <li class="d-flex justify-content-between mb-3 pb-3 border-bottom">
-                  <span class="text-dark font-weight-medium">Resource types</span>
-                  <span class="text-muted">
-                    <ng-container
-                      *ngFor="let resourceType of product.resourceTypes; let first = first; let last = last;">
-                      <a rel="tag">{{ resourceType.name | titlecase }}</a>
-                      <ng-container *ngIf="!last">, </ng-container>
-                    </ng-container>
-                  </span>
-                </li>
-              </ul>
-              <style>
-                .dokan-report-abuse-button {
-                  display: inline-block;
-                  color: inherit;
-                  margin-top: 5px;
-                  font-size: 0.8em;
-                }
-
-                .dokan-report-abuse-button.working {
-                  opacity: 0.8;
-                }
-
-              </style>
-
-              <!--<a href="#report-abuse" class="dokan-report-abuse-button">
-                <i class="fa fa-flag"></i> Report Abuse</a>-->
-            </div>
-
-          </div>
-        </aside>
-      </div>
-    </div>
-  </div>
-  <div class="container">
-    <mat-tab-group animationDuration="0ms" [disableRipple]="true">
-      <mat-tab label="Description">
-        <div [innerHTML]="product.description"></div>
-      </mat-tab>
-      <mat-tab [label]="'Reviews (' + product.reviews?.length + ')'">
-        <div class="cartzilla-tab-content">
-          <div class="tab-content pt-2">
-            <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--reviews panel entry-content wc-tab m-0">
-              <div class="single-product-review ">
-                <div class="woocommerce-Reviews container pt-md-2">
-                  <div class="row">
-                    <div class="col-md-7">
-                      <div>
-                        <p class="woocommerce-noreviews">There are no reviews yet.</p>
+<ng-container *ngrxLet="product$ as product">
+  <ng-container *ngrxLet="galleryItems$ as galleryItems">
+    <app-page-title [title]="product.name | titlecase"></app-page-title>
+    <div class="product">
+      <div class="container">
+        <div class="product-summary bg-light box-shadow-lg rounded-lg overflow-hidden mb-3">
+          <div class="row">
+            <section class="col-lg-8 pt-2 pt-lg-4 pb-4 mb-lg-3">
+              <div class="pt-2 px-4 pr-lg-0 pl-xl-5 cz-gallery">
+                <div class="swiper-container" *ngIf="galleryItems.length > 1">
+                  <swiper [style.--swiper-navigation-color]="'#fff'" [style.--swiper-pagination-color]="'#fff'"
+                    [style.--swiper-navigation-size]="'38px'" [spaceBetween]="10" [navigation]="true"
+                    [pagination]="{	type: 'fraction' }" [lazy]="true" [zoom]="true" [loop]="true"
+                    [thumbs]="{ swiper: thumbsSwiper }" [keyboard]="{ enabled: true	}" class="photoGallery">
+                    <ng-template swiperSlide *ngFor="let item of galleryItems">
+                      <div class="swiper-zoom-container">
+                        <img [attr.data-src]="item" class="swiper-lazy" />
                       </div>
-                    </div>
-                    <div class="col-md-5 mt-2 pt-4 mt-md-0 pt-md-0">
-                      <div class="bg-secondary py-grid-gutter px-grid-gutter rounded-lg">
-                        <div class="comment-respond">
-                          <h3 class="h4 pb-2 comment-reply-title">Write a review <small><a
-                                rel="nofollow" href="/product/gg/#respond"
-                                style="display:none;">Cancel reply</a></small></h3>
-                          <form class="comment-form">
-                            <p class="font-size-sm text-muted">Your email address will not be published. Required fields
-                              are marked <span class="text-danger">*</span></p>
-                            <div class="form-group comment-form-rating">
-                              <label>Your rating<span class="text-danger">*</span></label>
-                              <select class="custom-select" required="">
-                                <option value="">Rate…</option>
-                                <option value="5">Perfect</option>
-                                <option value="4">Good</option>
-                                <option value="3">Average</option>
-                                <option value="2">Not that bad</option>
-                                <option value="1">Very poor</option>
-                              </select>
-                            </div>
-                            <div class="form-group comment-form-comment">
-                              <label>Your review<span class="text-danger">*</span></label>
-                              <textarea class="form-control" rows="8" maxlength="65525"></textarea>
-                            </div>
-                            <div class="form-group comment-form-author">
-                              <label>Your name<span class="text-danger">*</span></label>
-                              <input type="text" class="form-control" maxlength="245">
-                            </div>
-                            <div class="form-group comment-form-email">
-                              <label>Your email<span class="text-danger">*</span></label>
-                              <input type="email" class="form-control" maxlength="100">
-                            </div>
-                            <div class="form-group form-submit"><button type="submit" class="classic-button">Submit a
-                                Review</button>
-                            </div>
-                          </form>
-                        </div><!-- #respond -->
-                      </div>
+                    </ng-template>
+                  </swiper>
+                  <swiper (swiper)="thumbsSwiper = $event" [spaceBetween]="5" [slidesPerView]="5" [freeMode]="true"
+                    [watchSlidesProgress]="true" class="photoThumbsGallery">
+                    <ng-template swiperSlide *ngFor="let item of galleryItems">
+                      <img [src]="item" />
+                    </ng-template>
+                  </swiper>
+                </div>
+                <img *ngIf="galleryItems.length == 0" src="assets/img/product-placeholder-large.png">
+                <img *ngIf="galleryItems.length == 1" [src]="product.mainPicture?.url">
+              </div>
+            </section>
+            <aside class="col-lg-4">
+              <div class="cz-sidebar-static h-100 ml-auto border-left">
+                <div class="summary entry-summary">
+                  <div class="position-relative d-flex align-items-center">
+                    <div class="price mb-3">
+                      <span class="woocommerce-Price-amount amount">{{ product.price | currency }}</span>
                     </div>
                   </div>
+                  <form class="cart">
+                    <div class="form-group d-flex align-items-center py-2">
+                      <!-- <div class="quantity">
+                        <label class="screen-reader-text">Test quantity</label>
+                        <input type="number" class="form-control" step="1" min="1" max="" value="1" title="Qty" size="4" inputmode="numeric">
+                      </div> -->
+                      <button type="submit" (click)="cartService.addCartItem({ quantity: 1, product })" class="classic-button">
+                        <i class="ci-cart font-size-lg mr-2"></i> Add to cart </button>
+                    </div>
+                  </form>
+                  <!--<div class="yith-wcwl-add-to-wishlist add-to-wishlist-1372  wishlist-fragment on-first-load">
+                    <div class="yith-wcwl-add-button">
+                      <a href="?add_to_wishlist=1372" rel="nofollow" class="add_to_wishlist single_add_to_wishlist">
+                        <i class="yith-wcwl-icon fa fa-heart-o"></i> <span class="wishlist-text">Add to wishlist</span>
+                      </a>
+                    </div>
+                  </div>-->
+                  <div class="bg-secondary rounded p-3 mb-2">
+                    <a class="media align-items-center" [routerLink]="['/store/' + product.store?.url]">
+                      <img class="rounded-circle" width="50"
+                        src="https://0.gravatar.com/avatar/6d29517ae3ba7c92749e62bd79530cca?s=96&amp;d=mm&amp;r=g"
+                        alt="Test">
+                      <div class="media-body pl-2">
+                        <span class="font-size-ms text-muted">Created by</span>
+                        <h6 class="font-size-sm mb-0">{{ product.store?.name }}</h6>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="bg-secondary rounded p-3 mb-2" *ngIf="product.sales! > 0">
+                    <i class="ci-download h5 text-muted align-middle mb-0 mt-n1 mr-2"></i>
+                    <span class="d-inline-block h6 mb-0 mr-1">{{ product.sales }}</span><span
+                      class="font-size-sm">Sales</span>
+                  </div>
+                  <ul class="list-unstyled font-size-sm product-meta-items">
+                    <li class="d-flex justify-content-between mb-3 pb-3 border-bottom">
+                      <span class="text-dark font-weight-medium">Last update</span>
+                      <span class="text-muted">{{ product.updatedAt | date }}</span>
+                    </li>
+                    <li class="d-flex justify-content-between mb-3 pb-3 border-bottom">
+                      <span class="text-dark font-weight-medium">Released</span>
+                      <span class="text-muted">{{ product.createdAt | date }}</span>
+                    </li>
+                    <li class="d-flex justify-content-between mb-3 pb-3 border-bottom">
+                      <span class="text-dark font-weight-medium">Grades</span>
+                      <span class="text-muted">
+                        <ng-container *ngFor="let grade of product.grades; let first = first; let last = last;">
+                          <a rel="tag">{{ grade.name | titlecase }}</a>
+                          <ng-container *ngIf="!last">, </ng-container>
+                        </ng-container>
+                      </span>
+                    </li>
+                    <li class="d-flex justify-content-between mb-3 pb-3 border-bottom">
+                      <span class="text-dark font-weight-medium">Subjects</span>
+                      <span class="text-muted">
+                        <ng-container *ngFor="let subject of product.subjects; let first = first; let last = last;">
+                          <a rel="tag">{{ subject.name | titlecase }}</a>
+                          <ng-container *ngIf="!last">, </ng-container>
+                        </ng-container>
+                      </span>
+                    </li>
+                    <li class="d-flex justify-content-between mb-3 pb-3 border-bottom">
+                      <span class="text-dark font-weight-medium">Resource types</span>
+                      <span class="text-muted">
+                        <ng-container
+                          *ngFor="let resourceType of product.resourceTypes; let first = first; let last = last;">
+                          <a rel="tag">{{ resourceType.name | titlecase }}</a>
+                          <ng-container *ngIf="!last">, </ng-container>
+                        </ng-container>
+                      </span>
+                    </li>
+                  </ul>
+                  <style>
+                    .dokan-report-abuse-button {
+                      display: inline-block;
+                      color: inherit;
+                      margin-top: 5px;
+                      font-size: 0.8em;
+                    }
 
+                    .dokan-report-abuse-button.working {
+                      opacity: 0.8;
+                    }
 
+                  </style>
+
+                  <!--<a href="#report-abuse" class="dokan-report-abuse-button">
+                    <i class="fa fa-flag"></i> Report Abuse</a>-->
                 </div>
+
               </div>
-            </div>
+            </aside>
           </div>
         </div>
-      </mat-tab>
-      <!--<mat-tab label="More Products">Content 3</mat-tab>-->
-    </mat-tab-group>
-  </div>
-  <section class="related-products">
-    <div class="container mb-4 pb-lg-3">
-      <div class="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-4 mb-4">
-        <h2 class="h3 mb-0 pt-2">Related products</h2>
       </div>
-      <div class="related-products__list">
-        <app-product-card *ngFor="let relatedProduct of product.relatedProducts" [product]="relatedProduct" mode="grid-2"></app-product-card>
+      <div class="container">
+        <mat-tab-group animationDuration="0ms" [disableRipple]="true">
+          <mat-tab label="Description">
+            <div [innerHTML]="product.description"></div>
+          </mat-tab>
+          <mat-tab [label]="'Reviews (' + product.reviews?.length + ')'">
+            <div class="cartzilla-tab-content">
+              <div class="tab-content pt-2">
+                <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--reviews panel entry-content wc-tab m-0">
+                  <div class="single-product-review ">
+                    <div class="woocommerce-Reviews container pt-md-2">
+                      <div class="row">
+                        <div class="col-md-7">
+                          <div>
+                            <p class="woocommerce-noreviews">There are no reviews yet.</p>
+                          </div>
+                        </div>
+                        <div class="col-md-5 mt-2 pt-4 mt-md-0 pt-md-0">
+                          <div class="bg-secondary py-grid-gutter px-grid-gutter rounded-lg">
+                            <div class="comment-respond">
+                              <h3 class="h4 pb-2 comment-reply-title">Write a review <small><a
+                                    rel="nofollow" href="/product/gg/#respond"
+                                    style="display:none;">Cancel reply</a></small></h3>
+                              <form class="comment-form">
+                                <p class="font-size-sm text-muted">Your email address will not be published. Required fields
+                                  are marked <span class="text-danger">*</span></p>
+                                <div class="form-group comment-form-rating">
+                                  <label>Your rating<span class="text-danger">*</span></label>
+                                  <select class="custom-select" required="">
+                                    <option value="">Rate…</option>
+                                    <option value="5">Perfect</option>
+                                    <option value="4">Good</option>
+                                    <option value="3">Average</option>
+                                    <option value="2">Not that bad</option>
+                                    <option value="1">Very poor</option>
+                                  </select>
+                                </div>
+                                <div class="form-group comment-form-comment">
+                                  <label>Your review<span class="text-danger">*</span></label>
+                                  <textarea class="form-control" rows="8" maxlength="65525"></textarea>
+                                </div>
+                                <div class="form-group comment-form-author">
+                                  <label>Your name<span class="text-danger">*</span></label>
+                                  <input type="text" class="form-control" maxlength="245">
+                                </div>
+                                <div class="form-group comment-form-email">
+                                  <label>Your email<span class="text-danger">*</span></label>
+                                  <input type="email" class="form-control" maxlength="100">
+                                </div>
+                                <div class="form-group form-submit"><button type="submit" class="classic-button">Submit a
+                                    Review</button>
+                                </div>
+                              </form>
+                            </div><!-- #respond -->
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+          <!--<mat-tab label="More Products">Content 3</mat-tab>-->
+        </mat-tab-group>
       </div>
+      <section class="related-products">
+        <div class="container mb-4 pb-lg-3">
+          <div class="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-4 mb-4">
+            <h2 class="h3 mb-0 pt-2">Related products</h2>
+          </div>
+          <div class="related-products__list">
+            <app-product-card *ngFor="let relatedProduct of product.relatedProducts" [product]="relatedProduct" mode="grid-2"></app-product-card>
+          </div>
+        </div>
+      </section>
     </div>
-  </section>
-</div>
+  </ng-container>
+</ng-container>
