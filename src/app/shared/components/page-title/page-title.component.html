@@ -1,4 +1,4 @@
-<div class="bg-dark page-title-overlap pt-4">
+<div class="bg-dark page-title-overlap pt-4" *ngIf="title && !store">
   <div class="container d-lg-flex justify-content-between py-2 py-lg-3">
     <div class="order-lg-2 mb-3 mb-lg-0 pt-lg-2">
       <nav class="woocommerce-breadcrumb" aria-label="breadcrumb">
@@ -10,6 +10,29 @@
     </div>
     <div class="order-lg-1 pr-lg-4 text-center text-lg-left">
       <h1 class="h3 mb-0 text-light">{{ title }}</h1>
+    </div>
+  </div>
+</div>
+<div class="page-title-overlap bg-accent pt-4" *ngIf="title && store">
+  <div class="container d-flex flex-wrap flex-sm-nowrap justify-content-center justify-content-sm-between align-items-center pt-2">
+    <div class="media media-ie-fix align-items-center pb-3">
+      <div class="img-thumbnail rounded-circle position-relative" style="width: 6.375rem;">
+        <img class="rounded-circle w-100"
+          [src]="avatar ?? 'http://0.gravatar.com/avatar/f0880c7c42ee557055299a20896c6d9f?s=96&amp;d=mm&amp;r=g'" alt="test">
+      </div>
+      <div class="media-body pl-3">
+        <h3 class="text-light font-size-lg mb-0">
+          {{ title | titlecase }} </h3>
+        <span class="d-block text-light font-size-ms opacity-60 py-1">
+          Member since {{ memberSince | date: 'MMM yyyy' }} </span>
+      </div>
+    </div>
+    <div class="d-flex">
+      <div class="text-sm-right">
+        <div class="text-light font-size-base">
+          Total sales </div>
+        <h3 class="text-light">{{ sales }}</h3>
+      </div>
     </div>
   </div>
 </div>

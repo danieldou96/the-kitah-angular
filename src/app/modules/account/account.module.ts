@@ -20,7 +20,6 @@ import { WithdrawComponent } from './pages/withdraw/withdraw.component';
 import { NewProductComponent } from './pages/new-product/new-product.component';
 import { EditProductComponent } from './pages/edit-product/edit-product.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DragDirective } from 'src/app/shared/directives/drag-drop-file.directive';
 import { ProductResolverService } from 'src/app/core/resolvers/product-resolver/product-resolver.service';
@@ -29,6 +28,7 @@ import * as PlotlyJS from 'plotly.js-dist-min';
 import { PlotlyModule } from 'angular-plotly.js';
 import { NgChartsModule } from 'ng2-charts';
 import { MyProductsResolverService } from 'src/app/core/resolvers/my-products-resolver/my-products-resolver.service';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -184,11 +184,13 @@ const vendorRoutes: Routes = [
     CommonModule,
     SharedModule,
     NgSelectModule,
-    FroalaEditorModule.forRoot(),
-    FroalaViewModule.forRoot(),
+    EditorModule,
     RouterModule.forChild([...buyerRoutes, ...vendorRoutes]),
     PlotlyModule,
     NgChartsModule
+  ],
+  providers: [
+    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
   ]
 })
 export class AccountModule { }

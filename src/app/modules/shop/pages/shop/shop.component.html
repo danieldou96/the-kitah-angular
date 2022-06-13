@@ -7,8 +7,8 @@
         class="d-flex justify-content-center justify-content-sm-between align-items-center pt-2 pt-lg-2 pb-4 pb-lg-5 mb-2 mb-lg-0">
         <div *ngIf="currentPage?.elements?.length! > 0" class="d-flex flex-wrap">
           <div class="form-inline flex-nowrap mr-3 mr-sm-4 pb-3">
-            <form class="woocommerce-ordering form-inline flex-nowrap" method="get">
-              <label class="text-light opacity-75 text-nowrap mr-2 d-none d-sm-block" for="orderby">Sort by:</label>
+            <form class="woocommerce-ordering form-inline flex-nowrap">
+              <!-- <label class="text-light opacity-75 text-nowrap mr-2 d-none d-sm-block">Sort by:</label>
 
               <select name="orderby" class="orderby form-control custom-select">
                 <option value="popularity" selected="selected">Popularity</option>
@@ -17,27 +17,29 @@
                 <option value="rating">Average Rating</option>
                 <option value="title-asc">A - Z Order</option>
                 <option value="title-desc">Z - A Order</option>
-              </select>
+              </select> -->
 
-              <span class="font-size-sm text-light opacity-75 text-nowrap ml-2 d-none d-md-block">of {{ currentPage?.totalElements }} products </span>
+              <span class="font-size-sm opacity-75 text-nowrap ml-2 d-none d-md-block total-products"><!-- of --> {{ currentPage?.totalElements }} products </span>
 
             </form>
           </div>
         </div>
         <div class="d-flex pb-3">
-          <a class="nav-link-style nav-link-light mr-3" *ngIf="currentPage?.current?.page != 1 && currentPage?.elements?.length! > 0" (click)="prevPage()">
+          <button class="nav-link-style nav-link-light mr-3" *ngIf="currentPage?.current?.page != 1 && currentPage?.elements?.length! > 0" (click)="prevPage()">
             <i class="ci-arrow-left"></i>
-          </a>
-          <span class="font-size-md text-light">{{ currentPage?.current?.page }} / {{ currentPage?.totalPages }}</span>
-          <a class="nav-link-style nav-link-light ml-3" *ngIf="currentPage?.current?.page != currentPage?.totalPages && currentPage?.elements?.length! > 0" (click)="nextPage()">
+          </button>
+          <span class="font-size-md total-pages">{{ currentPage?.current?.page }} / {{ currentPage?.totalPages }}</span>
+          <button class="nav-link-style nav-link-light ml-3" *ngIf="currentPage?.current?.page != currentPage?.totalPages && currentPage?.elements?.length! > 0" (click)="nextPage()">
             <i class="ci-arrow-right"></i>
-          </a>
+          </button>
         </div>
         <div class="d-none d-sm-flex pb-3">
-          <a class="btn btn-icon nav-link-style ml-2 nav-link-light" href="/shop/?view=grid"><i
-              class="ci-view-grid"></i></a><a
-            class="btn btn-icon nav-link-style ml-2 bg-light text-dark disabled opacity-100" href="/shop/?view=list"><i
-              class="ci-view-list"></i></a>
+          <button class="btn btn-icon nav-link-style ml-2 nav-link-light">
+            <i class="ci-view-grid"></i>
+          </button>
+          <button class="btn btn-icon nav-link-style ml-2 bg-light text-dark disabled opacity-100">
+            <i class="ci-view-list"></i>
+          </button>
         </div>
       </div>
       
@@ -96,7 +98,7 @@
                   <div class="list-view__product-format">
                     <i class="ci-document"></i> {{ product.format | uppercase }}
                   </div>
-                  <button type="button" (click)="addCartItem(product)" class="list-view__product-add-to-cart"><i class="ci-cart"></i> Add to cart</button>
+                  <button type="button" (click)="cartService.addCartItem({ quantity: 1, product })" class="list-view__product-add-to-cart"><i class="ci-cart"></i> Add to cart</button>
                 </div>
               </div>
             </div>
@@ -120,9 +122,9 @@
       <nav *ngIf="currentPage?.elements?.length! > 0" class="d-flex justify-content-between pt-2 cartzilla-shop-pagination w-100">
         <ul class="pagination">
           <li class="page-item">
-            <a *ngIf="currentPage?.current?.page != 1" class="page-link" (click)="prevPage()">
+            <button *ngIf="currentPage?.current?.page != 1" class="page-link" (click)="prevPage()">
               <i class="ci-arrow-left mr-2"></i>Prev
-            </a>
+            </button>
           </li>
         </ul>
         <ul class="pagination">
@@ -130,15 +132,15 @@
             <span class="page-link page-link-static">1 / 2</span>
           </li>
           <li *ngFor="let pageNumber of pageNumbers" class="page-item d-none d-sm-block" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
-            <span *ngIf="pageNumber == currentPage?.current?.page" class="page-link current">{{ pageNumber }}</span>
+            <span *ngIf="pageNumber == currentPage?.current?.page" class="page-link current" [routerLink]="['./']">{{ pageNumber }}</span>
             <a *ngIf="pageNumber != currentPage?.current?.page" class="page-link" [routerLink]="['./']" [queryParams]="{ page: pageNumber }" queryParamsHandling="merge">{{ pageNumber }}</a>
           </li>
         </ul>
         <ul class="pagination">
           <li class="page-item">
-            <a *ngIf="currentPage?.current?.page != currentPage?.totalPages" class="page-link" (click)="nextPage()">Next <i
-                class="ci-arrow-right ml-2"></i>
-            </a>
+            <button *ngIf="currentPage?.current?.page != currentPage?.totalPages" class="page-link" (click)="nextPage()">
+              Next <i class="ci-arrow-right ml-2"></i>
+            </button>
           </li>
         </ul>
       </nav>

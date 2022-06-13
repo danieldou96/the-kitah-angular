@@ -9,6 +9,8 @@ import { ReactiveComponentModule } from '@ngrx/component';
 import { NgxFilesizeModule } from 'ngx-filesize';
 import { NgPipesModule } from 'ngx-pipes';
 import { ShortNumberPipe } from './pipes/short-number.pipe';
+import { PhonePipe } from './pipes/phone.pipe';
+import { ProductCardComponent } from './components/product-card/product-card.component';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { ShortNumberPipe } from './pipes/short-number.pipe';
     PageTitleComponent,
     TabGroupComponent,
     ShortNumberPipe,
-    TabComponent
+    TabComponent,
+    PhonePipe,
+    ProductCardComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +39,9 @@ import { ShortNumberPipe } from './pipes/short-number.pipe';
     ShortNumberPipe,
     ReactiveComponentModule,
     ReactiveFormsModule,
-    NgxFilesizeModule
+    ProductCardComponent,
+    NgxFilesizeModule,
+    PhonePipe
   ]
 })
 export class SharedModule { }

@@ -28,6 +28,7 @@ import { CheckoutSuccessComponent } from './pages/checkout-success/checkout-succ
 import { OrderResolverService } from 'src/app/core/resolvers/order-resolver/order-resolver.service';
 import { SwiperModule } from 'swiper/angular';
 import { QueryParamModule } from '@ngqp/core';
+import { StoreResolver } from 'src/app/core/resolvers/store-resolver/store.resolver';
 
 const routes: Routes = [
   {
@@ -41,7 +42,8 @@ const routes: Routes = [
 	},
   {
 		path: 'store/:url',
-		component: StoreComponent
+		component: StoreComponent,
+    resolve: { store: StoreResolver },
 	},
   {
 		path: 'cart',

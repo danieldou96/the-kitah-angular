@@ -15,27 +15,6 @@ import { conditionalValidator } from 'src/app/shared/validators/validators';
 })
 export class ProductFormComponent implements OnInit {
 
-  public options: Object = {
-    placeholderText: 'Edit Your Content Here!',
-    charCounterCount: false,
-    toolbarButtons: {
-      'moreText': {
-        'buttons': ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontSize', 'textColor', 'backgroundColor', 'clearFormatting']
-      },
-      'moreParagraph': {
-        'buttons': ['alignLeft', 'alignCenter', 'alignRight', 'alignJustify', 'outdent', 'indent', 'quote']
-      },
-      'moreRich': {
-        'buttons': ['insertLink', 'insertTable']
-      },
-      'moreMisc': {
-        'buttons': ['undo', 'redo'],
-        'align': 'right'
-      }
-    
-    }
-  }
-
   @Input() product!: IProduct;
   @Output() submitFormEvent = new EventEmitter();
   form!: FormGroup;
@@ -93,10 +72,10 @@ export class ProductFormComponent implements OnInit {
       if (file.size > 50000000) {
         console.error(`Please upload a file of maximum 5mb`);
       }
-      this.form.patchValue({ file });
       this.productsService.uploadProductFile(file, this.form.controls['previewsType'].value == 'auto').pipe(
         untilDestroyed(this)
       ).subscribe(result => {
+        this.form.patchValue({ file });
         this.fileUploaded = true;
         this.productFile = {
           url: result.fileUrl,

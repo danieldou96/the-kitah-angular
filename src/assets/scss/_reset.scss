@@ -25,6 +25,11 @@ ul ul {
 a {
 	text-decoration: none;
 	background-color: transparent;
+	transition: color 0.25s ease-in-out;
+
+	&:focus {
+		outline: 0;
+	}
 }
 
 img {
@@ -43,11 +48,11 @@ button {
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
-}
 
-button:focus {
-	outline: 1px dotted;
-	outline: 5px auto -webkit-focus-ring-color;
+	&:focus {
+		outline: 1px dotted;
+		outline: 5px auto -webkit-focus-ring-color;
+	}
 }
 
 input,
@@ -56,10 +61,6 @@ button {
 	font-family: inherit;
 	font-size: inherit;
 	line-height: inherit;
-}
-
-button,
-input {
 	overflow: visible;
 }
 
@@ -81,4 +82,11 @@ button::-moz-focus-inner,
 [type="search"] {
 	outline-offset: -2px;
 	-webkit-appearance: none;
+}
+
+::selection {
+	background: rgba(78, 84, 200, 0.15);
+}
+::-moz-selection {
+	background: rgba(78, 84, 200, 0.15);
 }

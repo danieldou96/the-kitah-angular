@@ -6,7 +6,6 @@ export interface User {
   lastname: string;
 	username: string;
 	email: string;
-	phone: string;
 	role: Roles;
 	confirmed: boolean;
 	banned: boolean;

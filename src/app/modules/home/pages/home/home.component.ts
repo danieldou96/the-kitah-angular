@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { Component } from '@angular/core';
+import { map, Observable } from 'rxjs';
 import { ApiService } from 'src/app/core/http/api.service';
 import { IProduct } from 'src/app/shared/models/product';
 import { DocumentService } from 'src/app/core/services/document/document.service';
 import SwiperCore, { Autoplay, Pagination } from "swiper";
 import { CartService } from 'src/app/core/services/cart/cart.service';
-
+import { RecentlyViewedProductService } from 'src/app/core/services/recently-viewed-product/recently-viewed-product.service';
 // install Swiper modules
 SwiperCore.use([Autoplay, Pagination]);
 
@@ -14,16 +14,15 @@ SwiperCore.use([Autoplay, Pagination]);
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
-
+export class HomeComponent {
   featuredProducts$: Observable<IProduct[]>;
   monthlyProducts$: Observable<IProduct[]>;
   recentlyViewedProducts$: Observable<IProduct[]>;
   
   constructor(
     private apiService: ApiService,
-    private cartService: CartService,
-    public documentService: DocumentService
+    public documentService: DocumentService,
+    private recentlyViewedProductsService: RecentlyViewedProductService
   ) {
     this.featuredProducts$ = this.apiService.getHomepageProducts().pipe(
       map(h => h.featuredProducts)
@@ -31,18 +30,8 @@ export class HomeComponent implements OnInit {
     this.monthlyProducts$ = this.apiService.getHomepageProducts().pipe(
       map(h => h.monthlyProducts)
     );
-    this.recentlyViewedProducts$ = this.apiService.getHomepageProducts().pipe(
-      map(h => h.recentlyViewedProducts)
+    this.recentlyViewedProducts$ = this.recentlyViewedProductsService.recentlyViewedProducts$.pipe(
+      map(products => products.map(p => p.product))
     );
-  }
-
-  ngOnInit(): void {
-  }
-
-  addCartItem(item: IProduct) {
-    this.cartService.addCartItem({
-      quantity: 1,
-      product: item
-    });
   }
 }

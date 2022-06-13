@@ -41,37 +41,7 @@
           }">
             <ng-container *ngFor="let featuredProduct of featuredProducts">
               <ng-template swiperSlide>
-                <div class="card product-card-alt">
-                  <div class="product-thumb">
-                    <div class="product-card-actions"> <a [routerLink]="['/product/' + featuredProduct.id]"
-                        class="btn btn-light btn-icon btn-shadow font-size-base mx-2">
-                        <i class="ci-eye"></i> </a> <a (click)="addCartItem(featuredProduct)"
-                        class="btn btn-light btn-icon btn-shadow mx-2 button product_type_simple add_to_cart_button ajax_add_to_cart">
-                        <i class="ci-cart font-size-base"></i>Add to cart</a> </div>
-                    <a class="product-thumb-overlay"
-                    [routerLink]="['/product/' + featuredProduct.id]"></a><img width="350" height="263"
-                      [src]="featuredProduct.mainPicture?.url ?? 'http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png'"
-                      class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy">
-                  </div>
-                  <div class="card-body">
-                    <div class="d-flex flex-wrap justify-content-between align-items-start pb-2 product-category-list">
-                      <div class="text-muted font-size-xs mr-1">
-                        <span class="cartzilla-store-name">
-                          by <a class="product-meta font-weight-medium"
-                            href="http://s603556811.onlinehome.fr/store/testttta/">
-                            {{ featuredProduct.store?.name | titlecase }} </a></span>
-                      </div>
-                    </div>
-                    <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                      [routerLink]="['/product/' + featuredProduct.id]">{{ featuredProduct.name | titlecase }}</a>
-                    </h3>
-                    <div class="d-flex flex-wrap justify-content-between align-items-center">
-                      <div class="bg-faded-accent text-accent rounded-sm py-1 px-2">
-                        <span class="woocommerce-Price-amount amount">{{ featuredProduct.price | currency }}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <app-product-card [product]="featuredProduct" mode="grid-2"></app-product-card>
               </ng-template>
             </ng-container>
           </swiper>
@@ -83,7 +53,7 @@
 
 
   <ng-container *ngrxLet="monthlyProducts$ as monthlyProducts">
-    <div id="czgb-2dd1010" *ngIf="monthlyProducts.length != 0"
+    <div *ngIf="monthlyProducts.length != 0"
       class="czgb-products-with-header-block wp-block-czgb-products-with-header czgb-products-with-header pb-5 mb-lg-2 czgb-2dd1010 container czgb-main-block">
       <style>
         .czgb-2dd1010 .czgb-products-with-header__header {
@@ -105,36 +75,7 @@
               <ul class="list-unstyled products columns-4">
                 <li *ngFor="let monthlyProduct of monthlyProducts"
                   class="product type-product post-1372 status-publish first instock product_cat-10th product_cat-chodshei-hashana has-post-thumbnail downloadable virtual purchasable product-type-simple">
-                  <div class="card product-card-alt">
-                    <div class="product-thumb">
-                      <div class="product-card-actions"> <a [routerLink]="['/product/' + monthlyProduct.id]"
-                          class="btn btn-light btn-icon btn-shadow font-size-base mx-2">
-                          <i class="ci-eye"></i> </a> <a (click)="addCartItem(monthlyProduct)"
-                          class="btn btn-light btn-icon btn-shadow mx-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
-                          rel="nofollow"><i class="ci-cart font-size-base"></i>Add to
-                          cart</a> </div><a class="product-thumb-overlay"
-                          [routerLink]="['/product/' + monthlyProduct.id]"></a><img width="350" height="263"
-                          [src]="monthlyProduct.mainPicture?.url ?? 'http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png'">
-                    </div>
-                    <div class="card-body">
-                      <div
-                        class="d-flex flex-wrap justify-content-between align-items-start pb-2 product-category-list">
-                        <div class="text-muted font-size-xs mr-1">
-                          <span class="cartzilla-store-name">
-                            by <a class="product-meta font-weight-medium"
-                              href="http://s603556811.onlinehome.fr/store/test/">
-                              {{ monthlyProduct.store?.name | titlecase }} </a></span>
-                        </div>
-                      </div>
-                      <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                        [routerLink]="['/product/' + monthlyProduct.id]">Test</a></h3>
-                      <div class="d-flex flex-wrap justify-content-between align-items-center">
-                        <div class="bg-faded-accent text-accent rounded-sm py-1 px-2">
-                          <span class="woocommerce-Price-amount amount">{{ monthlyProduct.price | currency }}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <app-product-card [product]="monthlyProduct" mode="grid-2"></app-product-card>
                 </li>
               </ul>
             </div>
@@ -214,9 +155,8 @@
     </div>
   </section>
 
-
   <ng-container *ngrxLet="recentlyViewedProducts$ as recentlyViewedProducts">
-    <section *ngIf="recentlyViewedProducts.length != 0" id="6f60dda5-2c2c-4c15-9e2a-09348425d48d"
+    <section *ngIf="recentlyViewedProducts.length != 0"
       class="wp-block-czgb-seller-block czgb-seller-block border-top wp-block-czgb-seller-block py-5">
       <div class="py-lg-2 container">
         <h2 class="h3 mb-3 pb-3 pb-lg-4 text-center">Recently viewed products</h2>
@@ -241,40 +181,7 @@
                     }">
                     <ng-container *ngFor="let recentlyViewedProduct of recentlyViewedProducts">
                       <ng-template swiperSlide>
-                        <div class="card product-card-alt">
-                          <div class="product-thumb">
-                            <div class="product-card-actions"> <a
-                              [routerLink]="['/product/' + recentlyViewedProduct.id]"
-                                class="btn btn-light btn-icon btn-shadow font-size-base mx-2">
-                                <i class="ci-eye"></i> </a> <a (click)="addCartItem(recentlyViewedProduct)"
-                                class="btn btn-light btn-icon btn-shadow mx-2 button product_type_simple add_to_cart_button ajax_add_to_cart"
-                                rel="nofollow"><i class="ci-cart font-size-base"></i>Add to cart</a> </div><a
-                              class="product-thumb-overlay"
-                              [routerLink]="['/product/' + recentlyViewedProduct.id]"></a><img width="350" height="263"
-                              [src]="recentlyViewedProduct.mainPicture?.url ?? 'http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png'"
-                              class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" loading="lazy">
-                          </div>
-                          <div class="card-body">
-                            <div
-                              class="d-flex flex-wrap justify-content-between align-items-start pb-2 product-category-list">
-                              <div class="text-muted font-size-xs mr-1">
-                                <span class="cartzilla-store-name">
-                                  by <a class="product-meta font-weight-medium"
-                                    href="http://s603556811.onlinehome.fr/store/root/">
-                                    {{ recentlyViewedProduct.store?.name | titlecase }} </a></span>
-                              </div>
-                            </div>
-                            <h3 class="woocommerce-loop-product__title product-title font-size-base"><a
-                              [routerLink]="['/product/' + recentlyViewedProduct.id]">{{ recentlyViewedProduct.name | titlecase }}</a>
-                            </h3>
-                            <div class="d-flex flex-wrap justify-content-between align-items-center">
-                              <div class="bg-faded-accent text-accent rounded-sm py-1 px-2">
-                                <span
-                                  class="woocommerce-Price-amount amount">{{ recentlyViewedProduct.price | currency }}</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                        <app-product-card [product]="recentlyViewedProduct" mode="grid-2"></app-product-card>
                       </ng-template>
                     </ng-container>
                   </swiper>

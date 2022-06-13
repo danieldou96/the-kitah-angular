@@ -2123,7 +2123,7 @@ select:focus,
 
   .list-view {
 
-    a {
+    a:not(.classic-button) {
       color: #dea249;
       transition: color 0.25s ease-in-out;
 
@@ -2302,4 +2302,8 @@ select:focus,
     display: flex;
     gap: 10px;
     justify-content: center;
+  }
+
+  .total-products, .total-pages {
+    color: #4b566b;
   }

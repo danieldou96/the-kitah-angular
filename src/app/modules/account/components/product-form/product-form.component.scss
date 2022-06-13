@@ -21,28 +21,6 @@ input[type="radio"] {
 	.ng-select .ng-select-container {
 		min-height: 44.5px;
 	}
-
-	.froala-editor {
-		border-radius: 0.3125rem;
-		
-		.fr-toolbar {
-			border-radius: 0.3125rem 0.3125rem 0 0;
-		}
-		
-		.fr-wrapper {
-			border-radius: 0 0 0.3125rem 0.3125rem;
-			border: 1px solid #CCCCCC !important;
-			border-top: 0 !important;
-
-			&.show-placeholder > div:nth-child(1) > a[href*="https://www.froala.com/wysiwyg-editor?k=u"] {
-				display: none !important;
-			}
-		}
-		
-		.fr-second-toolbar {
-			display: none;
-		}
-	}
 }
 
 .upload-file {

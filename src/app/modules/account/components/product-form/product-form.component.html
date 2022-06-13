@@ -95,7 +95,25 @@
 	<div class="row my-3">
 		<div class="col-12">
 			<label>Description</label>
-			<div class="froala-editor" formControlName="description" [froalaEditor]="options"></div>
+			<editor
+				formControlName="description" 
+				[init]="{
+					base_url: '/tinymce',
+   				suffix: '.min',
+					placeholder: 'Edit Your Content Here!',
+					height: 200,
+					menubar: false,
+					plugins: [
+						'advlist autolink lists link image charmap print preview anchor',
+						'searchreplace visualblocks code fullscreen',
+						'insertdatetime media table paste code help wordcount'
+					],
+					toolbar:
+						'undo redo | formatselect | link | bold italic underline backcolor | \
+						alignleft aligncenter alignright alignjustify | \
+						bullist numlist outdent indent | removeformat | bullist | numlist'
+				}">
+			</editor>
 		</div>
 	</div>
 	<div class="row my-3">

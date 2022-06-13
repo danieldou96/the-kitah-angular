@@ -1,6 +1,5 @@
 .classic-input {
 	display: block;
-  height: calc(1.5em + 1.25rem + 2px);
   padding: 0.625rem 1rem;
   font-size: 0.9375rem;
   font-weight: 400;
@@ -24,5 +23,9 @@
 		color: #4b566b;
   	background-color: #fff;
 		outline: 0;
+	}
+
+	&input {
+		height: calc(1.5em + 1.25rem + 2px);
 	}
 }

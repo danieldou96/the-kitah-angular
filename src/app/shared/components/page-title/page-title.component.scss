@@ -12,12 +12,6 @@
 /*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/style.css?ver=1.0.5 ; media=all */
 @media all {
 
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
   nav {
     display: block;
   }
@@ -30,17 +24,6 @@
   ol {
     margin-top: 0;
     margin-bottom: 1rem;
-  }
-
-  a {
-    color: #fe696a;
-    text-decoration: none;
-    background-color: transparent;
-  }
-
-  a:hover {
-    color: #fe3638;
-    text-decoration: none;
   }
 
   h1,
@@ -57,36 +40,6 @@
 
   .h3 {
     font-size: 1.75rem;
-  }
-
-  .container {
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-  }
-
-  @media (min-width: 1280px) {
-    .container {
-      max-width: 1260px;
-    }
-  }
-
-  @media (min-width: 1280px) {
-    .container {
-      max-width: 1260px;
-    }
-  }
-
-  @media (min-width: 992px) {
-    .order-lg-1 {
-      order: 1;
-    }
-
-    .order-lg-2 {
-      order: 2;
-    }
   }
 
   .breadcrumb {
@@ -120,105 +73,6 @@
 
   .bg-dark {
     background-color: #373f50 !important;
-  }
-
-  .d-flex {
-    display: flex !important;
-  }
-
-  @media (min-width: 992px) {
-    .d-lg-flex {
-      display: flex !important;
-    }
-  }
-
-  .justify-content-between {
-    justify-content: space-between !important;
-  }
-
-  .mb-0 {
-    margin-bottom: 0 !important;
-  }
-
-  .mt-1 {
-    margin-top: 0.25rem !important;
-  }
-
-  .mb-3 {
-    margin-bottom: 1rem !important;
-  }
-
-  .py-2 {
-    padding-top: 0.5rem !important;
-  }
-
-  .py-2 {
-    padding-bottom: 0.5rem !important;
-  }
-
-  .pt-4 {
-    padding-top: 1.5rem !important;
-  }
-
-  .mt-n1 {
-    margin-top: -0.25rem !important;
-  }
-
-  @media (min-width: 992px) {
-    .mb-lg-0 {
-      margin-bottom: 0 !important;
-    }
-
-    .pt-lg-2 {
-      padding-top: 0.5rem !important;
-    }
-
-    .py-lg-3 {
-      padding-top: 1rem !important;
-    }
-
-    .py-lg-3 {
-      padding-bottom: 1rem !important;
-    }
-
-    .pr-lg-4 {
-      padding-right: 1.5rem !important;
-    }
-  }
-
-  .text-center {
-    text-align: center !important;
-  }
-
-  @media (min-width: 992px) {
-    .text-lg-left {
-      text-align: left !important;
-    }
-  }
-
-  .text-light {
-    color: #fff !important;
-  }
-
-  html * {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  a:focus {
-    outline: none;
-  }
-
-  a {
-    transition: color 0.25s ease-in-out;
-  }
-
-  ::selection {
-    background: rgba(78, 84, 200, 0.15);
-  }
-
-  ::-moz-selection {
-    background: rgba(78, 84, 200, 0.15);
   }
 
   .breadcrumb-item {
@@ -309,16 +163,67 @@ a:hover {
   padding-bottom: 1rem;
 }
 
-/*! CSS Used fontfaces */
-@font-face {
-  font-family: 'cartzilla-icons';
-  src: url("http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/fonts/cartzilla-icons.ttf?v4xwry") format("truetype"), url("http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/fonts/cartzilla-icons.woff?v4xwry") format("woff"), url("http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/fonts/cartzilla-icons.svg?v4xwry#cartzilla-icons") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
 ::ng-deep {
 	app-page-title + * {
 		margin-top: 2.125rem;
 	}
 }
+
+/*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/style.css?ver=1.0.5 ; media=all */
+@media all{
+  h3{margin-top:0;margin-bottom:0.75rem;}
+  img{vertical-align:middle;border-style:none;}
+  h3{margin-bottom:0.75rem;font-weight:500;line-height:1.2;color:#373f50;}
+  h3{font-size:1.75rem;}
+  .img-thumbnail{padding:0.3125rem;background-color:#fff;border:1px solid #e3e9ef;border-radius:0.3125rem;box-shadow:none;max-width:100%;height:auto;}
+  .container{width:100%;padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto;}
+  @media (min-width: 1280px){
+  .container{max-width:1260px;}
+  }
+  @media (min-width: 1280px){
+  .container{max-width:1260px;}
+  }
+  .media{display:flex;align-items:flex-start;}
+  .media-body{flex:1;}
+  .bg-accent{background-color:#4e54c8!important;}
+  .rounded-circle{border-radius:50%!important;}
+  .d-block{display:block!important;}
+  .d-flex{display:flex!important;}
+  .flex-wrap{flex-wrap:wrap!important;}
+  .justify-content-center{justify-content:center!important;}
+  .align-items-center{align-items:center!important;}
+  @media (min-width: 576px){
+  .flex-sm-nowrap{flex-wrap:nowrap!important;}
+  .justify-content-sm-between{justify-content:space-between!important;}
+  }
+  .position-relative{position:relative!important;}
+  .w-100{width:100%!important;}
+  .mb-0{margin-bottom:0!important;}
+  .py-1{padding-top:0.25rem!important;}
+  .py-1{padding-bottom:0.25rem!important;}
+  .pt-2{padding-top:0.5rem!important;}
+  .pb-3{padding-bottom:1rem!important;}
+  .pl-3{padding-left:1rem!important;}
+  .pt-4{padding-top:1.5rem!important;}
+  @media (min-width: 576px){
+  .text-sm-right{text-align:right!important;}
+  }
+  .text-light{color:#fff!important;}
+  html *{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+  img{max-width:100%;height:auto;vertical-align:middle;}
+  ::selection{background:rgba(78, 84, 200, 0.15);}
+  ::-moz-selection{background:rgba(78, 84, 200, 0.15);}
+  .page-title-overlap{padding-bottom:6.375rem;}
+  @media (max-width: 991.98px){
+  .page-title-overlap{padding-bottom:5.5rem;}
+  }
+  .font-size-lg{font-size:1.125rem!important;}
+  .font-size-base{font-size:1rem!important;}
+  .font-size-ms{font-size:0.8125rem!important;}
+  .opacity-60{opacity:.6!important;}
+  *{word-break:break-word;}
+  }
+  /*! CSS Used from: Embedded */
+  .bg-accent{color:#fff;background-color:#2f3252!important;}
+  /*! CSS Used from: Embedded */
+  .page-title-overlap{padding-bottom:1rem;}

@@ -34,7 +34,7 @@ export class ShopComponent implements OnInit {
     private route: ActivatedRoute,
     private apiService: ApiService,
     private qpb: QueryParamBuilder,
-    private cartService: CartService,
+    public cartService: CartService,
     private _productsService: ProductsService
   ) {
     //this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -115,13 +115,6 @@ export class ShopComponent implements OnInit {
         queryParamsHandling: 'merge'
       });
       this.currentPage = page;
-    });
-  }
-
-  addCartItem(item: IProduct) {
-    this.cartService.addCartItem({
-      quantity: 1,
-      product: item
     });
   }
 

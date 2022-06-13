@@ -1,0 +1,119 @@
+<div class="product" *ngIf="product">
+  <div class="product__grid-1" *ngIf="mode == 'grid-1'">
+    <div class="card product-card">
+			<a
+				class="card-img-top d-block overflow-hidden"
+				[routerLink]="['/product/' + product.id]">
+				<img
+					width="350"
+					height="263"
+					class="woocommerce-placeholder wp-post-image"
+					[src]="product.mainPicture ?? 'http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png'"
+					alt="Placeholder"
+					loading="lazy">
+			</a>
+      <div class="card-body py-2">
+        <h3 class="woocommerce-loop-product__title product-title font-size-base">
+					<a [routerLink]="['/product/' + product.id]">
+						{{ product.name | titlecase }}
+					</a>
+				</h3>
+        <div class="d-flex justify-content-between">
+          <div class="product-price">
+            <span class="text-accent">
+							{{ product.price | currency }}
+						</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-body card-body-hidden">
+				<button (click)="cartService.addCartItem({ quantity: 1, product })" class="classic-button">
+					<i class="ci-cart font-size-sm mr-1"></i> Add to cart
+				</button>
+			</div>
+    </div>
+    <hr class="d-sm-none">
+  </div>
+  <div class="product__grid-2" *ngIf="mode == 'grid-2'">
+		<div class="card product-card-alt">
+			<div class="product-thumb">
+				<div class="product-card-actions">
+					<a [routerLink]="['/product/' + product.id]" class="btn btn-light btn-icon btn-shadow font-size-base mx-2">
+						<i class="ci-eye"></i>
+					</a>
+					<a
+						(click)="cartService.addCartItem({ quantity: 1, product })"
+						class="btn btn-light btn-icon btn-shadow mx-2 button product_type_simple add_to_cart_button ajax_add_to_cart">
+						<i class="ci-cart font-size-base"></i>
+					</a>
+				</div>
+				<a class="product-thumb-overlay" [routerLink]="['/product/' + product.id]"></a>
+				<img
+					width="350"
+					height="263"
+					[src]="product.mainPicture?.url ?? 'http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png'"
+					class="woocommerce-placeholder wp-post-image"
+					alt="Placeholder"
+					loading="lazy">
+			</div>
+			<div class="card-body">
+				<div class="d-flex flex-wrap justify-content-between align-items-start pb-2 product-category-list">
+					<div class="text-muted font-size-xs mr-1">
+						<span class="cartzilla-store-name">
+							by <a class="product-meta font-weight-medium" [routerLink]="['/store/' + product.store?.url]">
+								{{ product.store?.name | titlecase }}
+							</a>
+						</span>
+					</div>
+				</div>
+				<h3 class="woocommerce-loop-product__title product-title font-size-base">
+					<a [routerLink]="['/product/' + product.id]">
+						{{ product.name | titlecase }}
+					</a>
+				</h3>
+				<div class="d-flex flex-wrap justify-content-between align-items-center">
+					<div class="bg-faded-accent text-accent rounded-sm py-1 px-2">
+						{{ product.price | currency }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+  <div class="product__list" *ngIf="mode == 'list'">
+    <div class="card product-card product-list">
+      <div class="d-sm-flex align-items-center">
+				<a
+					class="product-list-thumb"
+					[routerLink]="['/product/' + product.id]">
+					<img
+						width="350"
+						height="263"
+            class="woocommerce-placeholder wp-post-image"
+            [src]="product.mainPicture ?? 'http://s603556811.onlinehome.fr/wp-content/uploads/woocommerce-placeholder-350x263.png'"
+						alt="Placeholder"
+						loading="lazy">
+				</a>
+        <div class="card-body py-2">
+          <h3 class="woocommerce-loop-product__title product-title font-size-base">
+						<a [routerLink]="['/product/' + product.id]">
+							{{ product.name | titlecase }}
+						</a>
+					</h3>
+          <div class="d-flex justify-content-between">
+            <div class="product-price">
+              <span class="text-accent">
+								{{ product.price | currency }}
+							</span>
+            </div>
+          </div>
+          <div class="card-body card-body-hidden">
+						<button (click)="cartService.addCartItem({ quantity: 1, product })" class="classic-button">
+							<i class="ci-cart font-size-sm mr-1"></i> Add to cart
+						</button>
+					</div>
+        </div>
+      </div>
+    </div>
+    <hr class="pt-3 mt-3">
+  </div>
+</div>

@@ -4,6 +4,7 @@ import { User } from "./user";
 export interface IProduct {
   id?: number;
   storeId?: number;
+  sales?: number;
   name: string;
   price: number;
   description: string;
@@ -21,6 +22,7 @@ export interface IProduct {
 	grades: IGrade[];
 	subjects: ISubject[];
 	resourceTypes: IResourceType[];
+	relatedProducts?: IProduct[];
 	createdAt?: Date;
 	updatedAt?: Date;
 }
@@ -28,6 +30,11 @@ export interface IProduct {
 export interface ICartItem {
   id?: number;
 	quantity: number;
+	product: IProduct;
+}
+
+export interface IRecentlyViewedProductItem {
+  id?: number;
 	product: IProduct;
 }
 
@@ -74,13 +81,18 @@ export interface IResourceType {
 
 export interface IStore {
 	id: number;
+  picture?: string;
   userId: number;
+  sales?: number;
   name: string;
   url: string;
   country: string;
+	phone: string;
   state: string;
   city: string;
   description: string;
 	user: User;
 	products: IProduct[];
+	createdAt?: Date;
+	updatedAt?: Date;
 }

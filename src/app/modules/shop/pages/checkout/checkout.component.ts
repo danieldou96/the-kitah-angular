@@ -66,7 +66,7 @@ export class CheckoutComponent implements OnInit {
       city: new FormControl(undefined),
       state: new FormControl(undefined),
       zipcode: new FormControl(undefined),
-      phone: new FormControl(this.authService.loggedInUserValue?.user.phone ?? undefined),
+      phone: new FormControl(undefined),
       terms: new FormControl(undefined, [Validators.requiredTrue]),
     });
   }

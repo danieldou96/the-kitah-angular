@@ -1,40 +1,3 @@
-/*! CSS Used from: http://s603556811.onlinehome.fr/wp-includes/css/dist/block-library/style.min.css?ver=5.9.2 ; media=all */
-@media all {
-  h1,
-  h2,
-  h3 {
-    overflow-wrap: break-word;
-  }
-  ul {
-    overflow-wrap: break-word;
-  }
-  p {
-    overflow-wrap: break-word;
-  }
-  html :where(img) {
-    height: auto;
-    max-width: 100%;
-  }
-} /*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/plugins/cartzillagb/dist/frontend_blocks.css?ver=1.0.13 ; media=all */
-@media all {
-  .czgb-main-block > * {
-    z-index: 2;
-  }
-  .czgb-main-block {
-    position: relative;
-  }
-  .btn-icon {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .czgb-image-upload-placeholder {
-    outline: 0 !important;
-  }
-  div[class^="wp-block-czgb-"] {
-    z-index: 1;
-  }
-} /*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/uploads/useanyfont/uaf.css?ver=1637056932 ; media=all */
 @media all {
   .djb-chalk-it-up {
     font-family: djb-chalk-it-up !important;
@@ -47,17 +10,6 @@
   }
 }  /*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/style.css?ver=1.0.5 ; media=all */
 @media all {
-  *,
-  ::after,
-  ::before {
-    box-sizing: border-box;
-  }
-  section {
-    display: block;
-  }
-  [tabindex="-1"]:focus:not(:focus-visible) {
-    outline: 0 !important;
-  }
   h1,
   h2,
   h3 {
@@ -75,45 +27,8 @@
   ul ul {
     margin-bottom: 0;
   }
-  a {
-    color: #fe696a;
-    text-decoration: none;
-    background-color: transparent;
-  }
-  a:hover {
-    color: #fe3638;
-    text-decoration: none;
-  }
   img {
     vertical-align: middle;
-    border-style: none;
-  }
-  button {
-    border-radius: 0;
-  }
-  button:focus {
-    outline: 1px dotted;
-    outline: 5px auto -webkit-focus-ring-color;
-  }
-  button {
-    margin: 0;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-  }
-  button {
-    overflow: visible;
-  }
-  button {
-    text-transform: none;
-  }
-  [type="button"],
-  button {
-    -webkit-appearance: button;
-  }
-  [type="button"]::-moz-focus-inner,
-  button::-moz-focus-inner {
-    padding: 0;
     border-style: none;
   }
   .h3,
@@ -151,80 +66,6 @@
     box-shadow: none;
     max-width: 100%;
     height: auto;
-  }
-  .container {
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-  }
-  @media (min-width: 1280px) {
-    .container {
-      max-width: 1260px;
-    }
-  }
-  @media (min-width: 1280px) {
-    .container {
-      max-width: 1260px;
-    }
-  }
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
-  }
-  .col-lg-3,
-  .col-lg-4,
-  .col-lg-6,
-  .col-lg-7,
-  .col-lg-8,
-  .col-md-8,
-  .col-md-9,
-  .col-sm-6 {
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-  }
-  @media (min-width: 576px) {
-    .col-sm-6 {
-      flex: 0 0 50%;
-      max-width: 50%;
-    }
-  }
-  @media (min-width: 768px) {
-    .col-md-8 {
-      flex: 0 0 66.6666666667%;
-      max-width: 66.6666666667%;
-    }
-    .col-md-9 {
-      flex: 0 0 75%;
-      max-width: 75%;
-    }
-  }
-  @media (min-width: 992px) {
-    .col-lg-3 {
-      flex: 0 0 25%;
-      max-width: 25%;
-    }
-    .col-lg-4 {
-      flex: 0 0 33.3333333333%;
-      max-width: 33.3333333333%;
-    }
-    .col-lg-6 {
-      flex: 0 0 50%;
-      max-width: 50%;
-    }
-    .col-lg-7 {
-      flex: 0 0 58.3333333333%;
-      max-width: 58.3333333333%;
-    }
-    .col-lg-8 {
-      flex: 0 0 66.6666666667%;
-      max-width: 66.6666666667%;
-    }
   }
   .btn {
     display: inline-block;
@@ -336,166 +177,6 @@
   .border-bottom {
     border-bottom: 1px solid #e3e9ef !important;
   }
-  .border-0 {
-    border: 0 !important;
-  }
-  .rounded-sm {
-    border-radius: 0.1875rem !important;
-  }
-  .page__content > :last-child::after {
-    display: block;
-    clear: both;
-    content: "";
-  }
-  .d-inline-block {
-    display: inline-block !important;
-  }
-  .d-block {
-    display: block !important;
-  }
-  .d-flex {
-    display: flex !important;
-  }
-  .flex-wrap {
-    flex-wrap: wrap !important;
-  }
-  .justify-content-between {
-    justify-content: space-between !important;
-  }
-  .align-items-start {
-    align-items: flex-start !important;
-  }
-  .align-items-center {
-    align-items: center !important;
-  }
-  .position-relative {
-    position: relative !important;
-  }
-  .mb-0 {
-    margin-bottom: 0 !important;
-  }
-  .mr-1 {
-    margin-right: 0.25rem !important;
-  }
-  .mb-1 {
-    margin-bottom: 0.25rem !important;
-  }
-  .mr-2,
-  .mx-2 {
-    margin-right: 0.5rem !important;
-  }
-  .mb-2 {
-    margin-bottom: 0.5rem !important;
-  }
-  .ml-2,
-  .mx-2 {
-    margin-left: 0.5rem !important;
-  }
-  .mb-3 {
-    margin-bottom: 1rem !important;
-  }
-  .mb-4 {
-    margin-bottom: 1.5rem !important;
-  }
-  .pt-1,
-  .py-1 {
-    padding-top: 0.25rem !important;
-  }
-  .py-1 {
-    padding-bottom: 0.25rem !important;
-  }
-  .px-2 {
-    padding-right: 0.5rem !important;
-  }
-  .pb-2 {
-    padding-bottom: 0.5rem !important;
-  }
-  .px-2 {
-    padding-left: 0.5rem !important;
-  }
-  .pt-3 {
-    padding-top: 1rem !important;
-  }
-  .pb-3 {
-    padding-bottom: 1rem !important;
-  }
-  .pl-3 {
-    padding-left: 1rem !important;
-  }
-  .pt-4 {
-    padding-top: 1.5rem !important;
-  }
-  .px-4 {
-    padding-right: 1.5rem !important;
-  }
-  .pb-4 {
-    padding-bottom: 1.5rem !important;
-  }
-  .px-4 {
-    padding-left: 1.5rem !important;
-  }
-  .pt-5,
-  .py-5 {
-    padding-top: 3rem !important;
-  }
-  .pb-5,
-  .py-5 {
-    padding-bottom: 3rem !important;
-  }
-  .mr-n1 {
-    margin-right: -0.25rem !important;
-  }
-  @media (min-width: 576px) {
-    .mb-sm-3 {
-      margin-bottom: 1rem !important;
-    }
-    .mb-sm-4 {
-      margin-bottom: 1.5rem !important;
-    }
-  }
-  @media (min-width: 992px) {
-    .mb-lg-2 {
-      margin-bottom: 0.5rem !important;
-    }
-    .mb-lg-3 {
-      margin-bottom: 1rem !important;
-    }
-    .my-lg-5 {
-      margin-top: 3rem !important;
-    }
-    .my-lg-5 {
-      margin-bottom: 3rem !important;
-    }
-    .pt-lg-0 {
-      padding-top: 0 !important;
-    }
-    .pt-lg-2,
-    .py-lg-2 {
-      padding-top: 0.5rem !important;
-    }
-    .px-lg-2 {
-      padding-right: 0.5rem !important;
-    }
-    .py-lg-2 {
-      padding-bottom: 0.5rem !important;
-    }
-    .px-lg-2 {
-      padding-left: 0.5rem !important;
-    }
-    .pt-lg-3 {
-      padding-top: 1rem !important;
-    }
-    .pb-lg-4 {
-      padding-bottom: 1.5rem !important;
-    }
-    .py-lg-5 {
-      padding-top: 3rem !important;
-    }
-    .pb-lg-5,
-    .py-lg-5 {
-      padding-bottom: 3rem !important;
-    }
-  }
   .text-left {
     text-align: left !important;
   }
@@ -541,15 +222,6 @@
     max-width: 100%;
     height: auto;
     vertical-align: middle;
-  }
-  ::selection {
-    background: rgba(78, 84, 200, 0.15);
-  }
-  ::-moz-selection {
-    background: rgba(78, 84, 200, 0.15);
-  }
-  button:focus {
-    outline: 0;
   }
   .list-unstyled > li {
     margin-bottom: 0.4rem;
@@ -826,22 +498,6 @@ a:hover {
   border-color: #ccc;
   color: #ccc;
 }
-#post-56
-  > div
-  > div
-  > div.wp-block-czgb-hero-block.czgb-hero-block
-  > section
-  > div
-  > div
-  > div.row.mb-3.mb-sm-4.false
-  > div
-  > h1
-  > span {
-  font-size: 48px;
-}
-#post-56 > div > div > div.wp-block-czgb-hero-block.czgb-hero-block > section {
-  background-position: center center !important;
-} /*! CSS Used from: Embedded */
 .czgb-2dd1010 .czgb-products-with-header__header {
   margin-bottom: 33px !important;
 }
@@ -854,71 +510,6 @@ a:hover {
     url("http://s603556811.onlinehome.fr/wp-content/uploads/useanyfont/4898DJB-Chalk-It-Up.woff")
       format("woff");
   font-display: auto;
-}
-
-@font-face {
-  font-family: "FontAwesome";
-  src: url("http://s603556811.onlinehome.fr/wp-content/plugins/dokan-lite/assets/vendors/fonts/fontawesome-webfont.eot?v=4.7.0");
-  src: url("http://s603556811.onlinehome.fr/wp-content/plugins/dokan-lite/assets/vendors/fonts/fontawesome-webfont.eot#iefix&v=4.7.0")
-      format("embedded-opentype"),
-    url("http://s603556811.onlinehome.fr/wp-content/plugins/dokan-lite/assets/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0")
-      format("woff2"),
-    url("http://s603556811.onlinehome.fr/wp-content/plugins/dokan-lite/assets/vendors/fonts/fontawesome-webfont.woff?v=4.7.0")
-      format("woff"),
-    url("http://s603556811.onlinehome.fr/wp-content/plugins/dokan-lite/assets/vendors/fonts/fontawesome-webfont.ttf?v=4.7.0")
-      format("truetype"),
-    url("http://s603556811.onlinehome.fr/wp-content/plugins/dokan-lite/assets/vendors/fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular")
-      format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Font Awesome 5 Free";
-  font-style: normal;
-  font-weight: 400;
-  font-display: auto;
-  src: url(http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/vendor/font-awesome/webfonts/fa-regular-400.eot);
-  src: url(http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/vendor/font-awesome/webfonts/fa-regular-400.eot#iefix)
-      format("embedded-opentype"),
-    url(http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/vendor/font-awesome/webfonts/fa-regular-400.woff2)
-      format("woff2"),
-    url(http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/vendor/font-awesome/webfonts/fa-regular-400.woff)
-      format("woff"),
-    url(http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/vendor/font-awesome/webfonts/fa-regular-400.ttf)
-      format("truetype"),
-    url(http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/vendor/font-awesome/webfonts/fa-regular-400.svg#fontawesome)
-      format("svg");
-}
-
-@font-face {
-  font-family: "Font Awesome 5 Free";
-  font-style: normal;
-  font-weight: 900;
-  font-display: auto;
-  src: url(http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/vendor/font-awesome/webfonts/fa-solid-900.eot);
-  src: url(http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/vendor/font-awesome/webfonts/fa-solid-900.eot#iefix)
-      format("embedded-opentype"),
-    url(http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/vendor/font-awesome/webfonts/fa-solid-900.woff2)
-      format("woff2"),
-    url(http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/vendor/font-awesome/webfonts/fa-solid-900.woff)
-      format("woff"),
-    url(http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/vendor/font-awesome/webfonts/fa-solid-900.ttf)
-      format("truetype"),
-    url(http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/vendor/font-awesome/webfonts/fa-solid-900.svg#fontawesome)
-      format("svg");
-}
-
-@font-face {
-  font-family: "cartzilla-icons";
-  src: url("http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/fonts/cartzilla-icons.ttf?v4xwry")
-      format("truetype"),
-    url("http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/fonts/cartzilla-icons.woff?v4xwry")
-      format("woff"),
-    url("http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/fonts/cartzilla-icons.svg?v4xwry#cartzilla-icons")
-      format("svg");
-  font-weight: normal;
-  font-style: normal;
 }
 
 ::ng-deep {
