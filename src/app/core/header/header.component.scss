@@ -608,6 +608,12 @@ a {
     max-width: 64px;
     margin-right: 0.5rem;
     display: block;
+
+    img {
+      height: 45px;
+      object-fit: cover;
+      border-radius: 2px;
+    }
   }
 
   &__item-details {
