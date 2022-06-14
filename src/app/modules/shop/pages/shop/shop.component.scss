@@ -1249,7 +1249,7 @@
 
   img {
     max-width: 100%;
-    height: 200px;
+    height: auto;
     vertical-align: middle;
   }
 
@@ -2197,6 +2197,7 @@ select:focus,
     &__product-image {
       object-fit: cover;
       width: 100%;
+      height: 200px;
       border-radius: 6px;
     }
     
