@@ -39,7 +39,9 @@ const routes: Routes = [
 		path: 'product/:id',
 		component: ProductComponent,
     runGuardsAndResolvers: 'always',
-    resolve: { product: ProductResolverService },
+    resolve: {
+      product: ProductResolverService
+    },
 	},
   {
 		path: 'store/:url',

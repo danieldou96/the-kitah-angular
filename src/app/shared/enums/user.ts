@@ -1,2 +1,6 @@
 
-export type Roles = 'buyer' | 'vendor' | 'admin';
+export enum ERoles {
+	Buyer = 'buyer',
+	Vendor = 'vendor',
+	Admin = 'admin'
+}

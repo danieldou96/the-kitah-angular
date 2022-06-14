@@ -30,6 +30,7 @@ export class ProductComponent {
   ) {
     this.product$ = this.activatedRoute.data.pipe(
       map(data => data['product']),
+      tap(t=>console.log(t)),
       tap(product => this.recentlyViewedProductsService.addItem({ product }))
     );
 

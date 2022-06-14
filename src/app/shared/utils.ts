@@ -12,3 +12,8 @@ export function getAllNumbersBetween(size: number) {
 export function extname(filename: string) {
 	return filename.split('.').pop();
 }
+
+export function tokenExpired(token: string) {
+	const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
+	return Math.floor(new Date().getTime() / 1000) >= expiry;
+}

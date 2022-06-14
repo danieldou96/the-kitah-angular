@@ -29,12 +29,15 @@ import { PlotlyModule } from 'angular-plotly.js';
 import { NgChartsModule } from 'ng2-charts';
 import { MyProductsResolverService } from 'src/app/core/resolvers/my-products-resolver/my-products-resolver.service';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
+import { AuthGuard } from 'src/app/core/guards/auth/auth.guard';
+import { VendorGuard } from 'src/app/core/guards/vendor/vendor.guard';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
 const buyerRoutes: Routes = [
   {
 		path: 'my-account',
+    canActivate: [AuthGuard],
 		component: AccountLayoutComponent,
     children: [
       {
@@ -86,6 +89,7 @@ const buyerRoutes: Routes = [
 const vendorRoutes: Routes = [
   {
 		path: 'dashboard',
+    canActivate: [AuthGuard, VendorGuard],
 		component: AccountLayoutComponent,
     children: [
       {

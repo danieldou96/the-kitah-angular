@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.authService.loggedInUserValue) {
+    if (this.authService.loggedInUser) {
       this.router.navigateByUrl('my-account');
     }
     this.registerForm = this.fb.group({

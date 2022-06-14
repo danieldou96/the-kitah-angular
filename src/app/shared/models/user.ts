@@ -1,4 +1,4 @@
-import { Roles } from "../enums/user";
+import { ERoles } from "../enums/user";
 
 export interface User {
 	id: number;
@@ -6,7 +6,7 @@ export interface User {
   lastname: string;
 	username: string;
 	email: string;
-	role: Roles;
+	role: ERoles;
 	confirmed: boolean;
 	banned: boolean;
 	createdAt: Date;

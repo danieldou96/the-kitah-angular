@@ -55,7 +55,7 @@ export class AuthService {
 		);
 	}
 
-	public get loggedInUserValue() {
+	public get loggedInUser(): UserToken | null {
 		return this._loggedInUser;
 	}
 

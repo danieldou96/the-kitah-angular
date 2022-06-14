@@ -57,8 +57,8 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkoutForm = this.fb.group({
-      firstname: new FormControl(this.authService.loggedInUserValue?.user.firstname, [Validators.required]),
-      lastname: new FormControl(this.authService.loggedInUserValue?.user.lastname, [Validators.required]),
+      firstname: new FormControl(this.authService.loggedInUser?.user.firstname, [Validators.required]),
+      lastname: new FormControl(this.authService.loggedInUser?.user.lastname, [Validators.required]),
       company: new FormControl(undefined),
       country: new FormControl(undefined),
       street: new FormControl(undefined),

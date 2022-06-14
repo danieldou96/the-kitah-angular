@@ -1,4 +1,4 @@
-import { Roles } from "../enums/user";
+import { ERoles } from "../enums/user";
 import { User } from "./user";
 
 export interface ApiFindResponse {
