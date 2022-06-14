@@ -1,0 +1,28 @@
+:host ::ng-deep {
+  .swiper-pagination-bullet.swiper-pagination-bullet-active.swiper-pagination-bullet-active-main {
+    background: #dea249;
+  }
+
+  .swiper-pagination-fraction,
+  .swiper-pagination-custom,
+  .swiper-horizontal > .swiper-pagination-bullets,
+  .swiper-pagination-bullets.swiper-pagination-horizontal {
+    bottom: 0;
+  }
+}
+
+.products {
+	display: flex;
+	flex-wrap: wrap;
+	margin-right: -15px;
+	margin-left: -15px;
+	margin-left: -0.5rem;
+	margin-right: -0.5rem;
+	margin-bottom: 0.5rem;
+
+	&__item {
+		padding-left: 0.5rem;
+		padding-right: 0.5rem;
+		margin-bottom: 1rem;
+	}
+}

@@ -216,9 +216,7 @@
           <div class="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-4 mb-4">
             <h2 class="h3 mb-0 pt-2">Related products</h2>
           </div>
-          <div class="related-products__list">
-            <app-product-card *ngFor="let relatedProduct of product.relatedProducts" [product]="relatedProduct" mode="grid-2"></app-product-card>
-          </div>
+          <app-products-grid [products]="product.relatedProducts!"></app-products-grid>
         </div>
       </section>
     </div>

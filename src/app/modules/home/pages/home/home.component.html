@@ -30,21 +30,7 @@
 
           <p class="text-muted text-center">Every week we hand-pick some of the best items from our collection</p>
 
-          <swiper [slidesPerView]="(documentService.isSmallScreen$ | async) ? 1 : 3"
-            [loop]="featuredProducts.length > 3 ? true : false" [spaceBetween]="30" [autoplay]="{
-            delay: 4000,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true
-          }" [grabCursor]="featuredProducts.length > 3 ? true : false" [centeredSlides]="true" [pagination]="{
-            dynamicBullets: true,
-            clickable: true
-          }">
-            <ng-container *ngFor="let featuredProduct of featuredProducts">
-              <ng-template swiperSlide>
-                <app-product-card [product]="featuredProduct" mode="grid-2"></app-product-card>
-              </ng-template>
-            </ng-container>
-          </swiper>
+          <app-products-grid [products]="featuredProducts" [slider]="true" [centered]="true"></app-products-grid>
         </div>
       </div>
     </div>
@@ -55,12 +41,6 @@
   <ng-container *ngrxLet="monthlyProducts$ as monthlyProducts">
     <div *ngIf="monthlyProducts.length != 0"
       class="czgb-products-with-header-block wp-block-czgb-products-with-header czgb-products-with-header pb-5 mb-lg-2 czgb-2dd1010 container czgb-main-block">
-      <style>
-        .czgb-2dd1010 .czgb-products-with-header__header {
-          margin-bottom: 33px !important
-        }
-
-      </style>
       <div
         class="czgb-products-with-header__header d-flex flex-wrap justify-content-between align-items-center pt-1 border-bottom pb-4 mb-4">
         <h3 class="czgb-products-with-header__title h3 mb-0 pt-3 mr-2">The most popular products this month</h3>
@@ -68,20 +48,9 @@
           [routerLink]="['/shop']" data-scroll="true"><span class="czgb-button--inner">All
               categories</span><i class="ci ci-arrow-right ml-2 mr-n1"></i></a></div>
       </div>
-      <div>
-        <div class="wp-block-czgb-products">
-          <div>
-            <div class="woocommerce columns-4 ">
-              <ul class="list-unstyled products columns-4">
-                <li *ngFor="let monthlyProduct of monthlyProducts"
-                  class="product type-product post-1372 status-publish first instock product_cat-10th product_cat-chodshei-hashana has-post-thumbnail downloadable virtual purchasable product-type-simple">
-                  <app-product-card [product]="monthlyProduct" mode="grid-2"></app-product-card>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+      
+      <app-products-grid [products]="monthlyProducts"></app-products-grid>
+
       <div class="czgb-products-with-header__footer text-center pt-3"><a
           class="btn mr-1 none mb-2 btn-outline-accent button-icon" [routerLink]="['/shop']"
           data-scroll="true"><span class="czgb-button--inner">View more products</span><i
@@ -160,34 +129,9 @@
       class="wp-block-czgb-seller-block czgb-seller-block border-top wp-block-czgb-seller-block py-5">
       <div class="py-lg-2 container">
         <h2 class="h3 mb-3 pb-3 pb-lg-4 text-center">Recently viewed products</h2>
-        <div class="ajax-content">
-          <div>
-            <div class="row">
-              <div class="col-12">
-                <div class="cz-carousel">
-                  <swiper [slidesPerView]="(documentService.isSmallScreen$ | async) ? 1 : 3"
-                    [loop]="recentlyViewedProducts.length > 4 ? true : false"
-                    [spaceBetween]="30"
-                    [slidesPerView]="4"
-                    [autoplay]="{
-                      delay: 4000,
-                      disableOnInteraction: false,
-                      pauseOnMouseEnter: true
-                    }"
-                    [grabCursor]="recentlyViewedProducts.length > 4 ? true : false"
-                    [pagination]="{
-                      dynamicBullets: true,
-                      clickable: true
-                    }">
-                    <ng-container *ngFor="let recentlyViewedProduct of recentlyViewedProducts">
-                      <ng-template swiperSlide>
-                        <app-product-card [product]="recentlyViewedProduct" mode="grid-2"></app-product-card>
-                      </ng-template>
-                    </ng-container>
-                  </swiper>
-                </div>
-              </div>
-            </div>
+        <div class="row">
+          <div class="col-12">
+            <app-products-grid [products]="recentlyViewedProducts" [slider]="true"></app-products-grid>
           </div>
         </div>
       </div>

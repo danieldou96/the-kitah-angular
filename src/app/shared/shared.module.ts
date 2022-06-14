@@ -11,6 +11,8 @@ import { NgPipesModule } from 'ngx-pipes';
 import { ShortNumberPipe } from './pipes/short-number.pipe';
 import { PhonePipe } from './pipes/phone.pipe';
 import { ProductCardComponent } from './components/product-card/product-card.component';
+import { ProductsGridComponent } from './components/products-grid/products-grid.component';
+import { SwiperModule } from 'swiper/angular';
 
 
 @NgModule({
@@ -20,7 +22,8 @@ import { ProductCardComponent } from './components/product-card/product-card.com
     ShortNumberPipe,
     TabComponent,
     PhonePipe,
-    ProductCardComponent
+    ProductCardComponent,
+    ProductsGridComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +32,8 @@ import { ProductCardComponent } from './components/product-card/product-card.com
     NgPipesModule,
     ReactiveComponentModule,
     ReactiveFormsModule,
-    NgxFilesizeModule
+    NgxFilesizeModule,
+    SwiperModule
   ],
   exports: [
     PageTitleComponent,
@@ -40,6 +44,7 @@ import { ProductCardComponent } from './components/product-card/product-card.com
     ReactiveComponentModule,
     ReactiveFormsModule,
     ProductCardComponent,
+    ProductsGridComponent,
     NgxFilesizeModule,
     PhonePipe
   ]
