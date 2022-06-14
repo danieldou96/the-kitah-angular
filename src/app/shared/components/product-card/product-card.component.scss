@@ -136,7 +136,9 @@
 	.text-muted{color:#7d879c!important;}
 	a:focus{outline:none;}
 	a{transition:color 0.25s ease-in-out;}
-	img{max-width:100%;height:auto;vertical-align:middle;}
+	img{max-width:100%;
+		height: 200px;
+		object-fit: cover;vertical-align:middle;}
 	::selection{background:rgba(78, 84, 200, 0.15);}
 	::-moz-selection{background:rgba(78, 84, 200, 0.15);}
 	small{font-weight:inherit;}
