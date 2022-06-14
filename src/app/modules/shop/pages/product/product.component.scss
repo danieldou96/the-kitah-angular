@@ -1230,10 +1230,6 @@ img.emoji {
     width: 100%;
   }
 
-  .card * {
-    min-height: .01px;
-  }
-
   .comment-respond {
     flex: 1;
     padding-top: 1rem;
@@ -2027,7 +2023,6 @@ select:focus,
   .nav-link-style{color:#4b566b;}
   .nav-link-style > i{margin-top:-.125rem;vertical-align:middle;}
   .card-img-top > img{display:block;width:100%;}
-  .card *{min-height:.01px;}
   .comment-respond{flex:1;padding-top:1rem;}
   #cancel-comment-reply-link{font-size:0.875rem;margin-left:.5rem;}
   #cancel-comment-reply-link::before{display:inline-block;margin-right:.25rem;font-family:'cartzilla-icons';content:'\e91f';}

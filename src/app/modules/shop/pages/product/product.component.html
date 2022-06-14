@@ -8,10 +8,18 @@
             <section class="col-lg-8 pt-2 pt-lg-4 pb-4 mb-lg-3">
               <div class="pt-2 px-4 pr-lg-0 pl-xl-5 cz-gallery">
                 <div class="swiper-container" *ngIf="galleryItems.length > 1">
-                  <swiper [style.--swiper-navigation-color]="'#fff'" [style.--swiper-pagination-color]="'#fff'"
-                    [style.--swiper-navigation-size]="'38px'" [spaceBetween]="10" [navigation]="true"
-                    [pagination]="{	type: 'fraction' }" [lazy]="true" [zoom]="true" [loop]="true"
-                    [thumbs]="{ swiper: thumbsSwiper }" [keyboard]="{ enabled: true	}" class="photoGallery">
+                  <swiper
+                    class="photoGallery"
+                    [style.--swiper-navigation-color]="'#fff'"
+                    [style.--swiper-pagination-color]="'#fff'"
+                    [style.--swiper-navigation-size]="'38px'"
+                    [spaceBetween]="10"
+                    [navigation]="true"
+                    [pagination]="{	type: 'fraction' }"
+                    [zoom]="true"
+                    [loop]="true"
+                    [thumbs]="{ swiper: thumbsSwiper }"
+                    [keyboard]="{ enabled: true	}">
                     <ng-template swiperSlide *ngFor="let item of galleryItems">
                       <div class="swiper-zoom-container">
                         <img [attr.data-src]="item" class="swiper-lazy" />
@@ -184,7 +192,7 @@
                                     Review</button>
                                 </div>
                               </form>
-                            </div><!-- #respond -->
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -196,10 +204,9 @@
               </div>
             </div>
           </mat-tab>
-          <!--<mat-tab label="More Products">Content 3</mat-tab>-->
         </mat-tab-group>
       </div>
-      <section class="related-products">
+      <section class="related-products" *ngIf="product.relatedProducts?.length! > 0">
         <div class="container mb-4 pb-lg-3">
           <div class="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-4 mb-4">
             <h2 class="h3 mb-0 pt-2">Related products</h2>
