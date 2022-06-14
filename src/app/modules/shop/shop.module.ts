@@ -29,6 +29,7 @@ import { OrderResolverService } from 'src/app/core/resolvers/order-resolver/orde
 import { SwiperModule } from 'swiper/angular';
 import { QueryParamModule } from '@ngqp/core';
 import { StoreResolver } from 'src/app/core/resolvers/store-resolver/store.resolver';
+import { AuthGuard } from 'src/app/core/guards/auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -54,13 +55,14 @@ const routes: Routes = [
 	},
   {
 		path: 'checkout',
+    canActivate: [AuthGuard],
 		component: CheckoutComponent,
     resolve: {
       intentSecret: StripeTokenResolverService
     }
 	},
   {
-		path: 'checkout-success/:id',
+		path: 'checkout-success',
 		component: CheckoutSuccessComponent,
     resolve: {
       order: OrderResolverService
