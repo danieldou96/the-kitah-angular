@@ -14,7 +14,7 @@
             <ul class="list-unstyled font-size-sm" *ngIf="store.phone">
               <li class="store-phone">
                 <a [href]="'tel:' + store.phone" class="d-inline-block">
-                  <i class="ci-phone opacity-60 mr-2"></i> {{ store.phone | phone: '(000) 000-0000' }}
+                  <i class="ci-phone opacity-60 me-2"></i> {{ store.phone | phone: '(000) 000-0000' }}
                 </a>
               </li>
             </ul>
@@ -54,7 +54,7 @@
         </div>
       </aside>
       <section class="col-lg-8 pt-lg-4 pb-md-4">
-        <div class="pt-2 px-4 pl-lg-0 pr-xl-5">
+        <div class="pt-2 px-4 ps-lg-0 pe-xl-5">
           <mat-tab-group animationDuration="0ms" mat-stretch-tabs [disableRipple]="true">
             <mat-tab label="Products">
               <div class="products">

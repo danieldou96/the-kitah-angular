@@ -10,8 +10,8 @@
       <section class="col-lg-8">
         <div class="d-flex justify-content-between align-items-center pt-3 pb-4 pb-md-5 my-1">
           <h2 class="h6 text-light mb-0">Billing details</h2>
-          <a class="btn btn-outline-primary btn-sm pl-2" [routerLink]="['/cart']">
-            <i class="ci-arrow-left mr-2"></i>
+          <a class="btn btn-outline-primary btn-sm ps-2" [routerLink]="['/cart']">
+            <i class="ci-arrow-left me-2"></i>
             Back to cart </a>
         </div>
         <div class="pt-3 pt-md-0">
@@ -114,7 +114,7 @@
         </div>
       </section>
       <aside class="col-lg-4 pt-4 pt-lg-0">
-        <div class="cz-sidebar-static rounded-lg box-shadow-lg ml-lg-auto">
+        <div class="cz-sidebar-static rounded-lg box-shadow-lg ms-lg-auto">
           <h2 class="h6 mb-3 pb-1 text-center">Your order</h2>
           <ng-container *ngrxLet="cart$ as cartItems">
             <div class="woocommerce-checkout-review-order">
@@ -131,7 +131,7 @@
                           <a [routerLink]="['/product/' + item.product.id]">{{ item.product.name }}</a>
                         </h6>
                         <div class="widget-product-meta">
-                          <span class="text-accent mr-1">{{ item.product.price | currency }}</span>
+                          <span class="text-accent me-1">{{ item.product.price | currency }}</span>
                           <span class="text-muted">× {{ item.quantity }}</span>
                         </div>
                       </div>
@@ -156,7 +156,7 @@
                     <p class="form-row validate-required">
                       <label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
                         <input type="checkbox" formControlName="terms"
-                          class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox mr-1">
+                          class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox me-1">
                         <span class="woocommerce-terms-and-conditions-checkbox-text">I have read and agree to the website
                           <a [routerLink]="['/terms']" class="woocommerce-terms-and-conditions-link"
                             target="_blank">terms and conditions</a></span> <span class="required">*</span>

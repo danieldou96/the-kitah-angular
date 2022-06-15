@@ -4,7 +4,6 @@
 	}
 	/*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/style.css?ver=1.0.5 ; media=all */
 	@media all{
-	*,*::before,*::after{box-sizing:border-box;}
 	h1,h2,h6{margin-top:0;margin-bottom:0.75rem;}
 	p{margin-top:0;margin-bottom:1rem;}
 	ul{margin-top:0;margin-bottom:1rem;}
@@ -24,38 +23,8 @@
 	.media-body{flex:1;}
 	.bg-secondary{background-color:#f3f5f9!important;}
 	.rounded-lg{border-radius:0.4375rem!important;}
-	.d-flex{display:flex!important;}
-	.justify-content-between{justify-content:space-between!important;}
-	.align-items-center{align-items:center!important;}
-	.h-100{height:100%!important;}
-	.mb-0{margin-bottom:0!important;}
-	.mr-1{margin-right:0.25rem!important;}
-	.mr-2{margin-right:0.5rem!important;}
-	.mb-2{margin-bottom:0.5rem!important;}
-	.my-3{margin-top:1rem!important;}
-	.mb-3,.my-3{margin-bottom:1rem!important;}
-	.pb-1{padding-bottom:0.25rem!important;}
-	.px-2{padding-right:0.5rem!important;}
-	.px-2{padding-left:0.5rem!important;}
-	.p-3{padding:1rem!important;}
-	.pb-3{padding-bottom:1rem!important;}
-	.p-4{padding:1.5rem!important;}
-	.pt-4{padding-top:1.5rem!important;}
-	.py-5{padding-top:3rem!important;}
-	.py-5{padding-bottom:3rem!important;}
-	.mx-n2{margin-right:-0.5rem!important;}
-	.mx-n2{margin-left:-0.5rem!important;}
-	@media (min-width: 768px){
-	.pt-md-0{padding-top:0!important;}
-	}
 	.text-right{text-align:right!important;}
-	.text-center{text-align:center!important;}
 	.text-accent{color:#4e54c8!important;}
-	.text-muted{color:#7d879c!important;}
-	html *{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
-	img{max-width:100%;height:auto;vertical-align:middle;}
-	::selection{background:rgba(78, 84, 200, 0.15);}
-	::-moz-selection{background:rgba(78, 84, 200, 0.15);}
 	small{font-weight:inherit;}
 	.widget{margin-bottom:30px;padding-bottom:30px;border-bottom:1px solid #e3e9ef;font-size:0.875rem;}
 	.widget:last-child{margin-bottom:0;padding-bottom:0;border-bottom:0;}
@@ -74,7 +43,7 @@
 	.font-weight-medium{font-weight:500!important;}
 	.font-size-md{font-size:0.9375rem!important;}
 	.rounded-lg{border-radius:0.4375rem!important;}
-	*{word-break:break-word;}
+	
 	.widget{margin:0 0 1.5em;}
 	}
 	.text-accent{color:#2f3252!important;}

@@ -1,7 +1,6 @@
 /*! CSS Used from: http://s603556811.onlinehome.fr/wp-includes/css/dist/block-library/style.min.css?ver=5.9.3 ; media=all */
 @media all{
   /*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/style.css?ver=1.0.5 ; media=all */
-  *,*::before,*::after{box-sizing:border-box;}
   hr{box-sizing:content-box;height:0;overflow:visible;}
   h2{margin-top:0;margin-bottom:0.75rem;}
   a{color:#fe696a;text-decoration:none;background-color:transparent;}
@@ -19,13 +18,6 @@
   h2{font-size:2rem;}
   .h4{font-size:1.5rem;}
   hr{margin-top:1rem;margin-bottom:1rem;border:0;border-top:1px solid #e3e9ef;}
-  .container{width:100%;padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto;}
-  @media (min-width: 1280px){
-  .container{max-width:1260px;}
-  }
-  @media (min-width: 1280px){
-  .container{max-width:1260px;}
-  }
   .form-control{display:block;width:100%;height:calc(1.5em + 1.25rem + 2px);padding:0.625rem 1rem;font-size:0.9375rem;font-weight:400;line-height:1.5;color:#4b566b;background-color:#fff;background-clip:padding-box;border:1px solid #dae1e7;border-radius:0.3125rem;box-shadow:0 0 0 0 transparent;transition:border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;}
   @media (prefers-reduced-motion: reduce){
   .form-control{transition:none;}
@@ -58,7 +50,7 @@
   .custom-control:focus,.custom-control-label:focus{outline:none;}
   .form-control:disabled{cursor:not-allowed;}
   .box-shadow{box-shadow:0 0.25rem 0.5625rem -0.0625rem rgba(0, 0, 0, 0.03), 0 0.275rem 1.25rem -0.0625rem rgba(0, 0, 0, 0.05)!important;}
-  *{word-break:break-word;}
+  
   }
   /*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/assets/css/colors/pink.css?ver=1.0.5 ; media=all */
   @media all{

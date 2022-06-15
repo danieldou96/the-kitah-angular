@@ -51,7 +51,6 @@
 	}
 	/*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/style.css?ver=1.0.5 ; media=all */
 	@media all{
-	*,*::before,*::after{box-sizing:border-box;}
 	article,header{display:block;}
 	h1{margin-top:0;margin-bottom:0.75rem;}
 	ul{margin-top:0;margin-bottom:1rem;}
@@ -82,15 +81,10 @@
 	@media (prefers-reduced-motion: reduce){
 	select{transition:none;}
 	}
-	html *{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
-	a:focus{outline:none;}
-	a{transition:color 0.25s ease-in-out;}
-	::selection{background:rgba(78, 84, 200, 0.15);}
-	::-moz-selection{background:rgba(78, 84, 200, 0.15);}
 	table:not(.table-dark) thead:not(.thead-dark) th{color:#373f50;}
 	thead th,th{font-weight:500;}
 	select{max-width:100%;-webkit-appearance:none;}
-	*{word-break:break-word;}
+	
 	table{margin:0 0 1.5em;}
 	table th{word-break:normal;}
 	.dokan-dashboard-header .entry-title{padding-top:1rem;padding-bottom:1rem;margin-bottom:0;border-bottom-width:0;text-align:center;}

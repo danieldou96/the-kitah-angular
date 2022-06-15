@@ -1,15 +1,3 @@
-/*! CSS Used from: http://s603556811.onlinehome.fr/wp-includes/css/dist/block-library/style.min.css?ver=5.9.2 ; media=all */
-@media all {
-  h6 {
-    overflow-wrap: break-word;
-  }
-
-  html :where(img) {
-    height: auto;
-    max-width: 100%;
-  }
-}
-
 /*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/plugins/dokan-lite/assets/vendors/font-awesome/font-awesome.min.css?ver=3.3.2 ; media=all */
 @media all {
   .sr-only {
@@ -20,14 +8,6 @@
     margin: -1px;
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
-    border: 0;
-  }
-}
-
-/*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/plugins/dokan-lite/assets/vendors/magnific/magnific-popup.css?ver=3.3.2 ; media=all */
-@media all {
-  button::-moz-focus-inner {
-    padding: 0;
     border: 0;
   }
 }
@@ -48,17 +28,6 @@
 
 /*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/style.css?ver=1.0.5 ; media=all */
 @media all {
-
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  h6 {
-    margin-top: 0;
-    margin-bottom: 0.75rem;
-  }
 
   small {
     font-size: 80%;
@@ -127,41 +96,9 @@
     padding: 0;
   }
 
-  h6 {
-    margin-bottom: 0.75rem;
-    font-weight: 500;
-    line-height: 1.2;
-    color: #373f50;
-  }
-
-  h6 {
-    font-size: 1.0625rem;
-  }
-
   small {
     font-size: 80%;
     font-weight: 400;
-  }
-
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
-  }
-
-  .col-sm-6 {
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-  }
-
-  @media (min-width: 576px) {
-    .col-sm-6 {
-      flex: 0 0 50%;
-      max-width: 50%;
-    }
   }
 
   .form-control {
@@ -347,24 +284,6 @@
     border-radius: 0.4375rem !important;
   }
 
-  .d-none {
-    display: none !important;
-  }
-
-  @media (min-width: 992px) {
-    .d-lg-flex {
-      display: flex !important;
-    }
-  }
-
-  .justify-content-between {
-    justify-content: space-between !important;
-  }
-
-  .align-items-center {
-    align-items: center !important;
-  }
-
   .sr-only {
     position: absolute;
     width: 1px;
@@ -377,93 +296,12 @@
     border: 0;
   }
 
-  .mb-0 {
-    margin-bottom: 0 !important;
-  }
-
-  .mr-2 {
-    margin-right: 0.5rem !important;
-  }
-
-  .mb-2 {
-    margin-bottom: 0.5rem !important;
-  }
-
-  .mb-4 {
-    margin-bottom: 1.5rem !important;
-  }
-
-  .pl-3 {
-    padding-left: 1rem !important;
-  }
-
-  .p-4 {
-    padding: 1.5rem !important;
-  }
-
-  .pb-4 {
-    padding-bottom: 1.5rem !important;
-  }
-
-  @media (min-width: 992px) {
-    .mb-lg-3 {
-      margin-bottom: 1rem !important;
-    }
-
-    .pt-lg-3 {
-      padding-top: 1rem !important;
-    }
-
-    .pb-lg-5 {
-      padding-bottom: 3rem !important;
-    }
-  }
-
   .text-danger {
     color: #f34770 !important;
   }
 
-  .text-light {
-    color: #fff !important;
-  }
-
-  .text-muted {
-    color: #7d879c !important;
-  }
-
-  html * {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  a:focus {
-    outline: none;
-  }
-
-  a {
-    transition: color 0.25s ease-in-out;
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
-    vertical-align: middle;
-  }
-
-  ::selection {
-    background: rgba(78, 84, 200, 0.15);
-  }
-
-  ::-moz-selection {
-    background: rgba(78, 84, 200, 0.15);
-  }
-
   small {
     font-weight: inherit;
-  }
-
-  button:focus {
-    outline: none;
   }
 
   label {
@@ -560,10 +398,6 @@
 
   .bg-secondary {
     background-color: #f6f9fc !important;
-  }
-
-  .font-size-base {
-    font-size: 1rem !important;
   }
 
   .font-size-ms {

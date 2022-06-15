@@ -39,16 +39,26 @@
             <ul class="user-dropdown" *ngIf="loggedInUser.role == 'vendor' || loggedInUser.role == 'admin'">
               <li class="user-dropdown__header">Account</li>
               <li class="user-dropdown__item">
-                <a><i class="ci-settings"></i> Settings</a>
+                <a [routerLink]="['/my-account/orders']"><i class="ci-bag"></i> Orders</a>
               </li>
               <li class="user-dropdown__item">
-                <a [routerLink]="['/my-account/orders/']"><i class="ci-basket"></i> Orders
-                </a>
+                <a [routerLink]="['/my-account/downloads']">
+                  <i class="ci-cloud-download"></i> Downloads</a>
+              </li>
+              <!--<li class="user-dropdown__item">
+                <a [routerLink]="['/my-account/wishlist']">
+                  <i class="ci-heart"></i> My wishlist <span>{{ 0 }}</span></a>
+              </li>
+              <li class="user-dropdown__item">
+                <a [routerLink]="['/my-account/favorite-sellers']"><i class="ci-store"></i> My favorite sellers</a>
+              </li>-->
+              <li class="user-dropdown__item">
+                <a [routerLink]="['/my-account/edit-account']"><i class="ci-user"></i> Account details</a>
               </li>
               <li class="user-dropdown__divider"></li>
               <li class="user-dropdown__header">Seller Dashboard</li>
               <li class="user-dropdown__item">
-                <a [routerLink]="['/dashboard']"><i class="ci-dollar"></i> Sales <span class="font-size-sm text-muted ml-auto">{{ 0 | currency}}</span>
+                <a [routerLink]="['/dashboard']"><i class="ci-dollar"></i> Sales <span class="font-size-sm text-muted ms-auto">{{ 0 | currency}}</span>
                 </a>
               </li>
               <li class="user-dropdown__item">
@@ -62,6 +72,9 @@
               </li>
               <li class="user-dropdown__item">
                 <a [routerLink]="['/dashboard/withdraw']"><i class="ci-currency-exchange"></i> Withdraw</a>
+              </li>
+              <li class="user-dropdown__item">
+                <a><i class="ci-settings"></i> Settings</a>
               </li>
               <li class="user-dropdown__divider"></li>
               <li class="user-dropdown__item">
@@ -79,15 +92,15 @@
                 <a [routerLink]="['/my-account/downloads']">
                   <i class="ci-cloud-download"></i> Downloads</a>
               </li>
-              <li class="user-dropdown__item">
+              <!--<li class="user-dropdown__item">
                 <a [routerLink]="['/my-account/wishlist']">
                   <i class="ci-heart"></i> My wishlist <span>{{ 0 }}</span></a>
               </li>
               <li class="user-dropdown__item">
                 <a [routerLink]="['/my-account/favorite-sellers']"><i class="ci-store"></i> My favorite sellers</a>
-              </li>
+              </li>-->
               <li class="user-dropdown__item">
-                <a [routerLink]="['/my-account/edit-account']"><i class="ci-user"></i> edit-account</a>
+                <a [routerLink]="['/my-account/edit-account']"><i class="ci-user"></i> Account details</a>
               </li>
               <li class="user-dropdown__divider"></li>
               <li class="user-dropdown__item">

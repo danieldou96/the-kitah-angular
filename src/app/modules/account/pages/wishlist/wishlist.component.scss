@@ -4,7 +4,6 @@
 	}
 	/*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/style.css?ver=1.0.5 ; media=all */
 	@media all{
-	*,*::before,*::after{box-sizing:border-box;}
 	h2{margin-top:0;margin-bottom:0.75rem;}
 	table{border-collapse:collapse;}
 	th{text-align:inherit;}
@@ -16,12 +15,9 @@
 	table th,table.wishlist_table th,table td,table.wishlist_table td{padding:0.75rem;vertical-align:top;border-top:1px solid #e3e9ef;}
 	table thead th,table.wishlist_table thead th{vertical-align:bottom;border-bottom:2px solid #e3e9ef;}
 	.page__content > :last-child::after{display:block;clear:both;content:"";}
-	html *{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
-	::selection{background:rgba(78, 84, 200, 0.15);}
-	::-moz-selection{background:rgba(78, 84, 200, 0.15);}
 	table:not(.table-dark) thead:not(.thead-dark) th,table.wishlist_table:not(.table-dark) thead:not(.thead-dark) th{color:#373f50;}
 	thead th,th{font-weight:500;}
-	*{word-break:break-word;}
+	
 	table{margin:0 0 1.5em;}
 	table th{word-break:normal;}
 	@media (max-width: 767.98px){

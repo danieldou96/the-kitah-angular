@@ -305,22 +305,6 @@ a {
     }
   }
 
-  &__browse {
-    margin-right: 0;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding-left: 0;
-    margin-bottom: 0;
-    margin-top: 0;
-    list-style: none;
-
-    @media (min-width: 992px) {
-      flex-direction: row;
-      padding-right: 0.5rem;
-    }
-  }
-
   &__search {
     position: relative;
   }
@@ -522,7 +506,7 @@ a {
     padding-top: 0.5rem;
   }
 
-  &__total-amount-label {
+  &__total-label {
     color: #7d879c;
   }
 

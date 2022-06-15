@@ -180,9 +180,6 @@
   .text-left {
     text-align: left !important;
   }
-  .text-center {
-    text-align: center !important;
-  }
   @media (min-width: 576px) {
     .text-sm-left {
       text-align: left !important;
@@ -204,24 +201,6 @@
   }
   .text-accent {
     color: #4e54c8 !important;
-  }
-  .text-muted {
-    color: #7d879c !important;
-  }
-  html * {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  a:focus {
-    outline: 0;
-  }
-  a {
-    transition: color 0.25s ease-in-out;
-  }
-  img {
-    max-width: 100%;
-    height: auto;
-    vertical-align: middle;
   }
   .list-unstyled > li {
     margin-bottom: 0.4rem;

@@ -6,7 +6,7 @@
         <div class="product-summary bg-light box-shadow-lg rounded-lg overflow-hidden mb-3">
           <div class="row">
             <section class="col-lg-8 pt-2 pt-lg-4 pb-4 mb-lg-3">
-              <div class="pt-2 px-4 pr-lg-0 pl-xl-5 cz-gallery">
+              <div class="pt-2 px-4 pe-lg-0 ps-xl-5 cz-gallery">
                 <div class="swiper-container" *ngIf="galleryItems.length > 1">
                   <swiper
                     class="photoGallery"
@@ -43,7 +43,7 @@
               </div>
             </section>
             <aside class="col-lg-4">
-              <div class="cz-sidebar-static h-100 ml-auto border-left">
+              <div class="cz-sidebar-static h-100 ms-auto border-left">
                 <div class="summary entry-summary">
                   <div class="position-relative d-flex align-items-center">
                     <div class="price mb-3">
@@ -57,7 +57,7 @@
                         <input type="number" class="form-control" step="1" min="1" max="" value="1" title="Qty" size="4" inputmode="numeric">
                       </div> -->
                       <button type="submit" (click)="cartService.addCartItem({ quantity: 1, product })" class="classic-button">
-                        <i class="ci-cart font-size-lg mr-2"></i> Add to cart </button>
+                        <i class="ci-cart font-size-lg me-2"></i> Add to cart </button>
                     </div>
                   </form>
                   <!--<div class="yith-wcwl-add-to-wishlist add-to-wishlist-1372  wishlist-fragment on-first-load">
@@ -72,15 +72,15 @@
                       <img class="rounded-circle" width="50"
                         src="https://0.gravatar.com/avatar/6d29517ae3ba7c92749e62bd79530cca?s=96&amp;d=mm&amp;r=g"
                         alt="Test">
-                      <div class="media-body pl-2">
+                      <div class="media-body ps-2">
                         <span class="font-size-ms text-muted">Created by</span>
                         <h6 class="font-size-sm mb-0">{{ product.store?.name }}</h6>
                       </div>
                     </a>
                   </div>
                   <div class="bg-secondary rounded p-3 mb-2" *ngIf="product.sales! > 0">
-                    <i class="ci-download h5 text-muted align-middle mb-0 mt-n1 mr-2"></i>
-                    <span class="d-inline-block h6 mb-0 mr-1">{{ product.sales }}</span><span
+                    <i class="ci-download h5 text-muted align-middle mb-0 mt-n1 me-2"></i>
+                    <span class="d-inline-block h6 mb-0 me-1">{{ product.sales }}</span><span
                       class="font-size-sm">Sales</span>
                   </div>
                   <ul class="list-unstyled font-size-sm product-meta-items">

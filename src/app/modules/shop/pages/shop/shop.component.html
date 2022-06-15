@@ -6,9 +6,9 @@
       <div
         class="d-flex justify-content-center justify-content-sm-between align-items-center pt-2 pt-lg-2 pb-4 pb-lg-5 mb-2 mb-lg-0">
         <div *ngIf="currentPage?.elements?.length! > 0" class="d-flex flex-wrap">
-          <div class="form-inline flex-nowrap mr-3 mr-sm-4 pb-3">
+          <div class="form-inline flex-nowrap me-3 me-sm-4 pb-3">
             <form class="woocommerce-ordering form-inline flex-nowrap">
-              <!-- <label class="text-light opacity-75 text-nowrap mr-2 d-none d-sm-block">Sort by:</label>
+              <!-- <label class="text-light opacity-75 text-nowrap me-2 d-none d-sm-block">Sort by:</label>
 
               <select name="orderby" class="orderby form-control custom-select">
                 <option value="popularity" selected="selected">Popularity</option>
@@ -19,25 +19,25 @@
                 <option value="title-desc">Z - A Order</option>
               </select> -->
 
-              <span class="font-size-sm opacity-75 text-nowrap ml-2 d-none d-md-block total-products"><!-- of --> {{ currentPage?.totalElements }} products </span>
+              <span class="font-size-sm opacity-75 text-nowrap ms-2 d-none d-md-block total-products"><!-- of --> {{ currentPage?.totalElements }} products </span>
 
             </form>
           </div>
         </div>
         <div class="d-flex pb-3">
-          <button class="nav-link-style nav-link-light mr-3" *ngIf="currentPage?.current?.page != 1 && currentPage?.elements?.length! > 0" (click)="prevPage()">
+          <button class="nav-link-style nav-link-light me-3" *ngIf="currentPage?.current?.page != 1 && currentPage?.elements?.length! > 0" (click)="prevPage()">
             <i class="ci-arrow-left"></i>
           </button>
           <span class="font-size-md total-pages">{{ currentPage?.current?.page }} / {{ currentPage?.totalPages }}</span>
-          <button class="nav-link-style nav-link-light ml-3" *ngIf="currentPage?.current?.page != currentPage?.totalPages && currentPage?.elements?.length! > 0" (click)="nextPage()">
+          <button class="nav-link-style nav-link-light ms-3" *ngIf="currentPage?.current?.page != currentPage?.totalPages && currentPage?.elements?.length! > 0" (click)="nextPage()">
             <i class="ci-arrow-right"></i>
           </button>
         </div>
         <div class="d-none d-sm-flex pb-3">
-          <button class="btn btn-icon nav-link-style ml-2 nav-link-light">
+          <button class="btn btn-icon nav-link-style ms-2 nav-link-light">
             <i class="ci-view-grid"></i>
           </button>
-          <button class="btn btn-icon nav-link-style ml-2 bg-light text-dark disabled opacity-100">
+          <button class="btn btn-icon nav-link-style ms-2 bg-light text-dark disabled opacity-100">
             <i class="ci-view-list"></i>
           </button>
         </div>
@@ -123,7 +123,7 @@
         <ul class="pagination">
           <li class="page-item">
             <button *ngIf="currentPage?.current?.page != 1" class="page-link" (click)="prevPage()">
-              <i class="ci-arrow-left mr-2"></i>Prev
+              <i class="ci-arrow-left me-2"></i>Prev
             </button>
           </li>
         </ul>
@@ -139,7 +139,7 @@
         <ul class="pagination">
           <li class="page-item">
             <button *ngIf="currentPage?.current?.page != currentPage?.totalPages" class="page-link" (click)="nextPage()">
-              Next <i class="ci-arrow-right ml-2"></i>
+              Next <i class="ci-arrow-right ms-2"></i>
             </button>
           </li>
         </ul>
@@ -148,10 +148,10 @@
     <div id="secondary" class="shop-sidebar col-lg-4" role="complementary">
       <div class="cz-sidebar rounded-lg box-shadow-lg" id="shop-sidebar">
         <div class="cz-sidebar-header box-shadow-sm">
-          <button class="close ml-auto" type="button">
+          <button class="close ms-auto" type="button">
             <span class="d-inline-block font-size-xs font-weight-normal align-middle">
               Close sidebar </span>
-            <span class="d-inline-block align-middle ml-2">×</span>
+            <span class="d-inline-block align-middle ms-2">×</span>
           </button>
         </div>
         <div class="cz-sidebar-body">

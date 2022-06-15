@@ -10,7 +10,8 @@
     "dev:ssr": "ng run the-kitah-angular:serve-ssr",
     "serve:ssr": "node dist/the-kitah-angular/server/main.js",
     "build:ssr": "ng build && ng run the-kitah-angular:server",
-    "prerender": "ng run the-kitah-angular:prerender"
+    "prerender": "ng run the-kitah-angular:prerender",
+    "unused-css": "ngx-unused-css"
   },
   "private": true,
   "dependencies": {
@@ -79,6 +80,7 @@
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "ngx-unused-css": "^4.0.0-1",
     "typescript": "~4.5.2"
   }
 }
