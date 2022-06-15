@@ -116,8 +116,7 @@
 		    <ul class="dokan-dashboard-menu list-unstyled mb-0">
 		      <li class="border-bottom mb-0 dashboard" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/dashboard']"
 		          class="nav-link-style d-flex align-items-center px-4 py-3"><i class="ci-dollar opacity-60 me-2"></i>
-		          Sales<span class="font-size-sm text-muted ms-auto"><span class="woocommerce-Price-amount amount"><span
-		                class="woocommerce-Price-currencySymbol">$</span>0.<small>00</small></span></span></a></li>
+		          Sales<span class="font-size-sm text-muted ms-auto">{{ (storeService.salesAmount$ | async) | currency }}</span></a></li>
 		      <li class="border-bottom mb-0 products" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/dashboard/products']"
 		          class="nav-link-style d-flex align-items-center px-4 py-3"><i class="ci-package opacity-60 me-2"></i>
 		          Products</a></li>

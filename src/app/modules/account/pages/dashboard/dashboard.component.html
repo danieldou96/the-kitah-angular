@@ -23,8 +23,7 @@
       <div class="bg-secondary h-100 rounded-lg p-4 text-center">
         <h3 class="font-size-sm text-muted">
           Lifetime earnings </h3>
-        <p class="h2 mb-2"><span class="woocommerce-Price-amount amount"><bdi><span
-                class="woocommerce-Price-currencySymbol">$</span>0.<small>00</small></bdi></span></p>
+        <p class="h2 mb-2">{{ (storeService.salesAmount$ | async) | currency }}</p>
         <p class="font-size-ms text-muted mb-0">Based on list price</p>
       </div>
     </div>

@@ -54,7 +54,7 @@ export class ApiService {
       context: withCache()
     }).pipe(
       map((apiResponse: ApiResponse) => apiResponse.data as IStore)
-    );;
+    );
   }
 
   // -------------------------------------------------------------------------------------

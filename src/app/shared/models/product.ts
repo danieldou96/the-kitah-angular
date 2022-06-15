@@ -84,6 +84,9 @@ export interface IStore {
   picture?: string;
   userId: number;
   sales?: number;
+  balance?: number;
+  salesAmount?: number;
+  monthSalesAmount?: number;
   name: string;
   url: string;
   country: string;

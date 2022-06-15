@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { filter, map, Observable, switchMap } from 'rxjs';
+import { ERoles } from 'src/app/shared/enums/user';
 import { ICartItem, IProduct } from 'src/app/shared/models/product';
 import { User } from 'src/app/shared/models/user';
 import { AuthService } from '../authentication/auth.service';
+import { ApiService } from '../http/api.service';
 import { CartService } from '../services/cart/cart.service';
 import { HeaderService } from '../services/header/header.service';
+import { StoreService } from '../services/store/store.service';
 
 @Component({
   selector: 'app-header',
@@ -21,6 +24,7 @@ export class HeaderComponent {
   constructor(
     private headerService: HeaderService,
     private authService: AuthService,
+    public storeService: StoreService,
     public cartService: CartService
   ) {
     this.stickyHeader$ = this.headerService.stickyHeader$;

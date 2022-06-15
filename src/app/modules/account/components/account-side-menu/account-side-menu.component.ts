@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/authentication/auth.service';
+import { StoreService } from 'src/app/core/services/store/store.service';
 import { User } from 'src/app/shared/models/user';
 
 @Component({
@@ -12,7 +13,10 @@ export class AccountSideMenuComponent {
   
   loggedInUser$: Observable<User | null>;
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    public storeService: StoreService
+  ) {
     this.loggedInUser$ = this.authService.loggedInUser$.pipe(
       map(apiAuthResponse => apiAuthResponse ?? null),
       map(userToken => userToken?.user!)

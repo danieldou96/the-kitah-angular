@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LOCAL_STORAGE } from '@ng-web-apis/common';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { first, map, merge, Observable, of, ReplaySubject, shareReplay, tap, timer } from 'rxjs';
+import { ERoles } from 'src/app/shared/enums/user';
 import { User } from 'src/app/shared/models/user';
 import { decodeJwtData } from 'src/app/shared/utils';
 import { environment } from 'src/environments/environment';
@@ -23,6 +24,8 @@ export class AuthService {
 	public readonly loggedInUser$: Observable<UserToken | null>;
 	private readonly _loggedUserSubject$: ReplaySubject<UserToken | null>;
 	private _loggedInUser: UserToken | null = null;
+
+  public isVendor$: Observable<boolean>;
 
 	constructor(
 		private router: Router,
@@ -53,6 +56,9 @@ export class AuthService {
 			tap(currentUser => this._loggedInUser = currentUser),
 			shareReplay(1)
 		);
+    this.isVendor$ = this.loggedInUser$.pipe(
+      map(u => u?.user?.role == ERoles.Vendor)
+    );
 	}
 
 	public get loggedInUser(): UserToken | null {

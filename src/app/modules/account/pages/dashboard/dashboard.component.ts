@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StoreService } from 'src/app/core/services/store/store.service';
 /*import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';*/
 
@@ -31,7 +32,7 @@ public lineChartColors: Color[] = [
   },
 ];*/
 
-  constructor() { }
+  constructor(public storeService: StoreService) { }
 
   ngOnInit(): void {
   }
