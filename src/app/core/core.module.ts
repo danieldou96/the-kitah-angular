@@ -11,6 +11,7 @@ import { DrawerComponent } from './components/drawer/drawer.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ReactiveComponentModule } from '@ngrx/component';
 import { NgPipesModule } from 'ngx-pipes';
+import { MobileSidebarComponent } from './mobile-sidebar/mobile-sidebar.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { NgPipesModule } from 'ngx-pipes';
     NotFoundComponent,
     HandheldToolbarComponent,
     CartWidgetComponent,
-    DrawerComponent
+    DrawerComponent,
+    MobileSidebarComponent
   ],
   imports: [
     CommonModule,

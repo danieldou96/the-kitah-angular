@@ -1,1 +1,29 @@
-<p>handheld-toolbar works!</p>
+<ng-container *ngrxLet="handheldToolbarOpened$ as handheldToolbarOpened">
+	<div class="handheld-toolbar" [class.handheld-toolbar--hidden]="!handheldToolbarOpened">
+		<div class="handheld-toolbar__buttons">
+				<a class="handheld-toolbar__button" *ngIf="isShop$ | async">
+						<span class="handheld-toolbar__icon">
+								<i class="ci-filter-alt"></i>
+						</span>
+						<span class="handheld-toolbar__label">Filters</span>
+				</a>
+				<a class="handheld-toolbar__button" (click)="headerService.mobileSidebarOpened$.next(true)">
+						<span class="handheld-toolbar__icon">
+								<i class="ci-menu"></i>
+						</span>
+						<span class="handheld-toolbar__label">Menu</span>
+				</a>
+				<ng-container *ngrxLet="cartService.cart$ as cart">
+					<a [routerLink]="['/cart']" class="handheld-toolbar__button">
+							<span class="handheld-toolbar__icon">
+									<i class="ci-cart"></i>
+									<span class="handheld-toolbar__cart-pill">
+										{{ (cart | pluck: 'quantity') | sum }}
+									</span>
+							</span>
+							<span class="handheld-toolbar__label">{{ (cartService.cartTotal$ | async) | currency }}</span>
+					</a>
+				</ng-container>
+		</div>
+	</div>
+</ng-container>

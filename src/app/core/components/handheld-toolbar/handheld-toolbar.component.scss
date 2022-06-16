@@ -1,0 +1,72 @@
+.handheld-toolbar {
+	display: none;
+	position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  transition: all .3s .35s ease-in-out;
+  border-top: 1px solid #e3e9ef;
+  background-color: #fff;
+  box-shadow: -1.25rem 0 2rem 0 rgb(43 52 69 / 15%);
+  z-index: 1026;
+
+	&--hidden {
+		transform: translateY(100%);
+		box-shadow: none;
+	}
+
+	@media (max-width: 991.98px) {
+		display: block;
+	}
+
+	&__buttons {
+		display: table;
+		table-layout: fixed;
+		width: 100%;
+	}
+
+	&__button {
+		display: table-cell;
+		padding: 0.5rem;
+		padding-top: 0.125rem;
+		border-left: 1px solid #e3e9ef;
+		text-align: center;
+
+		&:first-child {
+			border-right: 0;
+		}
+	}
+
+	&__icon {
+		display: flex;
+		color: #4b566b;
+		font-size: 1.25rem;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		margin: 5px 0;
+	}
+
+	&__label {
+		display: block;
+		color: #7d879c;
+		font-size: 0.6875rem;
+	}
+
+	&__cart-pill {
+		display: inline-block;
+		vertical-align: middle;
+		font-size: .625rem;
+		background-color: #dea249;
+		color: #000;
+		padding: 0.25em 0.625em;
+		padding-right: 0.6em;
+		padding-left: 0.6em;
+		border-radius: 10rem;
+		font-weight: normal;
+		line-height: 1;
+		text-align: center;
+		white-space: nowrap;
+		transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out, border-color 0.25s ease-in-out, box-shadow 0.2s ease-in-out;
+	}
+}

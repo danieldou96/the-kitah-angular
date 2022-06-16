@@ -1,2 +1,41 @@
 <h2 class="title">My products statistics</h2>
-<p>analytics works!</p>
+<div class="container p-0">
+	<mat-tab-group animationDuration="0ms" [disableRipple]="true">
+		<mat-tab label="Sales">
+			<ng-container *ngrxLet="salesRows$ as salesRows">
+				<ngx-datatable
+					class="material"
+					[rows]="salesRows"
+					[columns]="salesColumns"
+					[columnMode]="ColumnMode.force"
+					[headerHeight]="50"
+					[footerHeight]="0"
+					[rowHeight]="50">
+				</ngx-datatable>
+			</ng-container>
+		</mat-tab>
+		<mat-tab label="Activity">
+			<ng-container *ngrxLet="activityRows$ as activityRows">
+				<ngx-datatable
+					class="material"
+					[rows]="activityRows"
+					[columns]="activityColumns"
+					[columnMode]="ColumnMode.force"
+					[headerHeight]="50"
+					[footerHeight]="50"
+					[rowHeight]="50">
+				</ngx-datatable>
+			</ng-container>
+		</mat-tab>
+	</mat-tab-group>
+</div>
+
+<ng-template #productNameTpl let-row="row" let-value="value">
+	<a [routerLink]="['/product/' + value.id]">{{ value.name | titlecase }}</a>
+</ng-template>
+<ng-template #earningsTpl let-row="row" let-value="value">
+	{{ value | currency }}
+</ng-template>
+<ng-template #postedDateTpl let-row="row" let-value="value">
+	{{ value | date }}
+</ng-template>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { filter, map, Observable, switchMap } from 'rxjs';
 import { ERoles } from 'src/app/shared/enums/user';
 import { ICartItem, IProduct } from 'src/app/shared/models/product';
@@ -12,7 +12,8 @@ import { StoreService } from '../services/store/store.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
 
@@ -22,7 +23,7 @@ export class HeaderComponent {
   cartTotal$: Observable<number>;
 
   constructor(
-    private headerService: HeaderService,
+    public headerService: HeaderService,
     private authService: AuthService,
     public storeService: StoreService,
     public cartService: CartService

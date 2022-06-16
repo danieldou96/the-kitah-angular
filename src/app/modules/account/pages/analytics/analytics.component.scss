@@ -1,0 +1,49 @@
+:host ::ng-deep {
+	.mat-tab-label {
+    height: 72px !important;
+    opacity: 1 !important;
+    font-size: 16px !important;
+    font-weight: normal !important;
+    color: #4b566b;
+    transition: .2s ease-in-out;
+    min-width: auto !important;
+    padding: 0 5px !important;
+    margin: 0 1.25rem !important;
+
+    &.mat-tab-label-active {
+      color: #dea249;
+    }
+  }
+
+  .mat-ink-bar {
+    height: 1px !important;
+    background-color: #dea249 !important;
+    bottom: -1px !important;
+  }
+  
+  .mat-tab-header, .mat-tab-label-container {
+    overflow: visible !important;
+  }
+
+  .mat-tab-header {
+    margin-bottom: 1.25rem;
+    border-color: #e3e9ef !important;
+  }
+
+  .mat-tab-body-content {
+    overflow: hidden !important;
+  }
+}
+::ng-deep {
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+}
+
+a {
+	color: #dea249;
+
+	&:hover {
+		color: #d4983f;
+	}
+}

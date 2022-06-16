@@ -5,7 +5,7 @@
 			<div class="entry-content">
 
 					<div class="dokan-alert dokan-alert-warning">
-<strong>Current Balance: <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>0.<small>00</small></span> <br>Withdraw Threshold: 0 days </strong>
+<strong>Current Balance: {{ (storeService.balance$ | async) | currency }}</strong>
 </div>
 <ul class="list-inline subsubsub">
 <li class="active">
@@ -17,7 +17,7 @@
 <li>
 <a [routerLink]="['/dashboard/withdraw']">Cancelled Requests</a>
 </li>
-</ul><form class="dokan-form-horizontal withdraw" role="form" method="post" novalidate="novalidate">
+</ul><form class="dokan-form-horizontal withdraw">
 <div class="dokan-form-group">
 <label for="withdraw-amount" class="dokan-w3 dokan-control-label">
 	Withdraw Amount        </label>

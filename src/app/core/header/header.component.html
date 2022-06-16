@@ -9,7 +9,7 @@
       </a>
       <div class="navbar__toolbar">
         <div class="navbar__toggler">
-          <button class="navbar__toggler-icon"></button>
+          <button class="navbar__toggler-icon" (click)="headerService.mobileSidebarOpened$.next(true)"></button>
         </div>
         <ng-container *ngrxLet="loggedInUser$ as loggedInUser">
           <a *ngIf="!loggedInUser" [routerLink]="['/auth/login']" class="navbar__auth">
@@ -38,9 +38,9 @@
             </a>
             <ul class="user-dropdown" *ngIf="loggedInUser.role == 'vendor' || loggedInUser.role == 'admin'">
               <li class="user-dropdown__header">Account</li>
-              <li class="user-dropdown__item">
+              <!--<li class="user-dropdown__item">
                 <a [routerLink]="['/my-account/orders']"><i class="ci-bag"></i> Orders</a>
-              </li>
+              </li>-->
               <li class="user-dropdown__item">
                 <a [routerLink]="['/my-account/downloads']">
                   <i class="ci-cloud-download"></i> Downloads</a>
@@ -67,9 +67,9 @@
               <li class="user-dropdown__item">
                 <a [routerLink]="['/dashboard/analytics']"><i class="fal fa-chart-area"></i> My Products Statistics</a>
               </li>
-              <li class="user-dropdown__item">
+              <!--<li class="user-dropdown__item">
                 <a [routerLink]="['/dashboard/sales-reports']"><i class="ci-document"></i> Sales Reports</a>
-              </li>
+              </li>-->
               <li class="user-dropdown__item">
                 <a [routerLink]="['/dashboard/withdraw']"><i class="ci-currency-exchange"></i> Withdraw</a>
               </li>

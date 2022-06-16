@@ -1,0 +1,92 @@
+<div class="sidebar" [class.sidebar--opened]="headerService.mobileSidebarOpened$ | async">
+	<div class="sidebar__header">
+			<span class="sidebar__header-title">Menu</span>
+			<button class="sidebar__close-button" type="button" (click)="headerService.mobileSidebarOpened$.next(false)">
+					<span class="sidebar__close-text"> Close </span>
+					<span class="sidebar__close-icon">×</span>
+			</button>
+	</div>
+	<div class="sidebar__body">
+			<div class="sidebar__content">
+					<form class="sidebar__search-form">
+							<input type="search" class="sidebar__search classic-input" placeholder="Search for products" />
+							<button type="submit" class="sidebar__search-button">
+								<i class="ci-search"></i>
+							</button>
+					</form>
+					<nav class="sidebar__menu">
+							<ul class="menu">
+								<ng-container *ngrxLet="gradesExpanded$ as gradesExpanded">
+									<li class="menu__item">
+											<div class="item" (click)="gradesExpanded$.next(!gradesExpanded)">
+													<span class="item__title" [class.item__title--expanded]="gradesExpanded">Grades</span>
+													<button type="button" class="item__collapse-button" [class.item__collapse-button--expanded]="gradesExpanded">
+															<i class="ci-arrow-down"></i>
+													</button>
+											</div>
+											<ul class="item__sub-menu" [@slideInOut]="gradesExpanded$ | async">
+													<li class="sub-item">
+															<a [routerLink]="['/shop']" [queryParams]="{grades: 'nursery,pre-k,kindergarten'}" class="sub-item__link">Nursery - Pre K - Kindergarten</a>
+													</li>
+													<li class="sub-item">
+															<a [routerLink]="['/shop']" [queryParams]="{grades: '1st'}" class="sub-item__link">1st Grade</a>
+													</li>
+													<li class="sub-item">
+															<a [routerLink]="['/shop']" [queryParams]="{grades: '2nd'}" class="sub-item__link">2nd Grade</a>
+													</li>
+													<li class="sub-item">
+															<a [routerLink]="['/shop']" [queryParams]="{grades: '3rd'}" class="sub-item__link">3rd Grade</a>
+													</li>
+													<li class="sub-item">
+															<a [routerLink]="['/shop']" [queryParams]="{grades: '4th'}" class="sub-item__link">4th Grade</a>
+													</li>
+													<li class="sub-item">
+															<a [routerLink]="['/shop']" [queryParams]="{grades: '5th'}" class="sub-item__link">5th Grade</a>
+													</li>
+													<li class="sub-item">
+															<a [routerLink]="['/shop']" [queryParams]="{grades: '6th'}" class="sub-item__link">6th Grade</a>
+													</li>
+													<li class="sub-item">
+															<a [routerLink]="['/shop']" [queryParams]="{grades: '7th'}" class="sub-item__link">7th Grade</a>
+													</li>
+													<li class="sub-item">
+															<a [routerLink]="['/shop']" [queryParams]="{grades: '8th'}" class="sub-item__link">8th Grade</a>
+													</li>
+													<li class="sub-item">
+															<a [routerLink]="['/shop']" [queryParams]="{grades: '9th,10th,11th,12th'}" class="sub-item__link">9th - 12th</a>
+													</li>
+											</ul>
+									</li>
+								</ng-container>
+								<ng-container *ngrxLet="subjectsExpanded$ as subjectsExpanded">
+									<li class="menu__item">
+											<div class="item" (click)="subjectsExpanded$.next(!subjectsExpanded)">
+													<span class="item__title" [class.item__title--expanded]="subjectsExpanded">Subjects</span>
+													<button type="button" class="item__collapse-button" [class.item__collapse-button--expanded]="subjectsExpanded">
+														<i class="ci-arrow-down font-size-xs"></i>
+													</button>
+											</div>
+											<ul class="item__sub-menu" [@slideInOut]="subjectsExpanded$ | async">
+													<li class="sub-item">
+															<a [routerLink]="['/shop']" [queryParams]="{subjects: 'chumash'}" class="sub-item__link">Chumash</a>
+													</li>
+													<li class="sub-item">
+															<a [routerLink]="['/shop']" [queryParams]="{subjects: 'parsha'}" class="sub-item__link">Parsha</a>
+													</li>
+													<li class="sub-item">
+															<a [routerLink]="['/shop']" [queryParams]="{subjects: 'aleph-bais'}" class="sub-item__link">Aleph Bais</a>
+													</li>
+													<li class="sub-item">
+															<a [routerLink]="['/shop']" [queryParams]="{subjects: 'classroom-decor'}" class="sub-item__link">Classroom Decor</a>
+													</li>
+													<li class="sub-item">
+															<a [routerLink]="['/shop']" [queryParams]="{subjects: 'kriah'}" class="sub-item__link">Kriah</a>
+													</li>
+											</ul>
+									</li>
+								</ng-container>
+							</ul>
+					</nav>
+			</div>
+	</div>
+</div>

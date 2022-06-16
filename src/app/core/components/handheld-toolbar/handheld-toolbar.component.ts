@@ -1,15 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router, Event, NavigationEnd } from '@angular/router';
+import { BehaviorSubject, filter, map, Observable, tap } from 'rxjs';
+import { CartService } from '../../services/cart/cart.service';
+import { HeaderService } from '../../services/header/header.service';
 
 @Component({
   selector: 'app-handheld-toolbar',
   templateUrl: './handheld-toolbar.component.html',
   styleUrls: ['./handheld-toolbar.component.scss']
 })
-export class HandheldToolbarComponent implements OnInit {
+export class HandheldToolbarComponent {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  public readonly handheldToolbarOpened$ = new BehaviorSubject<boolean>(true);
+  isShop$: Observable<boolean>;
+  
+  constructor(
+    public router: Router,
+    public cartService: CartService,
+    public headerService: HeaderService
+  ) {
+    this.headerService.mobileSidebarOpened$.pipe(
+      tap(mobileSidebarOpened => {
+        if (mobileSidebarOpened) {
+          this.handheldToolbarOpened$.next(false);
+        } else {
+          this.handheldToolbarOpened$.next(true);
+        }
+      })
+    ).subscribe();
+    this.isShop$ = this.router.events.pipe(
+      filter((e: Event): e is NavigationEnd => e instanceof NavigationEnd),
+      map(e => e.url.startsWith('/shop'))
+    );
   }
-
 }

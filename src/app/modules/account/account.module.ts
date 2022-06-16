@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MyAccountComponent } from './pages/my-account/my-account.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { DownloadsComponent } from './pages/downloads/downloads.component';
@@ -26,11 +26,14 @@ import { ProductResolverService } from 'src/app/core/resolvers/product-resolver/
 import { UploadProductPreviewComponent } from './components/upload-product-preview/upload-product-preview.component';
 import * as PlotlyJS from 'plotly.js-dist-min';
 import { PlotlyModule } from 'angular-plotly.js';
-import { NgChartsModule } from 'ng2-charts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MyProductsResolverService } from 'src/app/core/resolvers/my-products-resolver/my-products-resolver.service';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { AuthGuard } from 'src/app/core/guards/auth/auth.guard';
 import { VendorGuard } from 'src/app/core/guards/vendor/vendor.guard';
+import { MatTabsModule } from '@angular/material/tabs';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -157,6 +160,13 @@ const vendorRoutes: Routes = [
           title: 'Withdraw'
         }
       },
+      {
+        path: 'settings',
+        component: SettingsComponent,
+        data: {
+          title: 'Settings'
+        }
+      },
     ]
 	}
 ];
@@ -181,6 +191,7 @@ const vendorRoutes: Routes = [
     NewProductComponent,
     EditProductComponent,
     ProductFormComponent,
+    SettingsComponent,
     DragDirective,
     UploadProductPreviewComponent
   ],
@@ -190,11 +201,15 @@ const vendorRoutes: Routes = [
     NgSelectModule,
     EditorModule,
     RouterModule.forChild([...buyerRoutes, ...vendorRoutes]),
-    PlotlyModule,
-    NgChartsModule
+    //PlotlyModule,
+    //NgChartsModule
+    MatTabsModule,
+    NgxDatatableModule,
+    NgxChartsModule
   ],
   providers: [
-    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
+    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
+    DatePipe
   ]
 })
 export class AccountModule { }

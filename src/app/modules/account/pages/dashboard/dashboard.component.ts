@@ -1,40 +1,85 @@
-import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { map, Observable } from 'rxjs';
 import { StoreService } from 'src/app/core/services/store/store.service';
-/*import { ChartDataSets, ChartOptions } from 'chart.js';
-import { Color, Label } from 'ng2-charts';*/
+import * as shape from 'd3-shape';
+
+
+interface SalesChartSerie {
+  name: string;
+  value: number;
+}
+
+interface SalesChartData {
+  name: string;
+  series: SalesChartSerie[];
+}
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
 
-  public graph = {
-    data: [
-        { x: [1, 2, 3], y: [2, 6, 3], type: 'scatter'}
-    ],
-    layout: {width: 320, height: 240, title: 'A Fancy Plot'}
-};
+  curve = shape.curveMonotoneX;
+  view: [number,number] = [700, 500];
 
-/*public lineChartData: ChartDataSets[] = [
-  { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-  { data: [65, 59, 80, 81, 56, 55, 80], label: 'Series B' },
-];
-public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-public lineChartOptions: (ChartOptions & { annotation: any }) = {
-  responsive: true,
-};
-public lineChartColors: Color[] = [
-  {
-    borderColor: 'black',
-    backgroundColor: 'rgba(255,0,0,0.3)',
-  },
-];*/
+  firstDay: Date;
+  lastDay: Date;
 
-  constructor(public storeService: StoreService) { }
+  lastWithdrawDate$: Observable<Date | null>;
+  salesChartsData$: Observable<SalesChartData[]>;
 
-  ngOnInit(): void {
+  constructor(
+    public storeService: StoreService,
+    private datePipe: DatePipe
+  ) {
+    const date = new Date();
+    this.firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    this.lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    this.lastWithdrawDate$ = this.storeService.withdraws$.pipe(
+      map(withdraws => {
+        if (withdraws.length == 0) {
+          return null;
+        }
+        return new Date(Math.max(...withdraws.map(e => e.date.getTime())))
+      })
+    );
+    this.salesChartsData$ = this.storeService.store$.pipe(
+      map(store => {
+        const orders = store.orders;
+        const orderSeries: SalesChartSerie[] = getDaysArray(this.firstDay, this.lastDay).map(date => {
+          return {
+            name: this.datePipe.transform(date, 'd MMM'),
+            value: orders?.filter(o => o.date.getFullYear() === date.getFullYear() && o.date.getMonth() === date.getMonth() && o.date.getDate() === date.getDate()).length
+          } as SalesChartSerie;
+        });
+        const saleSeries: SalesChartSerie[] = getDaysArray(this.firstDay, this.lastDay).map(date => {
+          return {
+            name: this.datePipe.transform(date, 'd MMM'),
+            value: orders?.filter(o => o.date.getFullYear() === date.getFullYear() && o.date.getMonth() === date.getMonth() && o.date.getDate() === date.getDate()).map(o => o.amount).reduce((partialSum, a) => partialSum + a, 0)
+          } as SalesChartSerie;
+        });
+        return [
+          <SalesChartData>{
+            name: 'Orders',
+            series: orderSeries
+          },
+          <SalesChartData>{
+            name: 'Sales',
+            series: saleSeries
+          }
+        ];
+      })
+    );
   }
-
 }
+
+function getDaysArray(start: Date, end: Date) {
+  for(var arr = [], dt = new Date(start); dt <= new Date(end); dt.setDate(dt.getDate() + 1)){
+      arr.push(new Date(dt));
+  }
+  return arr;
+};

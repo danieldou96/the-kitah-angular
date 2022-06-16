@@ -1,34 +1,32 @@
 <h2 class="title">Your sales / earnings</h2>
-<div class="dashboard-content-area pt-2 px-4 ps-lg-0 pe-xl-5">
+<div class="dashboard-content-area pt-2 px-0">
   <div class="row mx-n2 pt-2">
     <div class="col-md-4 col-sm-6 px-2 mb-4">
       <div class="bg-secondary h-100 rounded-lg p-4 text-center">
-        <h3 class="font-size-sm text-muted">
-          Earnings (this month) </h3>
-        <p class="h2 mb-2"><span class="woocommerce-Price-amount amount"><bdi><span
-                class="woocommerce-Price-currencySymbol">$</span>0.<small>00</small></bdi></span></p>
-        <p class="font-size-ms text-muted mb-0">Sales 4/1/2022 – 4/7/2022</p>
+        <h3 class="font-size-sm text-muted">Earnings (this month)</h3>
+        <p class="h2 mb-2">{{ (storeService.monthSalesAmount$ | async) | currency }}</p>
+        <p class="font-size-ms text-muted mb-0">Sales {{ firstDay | date: 'shortDate' }} – {{ lastDay | date: 'shortDate' }}</p>
       </div>
     </div>
     <div class="col-md-4 col-sm-6 px-2 mb-4">
       <div class="bg-secondary h-100 rounded-lg p-4 text-center">
-        <h3 class="font-size-sm text-muted">
-          Your balance </h3>
-        <p class="h2 mb-2"><span class="woocommerce-Price-amount amount"><span
-              class="woocommerce-Price-currencySymbol">$</span>0.<small>00</small></span></p>
-        <p class="font-size-ms text-muted mb-0">To be paid on 4/7/2022</p>
+        <h3 class="font-size-sm text-muted">Your balance</h3>
+        <p class="h2 mb-2">{{ (storeService.balance$ | async) | currency }}</p>
+        <ng-container *ngrxLet="lastWithdrawDate$ as lastWithdrawDate">
+          <p class="font-size-ms text-muted mb-0" *ngIf="lastWithdrawDate">Last withdraw on: {{ lastWithdrawDate | date: 'shortDate' }}</p>
+          <p class="font-size-ms text-muted mb-0" *ngIf="!lastWithdrawDate">No withdrawal made yet</p>
+        </ng-container>
       </div>
     </div>
     <div class="col-md-4 col-sm-12 px-2 mb-4">
       <div class="bg-secondary h-100 rounded-lg p-4 text-center">
-        <h3 class="font-size-sm text-muted">
-          Lifetime earnings </h3>
+        <h3 class="font-size-sm text-muted">Lifetime earnings</h3>
         <p class="h2 mb-2">{{ (storeService.salesAmount$ | async) | currency }}</p>
         <p class="font-size-ms text-muted mb-0">Based on list price</p>
       </div>
     </div>
   </div>
-  <div class="dokan-panel dokan-panel-default dokan-profile-completeness">
+  <!-- <div class="dokan-panel dokan-panel-default dokan-profile-completeness">
     <div class="dokan-panel-body">
       <div class="dokan-progress">
         <div class="dokan-progress-bar dokan-progress-bar-info dokan-progress-bar-striped" role="progressbar"
@@ -38,274 +36,27 @@
       <div class="dokan-alert dokan-alert-info dokan-panel-alert">Start with adding a Banner to gain profile progress
       </div>
     </div>
-  </div>
-
+  </div> -->
   <div class="row mx-n2">
-
-    <div class="col-lg-8 px-2">
-
-
+    <div class="col-12 px-2">
       <div class="dashboard-widget sells-graph card">
         <div class="card-body">
           <h3 class="font-size-sm pb-3 mb-0 border-bottom">
-            Sales <span class="font-weight-normal font-size-xs text-muted">
-              Past 2 weeks </span>
+            Sales <span class="font-weight-normal font-size-xs text-muted">This month</span>
           </h3>
-          <!--<canvas baseChart width="400" height="400"
-            [datasets]="lineChartData"
-            [labels]="lineChartLabels"
-            [options]="lineChartOptions"
-            [colors]="lineChartColors"
+          <ngx-charts-line-chart
+            [view]="view"
             [legend]="true"
-            chartType="line">
-          </canvas>-->
-          <div class="chart-container">
-            <div class="chart-placeholder main" style="width: 100%; height: 350px; padding: 0px; position: relative;">
-              <canvas class="flot-base"
-                style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 460.656px; height: 350px;"
-                width="460" height="350"></canvas>
-              <div class="flot-text"
-                style="position: absolute; inset: 0px; font-size: smaller; color: rgb(84, 84, 84);">
-                <div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; inset: 0px;">
-                  <div
-                    style="position: absolute; max-width: 65px; top: 334px; font: 400 13px / 15px Rubik, sans-serif; color: rgb(170, 170, 170); left: 2px; text-align: center;">
-                    01 Apr</div>
-                  <div
-                    style="position: absolute; max-width: 65px; top: 334px; font: 400 13px / 15px Rubik, sans-serif; color: rgb(170, 170, 170); left: 71px; text-align: center;">
-                    02 Apr</div>
-                  <div
-                    style="position: absolute; max-width: 65px; top: 334px; font: 400 13px / 15px Rubik, sans-serif; color: rgb(170, 170, 170); left: 140px; text-align: center;">
-                    03 Apr</div>
-                  <div
-                    style="position: absolute; max-width: 65px; top: 334px; font: 400 13px / 15px Rubik, sans-serif; color: rgb(170, 170, 170); left: 210px; text-align: center;">
-                    04 Apr</div>
-                  <div
-                    style="position: absolute; max-width: 65px; top: 334px; font: 400 13px / 15px Rubik, sans-serif; color: rgb(170, 170, 170); left: 280px; text-align: center;">
-                    05 Apr</div>
-                  <div
-                    style="position: absolute; max-width: 65px; top: 334px; font: 400 13px / 15px Rubik, sans-serif; color: rgb(170, 170, 170); left: 350px; text-align: center;">
-                    06 Apr</div>
-                  <div
-                    style="position: absolute; max-width: 65px; top: 334px; font: 400 13px / 15px Rubik, sans-serif; color: rgb(170, 170, 170); left: 420px; text-align: center;">
-                    07 Apr</div>
-                </div>
-                <div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; inset: 0px;">
-                  <div
-                    style="position: absolute; top: 321px; font: 400 13px / 15px Rubik, sans-serif; color: rgb(170, 170, 170); left: 1px; text-align: right;">
-                    0</div>
-                  <div
-                    style="position: absolute; top: 5px; font: 400 13px / 15px Rubik, sans-serif; color: rgb(170, 170, 170); left: 4px; text-align: right;">
-                    1</div>
-                </div>
-              </div><canvas class="flot-overlay"
-                style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 460.656px; height: 350px;"
-                width="460" height="350"></canvas>
-              <div class="legend">
-                <div
-                  style="position: absolute; width: 460.656px; height: 89.9688px; top: 17px; left: 26px; background-color: rgb(255, 255, 255); opacity: 0.85;">
-                </div>
-                <table style="position:absolute;top:17px;left:26px;;font-size:smaller;color:#aaa">
-                  <tbody>
-                    <tr>
-                      <td class="legendColorBox">
-                        <div style="border:1px solid #ccc;padding:1px">
-                          <div style="width:4px;height:0;border:5px solid rgb(52,152,219);overflow:hidden"></div>
-                        </div>
-                      </td>
-                      <td class="legendLabel">Sales total</td>
-                    </tr>
-                    <tr>
-                      <td class="legendColorBox">
-                        <div style="border:1px solid #ccc;padding:1px">
-                          <div style="width:4px;height:0;border:5px solid rgb(26,188,156);overflow:hidden"></div>
-                        </div>
-                      </td>
-                      <td class="legendLabel">Number of orders</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <script type="text/javascript">
-            jQuery(function ($) {
-
-              var order_data = jQuery.parseJSON(
-                '{"order_counts":[["1648771200000",0],["1648857600000",0],["1648944000000",0],["1649030400000",0],["1649116800000",0],["1649203200000",0],["1649289600000",0]],"order_amounts":[["1648771200000",0],["1648857600000",0],["1648944000000",0],["1649030400000",0],["1649116800000",0],["1649203200000",0],["1649289600000",0]]}'
-                );
-              var isRtl = '0'
-
-              var series = [{
-                  label: "Sales total",
-                  data: order_data.order_amounts,
-                  shadowSize: 0,
-                  hoverable: true,
-                  points: {
-                    show: true,
-                    radius: 5,
-                    lineWidth: 1,
-                    fillColor: '#fff',
-                    fill: true
-                  },
-                  lines: {
-                    show: true,
-                    lineWidth: 2,
-                    fill: false
-                  },
-                  shadowSize: 0,
-                  prepend_tooltip: "&#36;"
-                },
-                {
-                  label: "Number of orders",
-                  data: order_data.order_counts,
-                  shadowSize: 0,
-                  hoverable: true,
-                  points: {
-                    show: true,
-                    radius: 5,
-                    lineWidth: 2,
-                    fillColor: '#fff',
-                    fill: true
-                  },
-                  lines: {
-                    show: true,
-                    lineWidth: 3,
-                    fill: false
-                  },
-                  shadowSize: 0,
-                  append_tooltip: " sales"
-                },
-              ];
-
-              var main_chart = jQuery.plot(
-                jQuery('.chart-placeholder.main'),
-                series, {
-                  legend: {
-                    show: true,
-                    position: 'nw'
-                  },
-                  series: {
-                    lines: {
-                      show: true,
-                      lineWidth: 4,
-                      fill: false
-                    },
-                    points: {
-                      show: true
-                    }
-                  },
-                  grid: {
-                    borderColor: '#eee',
-                    color: '#aaa',
-                    borderWidth: 1,
-                    hoverable: true,
-                    show: true,
-                    aboveData: false,
-                  },
-                  xaxis: {
-                    color: '#aaa',
-                    position: "bottom",
-                    tickColor: 'transparent',
-                    mode: "time",
-                    timeformat: "%d %b",
-                    monthNames: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
-                      "Dec"
-                    ],
-                    tickLength: 1,
-                    minTickSize: [1, "day"],
-                    font: {
-                      color: "#aaa"
-                    },
-                    transform: function (v) {
-                      return (isRtl == '1') ? -v : v;
-                    },
-                    inverseTransform: function (v) {
-                      return (isRtl == '1') ? -v : v;
-                    }
-                  },
-                  yaxes: [{
-                      position: (isRtl == '1') ? "right" : "left",
-                      min: 0,
-                      minTickSize: 1,
-                      tickDecimals: 0,
-                      color: '#d4d9dc',
-                      font: {
-                        color: "#aaa"
-                      }
-                    },
-                    {
-                      position: (isRtl == '1') ? "right" : "left",
-                      min: 0,
-                      tickDecimals: 2,
-                      alignTicksWithAxis: 1,
-                      color: 'transparent',
-                      font: {
-                        color: "#aaa"
-                      }
-                    }
-                  ],
-                  colors: ["#3498db", "#1abc9c"]
-                }
-              );
-
-              jQuery('.chart-placeholder').resize();
-            });
-
-          </script>
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [curve]="curve"
+            [xAxis]="true"
+            [yAxis]="true"
+            [timeline]="true"
+            [results]="(salesChartsData$ | async)!">
+          </ngx-charts-line-chart>
         </div>
-      </div> <!-- .sells-graph -->
-
-    </div> <!-- .col-md-6 -->
-
-    <div class="col-lg-4 px-2">
-
-      <div class="dashboard-widget orders card">
-        <div class="card-body">
-          <h3 class="font-size-sm pb-3 mb-0 border-bottom">Orders</h3>
-          <div class="d-flex justify-content-between align-items-center font-size-sm py-2 border-bottom">
-            <a [routerLink]="['/dashboard/orders']">
-              <span class="title">Total</span> <span class="count">0</span>
-            </a>
-          </div>
-          <div class="d-flex justify-content-between align-items-center font-size-sm py-2 border-bottom">
-            <a [routerLink]="['/dashboard/orders']"
-              style="color: #73a724">
-              <span class="title">Completed</span> <span class="count">0</span>
-            </a>
-          </div>
-          <div class="d-flex justify-content-between align-items-center font-size-sm py-2 border-bottom">
-            <a [routerLink]="['/dashboard/orders']" style="color: #999">
-              <span class="title">Pending</span> <span class="count">0</span>
-            </a>
-          </div>
-          <div class="d-flex justify-content-between align-items-center font-size-sm py-2 border-bottom">
-            <a [routerLink]="['/dashboard/orders']"
-              style="color: #21759b">
-              <span class="title">Processing</span> <span class="count">0</span>
-            </a>
-          </div>
-          <div class="d-flex justify-content-between align-items-center font-size-sm py-2 border-bottom">
-            <a [routerLink]="['/dashboard/orders']"
-              style="color: #d54e21">
-              <span class="title">Cancelled</span> <span class="count">0</span>
-            </a>
-          </div>
-          <div class="d-flex justify-content-between align-items-center font-size-sm py-2 border-bottom">
-            <a [routerLink]="['/dashboard/orders']" style="color: #e6db55">
-              <span class="title">Refunded</span> <span class="count">0</span>
-            </a>
-          </div>
-          <div class="d-flex justify-content-between align-items-center font-size-sm py-2">
-            <a [routerLink]="['/dashboard/orders']" style="color: #f0ad4e">
-              <span class="title">On hold</span> <span class="count">0</span>
-            </a>
-          </div>
-        </div>
-      </div> <!-- .orders -->
-
+      </div>
     </div>
   </div>
-
-
 </div>

@@ -2,7 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { WINDOW } from '@ng-web-apis/common';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { combineLatest, distinct, distinctUntilChanged, fromEvent, map, Observable, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, distinct, distinctUntilChanged, fromEvent, map, Observable, tap } from 'rxjs';
 import { DocumentService } from '../document/document.service';
 
 @UntilDestroy()
@@ -13,6 +13,7 @@ export class HeaderService {
 
   private renderer: Renderer2;
   public readonly stickyHeader$: Observable<boolean>;
+  public readonly mobileSidebarOpened$ = new BehaviorSubject<boolean>(true);
 
   constructor(
     private documentService: DocumentService,
