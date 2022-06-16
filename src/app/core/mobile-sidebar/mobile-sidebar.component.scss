@@ -8,10 +8,14 @@
   border-radius: 0 !important;
   box-shadow: none !important;
   z-index: 1035;
-	display: block;
+	display: none;
 	width: 100%;
   max-width: 22rem;
   background-color: #fff;
+
+	@media (max-width: 991.98px) {
+		display: block;
+	}
 
 	&--opened {
 		left: 0;
