@@ -8,7 +8,7 @@ import { StoreService } from '../../services/store/store.service';
 @Injectable({
   providedIn: 'root'
 })
-export class MyProductsResolverService implements Resolve<Observable<IProduct[]>> {
+export class MyProductsResolver implements Resolve<Observable<IProduct[]>> {
 
   constructor(private storeService: StoreService) { }
 

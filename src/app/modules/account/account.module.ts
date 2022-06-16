@@ -22,12 +22,12 @@ import { EditProductComponent } from './pages/edit-product/edit-product.componen
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DragDirective } from 'src/app/shared/directives/drag-drop-file.directive';
-import { ProductResolverService } from 'src/app/core/resolvers/product-resolver/product-resolver.service';
+import { ProductResolver } from 'src/app/core/resolvers/product/product.resolver';
 import { UploadProductPreviewComponent } from './components/upload-product-preview/upload-product-preview.component';
 import * as PlotlyJS from 'plotly.js-dist-min';
 import { PlotlyModule } from 'angular-plotly.js';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { MyProductsResolverService } from 'src/app/core/resolvers/my-products-resolver/my-products-resolver.service';
+import { MyProductsResolver } from 'src/app/core/resolvers/my-products/my-products.resolver';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { AuthGuard } from 'src/app/core/guards/auth/auth.guard';
 import { VendorGuard } from 'src/app/core/guards/vendor/vendor.guard';
@@ -108,7 +108,7 @@ const vendorRoutes: Routes = [
         data: {
           title: 'Products'
         },
-        resolve: { products: MyProductsResolverService },
+        resolve: { products: MyProductsResolver },
       },
       {
         path: 'new-product',
@@ -123,7 +123,7 @@ const vendorRoutes: Routes = [
         data: {
           title: 'Edit product'
         },
-        resolve: { product: ProductResolverService },
+        resolve: { product: ProductResolver },
       },
       {
         path: 'analytics',

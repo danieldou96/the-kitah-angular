@@ -19,16 +19,16 @@ import { SliderComponent } from './components/slider/slider.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ProductFilterComponent } from './components/product-filter/product-filter.component';
 import { ProductFilterRowComponent } from './components/product-filter-row/product-filter-row.component';
-import { ProductResolverService } from 'src/app/core/resolvers/product-resolver/product-resolver.service';
+import { ProductResolver } from 'src/app/core/resolvers/product/product.resolver';
 import { BarRatingModule } from 'ngx-bar-rating';
 import { GalleryModule } from  'ng-gallery';
-import { StripeTokenResolverService } from 'src/app/core/resolvers/stripe-token-resolver/stripe-token-resolver.service';
+import { StripeTokenResolver } from 'src/app/core/resolvers/stripe-token/stripe-token.resolver';
 import { NgxStripeModule } from 'ngx-stripe';
 import { CheckoutSuccessComponent } from './pages/checkout-success/checkout-success.component';
-import { OrderResolverService } from 'src/app/core/resolvers/order-resolver/order-resolver.service';
+import { OrderResolver } from 'src/app/core/resolvers/order/order.resolver';
 import { SwiperModule } from 'swiper/angular';
 import { QueryParamModule } from '@ngqp/core';
-import { StoreResolver } from 'src/app/core/resolvers/store-resolver/store.resolver';
+import { StoreResolver } from 'src/app/core/resolvers/store/store.resolver';
 import { AuthGuard } from 'src/app/core/guards/auth/auth.guard';
 
 const routes: Routes = [
@@ -41,7 +41,7 @@ const routes: Routes = [
 		component: ProductComponent,
     runGuardsAndResolvers: 'always',
     resolve: {
-      product: ProductResolverService
+      product: ProductResolver
     },
 	},
   {
@@ -58,14 +58,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
 		component: CheckoutComponent,
     resolve: {
-      intentSecret: StripeTokenResolverService
+      intentSecret: StripeTokenResolver
     }
 	},
   {
 		path: 'checkout-success',
 		component: CheckoutSuccessComponent,
     resolve: {
-      order: OrderResolverService
+      order: OrderResolver
     }
 	},
 ];

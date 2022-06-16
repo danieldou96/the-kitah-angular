@@ -8,7 +8,7 @@ import { OrdersService } from '../../services/orders/orders.service';
 @Injectable({
   providedIn: 'root'
 })
-export class OrderResolverService implements Resolve<Observable<IOrder>> {
+export class OrderResolver implements Resolve<Observable<IOrder>> {
 
   constructor(
     private router: Router,
