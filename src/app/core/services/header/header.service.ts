@@ -13,7 +13,7 @@ export class HeaderService {
 
   private renderer: Renderer2;
   public readonly stickyHeader$: Observable<boolean>;
-  public readonly mobileSidebarOpened$ = new BehaviorSubject<boolean>(true);
+  public readonly mobileSidebarOpened$ = new BehaviorSubject<boolean>(false);
 
   constructor(
     private documentService: DocumentService,
