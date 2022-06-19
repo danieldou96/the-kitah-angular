@@ -14,7 +14,7 @@ import { HotToastModule } from '@ngneat/hot-toast';
 import { NgxStripeModule } from 'ngx-stripe';
 import { environment } from 'src/environments/environment';
 import * as Hammer from '@egjs/hammerjs';
-import { QueryParamModule } from '@ngqp/core';
+import { ErrorTailorModule } from '@ngneat/error-tailor';
 
 @Injectable()
 export class HammerConfig extends HammerGestureConfig {
@@ -34,6 +34,16 @@ export class HammerConfig extends HammerGestureConfig {
     HttpCacheInterceptorModule.forRoot(),
 		NgxStripeModule.forRoot(environment.stripePublicKey),
     HotToastModule.forRoot(),
+    ErrorTailorModule.forRoot({
+      errors: {
+        useValue: {
+          required: 'This field is required',
+          notMatched: 'Passwords must match',
+          email: 'Please enter a valid email address',
+          minlength: ({ requiredLength, actualLength }) => `This field must be at least ${requiredLength} characters`
+        }
+      }
+    }),
     CoreModule,
     HttpClientModule,
     SharedModule,

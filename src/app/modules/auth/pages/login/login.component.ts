@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService
     ) {
     this.loginForm = this.fb.group({
-      email: new FormControl('', [Validators.email, Validators.required]),
+      username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
       remember: new FormControl(false)
     });
@@ -33,10 +33,24 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  get formControls() {
+    return this.loginForm.controls;
+  }
+
   login() {
-    this.authService.login(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value).pipe(
+    if (this.loginForm.invalid) {
+      Object.values(this.formControls).forEach(control => {
+        if (control.invalid) {
+          control.markAsDirty();
+          control.updateValueAndValidity({ onlySelf: true });
+        }
+      });
+      return;
+    }
+
+    this.authService.login(this.loginForm.controls['username'].value, this.loginForm.controls['password'].value).pipe(
       untilDestroyed(this)
-    ).subscribe(t=>console.log(t));
+    ).subscribe();
   }
 
 }

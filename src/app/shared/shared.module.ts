@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PageTitleComponent } from './components/page-title/page-title.component';
 import { RouterModule } from '@angular/router';
-import { TabGroupComponent } from './components/tab-group/tab-group.component';
-import { TabComponent } from './components/tab/tab.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReactiveComponentModule } from '@ngrx/component';
 import { NgxFilesizeModule } from 'ngx-filesize';
@@ -13,15 +11,16 @@ import { PhonePipe } from './pipes/phone.pipe';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductsGridComponent } from './components/products-grid/products-grid.component';
 import { SwiperModule } from 'swiper/angular';
+import { CheckboxComponent } from './components/checkbox/checkbox.component';
+import { ErrorTailorModule } from '@ngneat/error-tailor';
 
 
 @NgModule({
   declarations: [
     PageTitleComponent,
-    TabGroupComponent,
     ShortNumberPipe,
-    TabComponent,
     PhonePipe,
+    CheckboxComponent,
     ProductCardComponent,
     ProductsGridComponent
   ],
@@ -30,6 +29,7 @@ import { SwiperModule } from 'swiper/angular';
     RouterModule,
     FormsModule,
     NgPipesModule,
+    ErrorTailorModule,
     ReactiveComponentModule,
     ReactiveFormsModule,
     NgxFilesizeModule,
@@ -40,7 +40,9 @@ import { SwiperModule } from 'swiper/angular';
     RouterModule,
     FormsModule,
     NgPipesModule,
+    CheckboxComponent,
     ShortNumberPipe,
+    ErrorTailorModule,
     ReactiveComponentModule,
     ReactiveFormsModule,
     ProductCardComponent,

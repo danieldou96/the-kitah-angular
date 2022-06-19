@@ -1,18 +1,17 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-6 mx-md-auto">
-      <div class="card">
-        <div class="card-body">
+    <div class="col-md-6 mx-md-auto my-5">
+      <div class="card border-0 box-shadow">
+        <div class="card-body p-4">
           <h2>Login</h2>
-
-          <form [formGroup]="loginForm" (submit)="login()">
-            <div class="row">
+          <form [formGroup]="loginForm" (submit)="login()" errorTailor>
+            <div class="row mb-2">
               <div class="col-12">
-                <label>Username or email address <span class="text-danger">*</span></label>
-                <input class="classic-input" type="text" formControlName="email">
+                <label>Username or Email address <span class="text-danger">*</span></label>
+                <input class="classic-input" type="text" formControlName="username">
               </div>
             </div>
-            <div class="row">
+            <div class="row mb-2">
               <div class="col-12">
                 <label>Password <span class="text-danger">*</span></label>
                 <div class="password-toggle">
@@ -21,7 +20,6 @@
                       class="classic-input"
                       formControlName="password"
                       [type]="showPassword.value ? 'text' : 'password'"
-                      
                       autocomplete="current-password">
                       <span class="show-password-input"></span>
                   </span>
@@ -33,33 +31,29 @@
                 </div>
               </div>
             </div>
-
-
             <div class="form-group d-flex flex-wrap justify-content-between mb-0">
               <div class="mb-2">
-                <label>
-                  <input formControlName="remember" type="checkbox">
-                  Remember me
-                </label>
+                <app-checkbox [colored]="true" formControlName="remember">Remember me</app-checkbox>
               </div>
               <div class="lost_password">
-                <a class="font-size-sm" [routerLink]="['/forgot-password']">Lost your
+                <a class="font-size-sm" [routerLink]="['/auth/forgot-password']">Lost your
                   password?</a>
               </div>
             </div>
-
-            <hr class="mt-3">
-            <div class="text-right pt-3">
-              <button type="submit" class="classic-button">
-                <i class="ci-sign-in me-2 ms-n21"></i> Log in</button>
+            <hr class="my-3">
+            <div class="row">
+              <div class="col-12">
+                Do not have an account yet? <a [routerLink]="['/auth/register']">Create one now</a>.
+              </div>
             </div>
-
-
+            <div class="text-end pt-3">
+              <button type="submit" class="classic-button">
+                <i class="ci-sign-in me-2 ms-n21"></i> Log in
+              </button>
+            </div>
           </form>
         </div>
       </div>
     </div>
-
-
   </div>
 </div>

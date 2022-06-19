@@ -13,9 +13,8 @@
 
 @import "~@ng-select/ng-select/themes/default.theme.css";
 
-//@import "./assets/css/cartzilla-icons.css";
-
 @import './assets/scss/vars';
+@import './assets/scss/card';
 @import './assets/scss/mixins';
 @import './assets/scss/reset';
 @import './assets/scss/buttons';
@@ -51,131 +50,11 @@ body {
   background-color: #fff;
 }
 
-::selection {
-  background: rgba(78, 84, 200, 0.15);
-}
-
-::-moz-selection {
-  background: rgba(78, 84, 200, 0.15);
-}
-
 [hidden] {
 	display: none !important;
 }
 
-button:active {
-	outline: none;
+.control-error {
+	color: rgb(var(--bs-danger-rgb));
+  font-size: .8rem;
 }
-
-// General bad CSS
-
-.czgb-seller-block ul.products,
-.czgb-seller-block ul.products li.product {
-	margin-bottom: 0;
-}
-
-
-.select2-container--open .select2-dropdown--below {
-	margin-top: 0;
-}
-
-#account-menu > ul > li > a > i:not(.opacity-60.mr-2) {
-	margin-right: 0.5rem !important;
-	opacity: .6 !important;
-}
-
-#navbarCollapse > .widget.woocommerce.widget_product_search {
-	margin: 0;
-	padding: 0;
-	border: none;
-	width: 250px;
-}
-
-.mega-nav::after {
-	display: none;
-}
-
-.navbar-nav.mega-nav {
-	margin-right: 0 !important;
-}
-
-.btn-custom-homepage {
-	border: solid 2px #fff;
-	color: #fff;
-	font-size: 24px;
-	padding: 5px 14px;
-}
-
-.btn-custom-homepage:hover {
-	border-color: #ddd;
-	color: #ddd;
-}
-
-.btn-custom-homepage:active {
-	border-color: #ccc;
-	color: #ccc;
-}
-
-#post-56 > div > div > div.wp-block-czgb-hero-block.czgb-hero-block > section > div > div > div.row.mb-3.mb-sm-4.false > div > h1 > span {
-	font-size: 48px;
-}
-
-.page-title-overlap + * {
-	margin-top: 2.125rem;
-}
-
-.cz-sidebar.box-shadow-lg, .cz-sidebar-header.box-shadow-sm {
-	box-shadow: none !important;
-}
-
-div.container.pb-5.mb-2.mb-md-4 > div > div.content-area.col-lg-8.order-lg-2 > div.d-flex.justify-content-center.justify-content-sm-between.align-items-center.pt-2.pt-lg-2.pb-4.pb-lg-5.mb-2.mb-lg-0 {
-	justify-content: flex-end !important;
-	gap: 20px;
-}
-
-div.container.pb-5.mb-2.mb-md-4 > div > div.content-area.col-lg-8.order-lg-2 > div.d-flex.justify-content-center.justify-content-sm-between.align-items-center.pt-2.pt-lg-2.pb-4.pb-lg-5.mb-2.mb-lg-0 > div.d-none.d-sm-flex.pb-3 > a.btn.btn-icon.nav-link-style.ml-2.bg-light.text-dark.disabled.opacity-100 {
-	border: 1px solid #4b566b;
-}
-
-div.bg-dark.page-title-overlap.pt-4 {
-	  padding-bottom: 1.375rem;
-}
-
-#post-56 > div > div > div.czgb-container-block.position-relative.pt-3.pt-lg-0.pb-5.mt-lg-n10.mb-2.featured-products.container > div {
-	box-shadow: none !important;
-}
-
-#post-56 > div > div > div.czgb-container-block.position-relative.pt-3.pt-lg-0.pb-5.mt-lg-n10.mb-2.featured-products.container {
-	margin-top: 0px !important;
-}
-
-#post-56 > div > div > div.wp-block-czgb-hero-block.czgb-hero-block > section {
-	background-position: center center !important;
-  /*background-size: cover;*/
-}
-
-.dokan-new-product-area .featured-image {
-	width: 27%;
-}
-
-.dokan-new-product-area .dokan-product-meta {
-    width: 73%;
-}
-
-.page-title-overlap {
-    padding-bottom: 1rem;
-}
-
-.dokan-product-inventory.dokan-edit-row  {
-	display: none;
-}
-
-.product-edit-container .dokan-feat-image-upload a.close {
-	background: #00000080;
-}
-
-.dokan-feat-image-upload.dokan-new-product-featured-img .image-wrap {
-	
-	transition: .2s;
-}
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

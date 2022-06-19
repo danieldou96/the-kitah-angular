@@ -7,7 +7,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { StoreComponent } from './pages/store/store.component';
-import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { ProductGalleryComponent } from './components/product-gallery/product-gallery.component';
 import { RelatedProductsComponent } from './components/related-products/related-products.component';
 import { MoreProductsComponent } from './components/more-products/more-products.component';
@@ -47,7 +46,9 @@ const routes: Routes = [
   {
 		path: 'store/:url',
 		component: StoreComponent,
-    resolve: { store: StoreResolver },
+    resolve: {
+      store: StoreResolver
+    },
 	},
   {
 		path: 'cart',
@@ -77,7 +78,6 @@ const routes: Routes = [
     ProductComponent,
     CheckoutComponent,
     StoreComponent,
-    CheckboxComponent,
     ProductGalleryComponent,
     RelatedProductsComponent,
     MoreProductsComponent,

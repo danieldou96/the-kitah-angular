@@ -11,9 +11,7 @@ export class StoreComponent {
 
   store: IStore;
 
-  constructor(
-    private activatedRoute: ActivatedRoute
-  ) {
+  constructor(private activatedRoute: ActivatedRoute) {
     this.store = this.activatedRoute.snapshot.data['store'];
   }
 }

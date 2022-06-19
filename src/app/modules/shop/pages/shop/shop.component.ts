@@ -25,6 +25,7 @@ export class ShopComponent implements OnInit {
   public currentFilters!: ShopFilters;
 
   filtersForm: QueryParamGroup;
+
   grades$: Observable<IFilterItem[]>;
   subjects$: Observable<IFilterItem[]>;
   resourceTypes$: Observable<IFilterItem[]>;
@@ -37,8 +38,6 @@ export class ShopComponent implements OnInit {
     public cartService: CartService,
     private _productsService: ProductsService
   ) {
-    //this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-
     this.grades$ = this.apiService.getGrades().pipe(
       map(grades => categoryToFilterItem(grades))
     );
@@ -67,7 +66,6 @@ export class ShopComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this._fetchPageOfProducts(new ShopPageRequest(this.currentFilters, this.route.snapshot.queryParams['page'] ?? undefined));
     this.filtersForm.valueChanges.pipe(
       untilDestroyed(this)
     ).subscribe(filterValues => {

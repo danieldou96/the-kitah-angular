@@ -24,8 +24,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { DragDirective } from 'src/app/shared/directives/drag-drop-file.directive';
 import { ProductResolver } from 'src/app/core/resolvers/product/product.resolver';
 import { UploadProductPreviewComponent } from './components/upload-product-preview/upload-product-preview.component';
-import * as PlotlyJS from 'plotly.js-dist-min';
-import { PlotlyModule } from 'angular-plotly.js';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MyProductsResolver } from 'src/app/core/resolvers/my-products/my-products.resolver';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
@@ -34,8 +32,6 @@ import { VendorGuard } from 'src/app/core/guards/vendor/vendor.guard';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SettingsComponent } from './pages/settings/settings.component';
-
-PlotlyModule.plotlyjs = PlotlyJS;
 
 const buyerRoutes: Routes = [
   {
@@ -201,8 +197,6 @@ const vendorRoutes: Routes = [
     NgSelectModule,
     EditorModule,
     RouterModule.forChild([...buyerRoutes, ...vendorRoutes]),
-    //PlotlyModule,
-    //NgChartsModule
     MatTabsModule,
     NgxDatatableModule,
     NgxChartsModule

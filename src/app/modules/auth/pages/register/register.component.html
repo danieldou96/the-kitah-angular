@@ -2,44 +2,41 @@
 	<div class="row">
 		<div class="col-md-6 mx-md-auto">
 			<div class="card border-0 box-shadow">
-				<div class="card-body">
+				<div class="card-body p-4">
 					<h2 class="h4 mb-3">Register</h2>
-					<form [formGroup]="registerForm" (submit)="register()">
-						<div class="row">
+					<form [formGroup]="registerForm" (submit)="register()" errorTailor>
+						<div class="row mb-2">
 							<div class="col-12 col-sm-6">
 								<label>Firstname <span class="text-danger">*</span></label>
 								<input type="text" class="classic-input" formControlName="firstname">
-								<div *ngIf="submitted && formControls['firstname'].errors" class="invalid-feedback">
-									<div *ngIf="formControls['firstname'].errors['required']">The firstname is required</div>
-								</div>
 							</div>
 							<div class="col-12 col-sm-6">
 								<label>Lastname <span class="text-danger">*</span></label>
 								<input type="text" class="classic-input" formControlName="lastname">
 							</div>
 						</div>
-						<div class="row">
+						<div class="row mb-2">
 							<div class="col-12 col-sm-8">
 								<label>Email address <span class="text-danger">*</span></label>
-								<input type="email" class="classic-input" formControlName="email">
+								<input type="email" class="classic-input" name="email" formControlName="email">
 							</div>
 							<div class="col-12 col-sm-4">
 								<label>Username <span class="text-danger">*</span></label>
-								<input type="text" class="classic-input" formControlName="username">
+								<input type="text" class="classic-input" name="username" formControlName="username">
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-12 col-sm-6">
+						<div class="row mb-2">
+							<div class="col-12">
 								<label>Password <span class="text-danger">*</span></label>
 								<input type="password" class="classic-input" formControlName="password">
 							</div>
-							<div class="col-12 col-sm-6">
+							<!--<div class="col-12 col-sm-6">
 								<label>Repeat password <span class="text-danger">*</span></label>
-								<input type="password" class="classic-input" formControlName="repeatPassword">
-							</div>
+								<input type="password" class="classic-input" formControlName="confirmPassword">
+							</div>-->
 						</div>
-						<div *ngIf="formControls['registrationType'].value == 'vendor'">
-							<div class="row">
+						<div *ngIf="formControls['registrationType'].value == 'vendor'" [@slideInOut]>
+							<div class="row mb-2">
 								<div class="col-12 col-sm-6">
 									<label>Shop Name <span class="text-danger">*</span></label>
 									<input type="text" class="classic-input" formControlName="shopName">
@@ -51,42 +48,43 @@
 									<small>https://thekitah.com/store/<strong>{{ formControls['shopUrl'].value }}</strong></small>
 								</div>
 							</div>
-							<div class="row">
+							<div class="row mb-2">
 								<div class="col-12">
 									<label>Phone Number <span class="text-danger">*</span></label>
 									<input type="text" class="classic-input" formControlName="phone">
 								</div>
 							</div>
 						</div>
-						<div class="row">
+						<div class="row mb-2">
 							<div class="col-12">
 								<label>
 									<input type="radio" formControlName="registrationType" value="buyer">
 									I am a customer
 								</label>
-								<label>
+								<label class="ms-2">
 									<input type="radio" formControlName="registrationType" value="vendor">
 									I am a vendor
 								</label>
 							</div>
 						</div>
-						<div class="row">
+						<div class="row mb-2">
 							<div class="col-12">
-								<label>
-									<input type="checkbox" formControlName="terms">
+                <app-checkbox [colored]="true" formControlName="terms">
 									I have read and agree to the <a target="_blank" [routerLink]="['/terms']">Terms &amp; Conditions</a>.
-								</label>
+								</app-checkbox>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-12">
-								<div class="text-right">
-									<button type="submit" class="classic-button">
-										<i class="ci-user me-2 ms-n1"></i>
-										Register
-									</button>
-								</div>
-							</div>
+            <hr class="my-3">
+            <div class="row">
+              <div class="col-12">
+                Already have an account? <a [routerLink]="['/auth/login']">Log in now</a>.
+              </div>
+            </div>
+						<div class="text-end pt-3">
+							<button type="submit" class="classic-button">
+								<i class="ci-user me-2 ms-n1"></i>
+								Register
+							</button>
 						</div>
 					</form>
 				</div>

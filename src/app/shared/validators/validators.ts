@@ -1,4 +1,4 @@
-import { AbstractControl, ValidatorFn } from "@angular/forms";
+import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 
 export function minArrayLength(minLength: number): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
@@ -55,3 +55,10 @@ export function conditionalValidator(
 		return error;
 	};
 }
+
+export const passwordMatchingValidatior: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  const password = control.get('password');
+  const confirmPassword = control.get('confirmPassword');
+
+  return password?.value === confirmPassword?.value ? null : { notMatched: true };
+};

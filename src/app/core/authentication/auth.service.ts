@@ -2,8 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { LOCAL_STORAGE } from '@ng-web-apis/common';
+import { HotToastService } from '@ngneat/hot-toast';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { first, map, merge, Observable, of, ReplaySubject, shareReplay, tap, timer } from 'rxjs';
+import { catchError, first, map, merge, Observable, of, ReplaySubject, shareReplay, tap, timer } from 'rxjs';
 import { ERoles } from 'src/app/shared/enums/user';
 import { User } from 'src/app/shared/models/user';
 import { decodeJwtData } from 'src/app/shared/utils';
@@ -29,6 +30,7 @@ export class AuthService {
 
 	constructor(
 		private router: Router,
+		private hotToastService: HotToastService,
 		private http: HttpClient,
 		@Inject(LOCAL_STORAGE) private localStorage: Storage
 	) {
@@ -66,7 +68,7 @@ export class AuthService {
 	}
 
 	/** @description Login to Chabad.org Shliach account */
-	public login(email: string, password: string): Observable<any> {
+	public login(username: string, password: string): Observable<any> {
 		const url = `${environment.apiUrl}/auth/login`;
 
 		const navigation = this.router.getCurrentNavigation();
@@ -74,9 +76,10 @@ export class AuthService {
 
 		return this.http
 			.post<{ token: string; }>(url, {
-				username: email,
-				password: password,
+				username,
+				password,
 			}).pipe(
+				catchError(err => of(err.error)),
 				tap(apiResponse => {
 					const user = decodeJwtData<User>(apiResponse.token);
 					if (user) {
@@ -93,6 +96,9 @@ export class AuthService {
 						this.expirationCounter(apiResponse.token);
 					} else {
 						console.error('The User is not valid');
+						this.hotToastService.error('Username or password is not correct.', {
+							duration: 3000
+						});
 					}
 				})
 			);
@@ -101,7 +107,21 @@ export class AuthService {
 	/** @description Login to Chabad.org Shliach account */
 	public register(registerForm: any): Observable<any> {
 		const url = `${environment.apiUrl}/auth/register`;
-		return this.http.post<any>(url, registerForm);
+		return this.http.post<any>(url, registerForm).pipe(
+			catchError(err => of(err)),
+			tap(result => {
+				if (result.error) {
+					this.hotToastService.error(result.error.message, {
+						duration: 3000
+					});
+				} else {
+					this.hotToastService.success('The user has been created successfully. Please Log in.', {
+						duration: 3000
+					});
+					this.router.navigateByUrl('auth/login');
+				}
+			})
+		);
 	}
 
 	public logout() {

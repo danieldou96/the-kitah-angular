@@ -1,4 +1,4 @@
-import { Component, forwardRef, Output, EventEmitter, Input } from '@angular/core';
+import { Component, forwardRef, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -11,11 +11,13 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
       useExisting: forwardRef(() => CheckboxComponent),
       multi: true
     }
-  ]
+	],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CheckboxComponent implements ControlValueAccessor {
 
 	@Input() checked = false;
+	@Input() colored = false;
 	@Output() private readonly changed = new EventEmitter<boolean>();
 
   constructor() { }
