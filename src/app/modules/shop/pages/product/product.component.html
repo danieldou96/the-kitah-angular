@@ -22,7 +22,7 @@
                     [keyboard]="{ enabled: true	}">
                     <ng-template swiperSlide *ngFor="let item of galleryItems">
                       <div class="swiper-zoom-container">
-                        <img [attr.data-src]="item" class="swiper-lazy" />
+                        <img [src]="item" class="swiper-lazy" />
                       </div>
                     </ng-template>
                   </swiper>
