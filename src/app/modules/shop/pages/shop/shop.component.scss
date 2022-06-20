@@ -1936,6 +1936,11 @@ select:focus,
     &__product-description {
       font-size: 16px;
       margin: 15px 0;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
 
       ::ng-deep p {
         margin: 0;
@@ -1954,6 +1959,12 @@ select:focus,
     }
 
     &__product-grades, &__product-subjects, &__product-resource-types {
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      
       span {
         font-weight: 500;
       }
