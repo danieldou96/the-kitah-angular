@@ -75,6 +75,7 @@ export class ProductFormComponent implements OnInit {
         untilDestroyed(this)
       ).subscribe(result => {
         this.form.patchValue({ file });
+        this.form.patchValue({ previews: result.generatedThumbnails ?? [] });
         this.fileUploaded = true;
         this.productFile = {
           url: result.fileUrl,
@@ -96,6 +97,7 @@ export class ProductFormComponent implements OnInit {
         untilDestroyed(this)
       ).subscribe(result => {
         this.form.patchValue({ file });
+        this.form.patchValue({ previews: result.generatedThumbnails ?? [] });
         this.fileUploaded = true;
         this.productFile = {
           url: result.fileUrl,
@@ -112,6 +114,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   submit() {
+    console.log(this.form)
     if (this.form.invalid) {
       Object.values(this.formControls).forEach(control => {
         if (control.invalid) {

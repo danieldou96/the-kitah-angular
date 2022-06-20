@@ -14,7 +14,6 @@ import { SwiperModule } from 'swiper/angular';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { ErrorTailorModule } from '@ngneat/error-tailor';
 
-
 @NgModule({
   declarations: [
     PageTitleComponent,
