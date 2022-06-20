@@ -1,3 +1,9 @@
+::ng-deep {
+  @import '~@swimlane/ngx-datatable/index.css';
+  @import '~@swimlane/ngx-datatable/themes/material.scss';
+  @import '~@swimlane/ngx-datatable/assets/icons.css';
+}
+
 :host ::ng-deep {
 	.mat-tab-label {
     height: 72px !important;
@@ -33,17 +39,4 @@
   .mat-tab-body-content {
     overflow: hidden !important;
   }
-}
-::ng-deep {
-@import '~@swimlane/ngx-datatable/index.css';
-@import '~@swimlane/ngx-datatable/themes/material.scss';
-@import '~@swimlane/ngx-datatable/assets/icons.css';
-}
-
-a {
-	color: #dea249;
-
-	&:hover {
-		color: #d4983f;
-	}
 }

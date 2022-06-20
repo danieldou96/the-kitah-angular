@@ -1,26 +1,31 @@
-<div class="card text-center py-4 mb-4">
-	<div class="card-body">
-		<i class="ci-home text-muted h2 font-weight-normal opacity-60 mb-4"></i>
-		<h5 class="pb-2">From your account dashboard you can:</h5>
-		<a [routerLink]="['./orders']" class="btn btn-outline-primary btn-sm m-2">View
-			orders</a>
-		<a [routerLink]="['./edit-account']"
-			class="btn btn-outline-primary btn-sm m-2">Edit account details</a>
+<ng-container *ngrxLet="authService.loggedInUser$ as loggedInUser">
+	<div class="card text-center py-4 mb-4">
+		<div class="card-body">
+			<i class="ci-home"></i>
+			<h5 class="pb-2">From your account dashboard you can:</h5>
+			<a [routerLink]="['./orders']" class="classic-light-button py-2 px-3 m-2">
+				View orders
+			</a>
+			<a [routerLink]="['./edit-account']" class="classic-light-button py-2 px-3 m-2">
+				Edit account details
+			</a>
+		</div>
 	</div>
-</div>
-
-<p>&nbsp;</p>
-
-<ul class="dokan-account-migration-lists">
-	<li>
-		<div class="dokan-w8 left-content">
-			<p><strong>Become a Vendor</strong></p>
-			<p>Vendors can sell products and manage a store with a vendor dashboard.</p>
+	<div class="card" *ngIf="loggedInUser?.user?.role == 'buyer'">
+		<div class="card-body d-flex p-4">
+			<div>
+				<p class="mb-2"><strong>Become a Vendor</strong></p>
+				<p class="mb-0">Vendors can sell products and manage a store with a vendor dashboard.</p>
+			</div>
+			<div>
+				<a [routerLink]="['/my-account/account-migration']" class="classic-button">Become a Vendor</a>
+			</div>
+			<div></div>
 		</div>
-		<div class="dokan-w4 right-content">
-			<a [routerLink]="['/my-account/account-migration']" class="btn btn-primary">Become a Vendor</a>
+	</div>
+	<div class="row mt-2" *ngIf="loggedInUser?.user?.role == 'vendor'">
+		<div class="col-12">
+			<a [routerLink]="['/dashboard']" class="classic-button">Go to Vendor Dashboard</a>
 		</div>
-		<div class="dokan-clearfix"></div>
-	</li>
-
-</ul>
+	</div>
+</ng-container>

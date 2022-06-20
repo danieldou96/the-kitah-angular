@@ -30,10 +30,6 @@
 								<label>Password <span class="text-danger">*</span></label>
 								<input type="password" class="classic-input" formControlName="password">
 							</div>
-							<!--<div class="col-12 col-sm-6">
-								<label>Repeat password <span class="text-danger">*</span></label>
-								<input type="password" class="classic-input" formControlName="confirmPassword">
-							</div>-->
 						</div>
 						<div *ngIf="formControls['registrationType'].value == 'vendor'" [@slideInOut]>
 							<div class="row mb-2">
@@ -45,7 +41,7 @@
 									<label class="pull-left">Shop URL <span class="text-danger">*</span></label>
 									<strong class="pull-right"></strong>
 									<input type="text" class="classic-input" formControlName="shopUrl">
-									<small>https://thekitah.com/store/<strong>{{ formControls['shopUrl'].value }}</strong></small>
+									<small>https://thekitah.com/store/<span>{{ formControls['shopUrl'].value }}</span></small>
 								</div>
 							</div>
 							<div class="row mb-2">

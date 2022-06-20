@@ -8,13 +8,11 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { StoreComponent } from './pages/store/store.component';
 import { ProductGalleryComponent } from './components/product-gallery/product-gallery.component';
-import { RelatedProductsComponent } from './components/related-products/related-products.component';
 import { MoreProductsComponent } from './components/more-products/more-products.component';
 import { ProductReviewsComponent } from './components/product-reviews/product-reviews.component';
 import { ProductReviewsSummaryComponent } from './components/product-reviews-summary/product-reviews-summary.component';
 import { ProductReviewFormComponent } from './components/product-review-form/product-review-form.component';
 import { PriceFilterComponent } from './components/price-filter/price-filter.component';
-import { SliderComponent } from './components/slider/slider.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ProductFilterComponent } from './components/product-filter/product-filter.component';
 import { ProductFilterRowComponent } from './components/product-filter-row/product-filter-row.component';
@@ -79,13 +77,11 @@ const routes: Routes = [
     CheckoutComponent,
     StoreComponent,
     ProductGalleryComponent,
-    RelatedProductsComponent,
     MoreProductsComponent,
     ProductReviewsComponent,
     ProductReviewsSummaryComponent,
     ProductReviewFormComponent,
     PriceFilterComponent,
-    SliderComponent,
     ProductFilterComponent,
     ProductFilterRowComponent,
     CheckoutSuccessComponent

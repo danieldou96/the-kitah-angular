@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { ProductsService } from 'src/app/core/services/products/products.service';
@@ -10,16 +10,13 @@ import { IProduct } from 'src/app/shared/models/product';
   templateUrl: './new-product.component.html',
   styleUrls: ['./new-product.component.scss']
 })
-export class NewProductComponent implements OnInit {
+export class NewProductComponent {
 
   constructor(
     private productsService: ProductsService,
     private hotToastService: HotToastService,
     private router: Router,
   ) { }
-
-  ngOnInit(): void {
-  }
 
   createProduct(product: IProduct) {
     this.productsService.save<ApiResponse>(product).subscribe((apiResponse: ApiResponse) => {

@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { ApiService } from 'src/app/core/http/api.service';
 import { CategoriesService } from 'src/app/core/services/categories/categories.service';
 import { ProductsService } from 'src/app/core/services/products/products.service';
 import { IFile, IProduct } from 'src/app/shared/models/product';
@@ -89,11 +88,22 @@ export class ProductFormComponent implements OnInit {
 
   fileDropped(file: any) {
     if (file) {
-      // Max 5mb
-      if (file.size > 5000000) {
+      // Max 50mb
+      if (file.size > 50000000) {
         console.error(`Please upload a file of maximum 5mb`);
       }
-      this.form.patchValue({ file });
+      this.productsService.uploadProductFile(file, this.form.controls['previewsType'].value == 'auto').pipe(
+        untilDestroyed(this)
+      ).subscribe(result => {
+        this.form.patchValue({ file });
+        this.fileUploaded = true;
+        this.productFile = {
+          url: result.fileUrl,
+          size: file.size,
+          name: file.name
+        };
+        this.generatedPreviewImages = result.generatedThumbnails ?? [];
+      });
     }
   }
 
@@ -102,6 +112,16 @@ export class ProductFormComponent implements OnInit {
   }
 
   submit() {
+    if (this.form.invalid) {
+      Object.values(this.formControls).forEach(control => {
+        if (control.invalid) {
+          control.markAsDirty();
+          control.updateValueAndValidity({ onlySelf: true });
+        }
+      });
+      return;
+    }
+
     this.submitFormEvent.emit(<IProduct>{
       name: this.form.controls['title'].value,
       price: this.form.controls['price'].value,

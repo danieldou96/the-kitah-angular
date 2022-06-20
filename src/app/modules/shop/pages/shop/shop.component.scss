@@ -1887,16 +1887,6 @@ select:focus,
   /*! CSS Used fontfaces */
 
   .list-view {
-
-    a:not(.classic-button) {
-      color: #dea249;
-      transition: color 0.25s ease-in-out;
-
-      &:hover {
-        color: #d4983f;
-      }
-    }
-
     &__product {
       display: grid;
       grid-gap: 10px;

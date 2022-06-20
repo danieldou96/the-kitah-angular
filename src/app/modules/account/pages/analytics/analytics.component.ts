@@ -1,5 +1,5 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { AfterViewInit, ChangeDetectorRef, Component, TemplateRef, ViewChild } from '@angular/core';
+import { Observable } from 'rxjs';
 import { StoreService } from 'src/app/core/services/store/store.service';
 import { ColumnMode, TableColumn } from '@swimlane/ngx-datatable';
 

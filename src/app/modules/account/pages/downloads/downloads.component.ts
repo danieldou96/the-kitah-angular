@@ -1,10 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { WINDOW } from '@ng-web-apis/common';
 import { map, Observable } from 'rxjs';
 import { ApiService } from 'src/app/core/http/api.service';
 import { OrdersService } from 'src/app/core/services/orders/orders.service';
 import { IOrder, IOrderItem } from 'src/app/shared/models/order';
-import { environment } from 'src/environments/environment';
 
 interface IDownload extends IOrderItem {
   name: string;
@@ -16,7 +15,7 @@ interface IDownload extends IOrderItem {
   templateUrl: './downloads.component.html',
   styleUrls: ['./downloads.component.scss']
 })
-export class DownloadsComponent implements OnInit {
+export class DownloadsComponent {
 
   downloads$: Observable<IDownload[]>;
 
@@ -35,9 +34,6 @@ export class DownloadsComponent implements OnInit {
         })
       })
     )
-  }
-
-  ngOnInit(): void {
   }
 
   downloadFile(productId: number, productFileName: string) {

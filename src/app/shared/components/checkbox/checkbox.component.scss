@@ -1,9 +1,9 @@
+@import "/src/assets/scss/vars";
+@import "/src/assets/scss/mixins";
+
 :host {
 	display: contents;
 }
-
-@import "/src/assets/scss/vars";
-@import "/src/assets/scss/mixins";
 
 .checkbox-container {
   font-weight: 400;

@@ -5,7 +5,6 @@ import { RegisterComponent } from './pages/register/register.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { ErrorTailorModule } from '@ngneat/error-tailor';
 
 const routes: Routes = [
   {

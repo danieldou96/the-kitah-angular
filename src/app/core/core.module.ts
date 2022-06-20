@@ -6,7 +6,6 @@ import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.
 import { RouterModule } from '@angular/router';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { HandheldToolbarComponent } from './components/handheld-toolbar/handheld-toolbar.component';
-import { CartWidgetComponent } from './components/cart-widget/cart-widget.component';
 import { DrawerComponent } from './components/drawer/drawer.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ReactiveComponentModule } from '@ngrx/component';
@@ -21,7 +20,6 @@ import { MobileSidebarComponent } from './mobile-sidebar/mobile-sidebar.componen
     DefaultLayoutComponent,
     NotFoundComponent,
     HandheldToolbarComponent,
-    CartWidgetComponent,
     DrawerComponent,
     MobileSidebarComponent
   ],

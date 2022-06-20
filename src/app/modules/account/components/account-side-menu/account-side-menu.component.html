@@ -67,11 +67,11 @@
 	</aside>
 	<aside *ngIf="loggedInUser?.role == 'vendor' || loggedInUser?.role == 'admin'" class="col-lg-4 ps-0">
 		<div class="d-block d-lg-none p-4">
-			<a class="btn btn-outline-accent d-block" href="#account-menu" data-toggle="collapse">
+			<button class="btn btn-outline-accent d-block w-100" (click)="toggleMobileMenu()">
 				<i class="ci-menu me-2"></i>
-				Account menu </a>
+				Account menu </button>
 		</div>
-		<div class="cz-sidebar-static h-100 p-0">
+		<div class="cz-sidebar-static h-100 p-0" *ngIf="((documentService.isSmallScreen$ | async) && (mobileMenuOpened$ | async)) || !(documentService.isSmallScreen$ | async)" [@slideInOut]>
 		  <div id="account-menu" class="secondary-nav collapse border-right">
 		    <div class="bg-secondary p-4">
 		      <h3 class="font-size-sm mb-0 text-muted">Account</h3>
