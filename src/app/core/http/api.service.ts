@@ -86,6 +86,46 @@ export class ApiService {
   }
 
   // -------------------------------------------------------------------------------------
+	// Wishlist
+	// -------------------------------------------------------------------------------------
+
+  /** @description Get updates list to be on the homepage */
+  public getWishlist(): Observable<IProduct[]> {
+    const url = this.apiUrl + `/wishlist`;
+    return this.http.get<ApiResponse>(url).pipe(
+      map((apiResponse: ApiResponse) => apiResponse.data as IProduct[])
+    );
+  }
+
+  /** @description Get updates list to be on the homepage */
+  public updateWishlist(wishlistItems: IProduct[]): Observable<any> {
+    const url = this.apiUrl + `/wishlist/update`;
+    return this.http.put(url, {
+      productIds: wishlistItems.map(i => i.id)
+    });
+  }
+
+  // -------------------------------------------------------------------------------------
+	// Favorite Sellers
+	// -------------------------------------------------------------------------------------
+
+  /** @description Get updates list to be on the homepage */
+  public getFavoriteSellers(): Observable<IStore[]> {
+    const url = this.apiUrl + `/favorite-sellers`;
+    return this.http.get<ApiResponse>(url).pipe(
+      map((apiResponse: ApiResponse) => apiResponse.data as IStore[])
+    );
+  }
+
+  /** @description Get updates list to be on the homepage */
+  public updateFavoriteSellers(favoriteSellers: IStore[]): Observable<any> {
+    const url = this.apiUrl + `/favorite-sellers/update`;
+    return this.http.put(url, {
+      storeIds: favoriteSellers.map(i => i.id)
+    });
+  }
+
+  // -------------------------------------------------------------------------------------
 	// Shopping Cart
 	// -------------------------------------------------------------------------------------
 

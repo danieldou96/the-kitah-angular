@@ -114,7 +114,6 @@ export class ProductFormComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.form)
     if (this.form.invalid) {
       Object.values(this.formControls).forEach(control => {
         if (control.invalid) {

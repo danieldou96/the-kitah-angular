@@ -4,6 +4,7 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/authentication/auth.service';
 import { DocumentService } from 'src/app/core/services/document/document.service';
 import { StoreService } from 'src/app/core/services/store/store.service';
+import { WishlistService } from 'src/app/core/services/wishlist/wishlist.service';
 import { User } from 'src/app/shared/models/user';
 
 @Component({
@@ -33,7 +34,8 @@ export class AccountSideMenuComponent {
   constructor(
     private authService: AuthService,
     public documentService: DocumentService,
-    public storeService: StoreService
+    public storeService: StoreService,
+    public wishlistService: WishlistService
   ) {
     this.loggedInUser$ = this.authService.loggedInUser$.pipe(
       map(apiAuthResponse => apiAuthResponse ?? null),

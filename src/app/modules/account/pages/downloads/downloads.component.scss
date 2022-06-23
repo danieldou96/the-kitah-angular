@@ -1,31 +1,4 @@
-/*! CSS Used from: http://s603556811.onlinehome.fr/wp-includes/css/dist/block-library/style.min.css?ver=5.9.2 ; media=all */
-@media all {
-  p {
-    overflow-wrap: break-word;
-  }
-
-  html :where(img) {
-    height: auto;
-    max-width: 100%;
-  }
-}
-
-/*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/style.css?ver=1.0.5 ; media=all */
-@media all {
-
-  p {
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
-
-  img {
-    vertical-align: middle;
-    border-style: none;
-  }
-}
-
-
-
+@import '/src/assets/scss/vars';
 
   /*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/style.css?ver=1.0.5 ; media=all */
   @media all{
@@ -40,10 +13,21 @@
   .table-responsive{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
   .table:not(.table-dark) thead:not(.thead-dark) th,table:not(.table-dark) thead:not(.thead-dark) th{color:#373f50;}
   thead th,th{font-weight:500;}
-  .product-title > a{transition:color 0.25s ease-in-out;color:#373f50;text-decoration:none!important;}
-  .product-title > a:hover{color:#fe696a;}
   .font-size-sm{font-size:0.875rem!important;}
   
   table{margin:0 0 1.5em;}
   table th{word-break:normal;}
+  }
+  .product-title > a {
+    transition: color 0.25s ease-in-out;
+    color: #373f50;
+    text-decoration: none !important;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+
+  .classic-button {
+    padding: 0.325rem 1rem;
   }

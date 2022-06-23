@@ -93,6 +93,8 @@ export interface IStore {
   name: string;
   url: string;
   country: string;
+  avatar?: string;
+  banner?: string;
 	phone: string;
   state: string;
   city: string;

@@ -12,102 +12,113 @@
           <button class="navbar__toggler-icon" (click)="headerService.mobileSidebarOpened$.next(true)"></button>
         </div>
         <ng-container *ngrxLet="loggedInUser$ as loggedInUser">
-          <a *ngIf="!loggedInUser" [routerLink]="['/auth/login']" class="navbar__auth">
-            <span class="navbar__auth-tooltip">Account</span>
-            <div class="navbar__auth-icon-box">
-              <i class="ci-user"></i>
+          <ng-container *ngrxLet="wishlist$ as wishlist">
+            <a [routerLink]="['/my-account/wishlist']" class="navbar__wishlist">
+              <span class="navbar__wishlist-tooltip">Wishlist</span>
+              <span class="navbar__wishlist-items">{{ wishlist.length }}</span>
+              <div class="navbar__wishlist-icon-box">
+                <i class="ci-heart"></i>
+              </div>
+            </a>
+            <a *ngIf="!loggedInUser" [routerLink]="['/auth/login']" class="navbar__auth">
+              <span class="navbar__auth-tooltip">Account</span>
+              <div class="navbar__auth-icon-box">
+                <i class="ci-user"></i>
+              </div>
+            </a>
+            <div *ngIf="loggedInUser" class="navbar__user-dropdown">
+              <a [routerLink]="['/my-account']" class="navbar__user-avatar">
+                <img src="https://2.gravatar.com/avatar/e8963eb2c3b519d5ed88a6ea49bd05bf?s=96&d=mm&r=g">
+              </a>
+              <a [routerLink]="['/my-account']" class="navbar__user-infos">
+                <ng-container *ngIf="loggedInUser.role == 'vendor' || loggedInUser.role == 'admin'">
+                  <small class="navbar__user-name">
+                    {{ loggedInUser.username }}
+                  </small>
+                  <span class="navbar__vendor-amount">{{ (storeService.salesAmount$ | async) | currency}}</span>
+                </ng-container>
+                <ng-container *ngIf="loggedInUser.role == 'buyer'">
+                  <small class="navbar__user-name">
+                    Hello,
+                  </small>
+                  <span class="navbar__vendor-amount">{{ loggedInUser.username }}</span>
+                </ng-container>
+              </a>
+              <ul class="user-dropdown" *ngIf="loggedInUser.role == 'vendor' || loggedInUser.role == 'admin'">
+                <li class="user-dropdown__header">Account</li>
+                <!--<li class="user-dropdown__item">
+                  <a [routerLink]="['/my-account/orders']"><i class="ci-bag"></i> Orders</a>
+                </li>-->
+                <li class="user-dropdown__item">
+                  <a [routerLink]="['/my-account/downloads']">
+                    <i class="ci-cloud-download"></i> Downloads</a>
+                </li>
+                <li class="user-dropdown__item">
+                  <a [routerLink]="['/my-account/wishlist']">
+                    <i class="ci-heart"></i> My wishlist <span>{{ wishlist.length }}</span></a>
+                </li>
+                <li class="user-dropdown__item">
+                  <a [routerLink]="['/my-account/favorite-sellers']"><i class="ci-store"></i> My favorite sellers</a>
+                </li>
+                <li class="user-dropdown__item">
+                  <a [routerLink]="['/my-account/edit-account']"><i class="ci-user"></i> Account details</a>
+                </li>
+                <li class="user-dropdown__divider"></li>
+                <li class="user-dropdown__header">Seller Dashboard</li>
+                <li class="user-dropdown__item">
+                  <a [routerLink]="['/dashboard']"><i class="ci-dollar"></i> Sales <span class="font-size-sm text-muted ms-auto">{{ (storeService.salesAmount$ | async) | currency}}</span>
+                  </a>
+                </li>
+                <ng-container *ngrxLet="storeService.myProducts$ as myProducts">
+                  <li class="user-dropdown__item">
+                    <a [routerLink]="['/dashboard/products']"><i class="ci-package"></i> Products <span class="font-size-sm text-muted ms-auto">{{ myProducts.length }}</span></a>
+                  </li>
+                </ng-container>
+                <li class="user-dropdown__item">
+                  <a [routerLink]="['/dashboard/analytics']"><i class="fal fa-chart-area"></i> My Products Statistics</a>
+                </li>
+                <!--<li class="user-dropdown__item">
+                  <a [routerLink]="['/dashboard/sales-reports']"><i class="ci-document"></i> Sales Reports</a>
+                </li>-->
+                <li class="user-dropdown__item">
+                  <a [routerLink]="['/dashboard/withdraw']"><i class="ci-currency-exchange"></i> Withdraw</a>
+                </li>
+                <li class="user-dropdown__item">
+                  <a [routerLink]="['/dashboard/settings']"><i class="ci-settings"></i> Settings</a>
+                </li>
+                <li class="user-dropdown__divider"></li>
+                <li class="user-dropdown__item">
+                  <button (click)="logout()"><i class="ci-sign-out"></i> Sign out</button>
+                </li>
+              </ul>
+              <ul class="user-dropdown" *ngIf="loggedInUser.role == 'buyer'">
+                <li class="user-dropdown__item">
+                  <a [routerLink]="['/my-account']"><i class="ci-home"></i> Dashboard</a>
+                </li>
+                <!--<li class="user-dropdown__item">
+                  <a [routerLink]="['/my-account/orders']"><i class="ci-bag"></i> Orders</a>
+                </li>-->
+                <li class="user-dropdown__item">
+                  <a [routerLink]="['/my-account/downloads']">
+                    <i class="ci-cloud-download"></i> Downloads</a>
+                </li>
+                <li class="user-dropdown__item">
+                  <a [routerLink]="['/my-account/wishlist']">
+                    <i class="ci-heart"></i> My wishlist <span>{{ wishlist.length }}</span></a>
+                </li>
+                <li class="user-dropdown__item">
+                  <a [routerLink]="['/my-account/favorite-sellers']"><i class="ci-store"></i> My favorite sellers</a>
+                </li>
+                <li class="user-dropdown__item">
+                  <a [routerLink]="['/my-account/edit-account']"><i class="ci-user"></i> Account details</a>
+                </li>
+                <li class="user-dropdown__divider"></li>
+                <li class="user-dropdown__item">
+                  <button (click)="logout()"><i class="ci-sign-out"></i> Sign out</button>
+                </li>
+              </ul>
             </div>
-          </a>
-          <div *ngIf="loggedInUser" class="navbar__user-dropdown">
-            <a [routerLink]="['/my-account']" class="navbar__user-avatar">
-              <img src="https://2.gravatar.com/avatar/e8963eb2c3b519d5ed88a6ea49bd05bf?s=96&d=mm&r=g">
-            </a>
-            <a [routerLink]="['/my-account']" class="navbar__user-infos">
-              <ng-container *ngIf="loggedInUser.role == 'vendor' || loggedInUser.role == 'admin'">
-                <small class="navbar__user-name">
-                  {{ loggedInUser.username }}
-                </small>
-                <span class="navbar__vendor-amount">{{ (storeService.salesAmount$ | async) | currency}}</span>
-              </ng-container>
-              <ng-container *ngIf="loggedInUser.role == 'buyer'">
-                <small class="navbar__user-name">
-                  Hello,
-                </small>
-                <span class="navbar__vendor-amount">{{ loggedInUser.username }}</span>
-              </ng-container>
-            </a>
-            <ul class="user-dropdown" *ngIf="loggedInUser.role == 'vendor' || loggedInUser.role == 'admin'">
-              <li class="user-dropdown__header">Account</li>
-              <!--<li class="user-dropdown__item">
-                <a [routerLink]="['/my-account/orders']"><i class="ci-bag"></i> Orders</a>
-              </li>-->
-              <li class="user-dropdown__item">
-                <a [routerLink]="['/my-account/downloads']">
-                  <i class="ci-cloud-download"></i> Downloads</a>
-              </li>
-              <!--<li class="user-dropdown__item">
-                <a [routerLink]="['/my-account/wishlist']">
-                  <i class="ci-heart"></i> My wishlist <span>{{ 0 }}</span></a>
-              </li>
-              <li class="user-dropdown__item">
-                <a [routerLink]="['/my-account/favorite-sellers']"><i class="ci-store"></i> My favorite sellers</a>
-              </li>-->
-              <li class="user-dropdown__item">
-                <a [routerLink]="['/my-account/edit-account']"><i class="ci-user"></i> Account details</a>
-              </li>
-              <li class="user-dropdown__divider"></li>
-              <li class="user-dropdown__header">Seller Dashboard</li>
-              <li class="user-dropdown__item">
-                <a [routerLink]="['/dashboard']"><i class="ci-dollar"></i> Sales <span class="font-size-sm text-muted ms-auto">{{ (storeService.salesAmount$ | async) | currency}}</span>
-                </a>
-              </li>
-              <li class="user-dropdown__item">
-                <a [routerLink]="['/dashboard/products']"><i class="ci-package"></i> Products</a>
-              </li>
-              <li class="user-dropdown__item">
-                <a [routerLink]="['/dashboard/analytics']"><i class="fal fa-chart-area"></i> My Products Statistics</a>
-              </li>
-              <!--<li class="user-dropdown__item">
-                <a [routerLink]="['/dashboard/sales-reports']"><i class="ci-document"></i> Sales Reports</a>
-              </li>-->
-              <li class="user-dropdown__item">
-                <a [routerLink]="['/dashboard/withdraw']"><i class="ci-currency-exchange"></i> Withdraw</a>
-              </li>
-              <li class="user-dropdown__item">
-                <a [routerLink]="['/dashboard/settings']"><i class="ci-settings"></i> Settings</a>
-              </li>
-              <li class="user-dropdown__divider"></li>
-              <li class="user-dropdown__item">
-                <button (click)="logout()"><i class="ci-sign-out"></i> Sign out</button>
-              </li>
-            </ul>
-            <ul class="user-dropdown" *ngIf="loggedInUser.role == 'buyer'">
-              <li class="user-dropdown__item">
-                <a [routerLink]="['/my-account']"><i class="ci-home"></i> Dashboard</a>
-              </li>
-              <li class="user-dropdown__item">
-                <a [routerLink]="['/my-account/orders']"><i class="ci-bag"></i> Orders</a>
-              </li>
-              <li class="user-dropdown__item">
-                <a [routerLink]="['/my-account/downloads']">
-                  <i class="ci-cloud-download"></i> Downloads</a>
-              </li>
-              <!--<li class="user-dropdown__item">
-                <a [routerLink]="['/my-account/wishlist']">
-                  <i class="ci-heart"></i> My wishlist <span>{{ 0 }}</span></a>
-              </li>
-              <li class="user-dropdown__item">
-                <a [routerLink]="['/my-account/favorite-sellers']"><i class="ci-store"></i> My favorite sellers</a>
-              </li>-->
-              <li class="user-dropdown__item">
-                <a [routerLink]="['/my-account/edit-account']"><i class="ci-user"></i> Account details</a>
-              </li>
-              <li class="user-dropdown__divider"></li>
-              <li class="user-dropdown__item">
-                <button (click)="logout()"><i class="ci-sign-out"></i> Sign out</button>
-              </li>
-            </ul>
-          </div>
+          </ng-container>
         </ng-container>
         <ng-container *ngrxLet="cart$ as cartItems">
           <div class="navbar__cart-dropdown">

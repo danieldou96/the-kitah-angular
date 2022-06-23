@@ -21,6 +21,7 @@ export class StoreService extends AbstractCrudService<IStore, number, PageReques
   public monthSalesAmount$: Observable<number>;
   public withdraws$: Observable<IWithdraw[]>;
   public salesAmount$: Observable<number>;
+  public myProducts$: Observable<IProduct[]>;
   public store$: Observable<IStore>;
 
   constructor(
@@ -29,6 +30,10 @@ export class StoreService extends AbstractCrudService<IStore, number, PageReques
   ) {
     super(_http, `${environment.apiUrl}/store`);
     this.store$ = this.myStore().pipe(
+      shareReplay(1)
+    );
+    this.myProducts$ = this.myProducts().pipe(
+      map((apiResponse: ApiResponse) => apiResponse.data as IProduct[]),
       shareReplay(1)
     );
     this.salesAmount$ = this.authService.isVendor$.pipe(

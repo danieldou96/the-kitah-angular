@@ -1,59 +1,65 @@
-<!-- TITLE -->
-<div class="wishlist-title-container">
-  <div class="wishlist-title ">
-    <h2>My wishlist</h2>
+<ng-container *ngrxLet="wishlistService.wishlist$ as wishlist">
+  <div class="wishlist-title-container">
+    <div class="wishlist-title ">
+      <h2>My wishlist</h2>
+    </div>
   </div>
-</div>
-
-
-<!-- WISHLIST TABLE -->
-<table class="shop_table cart wishlist_table wishlist_view traditional responsive   " data-pagination="no"
-  data-per-page="5" data-page="1" data-id="" data-token="">
-
-
-  <thead>
-    <tr>
-
-      <th class="product-remove">
-        <span class="nobr">
-        </span>
-      </th>
-
-      <th class="product-thumbnail"></th>
-
-      <th class="product-name">
-        <span class="nobr">
-          Product name </span>
-      </th>
-
-      <th class="product-price">
-        <span class="nobr">
-          Unit price </span>
-      </th>
-
-
-      <th class="product-stock-status">
-        <span class="nobr">
-          Stock status </span>
-      </th>
-
-      <th class="product-add-to-cart">
-        <span class="nobr">
-        </span>
-      </th>
-
-    </tr>
-  </thead>
-
-  <tbody class="wishlist-items-wrapper">
-    <tr>
-      <td colspan="6" class="wishlist-empty">No products added to the wishlist</td>
-    </tr>
-  </tbody>
-
-</table>
-
-<div class="yith_wcwl_wishlist_footer">
-
-</div>
-
+  <table class="shop_table cart wishlist_table wishlist_view traditional responsive">
+    <thead>
+      <tr>
+        <th class="product-remove">
+          <span class="nobr">
+          </span>
+        </th>
+        <th class="product-thumbnail"></th>
+        <th class="product-name">
+          <span class="nobr">
+            Product name </span>
+        </th>
+        <th class="product-price">
+          <span class="nobr">
+            Unit price </span>
+        </th>
+        <th class="product-add-to-cart">
+          <span class="nobr">
+          </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody class="wishlist-items-wrapper">
+      <tr *ngIf="wishlist.length == 0">
+        <td colspan="6" class="wishlist-empty">No products added to the wishlist</td>
+      </tr>
+      <tr *ngFor="let product of wishlist">
+        <td class="product-remove">
+          <div>
+            <button class="trash-button" title="Remove this product" (click)="wishlistService.removeWishlistItem(product)">
+              <i class="ci-trash"></i>
+            </button>
+          </div>
+        </td>
+        <td class="product-thumbnail">
+          <a [routerLink]="['/product/' + product.id]">
+            <img
+              width="100"
+              [src]="product.mainPicture?.url ?? 'assets/img/product-placeholder.png'"
+              class="woocommerce-placeholder wp-post-image"
+              alt="Placeholder"
+              loading="lazy">
+          </a>
+        </td>
+        <td class="product-name">
+          <a [routerLink]="['/product/' + product.id]">{{ product.name }}</a>
+        </td>
+        <td class="product-price">
+          {{ product.price | currency }}
+        </td>
+        <td class="product-add-to-cart">
+          <button class="classic-button" (click)="addToCart(product)">
+            <i class="ci-cart font-size-sm mr-1"></i> Add to cart
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>

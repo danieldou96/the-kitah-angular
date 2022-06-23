@@ -1,9 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Observable } from 'rxjs';
-import { CategoriesService } from 'src/app/core/services/categories/categories.service';
 import { ProductsService } from 'src/app/core/services/products/products.service';
 import { StoreService } from 'src/app/core/services/store/store.service';
 import { IProduct } from 'src/app/shared/models/product';
@@ -15,7 +13,7 @@ import { IProduct } from 'src/app/shared/models/product';
   styleUrls: ['./products.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent {
 
   myProducts: IProduct[];
 
@@ -29,15 +27,12 @@ export class ProductsComponent implements OnInit {
     this.myProducts = this.activatedRoute.snapshot.data['products'];
   }
 
-  ngOnInit(): void {
-  }
-
   deleteProduct(id: number) {
     this.productsService.delete(id).pipe(
       untilDestroyed(this)
     ).subscribe(() => {
       this.myProducts = this.myProducts.filter(p => p.id != id);
-      this.hotToastService.success('The product has been delete!');
+      this.hotToastService.success('The product has been deleted!');
       this.cd.detectChanges();
     });
   }

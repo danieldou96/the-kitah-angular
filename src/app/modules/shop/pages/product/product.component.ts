@@ -8,6 +8,7 @@ import SwiperCore, { FreeMode, Navigation, Thumbs, Keyboard, Lazy, Zoom, Swiper,
 import { SwiperComponent } from "swiper/angular";
 import { RecentlyViewedProductService } from 'src/app/core/services/recently-viewed-product/recently-viewed-product.service';
 import { CartService } from 'src/app/core/services/cart/cart.service';
+import { WishlistService } from 'src/app/core/services/wishlist/wishlist.service';
 SwiperCore.use([FreeMode, Navigation, Thumbs, Keyboard, Lazy, Zoom, Pagination]);
 
 @Component({
@@ -26,11 +27,11 @@ export class ProductComponent {
   constructor(
     private activatedRoute: ActivatedRoute,
     public cartService: CartService,
+    public wishlistService: WishlistService,
     private recentlyViewedProductsService: RecentlyViewedProductService
   ) {
     this.product$ = this.activatedRoute.data.pipe(
       map(data => data['product']),
-      tap(t=>console.log(t)),
       tap(product => this.recentlyViewedProductsService.addItem({ product }))
     );
 

@@ -17,6 +17,24 @@ input[type="radio"] {
 	margin-right: 6px;
 }
 
+.dollar-sign-input {
+	position: relative;
+
+	.classic-input {
+		padding-left: 25px;
+	}
+	
+	&::before {
+		content: "$";
+		position: absolute;
+		font-size: 0.9rem;
+		left: 12px;
+		height: 100%;
+		display: inline-flex;
+		align-items: center;
+	}
+}
+
 ::ng-deep {
 	.ng-select .ng-select-container {
 		min-height: 44.5px;

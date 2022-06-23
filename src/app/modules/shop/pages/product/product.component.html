@@ -60,13 +60,13 @@
                         <i class="ci-cart font-size-lg me-2"></i> Add to cart </button>
                     </div>
                   </form>
-                  <!--<div class="yith-wcwl-add-to-wishlist add-to-wishlist-1372  wishlist-fragment on-first-load">
-                    <div class="yith-wcwl-add-button">
-                      <a href="?add_to_wishlist=1372" rel="nofollow" class="add_to_wishlist single_add_to_wishlist">
-                        <i class="yith-wcwl-icon fa fa-heart-o"></i> <span class="wishlist-text">Add to wishlist</span>
-                      </a>
+                  <div class="yith-wcwl-add-to-wishlist add-to-wishlist-1372  wishlist-fragment on-first-load">
+                    <div class="form-group d-flex align-items-center pb-2">
+                      <button class="classic-colored-button" (click)="wishlistService.addWishlistItem(product)">
+                        <i class="ci-heart"></i> <span class="wishlist-text">Add to wishlist</span>
+                      </button>
                     </div>
-                  </div>-->
+                  </div>
                   <div class="bg-secondary rounded p-3 mb-2">
                     <a class="media align-items-center" [routerLink]="['/store/' + product.store?.url]">
                       <img class="rounded-circle" width="50"

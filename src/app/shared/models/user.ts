@@ -1,4 +1,5 @@
 import { ERoles } from "../enums/user";
+import { IStore } from "./product";
 
 export interface User {
 	id: number;

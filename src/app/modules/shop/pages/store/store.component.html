@@ -19,22 +19,26 @@
               </li>
             </ul>
           </aside>
-          <!--<aside class="widget dokan-store-widget sidebar-dokan-buttons">
+          <aside class="widget dokan-store-widget sidebar-dokan-buttons">
             <ul class="list-unstyled font-size-sm d-flex align-items-center flex-wrap">
-              <li class="dokan-share-btn-wrap dokan-right">
-                <button class="dokan-share-btn dokan-btn dokan-btn-theme dokan-btn-sm">Share <i
-                    class="fa fa-external-link"></i></button>
-              </li>
-              <li class="dokan-store-follow-store-button-container dokan-right">
-                <button type="button" class="dokan-btn dokan-btn-theme dokan-follow-store-button dokan-btn-sm"
-                  data-vendor-id="2" data-status="" data-is-logged-in="0">
-                  <span class="dokan-follow-store-button-label-current">Follow</span>
-                  <span class="dokan-follow-store-button-label-unfollow">Unfollow</span>
+              <!--<li class="dokan-share-btn-wrap dokan-right">
+                <button class="dokan-share-btn dokan-btn dokan-btn-theme dokan-btn-sm">
+                  Share <i class="fa fa-external-link"></i>
                 </button>
-              </li>
+              </li>-->
+              <ng-container *ngrxLet="favoriteSellersService.favoriteSellers$ as favoriteSellers">
+                <li class="dokan-store-follow-store-button-container dokan-right">
+                  <button type="button" *ngIf="!isFavoriteSeller(favoriteSellers, store.id)" (click)="favoriteSellersService.addFavoriteSellersItem(store)" class="classic-button">
+                    Follow
+                  </button>
+                  <button type="button" *ngIf="isFavoriteSeller(favoriteSellers, store.id)" (click)="favoriteSellersService.removeFavoriteSellersItem(store)" class="classic-button">
+                    Unfollow
+                  </button>
+                </li>
+              </ng-container>
             </ul>
-          </aside>-->
-          <aside class="widget dokan-store-widget dokan-store-contact">
+          </aside>
+          <!--<aside class="widget dokan-store-widget dokan-store-contact">
             <h3 class="widget-title">Contact Vendor</h3>
             <form class="seller-form clearfix">
               <ul>
@@ -50,7 +54,7 @@
               </ul>
               <button type="submit" class="classic-button">Send Message</button>
             </form>
-          </aside>
+          </aside>-->
         </div>
       </aside>
       <section class="col-lg-8 pt-lg-4 pb-md-4">
