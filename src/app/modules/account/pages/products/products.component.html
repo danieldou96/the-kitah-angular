@@ -33,7 +33,7 @@
 				<td>
 					<div class="product">
 						<a [routerLink]="['../edit-product/' + product.id]" class="product__image-link">
-							<img loading="lazy" width="480" height="328" [src]="product?.mainPicture?.url" [alt]="product?.name" class="product__image">
+							<img loading="lazy" width="480" height="328" [src]="product.mainPicture?.url ?? 'assets/img/product-placeholder.png'" [alt]="product?.name" class="product__image">
 						</a>
 						<div class="product__body">
 							<h3 class="product_title">
@@ -42,7 +42,8 @@
 								</a>
 							</h3>
 							<div class="product__price">
-								{{ product.price | currency }}
+								<span *ngIf="product.price > 0">{{ product.price | currency }}</span>
+								<span *ngIf="product.price == 0">Free</span>
 							</div>
 							<div class="product__format">
 								{{ product.format | uppercase }}

@@ -80,6 +80,24 @@ export class ApiService {
   }
 
   /** @description Get updates list to be on the homepage */
+  public getHomepageStats(): Observable<{
+    products: number;
+    vendors: number;
+    members: number;
+  }> {
+    const url = this.apiUrl + `/homepage/stats`;
+    return this.http.get<ApiResponse>(url, {
+      context: withCache()
+    }).pipe(
+      map((apiResponse: ApiResponse) => apiResponse.data as {
+        products: number;
+        vendors: number;
+        members: number;
+      })
+    );
+  }
+
+  /** @description Get updates list to be on the homepage */
   public downloadProductFile(productId: number): Observable<Blob> {
     const url = this.apiUrl + `/orders/download/${productId}`;
     return this.http.get(url, { responseType: 'blob' });

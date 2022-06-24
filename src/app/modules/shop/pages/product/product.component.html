@@ -47,7 +47,10 @@
                 <div class="summary entry-summary">
                   <div class="position-relative d-flex align-items-center">
                     <div class="price mb-3">
-                      <span class="woocommerce-Price-amount amount">{{ product.price | currency }}</span>
+                      <span class="woocommerce-Price-amount amount">
+                        <span *ngIf="product.price > 0">{{ product.price | currency }}</span>
+                        <span *ngIf="product.price == 0">Free</span>
+                      </span>
                     </div>
                   </div>
                   <form class="cart">

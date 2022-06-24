@@ -1,90 +1,93 @@
-<footer class="footer">
-  <div class="container pt-2 pb-3">
-    <div class="row">
-      <div class="col-md-6 mb-4">
-        <div class="footer__logo-container">
-          <a
-						[routerLink]="['/']"
-						class="footer__logo-link"
-            rel="home">
-						<img
-							class="footer__logo-img"
-							src="assets/img/the-kitah-white-logo.png"
-							alt="The Kitah"
-							loading="lazy">
-					</a>
-        </div>
-        <p class="footer__slogan">The smart way to plan</p>
-				<div class="footer__stats">
-					<div class="footer__stats-item">
-						<span class="footer__stats-number">24</span>
-         		<span class="footer__stats-title"> Products</span>
+
+<ng-container *ngrxLet="getHomepageStats$ as getHomepageStats">
+	<footer class="footer">
+		<div class="container pt-2 pb-3">
+			<div class="row">
+				<div class="col-md-6 mb-4">
+					<div class="footer__logo-container">
+						<a
+							[routerLink]="['/']"
+							class="footer__logo-link"
+							rel="home">
+							<img
+								class="footer__logo-img"
+								src="assets/img/the-kitah-white-logo.png"
+								alt="The Kitah"
+								loading="lazy">
+						</a>
 					</div>
-					<div class="footer__stats-item">
-						<span class="footer__stats-number">15</span>
-         		<span class="footer__stats-title"> Members</span>
+					<p class="footer__slogan">The smart way to plan</p>
+					<div class="footer__stats">
+						<div class="footer__stats-item">
+							<span class="footer__stats-number">{{ getHomepageStats.products }}</span>
+							<span class="footer__stats-title"> Products</span>
+						</div>
+						<div class="footer__stats-item">
+							<span class="footer__stats-number">{{ getHomepageStats.members }}</span>
+							<span class="footer__stats-title"> Members</span>
+						</div>
+						<div class="footer__stats-item">
+							<span class="footer__stats-number">{{ getHomepageStats.vendors }}</span>
+							<span class="footer__stats-title"> Vendors</span>
+						</div>
 					</div>
-					<div class="footer__stats-item">
-						<span class="footer__stats-number">9</span>
-         		<span class="footer__stats-title"> Vendors</span>
+					<div>
+						<ul class="footer__social-menu">
+							<li class="footer__social-menu-item">
+								<a title="Twitter" href="https://twitter.com/" target="_blank" class="footer__social-menu-link twitter">
+									<i class="ci-twitter" aria-hidden="true"></i>
+								</a>
+							</li>
+							<li class="footer__social-menu-item">
+								<a title="Facebook" href="https://facebook.com/" target="_blank" class="footer__social-menu-link facebook">
+									<i class="ci-facebook" aria-hidden="true"></i>
+								</a>
+							</li>
+							<li class="footer__social-menu-item">
+								<a title="Instagram" href="https://instagram.com/" target="_blank" class="footer__social-menu-link instagram">
+									<i class="ci-instagram" aria-hidden="true"></i>
+								</a>
+							</li>
+							<li class="footer__social-menu-item">
+								<a title="Pinterest" href="https://pinterest.com" target="_blank" class="footer__social-menu-link pinterest">
+									<i class="ci-pinterest" aria-hidden="true"></i>
+								</a>
+							</li>
+							<li class="footer__social-menu-item">
+								<a title="YouTube" href="https://youtube.com/" target="_blank" class="footer__social-menu-link youtube">
+									<i class="ci-youtube" aria-hidden="true"></i>
+								</a>
+							</li>
+						</ul>
 					</div>
 				</div>
-        <div>
-          <ul class="footer__social-menu">
-            <li class="footer__social-menu-item">
-							<a title="Twitter" href="https://twitter.com/" target="_blank" class="footer__social-menu-link twitter">
-								<i class="ci-twitter" aria-hidden="true"></i>
-							</a>
-						</li>
-            <li class="footer__social-menu-item">
-							<a title="Facebook" href="https://facebook.com/" target="_blank" class="footer__social-menu-link facebook">
-								<i class="ci-facebook" aria-hidden="true"></i>
-							</a>
-						</li>
-            <li class="footer__social-menu-item">
-							<a title="Instagram" href="https://instagram.com/" target="_blank" class="footer__social-menu-link instagram">
-								<i class="ci-instagram" aria-hidden="true"></i>
-							</a>
-						</li>
-            <li class="footer__social-menu-item">
-							<a title="Pinterest" href="https://pinterest.com" target="_blank" class="footer__social-menu-link pinterest">
-								<i class="ci-pinterest" aria-hidden="true"></i>
-							</a>
-						</li>
-            <li class="footer__social-menu-item">
-							<a title="YouTube" href="https://youtube.com/" target="_blank" class="footer__social-menu-link youtube">
-								<i class="ci-youtube" aria-hidden="true"></i>
-							</a>
-						</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="footer__bottom-bar bg-darker ">
-    <div class="container">
-      <div class="d-md-flex justify-content-between">
-        <div class="footer__copyright">
-					© All rights reserved. Made by 
-					<a class="footer__made-by" href="mailto:msikadaniel@gmail.com" target="_blank" rel="noopener">Daniel Msika.</a>
+			</div>
+		</div>
+		<div class="footer__bottom-bar bg-darker ">
+			<div class="container">
+				<div class="d-md-flex justify-content-between">
+					<div class="footer__copyright">
+						© All rights reserved. Made by 
+						<a class="footer__made-by" href="mailto:msikadaniel@gmail.com" target="_blank" rel="noopener">Daniel Msika.</a>
+					</div>
+					<div class="footer__links">
+						<ul class="footer__links-list">
+							<li class="footer__links-item">
+								<a class="footer__links-link" title="Help Center" [routerLink]="['/help-center']">Help Center</a>
+							</li>
+							<li class="footer__links-item">
+								<a class="footer__links-link" title="Affiliates" [routerLink]="['/affiliates']">Affiliates</a>
+							</li>
+							<li class="footer__links-item">
+								<a class="footer__links-link" title="Support" [routerLink]="['/support']">Support</a>
+							</li>
+							<li class="footer__links-item">
+								<a class="footer__links-link" title="Terms &amp; Conditions" [routerLink]="['/terms']">Terms &amp; Conditions</a>
+							</li>
+						</ul>
+					</div>
 				</div>
-        <div class="footer__links">
-          <ul class="footer__links-list">
-            <li class="footer__links-item">
-							<a class="footer__links-link" title="Help Center" [routerLink]="['/help-center']">Help Center</a>
-						</li>
-            <li class="footer__links-item">
-							<a class="footer__links-link" title="Affiliates" [routerLink]="['/affiliates']">Affiliates</a>
-						</li>
-            <li class="footer__links-item">
-							<a class="footer__links-link" title="Support" [routerLink]="['/support']">Support</a>
-						</li>
-            <li class="footer__links-item">
-							<a class="footer__links-link" title="Terms &amp; Conditions" [routerLink]="['/terms']">Terms &amp; Conditions</a>
-						</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
+			</div>
+		</div>
+	</footer>
+</ng-container>

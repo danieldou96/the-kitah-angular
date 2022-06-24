@@ -52,7 +52,7 @@ a {
     position: relative;
     display: flex;
     align-items: center;
-    
+
     &:hover {
       @include media-breakpoint-up(md) {
         .navbar__auth-tooltip, .navbar__wishlist-tooltip {
@@ -318,11 +318,12 @@ a {
       display: flex;
       flex-basis: auto;
       order: 2;
+      margin-inline-end: 10px;
     }
   }
 
   &__search {
-    width: 350px;
+    width: 100%;
     position: relative;
   }
 }
@@ -644,6 +645,7 @@ a {
 .browse {
   position: relative;
   margin-bottom: 0;
+  white-space: nowrap;
 
   &:hover {
     .browse__dropdown {

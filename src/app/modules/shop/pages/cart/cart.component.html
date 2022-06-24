@@ -42,7 +42,8 @@
                     </div>
                   </div>
                   <div class="product-price font-size-base text-accent mb-2 mb-sm-0">
-                    {{ item.product.price | currency }}
+                    <span *ngIf="item.product.price > 0">{{ item.product.price | currency }}</span>
+                    <span *ngIf="item.product.price == 0">Free</span>
                   </div>
                 </div>
               </div>

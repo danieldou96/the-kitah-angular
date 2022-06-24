@@ -131,7 +131,10 @@
                           <a [routerLink]="['/product/' + item.product.id]">{{ item.product.name }}</a>
                         </h6>
                         <div class="widget-product-meta">
-                          <span class="text-accent me-1">{{ item.product.price | currency }}</span>
+                          <span class="text-accent me-1">
+                            <span *ngIf="item.product.price > 0">{{ item.product.price | currency }}</span>
+                            <span *ngIf="item.product.price == 0">Free</span>
+                          </span>
                           <span class="text-muted">× {{ item.quantity }}</span>
                         </div>
                       </div>

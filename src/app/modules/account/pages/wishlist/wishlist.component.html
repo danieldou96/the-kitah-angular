@@ -52,7 +52,8 @@
           <a [routerLink]="['/product/' + product.id]">{{ product.name }}</a>
         </td>
         <td class="product-price">
-          {{ product.price | currency }}
+          <span *ngIf="product.price > 0">{{ product.price | currency }}</span>
+          <span *ngIf="product.price == 0">Free</span>
         </td>
         <td class="product-add-to-cart">
           <button class="classic-button" (click)="addToCart(product)">
