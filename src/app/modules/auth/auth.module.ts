@@ -9,15 +9,18 @@ import { SharedModule } from 'src/app/shared/shared.module';
 const routes: Routes = [
   {
 		path: 'login',
-		component: LoginComponent
+		component: LoginComponent,
+		title: 'Log in'
 	},
   {
 		path: 'register',
-		component: RegisterComponent
+		component: RegisterComponent,
+    title: 'Register'
 	},
   {
 		path: 'forgot-password',
-		component: ForgotPasswordComponent
+		component: ForgotPasswordComponent,
+    title: 'Forgot password'
 	}
 ];
 

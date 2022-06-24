@@ -8,9 +8,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 const routes: Routes = [
   {
       path: '',
-      data: {
-          title: 'The Kitah'
-      },
       component: HomeComponent
   }
 ];

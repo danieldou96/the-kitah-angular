@@ -31,7 +31,8 @@ import { AuthGuard } from 'src/app/core/guards/auth/auth.guard';
 const routes: Routes = [
   {
 		path: 'shop',
-		component: ShopComponent
+		component: ShopComponent,
+		title: 'Shop'
 	},
   {
 		path: 'product/:id',
@@ -50,7 +51,8 @@ const routes: Routes = [
 	},
   {
 		path: 'cart',
-		component: CartComponent
+		component: CartComponent,
+		title: 'Cart'
 	},
   {
 		path: 'checkout',
@@ -58,14 +60,16 @@ const routes: Routes = [
 		component: CheckoutComponent,
     resolve: {
       intentSecret: StripeTokenResolver
-    }
+    },
+		title: 'Checkout'
 	},
   {
 		path: 'checkout-success',
 		component: CheckoutSuccessComponent,
     resolve: {
       order: OrderResolver
-    }
+    },
+		title: 'Checkout success'
 	},
 ];
 

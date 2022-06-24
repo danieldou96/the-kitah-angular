@@ -1,11 +1,30 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule, Injectable } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { RouterModule, RouterStateSnapshot, Routes, TitleStrategy } from '@angular/router';
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
+
+@Injectable()
+export class TemplatePageTitleStrategy extends TitleStrategy {
+  constructor(private readonly title: Title) {
+    super();
+  }
+
+  override updateTitle(routerState: RouterStateSnapshot) {
+		console.log(routerState)
+    const title = this.buildTitle(routerState);
+    if (title !== undefined) {
+      this.title.setTitle(`${title} - The Kitah`);
+    } else {
+      this.title.setTitle(`The Kitah`);
+		}
+  }
+}
 
 const routes: Routes = [
 	{
 		path: '404-not-found',
 		component: NotFoundComponent,
+		title: 'Not found'
 	},
   {
 		path: '',
@@ -34,9 +53,14 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, {
     initialNavigation: 'enabledBlocking',
 		relativeLinkResolution: 'legacy',
-		scrollPositionRestoration: 'enabled',
-		//enableTracing: true
-})],
-  exports: [RouterModule]
+		scrollPositionRestoration: 'enabled'
+	})],
+  exports: [RouterModule],
+  providers: [
+    {
+      provide: TitleStrategy,
+      useClass: TemplatePageTitleStrategy
+    }
+  ]
 })
 export class AppRoutingModule { }

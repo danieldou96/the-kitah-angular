@@ -42,6 +42,7 @@ const buyerRoutes: Routes = [
       {
         path: '',
         component: MyAccountComponent,
+        title: 'My account',
         data: {
           title: 'My account'
         }
@@ -49,6 +50,7 @@ const buyerRoutes: Routes = [
       {
         path: 'orders',
         component: OrdersComponent,
+        title: 'Orders',
         data: {
           title: 'Orders'
         }
@@ -56,6 +58,7 @@ const buyerRoutes: Routes = [
       {
         path: 'downloads',
         component: DownloadsComponent,
+        title: 'Downloads',
         data: {
           title: 'Downloads'
         }
@@ -63,6 +66,7 @@ const buyerRoutes: Routes = [
       {
         path: 'favorite-sellers',
         component: FavoriteSellersComponent,
+        title: 'My favorite sellers',
         data: {
           title: 'My favorite sellers'
         }
@@ -70,6 +74,7 @@ const buyerRoutes: Routes = [
       {
         path: 'wishlist',
         component: WishlistComponent,
+        title: 'My wishlist',
         data: {
           title: 'My wishlist'
         }
@@ -77,6 +82,7 @@ const buyerRoutes: Routes = [
       {
         path: 'edit-account',
         component: AccountDetailsComponent,
+        title: 'Account details',
         data: {
           title: 'Account details'
         }
@@ -94,6 +100,7 @@ const vendorRoutes: Routes = [
       {
         path: '',
         component: DashboardComponent,
+        title: 'Dashboard',
         data: {
           title: 'Dashboard'
         }
@@ -101,6 +108,7 @@ const vendorRoutes: Routes = [
       {
         path: 'products',
         component: ProductsComponent,
+        title: 'My products',
         data: {
           title: 'Products'
         },
@@ -109,6 +117,7 @@ const vendorRoutes: Routes = [
       {
         path: 'new-product',
         component: NewProductComponent,
+        title: 'New product',
         data: {
           title: 'New product'
         }
@@ -124,20 +133,15 @@ const vendorRoutes: Routes = [
       {
         path: 'analytics',
         component: AnalyticsComponent,
+        title: 'My Products Statistics',
         data: {
           title: 'My Products Statistics'
         }
       },
       {
-        path: 'sales-reports',
-        component: SalesReportsComponent,
-        data: {
-          title: 'Sales Reports'
-        }
-      },
-      {
         path: 'reviews',
         component: ReviewsComponent,
+        title: 'Reviews',
         data: {
           title: 'Reviews'
         }
@@ -145,6 +149,7 @@ const vendorRoutes: Routes = [
       {
         path: 'followers',
         component: FollowersComponent,
+        title: 'Followers',
         data: {
           title: 'Followers'
         }
@@ -152,6 +157,7 @@ const vendorRoutes: Routes = [
       {
         path: 'withdraw',
         component: WithdrawComponent,
+        title: 'Withdraw',
         data: {
           title: 'Withdraw'
         }
@@ -159,6 +165,7 @@ const vendorRoutes: Routes = [
       {
         path: 'settings',
         component: SettingsComponent,
+        title: 'Settings',
         data: {
           title: 'Settings'
         }

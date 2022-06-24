@@ -1,11 +1,12 @@
 import { trigger, transition, animate, style } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { AuthService } from 'src/app/core/authentication/auth.service';
 import { ERoles } from 'src/app/shared/enums/user';
 import { conditionalValidator } from 'src/app/shared/validators/validators';
+import slugify from 'slugify';
 
 @UntilDestroy()
 @Component({
@@ -77,6 +78,26 @@ export class RegisterComponent implements OnInit {
       this.formControls['shopName'].updateValueAndValidity({ emitEvent: false });
       this.formControls['shopUrl'].updateValueAndValidity({ emitEvent: false });
       this.formControls['phone'].updateValueAndValidity({ emitEvent: false });
+    });
+
+    this.formControls['shopName'].valueChanges.pipe(
+      untilDestroyed(this)
+    ).subscribe((val: string) => {
+      this.formControls['shopUrl'].setValue(slugify(val, {
+        lower: true,
+        strict: true,
+        trim: true
+      }), { emitEvent: false });
+    });
+
+    this.formControls['shopUrl'].valueChanges.pipe(
+      untilDestroyed(this)
+    ).subscribe((val: string) => {
+      this.formControls['shopUrl'].setValue(slugify(val, {
+        lower: true,
+        strict: true,
+        trim: true
+      }), { emitEvent: false });
     });
   }
 
