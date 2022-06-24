@@ -27,6 +27,8 @@ import { SwiperModule } from 'swiper/angular';
 import { QueryParamModule } from '@ngqp/core';
 import { StoreResolver } from 'src/app/core/resolvers/store/store.resolver';
 import { AuthGuard } from 'src/app/core/guards/auth/auth.guard';
+import { StoreTitleResolver } from 'src/app/core/resolvers/store/store-title.resolver';
+import { ProductTitleResolver } from 'src/app/core/resolvers/product/product-title.resolver';
 
 const routes: Routes = [
   {
@@ -38,6 +40,7 @@ const routes: Routes = [
 		path: 'product/:id',
 		component: ProductComponent,
     runGuardsAndResolvers: 'always',
+    title: ProductTitleResolver,
     resolve: {
       product: ProductResolver
     },
@@ -45,6 +48,7 @@ const routes: Routes = [
   {
 		path: 'store/:url',
 		component: StoreComponent,
+    title: StoreTitleResolver,
     resolve: {
       store: StoreResolver
     },

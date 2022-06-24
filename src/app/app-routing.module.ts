@@ -1,6 +1,6 @@
 import { NgModule, Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { RouterModule, RouterStateSnapshot, Routes, TitleStrategy } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot, Routes, TitleStrategy } from '@angular/router';
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
 
 @Injectable()
@@ -10,7 +10,6 @@ export class TemplatePageTitleStrategy extends TitleStrategy {
   }
 
   override updateTitle(routerState: RouterStateSnapshot) {
-		console.log(routerState)
     const title = this.buildTitle(routerState);
     if (title !== undefined) {
       this.title.setTitle(`${title} - The Kitah`);
