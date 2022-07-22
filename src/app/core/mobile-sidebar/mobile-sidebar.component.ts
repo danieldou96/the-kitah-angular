@@ -1,5 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { NavigationEnd, Router, Event } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, filter } from 'rxjs';
@@ -33,6 +34,9 @@ export class MobileSidebarComponent {
 
   gradesExpanded$ = new BehaviorSubject<boolean>(false);
   subjectsExpanded$ = new BehaviorSubject<boolean>(false);
+  
+  searchFormControl = new FormControl();
+  @ViewChild('searchInput') searchInputElement!: ElementRef<HTMLElement>;
 
   constructor(
     public headerService: HeaderService,
@@ -45,6 +49,14 @@ export class MobileSidebarComponent {
       this.gradesExpanded$.next(false);
       this.subjectsExpanded$.next(false);
       this.headerService.mobileSidebarOpened$.next(false);
+    });
+  }
+
+  search() {
+    this.router.navigate(['/shop'], {
+      queryParams: {
+        search: this.searchFormControl.value
+      }
     });
   }
 }

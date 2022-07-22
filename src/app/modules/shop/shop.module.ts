@@ -25,10 +25,12 @@ import { CheckoutSuccessComponent } from './pages/checkout-success/checkout-succ
 import { OrderResolver } from 'src/app/core/resolvers/order/order.resolver';
 import { SwiperModule } from 'swiper/angular';
 import { QueryParamModule } from '@ngqp/core';
-import { StoreResolver } from 'src/app/core/resolvers/store/store.resolver';
+import { StoreByUrlResolver } from 'src/app/core/resolvers/store/store-by-url.resolver';
 import { AuthGuard } from 'src/app/core/guards/auth/auth.guard';
 import { StoreTitleResolver } from 'src/app/core/resolvers/store/store-title.resolver';
 import { ProductTitleResolver } from 'src/app/core/resolvers/product/product-title.resolver';
+import { BillingResolver } from 'src/app/core/resolvers/billing/billing.resolver';
+import { SavedCardsListComponent } from './components/saved-cards-list/saved-cards-list.component';
 
 const routes: Routes = [
   {
@@ -50,7 +52,7 @@ const routes: Routes = [
 		component: StoreComponent,
     title: StoreTitleResolver,
     resolve: {
-      store: StoreResolver
+      store: StoreByUrlResolver
     },
 	},
   {
@@ -63,7 +65,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
 		component: CheckoutComponent,
     resolve: {
-      intentSecret: StripeTokenResolver
+      intentSecret: StripeTokenResolver,
+      billing: BillingResolver
     },
 		title: 'Checkout'
 	},
@@ -92,7 +95,8 @@ const routes: Routes = [
     PriceFilterComponent,
     ProductFilterComponent,
     ProductFilterRowComponent,
-    CheckoutSuccessComponent
+    CheckoutSuccessComponent,
+    SavedCardsListComponent
   ],
   imports: [
     CommonModule,

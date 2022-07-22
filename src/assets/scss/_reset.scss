@@ -36,7 +36,7 @@ a {
 	background-color: transparent;
 	transition: color 0.25s ease-in-out;
 	
-	&:not(.classic-button, .classic-light-button) {
+	&:not(.classic-button, .classic-light-button, .classic-colored-button) {
 		@include setTextColorAndHover(#dea249);
 	}
 

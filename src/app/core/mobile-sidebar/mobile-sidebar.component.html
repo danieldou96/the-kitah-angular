@@ -8,12 +8,18 @@
 	</div>
 	<div class="sidebar__body">
 			<div class="sidebar__content">
-					<form class="sidebar__search-form">
-							<input type="search" class="sidebar__search classic-input" placeholder="Search for products" />
-							<button type="submit" class="sidebar__search-button">
+					<div class="sidebar__search-form">
+							<input
+								type="search"
+								class="sidebar__search classic-input"
+								placeholder="Search for products"
+								(keyup.enter)="search()"
+								[formControl]="searchFormControl"
+								#searchInput />
+							<button type="button" class="sidebar__search-button" (click)="search()">
 								<i class="ci-search"></i>
 							</button>
-					</form>
+						</div>
 					<nav class="sidebar__menu">
 							<ul class="menu">
 								<ng-container *ngrxLet="gradesExpanded$ as gradesExpanded">

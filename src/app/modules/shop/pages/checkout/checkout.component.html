@@ -1,178 +1,240 @@
 <app-page-title title="Checkout"></app-page-title>
-<div class="container pb-5 mb-2 mb-md-4">
-  <form
-    class="checkout woocommerce-checkout"
-    [formGroup]="checkoutForm"
-    (submit)="submit()"
-    ngxStripeCardGroup
-    [elementsOptions]="elementsOptions">
-    <div class="row">
-      <section class="col-lg-8">
-        <div class="d-flex justify-content-between align-items-center pt-3 pb-4 pb-md-5 my-1">
-          <h2 class="h6 text-light mb-0">Billing details</h2>
-          <a class="btn btn-outline-primary btn-sm ps-2" [routerLink]="['/cart']">
-            <i class="ci-arrow-left me-2"></i>
-            Back to cart </a>
-        </div>
-        <div class="pt-3 pt-md-0">
-          <div class="woocommerce-billing-fields">
-            <div class="woocommerce-billing-fields__field-wrapper">
-              <div class="row">
-                <p class="form-row form-group col-sm-6 validate-required">
-                  <label>
-                    Firstname <abbr class="required" title="required">*</abbr>
-                  </label>
-                  <span class="woocommerce-input-wrapper">
-                    <input type="text" class="input-text form-control" formControlName="firstname">
-                  </span>
-                </p>
-                <p class="form-row form-group col-sm-6 validate-required">
-                  <label>
-                    Lastname <abbr class="required"title="required">*</abbr>
-                  </label>
-                  <span class="woocommerce-input-wrapper">
-                    <input type="text" class="input-text form-control" formControlName="lastname">
-                  </span>
-                </p>
-                <p class="form-row form-group col-sm-6">
-                  <label>
-                    Company name <span class="optional">(optional)</span>
-                  </label>
-                  <span class="woocommerce-input-wrapper">
-                    <input type="text" class="input-text form-control" formControlName="company">
-                  </span>
-                </p>
-                <p class="form-row form-group col-sm-6 address-field update_totals_on_change validate-required">
-                  <label>Country / Region </label>
-                  <span class="woocommerce-input-wrapper">
-                    <select class="country_to_state country_select form-control" formControlName="country">
-                      <option>Select a country / region…</option>
-                      <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
-                    </select>
-                  </span>
-                </p>
-                <p class="form-row form-group col-sm-12 address-field validate-required">
-                  <label>Street address </label>
-                  <span class="woocommerce-input-wrapper">
-                    <input type="text" class="input-text form-control" placeholder="House number and street name" formControlName="street">
-                  </span>
-                </p>
-                <p class="form-row form-group col-sm-12 address-field">
-                  <label class="screen-reader-text">Apartment, suite, unit, etc. <span class="optional">(optional)</span></label>
-                  <span class="woocommerce-input-wrapper">
-                    <input type="text" class="input-text form-control" placeholder="Apartment, suite, unit, etc. (optional)" formControlName="street2">
-                  </span>
-                </p>
-                <p class="form-row form-group col-sm-6 address-field validate-required">
-                  <label>Town / City </label>
-                  <span class="woocommerce-input-wrapper">
-                    <input type="text" class="input-text form-control" formControlName="city">
-                  </span>
-                </p>
-                <p class="form-row form-group col-sm-6 address-field validate-required validate-state">
-                  <label>State </label>
-                  <span class="woocommerce-input-wrapper">
-                    <select class="state_select form-control" formControlName="state">
-                      <option>Select an option…</option>
-                      <option *ngFor="let state of states">{{ state }}</option>
-                    </select>
-                  </span>
-                </p>
-                <p class="form-row form-group col-sm-6 address-field validate-required validate-postcode">
-                  <label>ZIP Code </label>
-                  <span class="woocommerce-input-wrapper">
-                    <input type="text" class="input-text form-control" formControlName="zipcode">
-                  </span>
-                </p>
-                <p class="form-row form-group col-sm-6 validate-required validate-phone">
-                  <label>Phone </label>
-                  <span class="woocommerce-input-wrapper">
-                    <input type="tel" class="input-text form-control" formControlName="phone">
-                  </span>
-                </p>
-                <p class="form-row form-group col-sm-6 validate-required validate-phone">
-                  <label>Card Number </label>
-                  <span class="woocommerce-input-wrapper stripe">
-                    <ngx-stripe-card-number [options]="cardOptions"></ngx-stripe-card-number>
-                  </span>
-                </p>
-                <p class="form-row form-group col-sm-6 validate-required validate-phone">
-                  <label>Card Expiration </label>
-                  <span class="woocommerce-input-wrapper stripe">
-                    <ngx-stripe-card-expiry [options]="cardOptions"></ngx-stripe-card-expiry>
-                  </span>
-                </p>
-                <p class="form-row form-group col-sm-6 validate-required validate-phone">
-                  <label>Card CCV </label>
-                  <span class="woocommerce-input-wrapper stripe">
-                    <ngx-stripe-card-cvc [options]="cardOptions"></ngx-stripe-card-cvc>
-                  </span>
-                </p>
+<ng-container *ngrxLet="cartTotal$ as cartTotal">
+  <div class="container pb-5 mb-2 mb-md-4">
+    <form
+      class="checkout woocommerce-checkout"
+      [formGroup]="checkoutForm"
+      (submit)="submit()"
+      ngxStripeCardGroup
+      [elementsOptions]="elementsOptions">
+      <div class="row">
+        <section class="col-lg-8">
+          <div class="d-flex justify-content-start align-items-center pt-3 pb-2 pb-md-3 my-1">
+            <a class="classic-light-button" [routerLink]="['/cart']">
+              <i class="ci-arrow-left me-2"></i>
+              Back to cart </a>
+          </div>
+          <div class="pt-3 pt-md-0">
+            <div class="woocommerce-billing-fields">
+              <div class="woocommerce-billing-fields__field-wrapper">
+                <div class="row mb-3" *ngIf="!editBilling">
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-header edit-billing-header">
+                        <span>Billing details</span>
+                        <button class="classic-button edit-billing" (click)="editBillingDetails()">Edit</button>
+                      </div>
+                      <div class="card-body">
+                        <div class="billing-details">
+                          <div class="row">
+                            <div class="col-12">
+                              <div>{{ formControls['company'].value }}</div>
+                            </div>
+                            <div class="col-6">
+                              <div>{{ formControls['firstname'].value }}</div>
+                            </div>
+                            <div class="col-6">
+                              <div>{{ formControls['lastname'].value }}</div>
+                            </div>
+                            <div class="col-6">
+                              <div>{{ formControls['street1'].value }}</div>
+                            </div>
+                            <div class="col-6">
+                              <div>{{ formControls['street2'].value }}</div>
+                            </div>
+                            <div class="col-6">
+                              <div>{{ formControls['city'].value }}</div>
+                            </div>
+                            <div class="col-6">
+                              <div>{{ formControls['zipcode'].value }}</div>
+                            </div>
+                            <div class="col-6">
+                              <div>{{ formControls['state'].value }}</div>
+                            </div>
+                            <div class="col-6">
+                              <div>{{ formControls['country'].value }}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3" *ngIf="editBilling">
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-header edit-billing-header">
+                        <span>Edit Billing details</span>
+                        <button class="classic-button edit-billing" (click)="editBillingDetails()">Save</button>
+                      </div>
+                      <div class="card-body">
+                        <div class="row edit-billing-details-form-row">
+                          <div class="col-sm-6">
+                            <label>
+                              Firstname <abbr class="required" title="required">*</abbr>
+                            </label>
+                            <span class="woocommerce-input-wrapper">
+                              <input type="text" class="input-text form-control" formControlName="firstname">
+                            </span>
+                          </div>
+                          <div class="col-sm-6">
+                            <label>
+                              Lastname <abbr class="required"title="required">*</abbr>
+                            </label>
+                            <span class="woocommerce-input-wrapper">
+                              <input type="text" class="input-text form-control" formControlName="lastname">
+                            </span>
+                          </div>
+                          <div class="col-sm-6">
+                            <label>
+                              Company name <span class="optional">(optional)</span>
+                            </label>
+                            <span class="woocommerce-input-wrapper">
+                              <input type="text" class="input-text form-control" formControlName="company">
+                            </span>
+                          </div>
+                          <div class="col-sm-6">
+                            <label>Phone </label>
+                            <span class="woocommerce-input-wrapper">
+                              <input type="tel" class="input-text form-control" formControlName="phone">
+                            </span>
+                          </div>
+                          <div class="col-12">
+                            <label>Street address </label>
+                            <span class="woocommerce-input-wrapper">
+                              <input type="text" class="input-text form-control" placeholder="House number and street name" formControlName="street1">
+                            </span>
+                          </div>
+                          <div class="col-12">
+                            <label class="screen-reader-text">Apartment, suite, unit, etc. <span class="optional">(optional)</span></label>
+                            <span class="woocommerce-input-wrapper">
+                              <input type="text" class="input-text form-control" placeholder="Apartment, suite, unit, etc. (optional)" formControlName="street2">
+                            </span>
+                          </div>
+                          <div class="col-sm-6">
+                            <label>City </label>
+                            <span class="woocommerce-input-wrapper">
+                              <input type="text" class="input-text form-control" formControlName="city">
+                            </span>
+                          </div>
+                          <div class="col-sm-6">
+                            <label>ZIP Code </label>
+                            <span class="woocommerce-input-wrapper">
+                              <input type="text" class="input-text form-control" formControlName="zipcode">
+                            </span>
+                          </div>
+                          <div class="col-sm-6" *ngIf="states.length > 0">
+                            <label>State </label>
+                            <span class="woocommerce-input-wrapper">
+                              <select class="classic-select form-control" formControlName="state">
+                                <option>Select an option…</option>
+                                <option *ngFor="let state of states" [value]="state.abbreviation">{{ state.name }}</option>
+                              </select>
+                            </span>
+                          </div>
+                          <div [class.col-sm-6]="states.length > 0" [class.col-sm-12]="states.length == 0">
+                            <label>Country </label>
+                            <span class="woocommerce-input-wrapper">
+                              <select class="classic-select form-control" formControlName="country">
+                                <option>Select a country / region…</option>
+                                <option *ngFor="let country of countries" [value]="country.countryCode">{{ country.name }}</option>
+                              </select>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    Payment infos
+                  </div>
+                  <div class="card-body">
+                    <div class="row edit-billing-details-form-row mb-3" *ngIf="cartTotal > 0">
+                      <div class="col-12">
+                        <label>Card Number </label>
+                        <span class="woocommerce-input-wrapper stripe">
+                          <ngx-stripe-card-number [options]="cardOptions"></ngx-stripe-card-number>
+                        </span>
+                      </div>
+                      <div class="col-sm-6">
+                        <label>Card Expiration </label>
+                        <span class="woocommerce-input-wrapper stripe">
+                          <ngx-stripe-card-expiry [options]="cardOptions"></ngx-stripe-card-expiry>
+                        </span>
+                      </div>
+                      <div class="col-sm-6">
+                        <label>Card CCV </label>
+                        <span class="woocommerce-input-wrapper stripe">
+                          <ngx-stripe-card-cvc [options]="cardOptions"></ngx-stripe-card-cvc>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <app-checkbox formControlName="saveForFuture">Save card for next time</app-checkbox>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-      <aside class="col-lg-4 pt-4 pt-lg-0">
-        <div class="cz-sidebar-static rounded-lg box-shadow-lg ms-lg-auto">
-          <h2 class="h6 mb-3 pb-1 text-center">Your order</h2>
-          <ng-container *ngrxLet="cart$ as cartItems">
-            <div class="woocommerce-checkout-review-order">
-              <div class="shop_table woocommerce-checkout-review-order-table">
-                <div class="widget widget_products">
-                  <ul class="product_list_widget">
-                    <li *ngFor="let item of cartItems" class="cart_item media align-items-center">
-                      <a [routerLink]="['/product/' + item.product.id]" class="widget-product-thumb"><img width="350"
-                          height="263"
-                          [src]="item.product.mainPicture?.url ?? 'assets/img/product-placeholder.png'"
-                          class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy"></a>
-                      <div class="media-body">
-                        <h6 class="widget-product-title">
-                          <a [routerLink]="['/product/' + item.product.id]">{{ item.product.name }}</a>
-                        </h6>
-                        <div class="widget-product-meta">
-                          <span class="text-accent me-1">
-                            <span *ngIf="item.product.price > 0">{{ item.product.price | currency }}</span>
-                            <span *ngIf="item.product.price == 0">Free</span>
-                          </span>
-                          <span class="text-muted">× {{ item.quantity }}</span>
+        </section>
+        <aside class="col-lg-4 pt-4 pt-lg-0">
+          <div class="cz-sidebar-static rounded-lg box-shadow-lg ms-lg-auto">
+            <h2 class="h6 mb-3 pb-1 text-center">Your order</h2>
+            <ng-container *ngrxLet="cart$ as cartItems">
+              <div class="woocommerce-checkout-review-order">
+                <div class="shop_table woocommerce-checkout-review-order-table">
+                  <div class="widget widget_products">
+                    <ul class="product_list_widget">
+                      <li *ngFor="let item of cartItems" class="cart_item media align-items-center">
+                        <a [routerLink]="['/product/' + item.product.id]" class="widget-product-thumb"><img width="350"
+                            height="263"
+                            [src]="item.product.mainPicture?.url ?? 'assets/img/product-placeholder.png'"
+                            class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy"></a>
+                        <div class="media-body">
+                          <h6 class="widget-product-title">
+                            <a [routerLink]="['/product/' + item.product.id]">{{ item.product.name }}</a>
+                          </h6>
+                          <div class="widget-product-meta">
+                            <span class="text-accent me-1">
+                              <span *ngIf="item.product.price > 0">{{ item.product.price | currency }}</span>
+                              <span *ngIf="item.product.price == 0">Free</span>
+                            </span>
+                            <span class="text-muted">× {{ item.quantity }}</span>
+                          </div>
                         </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <div class="order-total text-center border-top pt-4">
-                  <h3 class="font-weight-normal mb-0"><strong>{{ (cartTotal$ | async) | currency }}</strong>
-                  </h3>
-                </div>
-              </div>
-              <div class="woocommerce-checkout-payment">
-                <ul class="wc_payment_methods payment_methods methods list-unstyled border-top pt-4 mt-4">
-                  <li class="woocommerce-notice woocommerce-notice--info woocommerce-info font-size-sm text-muted">
-                    Sorry,
-                    it seems that there are no available payment methods for your state. Please contact us if you
-                    require
-                    assistance or wish to make alternate arrangements.</li>
-                </ul>
-                <div class="place-order border-top pt-4">
-                  <div class="woocommerce-terms-and-conditions-wrapper">
-                    <p class="form-row validate-required">
-                      <label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
-                        <input type="checkbox" formControlName="terms"
-                          class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox me-1">
-                        <span class="woocommerce-terms-and-conditions-checkbox-text">I have read and agree to the website
-                          <a [routerLink]="['/terms']" class="woocommerce-terms-and-conditions-link"
-                            target="_blank">terms and conditions</a></span> <span class="required">*</span>
-                      </label>
-                    </p>
+                      </li>
+                    </ul>
                   </div>
-                  <button type="submit" class="button alt btn btn-primary btn-block">Place order</button>
+                  <div class="order-total text-center border-top py-4">
+                    <h3 class="font-weight-normal mb-0 total"><strong>{{ cartTotal | currency }}</strong>
+                    </h3>
+                  </div>
+                </div>
+                <div class="woocommerce-checkout-payment">
+                  <div class="place-order border-top pt-4">
+                    <div class="woocommerce-terms-and-conditions-wrapper">
+                      <p class="form-row validate-required">
+                        <app-checkbox formControlName="terms">
+                          I have read and agree to the website
+                          <a [routerLink]="['/terms']" class="woocommerce-terms-and-conditions-link" target="_blank">
+                            terms and conditions <span class="required">*</span>
+                          </a>
+                        </app-checkbox>
+                      </p>
+                    </div>
+                    <button type="submit" class="classic-button place-order">Place order</button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </ng-container>
-        </div>
-      </aside>
-    </div>
-  </form>
-</div>
+            </ng-container>
+          </div>
+        </aside>
+      </div>
+    </form>
+  </div>
+</ng-container>

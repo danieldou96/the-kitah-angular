@@ -1,17 +1,28 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { QueryParamBuilder, QueryParamGroup } from '@ngqp/core';
-import { map, Observable, take } from 'rxjs';
+import { QueryParam, QueryParamBuilder, QueryParamGroup } from '@ngqp/core';
+import { first, map, Observable, skip, take } from 'rxjs';
 import { ApiService } from 'src/app/core/http/api.service';
 import { CartService } from 'src/app/core/services/cart/cart.service';
 import { ProductsService } from 'src/app/core/services/products/products.service';
 import { categoryToFilterItem } from 'src/app/shared/models/category';
 import { IFilterItem } from 'src/app/shared/models/filter';
 import { Page } from 'src/app/shared/models/pagination/page.model';
+import { Sort } from 'src/app/shared/models/pagination/sort.model';
 import { IProduct } from 'src/app/shared/models/product';
 import { ShopFilters, ShopPageRequest } from 'src/app/shared/models/shop';
 import { getAllNumbersBetween } from 'src/app/shared/utils';
+
+enum ESort {
+  Popularity = 'popularity',
+  PriceAsc = 'price-asc',
+  PriceDesc = 'price-desc',
+  Rating = 'rating',
+  TitleAsc = 'title-asc',
+  TitleDesc = 'title-desc'
+}
 
 @UntilDestroy()
 @Component({
@@ -23,8 +34,12 @@ export class ShopComponent implements OnInit {
 
   public currentPage!: Page<IProduct, ShopPageRequest>;
   public currentFilters!: ShopFilters;
+  viewMode: 'list' | 'grid' = 'list';
 
   filtersForm: QueryParamGroup;
+  sort: QueryParam<any>;
+
+  pageTitle$: Observable<string>;
 
   grades$: Observable<IFilterItem[]>;
   subjects$: Observable<IFilterItem[]>;
@@ -32,12 +47,15 @@ export class ShopComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
+    public route: ActivatedRoute,
     private apiService: ApiService,
     private qpb: QueryParamBuilder,
     public cartService: CartService,
     private _productsService: ProductsService
   ) {
+    this.pageTitle$ = this.route.queryParams.pipe(
+      map(queryParams => queryParams['search'] ? `Search results: "${queryParams['search']}"` : 'Marketplace Products')
+    );
     this.grades$ = this.apiService.getGrades().pipe(
       map(grades => categoryToFilterItem(grades))
     );
@@ -49,20 +67,25 @@ export class ShopComponent implements OnInit {
     );
 
     this.filtersForm = this.qpb.group({
-      grades: qpb.param('grades', {
+      grades: this.qpb.param('grades', {
         serialize: grades => grades?.join(','),
         deserialize: value => value?.split(',')
       }),
-      subjects: qpb.param('subjects', {
+      subjects: this.qpb.param('subjects', {
         serialize: subjects => subjects?.join(','),
         deserialize: value => value?.split(',')
       }),
-      resourceTypes: qpb.param('resourceTypes', {
+      resourceTypes: this.qpb.param('resourceTypes', {
         serialize: resourceTypes => resourceTypes?.join(','),
         deserialize: value => value?.split(',')
       }),
-      priceRange: qpb.stringParam('priceRange')
+      priceRange: this.qpb.stringParam('priceRange'),
+      search: this.qpb.stringParam('search')
+    }, {
+      clearOnDestroy: true,
     });
+
+    this.sort = this.qpb.stringParam('sort');
   }
 
   ngOnInit() {
@@ -73,14 +96,53 @@ export class ShopComponent implements OnInit {
       const subjects = filterValues['subjects'];
       const resourceTypes = filterValues['resourceTypes'];
       const priceRange = filterValues['priceRange'];
+      const search = filterValues['search'];
 
       this.currentFilters = {
         ...(grades?.length! > 0 && { grades }),
         ...(subjects?.length! > 0 && { subjects }),
         ...(resourceTypes?.length! > 0 && { resourceTypes }),
-        ...(priceRange && { priceRange })
+        ...(priceRange && { priceRange }),
+        ...(search && { search })
       };
-      this._fetchPageOfProducts(new ShopPageRequest(this.currentFilters, 1));
+      this._fetchPageOfProducts(new ShopPageRequest(this.currentFilters, this.route.snapshot.queryParams['page'], 10));
+    });
+
+    this.sort.valueChanges.pipe(
+      untilDestroyed(this)
+    ).subscribe(sortVal => {
+      if (sortVal == ESort.Popularity) {
+        this._fetchPageOfProducts(new ShopPageRequest(this.currentFilters, this.route.snapshot.queryParams['page'], 10, Sort.from('pageViews', 'asc')));
+      } else if (sortVal == ESort.PriceAsc) {
+        this._fetchPageOfProducts(new ShopPageRequest(this.currentFilters, this.route.snapshot.queryParams['page'], 10, Sort.from('price', 'asc')));
+      } else if (sortVal == ESort.PriceDesc) {
+        this._fetchPageOfProducts(new ShopPageRequest(this.currentFilters, this.route.snapshot.queryParams['page'], 10, Sort.from('price', 'desc')));
+      } else if (sortVal == ESort.Rating) {
+
+      } else if (sortVal == ESort.TitleAsc) {
+        this._fetchPageOfProducts(new ShopPageRequest(this.currentFilters, this.route.snapshot.queryParams['page'], 10, Sort.from('name', 'asc')));
+      } else if (sortVal == ESort.TitleDesc) {
+        this._fetchPageOfProducts(new ShopPageRequest(this.currentFilters, this.route.snapshot.queryParams['page'], 10, Sort.from('name', 'desc')));
+      }
+    });
+
+    this.sort.valueChanges.pipe(
+      skip(1),
+      untilDestroyed(this)
+    ).subscribe(sortVal => {
+      if (sortVal == ESort.Popularity) {
+        this._fetchPageOfProducts(new ShopPageRequest(this.currentFilters, 1, 10, Sort.from('pageViews', 'asc')));
+      } else if (sortVal == ESort.PriceAsc) {
+        this._fetchPageOfProducts(new ShopPageRequest(this.currentFilters, 1, 10, Sort.from('price', 'asc')));
+      } else if (sortVal == ESort.PriceDesc) {
+        this._fetchPageOfProducts(new ShopPageRequest(this.currentFilters, 1, 10, Sort.from('price', 'desc')));
+      } else if (sortVal == ESort.Rating) {
+
+      } else if (sortVal == ESort.TitleAsc) {
+        this._fetchPageOfProducts(new ShopPageRequest(this.currentFilters, 1, 10, Sort.from('name', 'asc')));
+      } else if (sortVal == ESort.TitleDesc) {
+        this._fetchPageOfProducts(new ShopPageRequest(this.currentFilters, 1, 10, Sort.from('name', 'desc')));
+      }
     });
   }
 
@@ -88,7 +150,7 @@ export class ShopComponent implements OnInit {
     const queryParamsIndex = this.router.url.indexOf('?');
     const baseUrl = queryParamsIndex === -1 ? this.router.url : this.router.url.slice(0, queryParamsIndex);
     return baseUrl === url;
- }
+  }
 
   get pageNumbers() {
     return getAllNumbersBetween(this.currentPage?.totalPages!);
@@ -102,7 +164,7 @@ export class ShopComponent implements OnInit {
     this._fetchPageOfProducts(new ShopPageRequest(this.currentFilters, this.currentPage.previous?.page, this.currentPage.previous?.size, this.currentPage.previous?.sort));
   }
 
-  private _fetchPageOfProducts(pageRequest?: ShopPageRequest): void {
+  private _fetchPageOfProducts(pageRequest?: ShopPageRequest) {
     this._productsService.findAllPaginated(pageRequest).pipe(
       take(1)
     ).subscribe(page => {
@@ -122,7 +184,9 @@ export class ShopComponent implements OnInit {
         grades: null,
         subjects: null,
         resourceTypes: null,
-        priceRange: null
+        priceRange: null,
+        search: null,
+        sort: null
       },
       queryParamsHandling: 'merge'
     });

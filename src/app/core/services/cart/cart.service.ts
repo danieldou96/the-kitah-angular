@@ -2,8 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { LOCAL_STORAGE } from '@ng-web-apis/common';
 import { HotToastService } from '@ngneat/hot-toast';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { BehaviorSubject, combineLatest, first, map, merge, Observable, of, ReplaySubject, scan, shareReplay, startWith, Subject, switchMap, tap, withLatestFrom } from 'rxjs';
+import { combineLatest, first, map, merge, Observable, of, ReplaySubject, scan, shareReplay, startWith, Subject, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ICartItem } from 'src/app/shared/models/product';
 import { AuthService } from '../../authentication/auth.service';
 import { ApiService } from '../../http/api.service';
@@ -18,7 +17,6 @@ export interface CartItem extends ICartItem {
   remove?: boolean;
 }
 
-@UntilDestroy()
 @Injectable({
   providedIn: 'root'
 })
@@ -28,13 +26,12 @@ export class CartService {
   cartActions$: Observable<CartItem | null | 'checkout'>;
   cartTotal$: Observable<number>;
 
-  private checkoutTrigger$ = new ReplaySubject<'checkout'>(1);
+  private checkoutTrigger$ = new Subject<'checkout'>();
   private cartAdd$ = new Subject<ICartItem>();
   private cartRemove$ = new Subject<CartItem>();
 
   constructor(
     private apiService: ApiService,
-    private router: Router,
     private authService: AuthService,
     private hotToastService: HotToastService,
     @Inject(LOCAL_STORAGE) private localStorage: Storage
@@ -121,12 +118,7 @@ export class CartService {
     this.cartRemove$.next({ ...item, remove: true });
   }
   
-  checkout(token: string, checkoutForm: any) {
-    this.apiService.checkout(token, checkoutForm).pipe(
-      untilDestroyed(this)
-    ).subscribe(orderId => {
-      this.router.navigate(['checkout-success'], { state: { orderId } })
-      this.checkoutTrigger$.next('checkout');
-    })
+  checkout() {
+    this.checkoutTrigger$.next('checkout');
   }
 }

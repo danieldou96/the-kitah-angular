@@ -28,7 +28,7 @@
 						<div class="row mb-2">
 							<div class="col-12">
 								<label>Password <span class="text-danger">*</span></label>
-								<input type="password" class="classic-input" formControlName="password">
+                <app-password-input formControlName="password"></app-password-input>
 							</div>
 						</div>
 						<div *ngIf="formControls['registrationType'].value == 'vendor'" [@slideInOut]>
@@ -48,6 +48,32 @@
 								<div class="col-12">
 									<label>Phone Number <span class="text-danger">*</span></label>
 									<input type="text" class="classic-input" formControlName="phone">
+								</div>
+							</div>
+							<div class="row mb-2">
+								<div class="col-sm-6">
+									<label>City </label>
+									<input type="text" class="classic-input" formControlName="city">
+								</div>
+								<div class="col-sm-6">
+									<label>ZIP Code </label>
+									<input type="text" class="classic-input" formControlName="zipcode">
+								</div>
+							</div>
+							<div class="row mb-2">
+								<div class="col-sm-6" *ngIf="states.length > 0">
+									<label>State </label>
+									<select class="classic-select" formControlName="state">
+										<option>Select an option…</option>
+										<option *ngFor="let state of states" [value]="state.abbreviation">{{ state.name }}</option>
+									</select>
+								</div>
+								<div [class.col-sm-6]="states.length > 0" [class.col-sm-12]="states.length == 0">
+									<label>Country <span class="text-danger">*</span></label>
+									<select class="classic-select" formControlName="country">
+										<option disabled selected>Select a country / region…</option>
+										<option *ngFor="let country of countries" [value]="country.countryCode">{{ country.name }}</option>
+									</select>
 								</div>
 							</div>
 						</div>

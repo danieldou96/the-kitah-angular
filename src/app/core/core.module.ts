@@ -11,6 +11,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { ReactiveComponentModule } from '@ngrx/component';
 import { NgPipesModule } from 'ngx-pipes';
 import { MobileSidebarComponent } from './mobile-sidebar/mobile-sidebar.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { MobileSidebarComponent } from './mobile-sidebar/mobile-sidebar.componen
   imports: [
     CommonModule,
     RouterModule,
+    ReactiveFormsModule,
     NgPipesModule,
     ReactiveComponentModule,
     LayoutModule

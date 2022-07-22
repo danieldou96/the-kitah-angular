@@ -1,6 +1,3 @@
-import { ERoles } from "../enums/user";
-import { User } from "./user";
-
 export interface ApiFindResponse {
 	data: any,
 	meta: {
@@ -13,8 +10,8 @@ export interface ApiFindResponse {
 	}
 }
 
-export interface ApiResponse {
+export interface ApiResponse<T = any> {
 	statusCode: number;
 	message: string;
-	data: any;
+	data: T;
 }

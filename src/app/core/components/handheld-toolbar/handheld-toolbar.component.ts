@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
 import { BehaviorSubject, filter, map, Observable, tap } from 'rxjs';
+import { AuthService } from '../../authentication/auth.service';
 import { CartService } from '../../services/cart/cart.service';
 import { HeaderService } from '../../services/header/header.service';
+import { WishlistService } from '../../services/wishlist/wishlist.service';
 
 @Component({
   selector: 'app-handheld-toolbar',
@@ -16,6 +18,8 @@ export class HandheldToolbarComponent {
   
   constructor(
     public router: Router,
+    public authService: AuthService,
+    public wishlistService: WishlistService,
     public cartService: CartService,
     public headerService: HeaderService
   ) {

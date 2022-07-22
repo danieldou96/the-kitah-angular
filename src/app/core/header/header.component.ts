@@ -1,13 +1,19 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Router, Event, NavigationEnd } from '@angular/router';
+import { WINDOW } from '@ng-web-apis/common';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { filter, first, map, Observable } from 'rxjs';
 import { ICartItem, IProduct } from 'src/app/shared/models/product';
 import { User } from 'src/app/shared/models/user';
 import { AuthService } from '../authentication/auth.service';
+import { ApiService } from '../http/api.service';
 import { CartService } from '../services/cart/cart.service';
 import { HeaderService } from '../services/header/header.service';
 import { StoreService } from '../services/store/store.service';
 import { WishlistService } from '../services/wishlist/wishlist.service';
 
+@UntilDestroy()
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -22,12 +28,18 @@ export class HeaderComponent {
   wishlist$: Observable<IProduct[]>;
   cartTotal$: Observable<number>;
 
+  searchFormControl = new FormControl();
+  @ViewChild('searchInput') searchInputElement!: ElementRef<HTMLElement>;
+
   constructor(
+    private router: Router,
     public headerService: HeaderService,
     private authService: AuthService,
+    private apiService: ApiService,
     public storeService: StoreService,
     public cartService: CartService,
-    public wishlistService: WishlistService
+    public wishlistService: WishlistService,
+    @Inject(WINDOW) private window: Window
   ) {
     this.stickyHeader$ = this.headerService.stickyHeader$;
     this.loggedInUser$ = this.authService.loggedInUser$.pipe(
@@ -37,9 +49,29 @@ export class HeaderComponent {
     this.cart$ = this.cartService.cart$;
     this.wishlist$ = this.wishlistService.wishlist$;
     this.cartTotal$ = this.cartService.cartTotal$;
+
+    this.router.events.pipe(
+      filter((e: Event): e is NavigationEnd => e instanceof NavigationEnd),
+      untilDestroyed(this)
+    ).subscribe(() => {
+      //this.searchFormControl.reset();
+      this.searchInputElement.nativeElement.blur();
+    });
   }
   
   logout() {
     this.authService.logout();
+  }
+
+  search() {
+    this.router.navigate(['/shop'], {
+      queryParams: {
+        search: this.searchFormControl.value
+      }
+    });
+  }
+
+  openStripeDashboard() {
+    this.apiService.getStripeDashboardLink().pipe(first()).subscribe(link => this.window.open(link, '_blank'));
   }
 }

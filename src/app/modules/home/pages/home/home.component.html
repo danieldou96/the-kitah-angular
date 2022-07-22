@@ -1,121 +1,112 @@
-<div class="page__content">
-
-  <div class="wp-block-czgb-hero-block czgb-hero-block">
-    <section class="bg-position-center-top bg-no-repeat py-5 bg-accent"
-      style="background-image: url('assets/img/the-kitah-slider.jpg');">
-      <div class="pb-lg-5 mb-lg-3">
-        <div class="container py-lg-5 my-lg-5">
-          <div class="row mb-3 mb-sm-4 false">
-            <div class="col-lg-7 col-md-9 text-center text-sm-left">
-              <h1 class="text-white line-height-base"><span class="font-weight-light djb-chalk-it-up">The smart way to
-                  plan</span></h1>
-              <h2 class="h5 text-white font-weight-light">Created by teachers, for teachers</h2>
-            </div>
-          </div>
-          <div class="row pb-lg-5 mb-2 mb-sm-3 false">
-            <div class="col-lg-6 col-md-8 text-center text-sm-left djb-chalk-it-up"><a class="btn btn-custom-homepage"
-                [routerLink]="['/shop']">Shop now</a></div>
-          </div>
+<div class="homepage">
+  <div class="homepage__hero">
+    <div class="container py-lg-5 my-lg-5">
+      <div class="row mb-3 mb-sm-4">
+        <div class="col-lg-7 col-md-9 text-center text-sm-start">
+          <h1 class="homepage__headline">
+            The smart way to plan
+          </h1>
+          <h2 class="homepage__subheadline">Created by teachers, for teachers</h2>
         </div>
       </div>
-    </section>
-  </div>
-
-  <ng-container *ngrxLet="featuredProducts$ as featuredProducts">
-    <div *ngIf="featuredProducts.length != 0"
-      class="czgb-container-block position-relative pt-3 pt-lg-0 pb-5 mb-2 featured-products container">
-      <div class="czgb-container-block card px-lg-2 border-0" style="max-width: 100rem;">
-        <div class="czgb-container-block card-body px-4 pt-5 pb-4">
-          <h2 class="h3 text-center">Discover featured products</h2>
-
-          <p class="text-muted text-center">Every week we hand-pick some of the best items from our collection</p>
-
-          <app-products-grid [products]="featuredProducts" [slider]="true" [centered]="true"></app-products-grid>
+      <div class="row mb-2 mb-sm-3">
+        <div class="col-lg-6 col-md-8 text-center text-sm-start">
+          <a class="homepage__cta" [routerLink]="['/shop']">
+            Shop now
+          </a>
         </div>
       </div>
     </div>
-
+  </div>
+  <ng-container *ngrxLet="featuredProducts$ as featuredProducts">
+    <div *ngIf="featuredProducts.length != 0" class="featured-products container">
+      <div class="px-4 pt-5 pb-4">
+        <h2 class="featured-products__headline">
+          Discover featured products
+        </h2>
+        <p class="featured-products__subheadline">
+          Every week we hand-pick some of the best items from our collection
+        </p>
+        <app-products-grid [products]="featuredProducts" [slider]="true" [centered]="true"></app-products-grid>
+      </div>
+    </div>
   </ng-container>
-
-
   <ng-container *ngrxLet="monthlyProducts$ as monthlyProducts">
     <div *ngIf="monthlyProducts.length != 0"
-      class="czgb-products-with-header-block wp-block-czgb-products-with-header czgb-products-with-header pb-5 mb-lg-2 czgb-2dd1010 container czgb-main-block">
+      class="container monthly-products">
       <div
-        class="czgb-products-with-header__header d-flex flex-wrap justify-content-between align-items-center pt-1 border-bottom pb-4 mb-4">
-        <h3 class="czgb-products-with-header__title h3 mb-0 pt-3 me-2">The most popular products this month</h3>
-        <div class="pt-3"><a class="btn me-1 btn-sm none btn-outline-accent button-icon"
-          [routerLink]="['/shop']" data-scroll="true"><span class="czgb-button--inner">All
-              categories</span><i class="ci ci-arrow-right ms-2 me-n1"></i></a></div>
+        class="monthly-products__headline">
+        <h3 class="monthly-products__headline-text">The most popular products this month</h3>
+        <a class="monthly-products__button classic-colored-button" [routerLink]="['/shop']">
+          <span>All categories</span>
+          <i class="ci ci-arrow-right"></i>
+        </a>
       </div>
-      
       <app-products-grid [products]="monthlyProducts"></app-products-grid>
-
-      <div class="czgb-products-with-header__footer text-center pt-3"><a
-          class="btn me-1 none mb-2 btn-outline-accent button-icon" [routerLink]="['/shop']"
-          data-scroll="true"><span class="czgb-button--inner">View more products</span><i
-            class="ci ci-arrow-right ms-2 me-n1"></i></a></div>
+      <div class="monthly-products__footer text-center pt-3">
+        <a class="monthly-products__footer-button classic-colored-button" [routerLink]="['/shop']">
+          <span>View more products</span>
+          <i class="ci ci-arrow-right"></i>
+        </a>
+      </div>
     </div>
   </ng-container>
-
-
-
-  <section class="icon-block bg-accent bg-size-cover bg-position-center pt-5 pb-4 pb-lg-5">
+  <section class="store-features">
     <div class="container pt-lg-3">
-      <h2 class="h3 text-center  text-light mb-3 pb-4">Why our marketplace?</h2>
+      <h2 class="store-features__headline">Why our marketplace?</h2>
       <div class="row pt-lg-2 text-center">
-        <div class="col-sm-6 col-lg-3 mb-grid-gutter">
+        <div class="col-sm-6 col-lg-3 store-features__element">
           <div class="d-inline-block">
-            <div class="media media-ie-fix align-items-center text-start">
-              <div class="czgb-image-upload-placeholder czgb-image-upload-has-image" role="button"
-                data-is-placeholder-visible="false"><img class="image"
-                  src="https://demo2.madrasthemes.com/cartzilla/marketplace/wp-content/uploads/sites/3/2020/04/quality.png"
-                  alt="Image" width="52"></div>
-              <div class="media-body ps-3">
-                <div class="font-size-base mb-1 text-light">Quality Guarantee</div>
-                <p class="font-size-ms opacity-70 mb-0 text-light">Quality checked by our team</p>
+            <div class="store-features__media">
+              <img
+                src="https://demo2.madrasthemes.com/cartzilla/marketplace/wp-content/uploads/sites/3/2020/04/quality.png"
+                alt="Image"
+                width="52">
+              <div class="store-features__body">
+                <div class="store-features__text">Quality Guarantee</div>
+                <p class="store-features__subtext">Quality checked by our team</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-sm-6 col-lg-3 mb-grid-gutter">
+        <div class="col-sm-6 col-lg-3 store-features__element">
           <div class="d-inline-block">
-            <div class="media media-ie-fix align-items-center text-start">
-              <div class="czgb-image-upload-placeholder czgb-image-upload-has-image" role="button"
-                data-is-placeholder-visible="false"><img class="image"
-                  src="https://demo2.madrasthemes.com/cartzilla/marketplace/wp-content/uploads/sites/3/2020/04/support.png"
-                  alt="Image" width="52"></div>
-              <div class="media-body ps-3">
-                <div class="font-size-base mb-1 text-light">Customer Support</div>
-                <p class="font-size-ms opacity-70 mb-0 text-light">Friendly 24/7 customer support</p>
+            <div class="store-features__media">
+              <img
+                src="https://demo2.madrasthemes.com/cartzilla/marketplace/wp-content/uploads/sites/3/2020/04/support.png"
+                alt="Image"
+                width="52">
+              <div class="store-features__body">
+                <div class="store-features__text">Customer Support</div>
+                <p class="store-features__subtext">Friendly 24/7 customer support</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-sm-6 col-lg-3 mb-grid-gutter">
+        <div class="col-sm-6 col-lg-3 store-features__element">
           <div class="d-inline-block">
-            <div class="media media-ie-fix align-items-center text-start">
-              <div class="czgb-image-upload-placeholder czgb-image-upload-has-image" role="button"
-                data-is-placeholder-visible="false"><img class="image"
-                  src="https://demo2.madrasthemes.com/cartzilla/marketplace/wp-content/uploads/sites/3/2020/04/updates.png"
-                  alt="Image" width="52"></div>
-              <div class="media-body ps-3">
-                <div class="font-size-base mb-1 text-light">Lifetime Free Updates</div>
-                <p class="font-size-ms opacity-70 mb-0 text-light">Never pay for an update</p>
+            <div class="store-features__media">
+              <img
+                src="https://demo2.madrasthemes.com/cartzilla/marketplace/wp-content/uploads/sites/3/2020/04/updates.png"
+                alt="Image"
+                width="52">
+              <div class="store-features__body">
+                <div class="store-features__text">Lifetime Free Updates</div>
+                <p class="store-features__subtext">Never pay for an update</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-sm-6 col-lg-3 mb-grid-gutter">
+        <div class="col-sm-6 col-lg-3 store-features__element">
           <div class="d-inline-block">
-            <div class="media media-ie-fix align-items-center text-start">
-              <div class="czgb-image-upload-placeholder czgb-image-upload-has-image" role="button"
-                data-is-placeholder-visible="false"><img class="image"
-                  src="https://demo2.madrasthemes.com/cartzilla/marketplace/wp-content/uploads/sites/3/2020/04/secure.png"
-                  alt="Image" width="52"></div>
-              <div class="media-body ps-3">
-                <div class="font-size-base mb-1 text-light">Secure Payments</div>
-                <p class="font-size-ms opacity-70 mb-0 text-light">we posess SSL / Secure certificate</p>
+            <div class="store-features__media">
+              <img
+                src="https://demo2.madrasthemes.com/cartzilla/marketplace/wp-content/uploads/sites/3/2020/04/secure.png"
+                alt="Image"
+                width="52">
+              <div class="store-features__body">
+                <div class="store-features__text">Secure Payments</div>
+                <p class="store-features__subtext">we posess SSL / Secure certificate</p>
               </div>
             </div>
           </div>
@@ -123,12 +114,10 @@
       </div>
     </div>
   </section>
-
   <ng-container *ngrxLet="recentlyViewedProducts$ as recentlyViewedProducts">
-    <section *ngIf="recentlyViewedProducts.length != 0"
-      class="wp-block-czgb-seller-block czgb-seller-block border-top wp-block-czgb-seller-block py-5 px-4 pt-5 pb-4">
+    <section *ngIf="recentlyViewedProducts.length != 0" class="recently-viewed-products">
       <div class="py-lg-2 container">
-        <h2 class="h3 mb-3 pb-3 pb-lg-4 text-center">Recently viewed products</h2>
+        <h2 class="recently-viewed-products__headline">Recently viewed products</h2>
         <div class="row">
           <div class="col-12">
             <app-products-grid [products]="recentlyViewedProducts" [slider]="true"></app-products-grid>

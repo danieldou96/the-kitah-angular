@@ -19,7 +19,7 @@ export interface IProduct {
   previewsType?: 'auto' | 'upload' | 'later';
 	gallery: IFile[];
 	store?: IStore;
-	reviews?: Review[];
+	reviews?: IReview[];
 	grades: IGrade[];
 	subjects: ISubject[];
 	resourceTypes: IResourceType[];
@@ -45,8 +45,12 @@ export interface IRecentlyViewedProductItem {
 	fullImage: string;
 }*/
 
-export interface Review {
-
+export interface IReview {
+  user: User;
+  text: string;
+  rate: number;
+  productId: number;
+  date: Date;
 }
 
 export interface IFile {

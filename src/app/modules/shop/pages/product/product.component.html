@@ -147,12 +147,12 @@
           </div>
         </div>
       </div>
-      <div class="container">
+      <div class="container mb-5">
         <mat-tab-group animationDuration="0ms" [disableRipple]="true">
           <mat-tab label="Description">
             <div [innerHTML]="product.description"></div>
           </mat-tab>
-          <mat-tab [label]="'Reviews (' + product.reviews?.length + ')'">
+          <mat-tab [label]="'Reviews (' + (product.reviews?.length! | shortNumber) + ')'">
             <div class="cartzilla-tab-content">
               <div class="tab-content pt-2">
                 <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--reviews panel entry-content wc-tab m-0">
@@ -160,48 +160,75 @@
                     <div class="woocommerce-Reviews container pt-md-2">
                       <div class="row">
                         <div class="col-md-7">
-                          <div>
+                          <div *ngIf="product.reviews?.length == 0">
                             <p class="woocommerce-noreviews">There are no reviews yet.</p>
+                          </div>
+                          <div class="reviews" *ngIf="product.reviews?.length! > 0">
+                            <div class="reviews__review" *ngFor="let review of product.reviews">
+                              <div class="reviews__review-header">
+                                <div class="reviews__reviewer">
+                                  <img [alt]="review.user.firstname + ' ' + review.user.lastname"
+                                    [src]="review.user.avatar ?? 'https://0.gravatar.com/avatar/0bb5506299e7fc2b7370e90722670a0f?s=50&amp;d=mm&amp;r=g'"
+                                    class="reviews__reviewer-avatar" height="50" width="50"
+                                    loading="lazy">
+                                  <div class="reviews__reviewer-details">
+                                    <h6 class="reviews__reviewer-name">
+                                      {{ review.user.firstname + ' ' + review.user.lastname | titlecase }}
+                                    </h6>
+                                    <span class="reviews__reviewer-date">
+                                      {{ review.date | date }}
+                                    </span>
+                                  </div>
+                                </div>
+                                <bar-rating [rate]="review.rate" [max]="5" [readOnly]="true">
+                                  <ng-template ratingActive>
+                                    <i class="ci-star-filled"></i>
+                                  </ng-template>
+                                  <ng-template ratingInactive>
+                                    <i class="ci-star"></i>
+                                  </ng-template>
+                                  <ng-template ratingFraction>
+                                    <i class="ci-star-half"></i>
+                                  </ng-template>
+                                </bar-rating>
+                              </div>
+                              <div class="reviews__review-body">
+                                <p [innerText]="review.text"></p>
+                              </div>
+                            </div>
                           </div>
                         </div>
                         <div class="col-md-5 mt-2 pt-4 mt-md-0 pt-md-0">
-                          <div class="bg-secondary py-grid-gutter px-grid-gutter rounded-lg">
-                            <div class="comment-respond">
-                              <h3 class="h4 pb-2 comment-reply-title">Write a review <small><a
-                                    rel="nofollow" href="/product/gg/#respond"
-                                    style="display:none;">Cancel reply</a></small></h3>
-                              <form class="comment-form">
-                                <p class="font-size-sm text-muted">Your email address will not be published. Required fields
-                                  are marked <span class="text-danger">*</span></p>
-                                <div class="form-group comment-form-rating">
-                                  <label>Your rating<span class="text-danger">*</span></label>
-                                  <select class="custom-select" required="">
-                                    <option value="">Rate…</option>
-                                    <option value="5">Perfect</option>
-                                    <option value="4">Good</option>
-                                    <option value="3">Average</option>
-                                    <option value="2">Not that bad</option>
-                                    <option value="1">Very poor</option>
-                                  </select>
+                          <ng-container *ngrxLet="authService.loggedInUser$ as loggedInUser">
+                            <div class="bg-secondary py-grid-gutter px-grid-gutter rounded-lg">
+                              <div class="comment-respond">
+                                <h3 class="review-form__title">Write a review</h3>
+                                <form class="comment-form" [formGroup]="reviewForm" (submit)="submit()" *ngIf="loggedInUser" errorTailor>
+                                  <div class="form-group comment-form-rating">
+                                    <label>Your rating <span class="text-danger">*</span></label>
+                                    <select class="classic-select" formControlName="rate">
+                                      <option selected disabled>Rate…</option>
+                                      <option value="5">Perfect</option>
+                                      <option value="4">Good</option>
+                                      <option value="3">Average</option>
+                                      <option value="2">Not that bad</option>
+                                      <option value="1">Very poor</option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group comment-form-comment">
+                                    <label>Your review <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" rows="8" maxlength="65525" formControlName="text"></textarea>
+                                  </div>
+                                  <div class="form-group form-submit">
+                                    <button type="submit" class="classic-button">Submit a Review</button>
+                                  </div>
+                                </form>
+                                <div *ngIf="!loggedInUser">
+                                  <p>You must be logged in to post a review, please <a [routerLink]="['/auth/login']">login</a> or <a [routerLink]="['/auth/register']">register</a></p>
                                 </div>
-                                <div class="form-group comment-form-comment">
-                                  <label>Your review<span class="text-danger">*</span></label>
-                                  <textarea class="form-control" rows="8" maxlength="65525"></textarea>
-                                </div>
-                                <div class="form-group comment-form-author">
-                                  <label>Your name<span class="text-danger">*</span></label>
-                                  <input type="text" class="form-control" maxlength="245">
-                                </div>
-                                <div class="form-group comment-form-email">
-                                  <label>Your email<span class="text-danger">*</span></label>
-                                  <input type="email" class="form-control" maxlength="100">
-                                </div>
-                                <div class="form-group form-submit"><button type="submit" class="classic-button">Submit a
-                                    Review</button>
-                                </div>
-                              </form>
+                              </div>
                             </div>
-                          </div>
+                          </ng-container>
                         </div>
                       </div>
                     </div>

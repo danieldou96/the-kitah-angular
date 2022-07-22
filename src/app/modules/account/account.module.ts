@@ -16,7 +16,6 @@ import { FollowersComponent } from './pages/followers/followers.component';
 import { ReviewsComponent } from './pages/reviews/reviews.component';
 import { SalesReportsComponent } from './pages/sales-reports/sales-reports.component';
 import { AnalyticsComponent } from './pages/analytics/analytics.component';
-import { WithdrawComponent } from './pages/withdraw/withdraw.component';
 import { NewProductComponent } from './pages/new-product/new-product.component';
 import { EditProductComponent } from './pages/edit-product/edit-product.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
@@ -32,6 +31,14 @@ import { VendorGuard } from 'src/app/core/guards/vendor/vendor.guard';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { AccountMigrationComponent } from './pages/account-migration/account-migration.component';
+import { BuyerGuard } from 'src/app/core/guards/buyer/buyer.guard';
+import { UploadAvatarComponent } from './components/upload-avatar/upload-avatar.component';
+import { UserResolver } from 'src/app/core/resolvers/user/user.resolver';
+import { MyStoreResolver } from 'src/app/core/resolvers/store/my-store.resolver';
+import { StripeDetailsSubmittedGuard } from 'src/app/core/guards/stripe-details-submitted/stripe-details-submitted.guard';
+import { ResumeStripeFormComponent } from './pages/resume-stripe-form/resume-stripe-form.component';
+import { StripeAccountLinkResolver } from 'src/app/core/resolvers/stripe-account-link/stripe-account-link.resolver';
 
 const buyerRoutes: Routes = [
   {
@@ -45,6 +52,15 @@ const buyerRoutes: Routes = [
         title: 'My account',
         data: {
           title: 'My account'
+        }
+      },
+      {
+        path: 'account-migration',
+        component: AccountMigrationComponent,
+        title: 'Account migration',
+        canActivate: [BuyerGuard],
+        data: {
+          title: 'Account migration'
         }
       },
       {
@@ -82,6 +98,9 @@ const buyerRoutes: Routes = [
       {
         path: 'edit-account',
         component: AccountDetailsComponent,
+        resolve: {
+          user: UserResolver
+        },
         title: 'Account details',
         data: {
           title: 'Account details'
@@ -99,6 +118,7 @@ const vendorRoutes: Routes = [
     children: [
       {
         path: '',
+        canActivate: [StripeDetailsSubmittedGuard],
         component: DashboardComponent,
         title: 'Dashboard',
         data: {
@@ -107,6 +127,7 @@ const vendorRoutes: Routes = [
       },
       {
         path: 'products',
+        canActivate: [StripeDetailsSubmittedGuard],
         component: ProductsComponent,
         title: 'My products',
         data: {
@@ -116,6 +137,7 @@ const vendorRoutes: Routes = [
       },
       {
         path: 'new-product',
+        canActivate: [StripeDetailsSubmittedGuard],
         component: NewProductComponent,
         title: 'New product',
         data: {
@@ -124,6 +146,7 @@ const vendorRoutes: Routes = [
       },
       {
         path: 'edit-product/:id',
+        canActivate: [StripeDetailsSubmittedGuard],
         component: EditProductComponent,
         data: {
           title: 'Edit product'
@@ -132,6 +155,7 @@ const vendorRoutes: Routes = [
       },
       {
         path: 'analytics',
+        canActivate: [StripeDetailsSubmittedGuard],
         component: AnalyticsComponent,
         title: 'My Products Statistics',
         data: {
@@ -140,6 +164,7 @@ const vendorRoutes: Routes = [
       },
       {
         path: 'reviews',
+        canActivate: [StripeDetailsSubmittedGuard],
         component: ReviewsComponent,
         title: 'Reviews',
         data: {
@@ -148,6 +173,7 @@ const vendorRoutes: Routes = [
       },
       {
         path: 'followers',
+        canActivate: [StripeDetailsSubmittedGuard],
         component: FollowersComponent,
         title: 'Followers',
         data: {
@@ -155,20 +181,22 @@ const vendorRoutes: Routes = [
         }
       },
       {
-        path: 'withdraw',
-        component: WithdrawComponent,
-        title: 'Withdraw',
-        data: {
-          title: 'Withdraw'
-        }
-      },
-      {
         path: 'settings',
+        canActivate: [StripeDetailsSubmittedGuard],
         component: SettingsComponent,
+        resolve: { store: MyStoreResolver },
         title: 'Settings',
         data: {
           title: 'Settings'
         }
+      },
+      {
+        path: 'resume-stripe-form',
+        component: ResumeStripeFormComponent,
+        data: {
+          title: 'Resume Stripe Form'
+        },
+        resolve: { stripeAccountLink: StripeAccountLinkResolver },
       },
     ]
 	}
@@ -189,14 +217,16 @@ const vendorRoutes: Routes = [
     FollowersComponent,
     ReviewsComponent,
     SalesReportsComponent,
+    ResumeStripeFormComponent,
     AnalyticsComponent,
-    WithdrawComponent,
     NewProductComponent,
     EditProductComponent,
     ProductFormComponent,
     SettingsComponent,
     DragDirective,
-    UploadProductPreviewComponent
+    UploadProductPreviewComponent,
+    AccountMigrationComponent,
+    UploadAvatarComponent
   ],
   imports: [
     CommonModule,

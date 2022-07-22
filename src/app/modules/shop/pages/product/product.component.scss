@@ -1871,6 +1871,78 @@ select:focus,
   }
 }
 
-  .classic-button {
+  .classic-button, .classic-input {
     width: 100%;
+  }
+
+  ::ng-deep bar-rating {
+    i {
+      margin: 1px;
+      color: #edb867;
+      font-size: 0.8rem;
+    }
+  }
+
+  .review-form {
+    &__title {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      font-weight: 500;
+      line-height: 1.2;
+      color: #373f50;
+      margin-top: 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #ccc;
+    }
+  }
+
+  .reviews {
+
+    &__review {
+      border-bottom: 1px solid #e3e9ef;
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
+
+      &:last-child {
+        border: 0;
+        padding-bottom: 0;
+        margin-bottom: 0;
+      }
+    }
+
+    &__review-header {
+      display: flex;
+      margin-bottom: 1rem;
+      gap: 1rem;
+    }
+
+    &__reviewer {
+      display: flex;
+      padding-right: 0.5rem;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    &__reviewer-avatar {
+      border-radius: 50%;
+    }
+
+    &__reviewer-details {
+      flex: 0 1 auto;
+    }
+
+    &__reviewer-name {
+      font-size: 0.875rem;
+      margin-bottom: 0;
+    }
+
+    &__reviewer-date {
+      font-size: 0.8125rem;
+      color: #7d879c;
+    }
+
+    &__review-body {
+      font-size: 0.9375rem;
+      margin-bottom: 0.5rem;
+    }
   }

@@ -373,6 +373,8 @@ a {
       white-space: nowrap;
       background-color: transparent;
       border: 0;
+      cursor: pointer;
+      outline: none;
 
       &:hover {
         color: #dea249;
@@ -816,6 +818,7 @@ a {
     line-height: calc(1.5em + 1.25rem + 2px);
     color: #666;
     transition: all 0.25s ease-in-out;
+    outline: none;
 
     &:hover {
       color: #d4983f;

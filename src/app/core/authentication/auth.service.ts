@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { LOCAL_STORAGE } from '@ng-web-apis/common';
+import { LOCAL_STORAGE, WINDOW } from '@ng-web-apis/common';
 import { HotToastService } from '@ngneat/hot-toast';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { catchError, first, map, merge, Observable, of, ReplaySubject, shareReplay, tap, timer } from 'rxjs';
 import { ERoles } from 'src/app/shared/enums/user';
+import { ApiResponse } from 'src/app/shared/models/api-response';
 import { User } from 'src/app/shared/models/user';
 import { decodeJwtData } from 'src/app/shared/utils';
 import { environment } from 'src/environments/environment';
@@ -32,6 +33,7 @@ export class AuthService {
 		private router: Router,
 		private hotToastService: HotToastService,
 		private http: HttpClient,
+		@Inject(WINDOW) private window: Window,
 		@Inject(LOCAL_STORAGE) private localStorage: Storage
 	) {
 		this._loggedUserSubject$ = new ReplaySubject<UserToken | null>(1);
@@ -68,17 +70,18 @@ export class AuthService {
 	}
 
 	/** @description Login to Chabad.org Shliach account */
-	public login(username: string, password: string): Observable<any> {
+	public login(username: string, password: string): Observable<{ token: string; }> {
 		const url = `${environment.apiUrl}/auth/login`;
 
 		const navigation = this.router.getCurrentNavigation();
 		const redirectUrl = navigation?.extras?.state?.['redirectUrl'] as string;
 
 		return this.http
-			.post<{ token: string; }>(url, {
+			.post<ApiResponse<{ token: string; }>>(url, {
 				username,
 				password,
 			}).pipe(
+				map(apiResponse => apiResponse.data),
 				catchError(err => of(err.error)),
 				tap(apiResponse => {
 					const user = decodeJwtData<User>(apiResponse.token);
@@ -105,23 +108,41 @@ export class AuthService {
 	}
 
 	/** @description Login to Chabad.org Shliach account */
-	public register(registerForm: any): Observable<any> {
+	public register(registerForm: any): Observable<ApiResponse<{ token: string; stripeAccountLink: string; }>> {
 		const url = `${environment.apiUrl}/auth/register`;
-		return this.http.post<any>(url, registerForm).pipe(
+		return this.http.post<ApiResponse<{ token: string; stripeAccountLink: string; }>>(url, registerForm).pipe(
 			catchError(err => of(err)),
-			tap(result => {
-				if (result.error) {
-					this.hotToastService.error(result.error.message, {
-						duration: 3000
-					});
+			tap(apiResponse => {
+				if (apiResponse.data?.token) {
+					const user = decodeJwtData<User>(apiResponse.data.token);
+					if (user) {
+						this.hotToastService.success('The user has been created successfully.', {
+							duration: 3000
+						});
+						// Store user data in cookies
+						this.localStorage.setItem('currentUser', apiResponse.data.token);
+						this.localStorage.setItem('shoppingCart', '[]')
+						// Store the logged user data
+						this._loggedUserSubject$.next({
+							token: apiResponse.data.token,
+							user
+						});
+						this.window.location.replace(apiResponse.data.stripeAccountLink);
+						// Set automatically logout
+						this.expirationCounter(apiResponse.data.token);
+					}
 				} else {
-					this.hotToastService.success('The user has been created successfully. Please Log in.', {
+					this.hotToastService.error(apiResponse.message, {
 						duration: 3000
 					});
-					this.router.navigateByUrl('auth/login');
 				}
 			})
 		);
+	}
+
+	public profile() {
+		const url = `${environment.apiUrl}/auth/profile`;
+		return this.http.get<User>(url);
 	}
 
 	public logout() {

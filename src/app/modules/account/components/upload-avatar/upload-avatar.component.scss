@@ -1,0 +1,59 @@
+.upload-avatar {
+	border-radius: 0.4375rem;
+	background-color: #f6f9fc;
+	padding: 1.5rem;
+	margin-bottom: 1.5rem;
+	align-items: center;
+	display: flex;
+
+	&__placeholder {
+
+	}
+
+	&__body {
+		padding-left: 1rem;
+		flex: 1;	
+	}
+
+	&__accepted-files {
+		font-size: 0.8125rem;
+		color: #7d879c;
+		margin-bottom: 0;
+	}
+
+	&__button {
+		box-shadow: 0 0.5rem 1.125rem -0.5rem rgb(0 0 0 / 15%);
+		color: #4b566b !important;
+		border-color: transparent;
+		white-space: nowrap;
+		margin-bottom: 0.5rem;
+		padding: 0.425rem 1rem;
+		font-size: 0.8125rem;
+		line-height: 1.5;
+		border-radius: 0.1875rem;
+		background-color: #fff;
+		display: inline-block;
+		font-weight: normal;
+		text-align: center;
+		vertical-align: middle;
+		cursor: pointer;
+		user-select: none;
+		outline: none;
+		border: 1px solid transparent;
+		transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out, border-color 0.25s ease-in-out, box-shadow 0.2s ease-in-out;
+
+		&:hover {
+			box-shadow: none;
+		}
+
+		i {
+			margin-top: -0.1875rem;
+			vertical-align: middle;
+			margin-right: 0.5rem;
+		}
+	}
+
+	&__input {
+		display: none;
+	}
+}

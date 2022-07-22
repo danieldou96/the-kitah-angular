@@ -13,6 +13,7 @@ import { ProductsGridComponent } from './components/products-grid/products-grid.
 import { SwiperModule } from 'swiper/angular';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { ErrorTailorModule } from '@ngneat/error-tailor';
+import { PasswordInputComponent } from './components/password-input/password-input.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ErrorTailorModule } from '@ngneat/error-tailor';
     PhonePipe,
     CheckboxComponent,
     ProductCardComponent,
-    ProductsGridComponent
+    ProductsGridComponent,
+    PasswordInputComponent
   ],
   imports: [
     CommonModule,
@@ -46,6 +48,7 @@ import { ErrorTailorModule } from '@ngneat/error-tailor';
     ReactiveFormsModule,
     ProductCardComponent,
     ProductsGridComponent,
+    PasswordInputComponent,
     NgxFilesizeModule,
     PhonePipe
   ]

@@ -52,7 +52,9 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, {
     initialNavigation: 'enabledBlocking',
 		relativeLinkResolution: 'legacy',
-		scrollPositionRestoration: 'enabled'
+		scrollPositionRestoration: 'enabled',
+		onSameUrlNavigation: 'reload'
+		//enableTracing: true
 	})],
   exports: [RouterModule],
   providers: [

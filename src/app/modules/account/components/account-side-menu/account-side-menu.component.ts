@@ -1,7 +1,9 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component } from '@angular/core';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { Component, Inject } from '@angular/core';
+import { WINDOW } from '@ng-web-apis/common';
+import { BehaviorSubject, first, map, Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/authentication/auth.service';
+import { ApiService } from 'src/app/core/http/api.service';
 import { DocumentService } from 'src/app/core/services/document/document.service';
 import { StoreService } from 'src/app/core/services/store/store.service';
 import { WishlistService } from 'src/app/core/services/wishlist/wishlist.service';
@@ -33,9 +35,11 @@ export class AccountSideMenuComponent {
 
   constructor(
     private authService: AuthService,
+    private apiService: ApiService,
     public documentService: DocumentService,
     public storeService: StoreService,
-    public wishlistService: WishlistService
+    public wishlistService: WishlistService,
+    @Inject(WINDOW) private window: Window
   ) {
     this.loggedInUser$ = this.authService.loggedInUser$.pipe(
       map(apiAuthResponse => apiAuthResponse ?? null),
@@ -49,5 +53,9 @@ export class AccountSideMenuComponent {
 
   toggleMobileMenu() {
     this.mobileMenuOpened$.next(!this.mobileMenuOpened$.value);
+  }
+
+  openStripeDashboard() {
+    this.apiService.getStripeDashboardLink().pipe(first()).subscribe(link => this.window.open(link, '_blank'));
   }
 }

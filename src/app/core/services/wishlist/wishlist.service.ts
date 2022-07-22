@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HotToastService } from '@ngneat/hot-toast';
-import { combineLatest, filter, first, map, merge, Observable, scan, shareReplay, startWith, Subject, switchMap, tap, withLatestFrom } from 'rxjs';
+import { combineLatest, filter, first, map, merge, Observable, of, scan, shareReplay, startWith, Subject, switchMap, tap, withLatestFrom } from 'rxjs';
 import { IProduct } from 'src/app/shared/models/product';
 import { AuthService } from '../../authentication/auth.service';
 import { ApiService } from '../../http/api.service';
@@ -32,8 +32,7 @@ export class WishlistService {
     this.wishlist$ = combineLatest([
       this.wishlistActions$,
       this.authService.loggedInUser$.pipe(
-        filter(loggedInUser => Boolean(loggedInUser)),
-        switchMap(() => this.apiService.getWishlist())
+        switchMap(loggedInUser => loggedInUser ? this.apiService.getWishlist() : of([]))
       )
     ]).pipe(
       scan((acc: WishlistItem[], [item, initialValue]: [(WishlistItem | null), IProduct[]]) => {

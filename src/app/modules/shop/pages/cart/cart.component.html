@@ -24,7 +24,7 @@
           <div class="shop_table shop_table_responsive cart woocommerce-cart-form__contents">
             <div *ngFor="let item of cart"
               class="woocommerce-cart-form__cart-item cart_item d-sm-flex justify-content-between align-items-center my-4 pb-3 border-bottom">
-              <div class="media d-block d-sm-flex align-items-center text-center text-sm-left">
+              <div class="media d-block d-sm-flex align-items-center text-center text-sm-start">
                 <div class="product-thumbnail d-inline-block mx-auto me-sm-4 mb-2 mb-sm-0" style="width: 10rem;">
                   <a [routerLink]="['/product/' + item.product.id]"  class="d-block"><img width="350"
                       height="263"
@@ -47,7 +47,7 @@
                   </div>
                 </div>
               </div>
-              <div class="ps-sm-3 mx-auto mx-sm-0 text-center text-sm-left" style="width: 9rem;">
+              <div class="ps-sm-3 mx-auto mx-sm-0 text-center text-sm-start" style="width: 9rem;">
                 <!-- <div class="product-quantity">
                   <div class="form-group mb-0"><label class="font-weight-medium d-none d-sm-block"
                       for="quantity_623fe2f451991">Quantity</label>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IOrder } from 'src/app/shared/models/order';
 
@@ -7,16 +7,10 @@ import { IOrder } from 'src/app/shared/models/order';
   templateUrl: './checkout-success.component.html',
   styleUrls: ['./checkout-success.component.scss']
 })
-export class CheckoutSuccessComponent implements OnInit {
-
+export class CheckoutSuccessComponent {
   order: IOrder;
 
   constructor(private route: ActivatedRoute) {
     this.order = this.route.snapshot.data['order'];
-    console.log(this.order)
   }
-
-  ngOnInit(): void {
-  }
-
 }

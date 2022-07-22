@@ -1,43 +1,37 @@
-<app-page-title title="Marketplace Products"></app-page-title>
+<app-page-title [title]="(pageTitle$ | async)!"></app-page-title>
 <div class="container pb-5 mb-2 mb-md-4">
   <div class="row">
     <div class="content-area col-lg-8 order-lg-2">
 
-      <div
-        class="d-flex justify-content-center justify-content-sm-between align-items-center pt-2 pt-lg-2 pb-4 pb-lg-5 mb-2 mb-lg-0">
-        <div *ngIf="currentPage?.elements?.length! > 0" class="d-flex flex-wrap">
-          <div class="form-inline flex-nowrap me-3 me-sm-4 pb-3">
-            <form class="woocommerce-ordering form-inline flex-nowrap">
-              <!-- <label class="text-light opacity-75 text-nowrap me-2 d-none d-sm-block">Sort by:</label>
-
-              <select name="orderby" class="orderby form-control custom-select">
-                <option value="popularity" selected="selected">Popularity</option>
-                <option value="price">Low - High Price</option>
-                <option value="price-desc">High - Low Price</option>
-                <option value="rating">Average Rating</option>
-                <option value="title-asc">A - Z Order</option>
-                <option value="title-desc">Z - A Order</option>
-              </select> -->
-
-              <span class="font-size-sm opacity-75 text-nowrap ms-2 d-none d-md-block total-products"><!-- of --> {{ currentPage?.totalElements }} products </span>
-
-            </form>
-          </div>
+      <div class="shop-header">
+        <div class="shop-header__sort" *ngIf="currentPage?.totalElements! > 0">
+          <span class="shop-header__sort-label">Sort by:</span>
+          <select [queryParam]="sort" class="shop-header__sort-select classic-select">
+            <option value="popularity">Popularity</option>
+            <option value="price-asc">Low - High Price</option>
+            <option value="price-desc">High - Low Price</option>
+            <!--<option value="rating">Average Rating</option>-->
+            <option value="title-asc">A - Z Order</option>
+            <option value="title-desc">Z - A Order</option>
+          </select>
+          <span class="shop-header__total-products">of {{ currentPage?.totalElements }} products </span>
         </div>
-        <div class="d-flex pb-3">
-          <button class="nav-link-style nav-link-light me-3" *ngIf="currentPage?.current?.page != 1 && currentPage?.elements?.length! > 0" (click)="prevPage()">
+        <div class="shop-header__pagination">
+          <button class="shop-header__pagination-nav" *ngIf="currentPage?.current?.page != 1 && currentPage?.elements?.length! > 0" (click)="prevPage()">
             <i class="ci-arrow-left"></i>
           </button>
-          <span class="font-size-md total-pages">{{ currentPage?.current?.page }} / {{ currentPage?.totalPages }}</span>
-          <button class="nav-link-style nav-link-light ms-3" *ngIf="currentPage?.current?.page != currentPage?.totalPages && currentPage?.elements?.length! > 0" (click)="nextPage()">
+          <span *ngIf="currentPage && currentPage.current" class="shop-header__pagination-text">
+            {{ currentPage.current.page }} / {{ currentPage.totalPages != 0 ? currentPage.totalPages : 1 }}
+          </span>
+          <button class="shop-header__pagination-nav" *ngIf="currentPage?.current?.page != currentPage?.totalPages && currentPage?.elements?.length! > 0" (click)="nextPage()">
             <i class="ci-arrow-right"></i>
           </button>
         </div>
-        <div class="d-none d-sm-flex pb-3">
-          <button class="btn btn-icon nav-link-style ms-2 nav-link-light">
+        <div class="shop-header__views">
+          <button class="shop-header__view-button" [class.shop-header__view-button--disabled]="viewMode == 'grid'" (click)="viewMode = 'grid'">
             <i class="ci-view-grid"></i>
           </button>
-          <button class="btn btn-icon nav-link-style ms-2 bg-light text-dark disabled opacity-100">
+          <button class="shop-header__view-button" [class.shop-header__view-button--disabled]="viewMode == 'list'" (click)="viewMode = 'list'">
             <i class="ci-view-list"></i>
           </button>
         </div>

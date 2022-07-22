@@ -1,0 +1,65 @@
+.classic-input {
+	width: 100%;
+}
+
+.banner {
+	display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0;
+  width: 100%;
+  height: 100%;
+	border: 4px dashed #d8d8d8;
+  margin-bottom: 30px;
+  max-width: 850px;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+
+	&:hover &__image-remove {
+		display: block;
+	}
+
+	&__upload-input {
+		display: none;
+	}
+
+	&__button-area {
+		margin-top: 35px;
+
+		i {
+			display: block;
+			font-size: 65px;
+			color: #dfdfdf;
+			margin-bottom: 15px;
+		}
+	}
+
+	&__help {
+		font-size: 12px;
+  	color: #b1b1b1;
+		padding-top: 8px;
+  	line-height: 1.42;
+	}
+
+	&__image-container {
+
+	}
+
+	&__image-remove {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		min-height: 220px;
+		background: #0009;
+		top: 0;
+		left: 0;
+		font-size: 100px;
+		color: red;
+		display: none;
+	}
+
+	&__image {
+		max-width: 100%;
+	}
+}

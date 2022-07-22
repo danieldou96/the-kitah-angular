@@ -7,6 +7,17 @@
 						</span>
 						<span class="handheld-toolbar__label">Filters</span>
 				</a>
+				<ng-container *ngrxLet="wishlistService.wishlist$ as wishlist">
+					<a [routerLink]="['/my-account/wishlist']" class="handheld-toolbar__button">
+							<span class="handheld-toolbar__icon">
+									<i class="ci-heart"></i>
+									<span class="handheld-toolbar__wishlist-pill">
+										{{ wishlist.length }}
+									</span>
+							</span>
+							<span class="handheld-toolbar__label">{{ (cartService.cartTotal$ | async) | currency }}</span>
+					</a>
+				</ng-container>
 				<a class="handheld-toolbar__button" (click)="headerService.mobileSidebarOpened$.next(true)">
 						<span class="handheld-toolbar__icon">
 								<i class="ci-menu"></i>

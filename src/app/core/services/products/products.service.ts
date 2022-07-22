@@ -35,6 +35,9 @@ export class ProductsService extends AbstractCrudService<IProduct, number, ShopP
       }),
       ...(pageRequest.filters.priceRange && {
         priceRange: pageRequest.filters.priceRange
+      }),
+      ...(pageRequest.filters.search && {
+        search: pageRequest.filters.search
       })
     };
     return this._http.get<Page<IProduct, ShopPageRequest>>(this._base, {

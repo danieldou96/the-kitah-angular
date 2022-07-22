@@ -25,12 +25,6 @@
 /*! CSS Used from: http://s603556811.onlinehome.fr/wp-content/themes/cartzilla/style.css?ver=1.0.5 ; media=all */
 @media all {
 
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
   aside,
   nav {
     display: block;
@@ -115,6 +109,7 @@
 
   .nav-link-style {
     color: #4b566b;
+    cursor: pointer;
   }
 
   .nav-link-style>i {

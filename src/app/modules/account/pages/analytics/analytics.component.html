@@ -1,5 +1,12 @@
 <h2 class="title">My products statistics</h2>
 <div class="container p-0">
+	<div class="row">
+		<div class="col-12 text-end">
+			<button class="classic-button" (click)="export()">
+				<i class="ci-download"></i> Export
+			</button>
+		</div>
+	</div>
 	<mat-tab-group animationDuration="0ms" [disableRipple]="true">
 		<mat-tab label="Sales">
 			<ng-container *ngrxLet="salesRows$ as salesRows">

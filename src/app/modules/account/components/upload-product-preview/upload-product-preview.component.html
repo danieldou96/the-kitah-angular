@@ -9,5 +9,5 @@
     <div class="upload-preview__fileinfo">{{ galleryItem.name }}</div>
     <div class="upload-preview__filesize">{{ galleryItem.size | filesize }}</div>
 	</div>
-	<input type="file" (change)="uploadFile($event)" #fileInput />
+	<input type="file" accept=".png, .jpg, .jpeg, .gif"(change)="uploadFile($event)" #fileInput />
 </div>

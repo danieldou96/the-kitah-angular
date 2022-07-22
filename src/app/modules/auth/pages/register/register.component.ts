@@ -7,6 +7,8 @@ import { AuthService } from 'src/app/core/authentication/auth.service';
 import { ERoles } from 'src/app/shared/enums/user';
 import { conditionalValidator } from 'src/app/shared/validators/validators';
 import slugify from 'slugify';
+import { first } from 'rxjs';
+import { countries, IState, StatesAU, StatesCA, StatesUS } from 'src/app/shared/data/phone-country-code';
 
 @UntilDestroy()
 @Component({
@@ -37,6 +39,12 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private authService: AuthService
   ) { }
+  
+  countries = countries;
+  UsStates = StatesUS;
+  AuStates = StatesAU;
+  CaStates = StatesCA;
+  states: IState[] = [];
 
   ngOnInit() {
     if (this.authService.loggedInUser) {
@@ -69,6 +77,15 @@ export class RegisterComponent implements OnInit {
           [Validators.required]
         )
       ]),
+      country: new FormControl(null, [
+        conditionalValidator(
+          () => this.registerForm.controls['registrationType'].value == ERoles.Vendor,
+          [Validators.required]
+        )
+      ]),
+      city: new FormControl(null ?? undefined),
+      zipcode: new FormControl(null ?? undefined),
+      state: new FormControl(null ?? undefined),
       terms: new FormControl(false, [Validators.requiredTrue]),
     });
 
@@ -99,6 +116,21 @@ export class RegisterComponent implements OnInit {
         trim: true
       }), { emitEvent: false });
     });
+
+    this.formControls['country'].valueChanges.pipe(
+      untilDestroyed(this)
+    ).subscribe(country => {
+      if (country == 'US') {
+        this.states = this.UsStates;
+      } else if (country == 'CA') {
+        this.states = this.CaStates;
+      } else if (country == 'AU') {
+        this.states = this.AuStates;
+      } else {
+        this.states = [];
+      }
+      this.formControls['state'].reset();
+    });
   }
 
   get formControls() {
@@ -106,7 +138,6 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    console.log(this.registerForm)
     if (this.registerForm.invalid) {
       Object.values(this.formControls).forEach(control => {
         if (control.invalid) {
@@ -118,8 +149,7 @@ export class RegisterComponent implements OnInit {
     }
 
     this.authService.register(this.registerForm.value).pipe(
-      untilDestroyed(this)
+      first()
     ).subscribe();
   }
-
 }

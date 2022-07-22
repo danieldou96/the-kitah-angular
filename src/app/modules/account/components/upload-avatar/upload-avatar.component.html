@@ -1,0 +1,21 @@
+<div class="upload-avatar">
+		<img
+			[alt]="alt"
+			[src]="avatar.value ?? 'https://0.gravatar.com/avatar/0bb5506299e7fc2b7370e90722670a0f?s=90&amp;d=mm&amp;r=g'"
+			class="upload-avatar__placeholder"
+			height="90"
+			width="90"
+			loading="lazy">
+		<input type="file"  class="upload-avatar__input" accept=".png, .jpg, .jpeg, .gif" #fileInput (change)="uploadFile($event)" />
+		<div class="upload-avatar__body">
+			<button type="button" class="upload-avatar__button" *ngIf="!avatar.value" (click)="fileInput.click()">
+				<i class="ci-loading"></i>
+				Change profile picture
+			</button>
+			<button type="button" class="upload-avatar__button" *ngIf="avatar.value" (click)="reset()">
+				<i class="ci-close"></i>
+				Remove
+			</button>
+			<div class="upload-avatar__accepted-files">Upload JPG, GIF or PNG image.</div>
+		</div>
+</div>

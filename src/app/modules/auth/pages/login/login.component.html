@@ -14,21 +14,7 @@
             <div class="row mb-2">
               <div class="col-12">
                 <label>Password <span class="text-danger">*</span></label>
-                <div class="password-toggle">
-                  <span class="password-input">
-                    <input
-                      class="classic-input"
-                      formControlName="password"
-                      [type]="showPassword.value ? 'text' : 'password'"
-                      autocomplete="current-password">
-                      <span class="show-password-input"></span>
-                  </span>
-                  <label class="password-toggle-btn">
-                    <input [formControl]="showPassword" class="custom-control-input" type="checkbox">
-                    <i class="ci-eye password-toggle-indicator"></i>
-                    <span class="sr-only">Show password</span>
-                  </label>
-                </div>
+                <app-password-input formControlName="password"></app-password-input>
               </div>
             </div>
             <div class="form-group d-flex flex-wrap justify-content-between mb-0">

@@ -2,10 +2,10 @@
 	color: $baseColor;
 	
 	&:hover {
-		color: darken($baseColor, 10%);
+		color: darken($baseColor, 5%);
 	}
 	&:active {
-		color: darken($baseColor, 15%);
+		color: darken($baseColor, 10%);
 	}
 }
 
@@ -13,10 +13,10 @@
 	border-color: $baseColor;
 	
 	&:hover {
-		border-color: darken($baseColor, 10%);
+		border-color: darken($baseColor, 5%);
 	}
 	&:active {
-		border-color: darken($baseColor, 15%);
+		border-color: darken($baseColor, 10%);
 	}
 }
 

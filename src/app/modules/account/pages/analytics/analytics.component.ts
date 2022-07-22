@@ -1,7 +1,8 @@
 import { AfterViewInit, ChangeDetectorRef, Component, TemplateRef, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
+import { first, Observable } from 'rxjs';
 import { StoreService } from 'src/app/core/services/store/store.service';
 import { ColumnMode, TableColumn } from '@swimlane/ngx-datatable';
+import { ApiService } from 'src/app/core/http/api.service';
 
 export interface IProductAnalyticsSales {
   product: { id: number; name: string; };
@@ -34,6 +35,7 @@ export class AnalyticsComponent implements AfterViewInit {
   ColumnMode = ColumnMode;
 
   constructor(
+    private apiService: ApiService,
     private storeService: StoreService,
     private cd: ChangeDetectorRef
   ) {
@@ -64,5 +66,25 @@ export class AnalyticsComponent implements AfterViewInit {
       return 1;
     }
     return 0;
+  }
+
+  export() {
+    this.apiService.exportSalesReport().pipe(first()).subscribe(file => {
+      // For other browsers: 
+      // Create a link pointing to the ObjectURL containing the blob.
+      const data = window.URL.createObjectURL(file);
+      
+      const link = document.createElement('a');
+      link.href = data;
+      link.download = `The Kitah - Sales report.xlsx`;
+      // this is necessary as link.click() does not work on the latest firefox
+      link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+      
+      setTimeout(function () {
+          // For Firefox it is necessary to delay revoking the ObjectURL
+          window.URL.revokeObjectURL(data);
+          link.remove();
+      }, 100);
+    });
   }
 }

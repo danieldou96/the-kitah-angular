@@ -1,82 +1,44 @@
-<form class="woocommerce-EditAccountForm edit-account" action="" method="post">
-
-
-	<div class="cartzilla-pp-wrap bg-secondary rounded-lg p-4 mb-4">
-		<div class="media align-items-center">
-						<img alt="testttt" src="https://0.gravatar.com/avatar/6b74d41797646fc0de0653f83c8f5908?s=90&amp;d=mm&amp;r=g" srcset="https://0.gravatar.com/avatar/6b74d41797646fc0de0653f83c8f5908?s=180&amp;d=mm&amp;r=g 2x" class="avatar avatar-90 photo" height="90" width="90" gurl="https://0.gravatar.com/avatar/6b74d41797646fc0de0653f83c8f5908?s=90&amp;d=mm&amp;r=g" loading="lazy">			<div class="media-body ps-3">
-				<a href="#" class="cartzilla-pp-add-change btn btn-light btn-shadow btn-sm mb-2">
-					<i class="ci-loading me-2"></i>
-					Change profile picture				</a>
-				<a href="#" class="cartzilla-pp-remove btn btn-light btn-shadow btn-sm mb-2 d-none">
-					<i class="ci-close me-2"></i>
-					Remove				</a>
-				<div class="p mb-0 font-size-ms text-muted">Upload JPG, GIF or PNG image.</div>
-			</div>
+<form [formGroup]="form" (submit)="submit()" errorTailor>
+	<div class="row mb-2">
+		<div class="col-12">
+			<app-upload-avatar [alt]="user.username!" formControlName="avatar"></app-upload-avatar>
 		</div>
 	</div>
-
-	<div class="row">
-		<div class="col-sm-6">
-			<div class="woocommerce-form-row woocommerce-form-row--first form-group">
-				<label for="account_first_name">First name<span class="text-danger">*</span></label>
-				<input type="text" class="woocommerce-Input woocommerce-Input--text input-text form-control" name="account_first_name" id="account_first_name" autocomplete="given-name" value="">
-			</div>
+	<div class="row mb-2">
+		<div class="col-12 col-sm-6">
+			<label>Firstname <span class="text-danger">*</span></label>
+			<input type="text" class="classic-input" formControlName="firstname">
 		</div>
-		<div class="col-sm-6">
-			<div class="woocommerce-form-row woocommerce-form-row--last form-group">
-				<label for="account_last_name">Last name<span class="text-danger">*</span></label>
-				<input type="text" class="woocommerce-Input woocommerce-Input--text input-text form-control" name="account_last_name" id="account_last_name" autocomplete="family-name" value="">
-			</div>
+		<div class="col-12 col-sm-6">
+			<label>Lastname <span class="text-danger">*</span></label>
+			<input type="text" class="classic-input" formControlName="lastname">
 		</div>
 	</div>
-
-	<div class="woocommerce-form-row woocommerce-form-row--wide form-group">
-		<label for="account_display_name">Display name<span class="text-danger">*</span></label>
-		<input type="text" class="woocommerce-Input woocommerce-Input--text input-text form-control" name="account_display_name" id="account_display_name" value="testttt">
-		<small class="form-text text-muted">This will be how your name will be displayed in the account section and in reviews</small>
-	</div>
-
-	<div class="woocommerce-form-row woocommerce-form-row--wide form-group">
-		<label for="account_email">Email address<span class="text-danger">*</span></label>
-		<input type="email" class="woocommerce-Input woocommerce-Input--email input-text form-control" name="account_email" id="account_email" autocomplete="email" value="testttt@gmail.com">
-	</div>
-
-	<div class="woocommerce-form-row woocommerce-form-row--wide form-group">
-		<label for="password_current">Current password</label>
-		<div class="password-toggle">
-			<span class="password-input"><input type="password" class="woocommerce-Input woocommerce-Input--password input-text form-control" name="password_current" id="password_current" autocomplete="off"><span class="show-password-input"></span></span>
-			<label class="password-toggle-btn">
-				<input class="custom-control-input" type="checkbox">
-				<i class="ci-eye password-toggle-indicator"></i>
-				<span class="sr-only">Show password</span>
-			</label>
+	<div class="row mb-2">
+		<div class="col-12 col-sm-8">
+			<label>Email address <span class="text-danger">*</span></label>
+			<input type="email" class="classic-input" name="email" formControlName="email">
 		</div>
-		<small class="form-text text-muted">Leave blank to leave unchanged</small>
-	</div>
-	<div class="woocommerce-form-row woocommerce-form-row--wide form-group">
-		<label for="password_1">New password</label>
-		<div class="password-toggle">
-			<span class="password-input"><input type="password" class="woocommerce-Input woocommerce-Input--password input-text form-control" name="password_1" id="password_1" autocomplete="off"><span class="show-password-input"></span></span>
-			<label class="password-toggle-btn">
-				<input class="custom-control-input" type="checkbox">
-				<i class="ci-eye password-toggle-indicator"></i>
-				<span class="sr-only">Show password</span>
-			</label>
-		</div>
-		<small class="form-text text-muted">Leave blank to leave unchanged</small>
-	</div>
-	<div class="woocommerce-form-row woocommerce-form-row--wide form-group">
-		<label for="password_2">Confirm new password</label>
-		<div class="password-toggle">
-			<span class="password-input"><input type="password" class="woocommerce-Input woocommerce-Input--password input-text form-control" name="password_2" id="password_2" autocomplete="off"><span class="show-password-input"></span></span>
-			<label class="password-toggle-btn">
-				<input class="custom-control-input" type="checkbox">
-				<i class="ci-eye password-toggle-indicator"></i>
-				<span class="sr-only">Show password</span>
-			</label>
+		<div class="col-12 col-sm-4">
+			<label>Username <span class="text-danger">*</span></label>
+			<input type="text" class="classic-input" name="username" formControlName="username">
 		</div>
 	</div>
-
-
-	<button type="submit" class="woocommerce-Button button btn btn-primary" name="save_account_details" value="Save changes">Save changes</button>
+	<div class="row mb-2">
+		<div class="col-12 col-md-6 mb-md-0 mb-2">
+			<label>Current password <span class="text-danger">*</span></label>
+			<app-password-input formControlName="currentPassword"></app-password-input>
+			<small class="form-text text-muted">Leave blank to leave unchanged</small>
+		</div>
+		<div class="col-12 col-md-6">
+			<label>New password <span class="text-danger">*</span></label>
+			<app-password-input formControlName="newPassword"></app-password-input>
+			<small class="form-text text-muted">Leave blank to leave unchanged</small>
+		</div>
+	</div>
+	<div class="pt-3">
+		<button type="submit" class="classic-button">
+			Save changes
+		</button>
+	</div>
 </form>

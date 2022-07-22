@@ -11,7 +11,7 @@ export class StoreTitleResolver implements Resolve<string> {
   constructor(private apiService: ApiService) { }
 
   resolve(route: ActivatedRouteSnapshot) {
-    return this.apiService.getStore(route.params['url']).pipe(
+    return this.apiService.getStoreByUrl(route.params['url']).pipe(
       map(store => store.name)
     );
   }

@@ -118,9 +118,14 @@
 		      <h3 class="font-size-sm mb-0 text-muted">Seller Dashboard</h3>
 		    </div>
 		    <ul class="dokan-dashboard-menu list-unstyled mb-0">
-		      <li class="border-bottom mb-0 dashboard" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/dashboard']"
+		      <li class="border-bottom mb-0 dashboard" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">
+						<a (click)="openStripeDashboard()" class="nav-link-style d-flex align-items-center px-4 py-3">
+							<i class="ci-wallet opacity-60 me-2"></i> Stripe Dashboard
+						</a>
+					</li>
+		      <!--<li class="border-bottom mb-0 dashboard" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/dashboard']"
 		          class="nav-link-style d-flex align-items-center px-4 py-3"><i class="ci-dollar opacity-60 me-2"></i>
-		          Sales <span class="font-size-sm text-muted ms-auto">{{ (storeService.salesAmount$ | async) | currency }}</span></a></li>
+		          Sales <span class="font-size-sm text-muted ms-auto">{{ (storeService.salesAmount$ | async) | currency }}</span></a></li> -->
 					<ng-container *ngrxLet="storeService.myProducts$ as myProducts">
 						<li class="border-bottom mb-0 products" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/dashboard/products']"
 								class="nav-link-style d-flex align-items-center px-4 py-3"><i class="ci-package opacity-60 me-2"></i>
@@ -129,13 +134,10 @@
 		      <li class="border-bottom mb-0 analytics" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/dashboard/analytics']"
 						class="nav-link-style d-flex align-items-center px-4 py-3"><i class="fal fa-chart-area opacity-60 me-2"></i> My Products Statistics</a>
 					</li>
-		      <!--<li class="border-bottom mb-0 reports" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/dashboard/sales-reports']"
-		          class="nav-link-style d-flex align-items-center px-4 py-3"><i class="ci-document opacity-60 me-2"></i>
-		          Sales Reports</a></li>-->
-		      <li class="border-bottom mb-0 withdraw" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/dashboard/withdraw']"
-		          class="nav-link-style d-flex align-items-center px-4 py-3"><i
-		            class="ci-currency-exchange opacity-60 me-2"></i> Withdraw</a></li>
-					<li class="border-bottom mb-0 settings"><a
+		      <li class="border-bottom mb-0 reports" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/dashboard/followers']"
+		          class="nav-link-style d-flex align-items-center px-4 py-3"><i class="ci-heart opacity-60 me-2"></i>
+		          Followers</a></li>
+					<li class="border-bottom mb-0 settings" routerLinkActive="is-active"><a
 							[routerLink]="['/dashboard/settings']"
 							class="nav-link-style d-flex align-items-center px-4 py-3"><i class="ci-settings opacity-60 me-2"></i>
 							Settings</a></li>

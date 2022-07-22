@@ -1,0 +1,69 @@
+<h2 class="py-2">Settings</h2>
+<form [formGroup]="form" errorTailor (submit)="submit()">
+	<div class="banner">
+		<input type="file" class="banner__upload-input" accept=".png, .jpg, .jpeg, .gif" #fileInput (change)="uploadBanner($event)" />
+		<div class="banner__image-container" *ngIf="formControls['banner'].value">
+			<img class="banner__image" [src]="formControls['banner'].value">
+			<button class="banner__image-remove" (click)="reset()">×</button>
+		</div>
+		<div class="banner__button-area" *ngIf="!formControls['banner'].value">
+			<i class="fa fa-cloud-upload"></i>
+			<button type="button" class="classic-button" (click)="fileInput.click()">Upload banner</button>
+			<p class="banner__help">
+				Upload a banner for your store. Banner size is (625×300) pixels.
+			</p>
+		</div>
+	</div>
+	<div class="row mb-2">
+		<div class="col-12">
+			<app-upload-avatar [alt]="store.name" formControlName="avatar"></app-upload-avatar>
+		</div>
+	</div>
+	<div class="row mb-2">
+		<div class="col-12 col-sm-6">
+			<label>Shop Name <span class="text-danger">*</span></label>
+			<input type="text" class="classic-input" formControlName="name">
+		</div>
+		<div class="col-12 col-sm-6">
+			<label class="pull-left">Shop URL <span class="text-danger">*</span></label>
+			<strong class="pull-right"></strong>
+			<input type="text" class="classic-input" formControlName="url">
+			<small>https://thekitah.com/store/<span>{{ formControls['url'].value }}</span></small>
+		</div>
+	</div>
+	<div class="row mb-3">
+		<div class="col-12">
+			<label>Phone Number <span class="text-danger">*</span></label>
+			<input type="text" class="classic-input" formControlName="phone">
+		</div>
+	</div>
+	<div class="row mb-2">
+		<div class="col-12">
+			<label>Description</label>
+			<editor
+				formControlName="description" 
+				[init]="{
+					base_url: '/tinymce',
+   				suffix: '.min',
+					placeholder: 'Edit Your Content Here!',
+					height: 200,
+					menubar: false,
+					plugins: [
+						'advlist autolink lists link image charmap print preview anchor',
+						'searchreplace visualblocks code fullscreen',
+						'insertdatetime media table paste code help wordcount'
+					],
+					toolbar:
+						'undo redo | formatselect | link | bold italic underline backcolor | \
+						alignleft aligncenter alignright alignjustify | \
+						bullist numlist outdent indent | removeformat | bullist | numlist'
+				}">
+			</editor>
+		</div>
+	</div>
+	<div class="pt-3">
+		<button type="submit" class="classic-button">
+			Save changes
+		</button>
+	</div>
+</form>

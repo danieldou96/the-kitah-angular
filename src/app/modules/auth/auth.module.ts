@@ -5,12 +5,22 @@ import { RegisterComponent } from './pages/register/register.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { StripeRefreshComponent } from './pages/stripe-refresh/stripe-refresh.component';
+import { StripeAccountLinkResolver } from 'src/app/core/resolvers/stripe-account-link/stripe-account-link.resolver';
 
 const routes: Routes = [
   {
 		path: 'login',
 		component: LoginComponent,
 		title: 'Log in'
+	},
+  {
+		path: 'stripe-refresh',
+		component: StripeRefreshComponent,
+    title: 'Stripe Refresh',
+    resolve: {
+      stripeAccountLink: StripeAccountLinkResolver
+    }
 	},
   {
 		path: 'register',
@@ -28,7 +38,8 @@ const routes: Routes = [
   declarations: [
     LoginComponent,
     RegisterComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    StripeRefreshComponent
   ],
   imports: [
     CommonModule,

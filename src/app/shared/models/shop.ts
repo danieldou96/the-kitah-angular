@@ -6,6 +6,7 @@ export interface ShopFilters {
 	subjects?: string[];
 	resourceTypes?: string[];
 	priceRange?: string;
+	search?: string;
 }
 
 export class ShopPageRequest extends PageRequest {

@@ -32,18 +32,10 @@
               <img src="https://2.gravatar.com/avatar/e8963eb2c3b519d5ed88a6ea49bd05bf?s=96&d=mm&r=g">
             </a>
             <a [routerLink]="['/my-account']" class="navbar__user-infos">
-              <ng-container *ngIf="loggedInUser.role == 'vendor' || loggedInUser.role == 'admin'">
-                <small class="navbar__user-name">
-                  {{ loggedInUser.username }}
-                </small>
-                <span class="navbar__vendor-amount">{{ (storeService.salesAmount$ | async) | currency}}</span>
-              </ng-container>
-              <ng-container *ngIf="loggedInUser.role == 'buyer'">
-                <small class="navbar__user-name">
-                  Hello,
-                </small>
-                <span class="navbar__vendor-amount">{{ loggedInUser.username }}</span>
-              </ng-container>
+              <small class="navbar__user-name">
+                Hello,
+              </small>
+              <span class="navbar__vendor-amount">{{ loggedInUser.username }}</span>
             </a>
             <ul class="user-dropdown" *ngIf="loggedInUser.role == 'vendor' || loggedInUser.role == 'admin'">
               <li class="user-dropdown__header">Account</li>
@@ -69,9 +61,15 @@
               <li class="user-dropdown__divider"></li>
               <li class="user-dropdown__header">Seller Dashboard</li>
               <li class="user-dropdown__item">
-                <a [routerLink]="['/dashboard']"><i class="ci-dollar"></i> Sales <span class="font-size-sm text-muted ms-auto">{{ (storeService.salesAmount$ | async) | currency}}</span>
-                </a>
+                <button (click)="openStripeDashboard()">
+                  <i class="ci-wallet"></i> Stripe Dashboard
+                </button>
               </li>
+              <!-- <li class="user-dropdown__item">
+                <a [routerLink]="['/dashboard']">
+                  <i class="ci-dollar"></i> Sales <span class="font-size-sm text-muted ms-auto">{{ (storeService.salesAmount$ | async) | currency}}</span>
+                </a>
+              </li> -->
               <ng-container *ngrxLet="storeService.myProducts$ as myProducts">
                 <li class="user-dropdown__item">
                   <a [routerLink]="['/dashboard/products']"><i class="ci-package"></i> Products <span class="font-size-sm text-muted ms-auto">{{ myProducts.length }}</span></a>
@@ -80,11 +78,8 @@
               <li class="user-dropdown__item">
                 <a [routerLink]="['/dashboard/analytics']"><i class="fal fa-chart-area"></i> My Products Statistics</a>
               </li>
-              <!--<li class="user-dropdown__item">
-                <a [routerLink]="['/dashboard/sales-reports']"><i class="ci-document"></i> Sales Reports</a>
-              </li>-->
               <li class="user-dropdown__item">
-                <a [routerLink]="['/dashboard/withdraw']"><i class="ci-currency-exchange"></i> Withdraw</a>
+                <a [routerLink]="['/dashboard/followers']"><i class="ci-heart"></i> Followers</a>
               </li>
               <li class="user-dropdown__item">
                 <a [routerLink]="['/dashboard/settings']"><i class="ci-settings"></i> Settings</a>
@@ -174,9 +169,9 @@
       </div>
       <div class="navbar__content">
         <div class="browse">
-          <span class="browse__toggle">
+          <a [routerLink]="['/shop']" class="browse__toggle">
             <i class="ci-menu"></i> Browse
-          </span>
+          </a>
           <ul class="browse__dropdown">
             <li class="browse__item">
               <span>Grades</span>
@@ -236,8 +231,16 @@
           </ul>
         </div>
         <div class="navbar__search">
-          <input type="text" class="search classic-input" placeholder="Search for products">
-          <button class="search__button"><i class="ci-search"></i></button>
+          <input
+            type="text"
+            class="search classic-input"
+            placeholder="Search for products"
+            (keyup.enter)="search()"
+            [formControl]="searchFormControl"
+            #searchInput>
+          <button type="button" class="search__button" (click)="search()">
+            <i class="ci-search"></i>
+          </button>
         </div>
       </div>
     </div>
