@@ -30,7 +30,6 @@ export interface IProduct {
 
 export interface ICartItem {
   id?: number;
-	quantity: number;
 	product: IProduct;
 }
 

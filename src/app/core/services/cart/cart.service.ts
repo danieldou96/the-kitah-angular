@@ -2,10 +2,11 @@ import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { LOCAL_STORAGE } from '@ng-web-apis/common';
 import { HotToastService } from '@ngneat/hot-toast';
-import { combineLatest, first, map, merge, Observable, of, ReplaySubject, scan, shareReplay, startWith, Subject, switchMap, tap, withLatestFrom } from 'rxjs';
+import { combineLatest, first, map, merge, Observable, of, scan, shareReplay, startWith, Subject, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ICartItem } from 'src/app/shared/models/product';
 import { AuthService } from '../../authentication/auth.service';
 import { ApiService } from '../../http/api.service';
+import cryptoRandomString from 'crypto-random-string';
 
 export interface CartTotals {
   subTot: number;
@@ -59,17 +60,7 @@ export class CartService {
         if (!!item) {
           // Remove item
           if (item.remove) {
-            return acc.filter(i => i.product.id !== item.product.id);
-          }
-
-          // Update existing item quantity
-          const itemIndex = acc.findIndex(i => i.product.id == item.product.id);
-          if (itemIndex >= 0) {
-            acc[itemIndex] = {
-              ...acc[itemIndex],
-              quantity: acc[itemIndex].quantity + 1
-            };
-            return acc;
+            return acc.filter(i => i.id !== item.id);
           }
 
           // Insert new item
@@ -102,7 +93,7 @@ export class CartService {
       map(cartItems => {
         let total: number = 0;
         cartItems.forEach(i => {
-          total += i.product.price * i.quantity;
+          total += i.product.price;
         });
         return total;
       })
@@ -111,7 +102,10 @@ export class CartService {
   }
 
   addCartItem(item: CartItem) {
-    this.cartAdd$.next(item);
+    this.cartAdd$.next({
+      id: Number(cryptoRandomString({length: 10, type: 'numeric'})),
+      ...item
+    });
   }
   
   removeCartItem(item: CartItem) {

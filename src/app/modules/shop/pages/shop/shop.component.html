@@ -93,7 +93,7 @@
                   <div class="list-view__product-format">
                     <i class="ci-document"></i> {{ product.format | uppercase }}
                   </div>
-                  <button type="button" (click)="cartService.addCartItem({ quantity: 1, product })" class="list-view__product-add-to-cart"><i class="ci-cart"></i> Add to cart</button>
+                  <button type="button" (click)="cartService.addCartItem({ product })" class="list-view__product-add-to-cart"><i class="ci-cart"></i> Add to cart</button>
                 </div>
               </div>
             </div>

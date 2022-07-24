@@ -13,7 +13,6 @@ export interface IOrder {
 
 export interface IOrderItem {
   id?: number;
-	quantity: number;
 	price: number;
   productId: number;
 	product: IProduct;

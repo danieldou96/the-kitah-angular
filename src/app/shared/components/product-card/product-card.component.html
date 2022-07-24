@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="card-body card-body-hidden">
-				<button (click)="cartService.addCartItem({ quantity: 1, product })" class="classic-button">
+				<button (click)="cartService.addCartItem({ product })" class="classic-button">
 					<i class="ci-cart font-size-sm me-1"></i> Add to cart
 				</button>
 			</div>
@@ -43,7 +43,7 @@
 						<i class="ci-eye"></i>
 					</a>
 					<a
-						(click)="cartService.addCartItem({ quantity: 1, product })"
+						(click)="cartService.addCartItem({ product })"
 						class="btn btn-light btn-icon btn-shadow mx-2 button product_type_simple add_to_cart_button ajax_add_to_cart">
 						<i class="ci-cart font-size-base"></i>
 					</a>
@@ -110,7 +110,7 @@
             </div>
           </div>
           <div class="card-body card-body-hidden">
-						<button (click)="cartService.addCartItem({ quantity: 1, product })" class="classic-button">
+						<button (click)="cartService.addCartItem({ product })" class="classic-button">
 							<i class="ci-cart font-size-sm me-1"></i> Add to cart
 						</button>
 					</div>

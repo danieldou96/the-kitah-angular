@@ -29,7 +29,7 @@
 							<span class="handheld-toolbar__icon">
 									<i class="ci-cart"></i>
 									<span class="handheld-toolbar__cart-pill">
-										{{ (cart | pluck: 'quantity') | sum }}
+										{{ cart.length }}
 									</span>
 							</span>
 							<span class="handheld-toolbar__label">{{ (cartService.cartTotal$ | async) | currency }}</span>

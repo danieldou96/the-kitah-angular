@@ -16,7 +16,7 @@ export class WishlistComponent {
   ) { }
 
   addToCart(product: IProduct) {
-    this.cartService.addCartItem({ quantity: 1, product });
+    this.cartService.addCartItem({ product });
     this.wishlistService.removeWishlistItem(product);
   }
 }

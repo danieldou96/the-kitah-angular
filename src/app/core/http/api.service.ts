@@ -241,8 +241,7 @@ export class ApiService {
     const url = this.apiUrl + `/cart/update`;
     return this.http.put(url, {
       cartItems: cartItems.map(i => ({
-        productId: i.product.id,
-        quantity: i.quantity
+        productId: i.product.id
       }))
     });
   }
