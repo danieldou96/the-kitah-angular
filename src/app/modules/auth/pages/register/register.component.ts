@@ -9,6 +9,7 @@ import { conditionalValidator } from 'src/app/shared/validators/validators';
 import slugify from 'slugify';
 import { first } from 'rxjs';
 import { countries, IState, StatesAU, StatesCA, StatesUS } from 'src/app/shared/data/phone-country-code';
+import { DocumentService } from 'src/app/core/services/document/document.service';
 
 @UntilDestroy()
 @Component({
@@ -36,6 +37,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private documentService: DocumentService,
     private router: Router,
     private authService: AuthService
   ) { }
@@ -145,6 +147,7 @@ export class RegisterComponent implements OnInit {
           control.updateValueAndValidity({ onlySelf: true });
         }
       });
+      this.documentService.scrollToError();
       return;
     }
 

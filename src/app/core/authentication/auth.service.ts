@@ -111,7 +111,7 @@ export class AuthService {
 	public register(registerForm: any): Observable<ApiResponse<{ token: string; stripeAccountLink: string; }>> {
 		const url = `${environment.apiUrl}/auth/register`;
 		return this.http.post<ApiResponse<{ token: string; stripeAccountLink: string; }>>(url, registerForm).pipe(
-			catchError(err => of(err)),
+			catchError(err => of(err.error)),
 			tap(apiResponse => {
 				if (apiResponse.data?.token) {
 					const user = decodeJwtData<User>(apiResponse.data.token);

@@ -41,8 +41,7 @@ export class DocumentService {
 	/** @description Scroll to the selector corresponding to the errors in the form */
 	public scrollToError() {
 		const firstElementWithError = this.document
-			.querySelector('.ng-invalid[formControlName]')
-			?.parentElement?.parentElement?.querySelector('.invalid-feedback');
+			.querySelector('.ng-invalid[formControlName]');
 
 		this._scrollTo(firstElementWithError!);
 	}
