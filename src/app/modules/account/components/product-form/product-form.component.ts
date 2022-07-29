@@ -54,7 +54,8 @@ export class ProductFormComponent implements OnInit {
       grades: new FormControl(this.product?.grades?.map(g => g.id) ?? [], [Validators.required, Validators.minLength(1)]),
       subjects: new FormControl(this.product?.subjects?.map(s => s.id) ?? [], [Validators.required, Validators.minLength(1)]),
       resourceTypes: new FormControl(this.product?.resourceTypes?.map(r => r.id) ?? [], [Validators.required, Validators.minLength(1)]),
-      description: new FormControl(this.product?.description ?? null, [Validators.required])
+      description: new FormControl(this.product?.description ?? null, [Validators.required]),
+      myOwn: new FormControl(false, [Validators.requiredTrue])
     });
     this.form.controls['previewsType'].valueChanges.pipe(
       untilDestroyed(this)

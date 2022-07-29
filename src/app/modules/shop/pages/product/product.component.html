@@ -152,7 +152,7 @@
           <mat-tab label="Description">
             <div [innerHTML]="product.description"></div>
           </mat-tab>
-          <mat-tab [label]="'Reviews (' + (product.reviews?.length! | shortNumber) + ')'">
+          <mat-tab [label]="'Reviews (' + ((product.reviews?.length! | shortNumber) ?? 0) + ')'">
             <div class="cartzilla-tab-content">
               <div class="tab-content pt-2">
                 <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--reviews panel entry-content wc-tab m-0">

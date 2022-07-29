@@ -1,5 +1,8 @@
-<ng-container *ngrxLet="loggedInUser$ as loggedInUser">
-	<aside *ngIf="loggedInUser?.role == 'buyer'" class="col-lg-4 pt-4 pt-lg-0">
+<div
+	*ngrxLet="loggedInUser$ as loggedInUser"
+	class="account-side-menu"
+	[ngClass]="loggedInUser?.role == 'buyer' ? 'col-lg-4 pt-4 pt-lg-0' : 'col-lg-4 ps-0'">
+	<aside *ngIf="loggedInUser?.role == 'buyer'" class="account-side-menu--buyer">
 		<div class="cz-sidebar-static rounded-lg box-shadow-lg px-0 pb-0 mb-5 mb-lg-0">
 			<div class="px-4 mb-4">
 				<div class="media align-items-center">
@@ -67,7 +70,7 @@
 			</nav>
 		</div>
 	</aside>
-	<aside *ngIf="loggedInUser?.role == 'vendor' || loggedInUser?.role == 'admin'" class="col-lg-4 ps-0">
+	<aside *ngIf="loggedInUser?.role == 'vendor' || loggedInUser?.role == 'admin'" class="account-side-menu--vendor">
 		<div class="d-block d-lg-none p-4">
 			<button class="btn btn-outline-accent d-block w-100" (click)="toggleMobileMenu()">
 				<i class="ci-menu me-2"></i>
@@ -147,4 +150,4 @@
 		  </div>
 		</div>
 	</aside>
-</ng-container>
+</div>

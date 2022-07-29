@@ -323,8 +323,39 @@ a {
   }
 
   &__search {
-    width: 100%;
+    flex: 1;
     position: relative;
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+
+    @media (min-width: 992px) {
+      flex-direction: row;
+    }
+  }
+
+  &__menu-item {
+    @media (min-width: 992px) {
+      margin-bottom: 0;
+    }
+  }
+
+  &__menu-link {
+    display: block;
+    color: #4b566b;
+    transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out, border-color 0.25s ease-in-out;
+
+    @media (min-width: 992px) {
+      padding-top: 1.125rem;
+      padding-bottom: 0.875rem;
+      padding-right: 1.125rem;
+      padding-left: 1.125rem;
+    }
   }
 }
 

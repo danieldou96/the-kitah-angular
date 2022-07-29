@@ -1,4 +1,4 @@
-<ng-container *ngrxLet="favoriteSellersService.favoriteSellers$ as favoriteSellers">
+<div class="favorite-sellers" *ngrxLet="favoriteSellersService.favoriteSellers$ as favoriteSellers">
   <div class="seller-listing-content" *ngIf="favoriteSellers.length == 0">
     <p class="dokan-error">No vendor found!</p>
   </div>
@@ -41,4 +41,4 @@
       </ul> 
     </div>
   </div>
-</ng-container>
+</div>

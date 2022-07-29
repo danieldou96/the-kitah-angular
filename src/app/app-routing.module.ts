@@ -33,6 +33,11 @@ const routes: Routes = [
   {
 		path: '',
 		loadChildren: () =>
+			import('./modules/static/static.module').then((m) => m.StaticModule),
+	},
+  {
+		path: '',
+		loadChildren: () =>
 			import('./modules/shop/shop.module').then((m) => m.ShopModule),
 	},
   {

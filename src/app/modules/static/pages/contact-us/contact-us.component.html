@@ -1,0 +1,50 @@
+<app-page-title title="Contact Us"></app-page-title>
+<div class="container pt-5 bt-2 pb-5 mb-2 mb-md-4">
+  <div class="row">
+    <div class="col-md-8 mx-md-auto">
+      <div class="card border-0 box-shadow">
+        <div class="card-body p-4">
+          <h2>Send us a message</h2>
+					<p>
+						You can send us a message via the form below or by Email at <a href="mailto:info@thekitah.com" target="_blank">info@thekitah.com</a>
+					</p>
+          <form [formGroup]="contactForm" (submit)="submit()" errorTailor>
+            <div class="row mb-2">
+              <div class="col-6">
+                <label>First Name <span class="text-danger">*</span></label>
+                <input class="classic-input" type="text" formControlName="firstname">
+              </div>
+              <div class="col-6">
+                <label>Last Name <span class="text-danger">*</span></label>
+                <input class="classic-input" type="text" formControlName="lastname">
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-12">
+                <label>Email <span class="text-danger">*</span></label>
+                <input class="classic-input" type="email" formControlName="email">
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-12">
+                <label>Subject <span class="text-danger">*</span></label>
+                <input class="classic-input" type="text" formControlName="subject">
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-12">
+                <label>Message <span class="text-danger">*</span></label>
+                <textarea class="classic-input" type="text" rows="4" formControlName="message"></textarea>
+              </div>
+            </div>
+            <div class="text-end pt-3">
+              <button type="submit" class="classic-button">
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

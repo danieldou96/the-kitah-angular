@@ -4,22 +4,20 @@
     <div class="row">
       <app-account-side-menu></app-account-side-menu>
       <section class="col-lg-8">
-        <div class="woocommerce-MyAccount-content">
-          <div class="d-flex justify-content-end align-items-center pt-lg-2 pb-4 pb-lg-5 mb-lg-3">
-            <a class="classic-button" (click)="logout()">
-              <i class="ci-sign-out me-2"></i> Logout
-            </a>
-          </div>
-          <router-outlet></router-outlet>
+        <div class="d-flex justify-content-end align-items-center pt-lg-2 pb-4 pb-lg-5 mb-lg-3">
+          <a class="classic-button" (click)="logout()">
+            <i class="ci-sign-out me-2"></i> Logout
+          </a>
         </div>
+        <router-outlet></router-outlet>
       </section>
     </div>
   </div>
   <div *ngIf="loggedInUser?.role == 'vendor' || loggedInUser?.role == 'admin'" class="container mb-5 pb-3">
-		<div class="dashboard-container">
+		<div class="dashboard">
 			<app-account-side-menu></app-account-side-menu>
-			<section class="col-lg-8 dahsboard-page-container">
-				<div class="dashboard-page">
+			<section class="col-lg-8 dashboard__container">
+				<div class="dashboard__page">
 					<router-outlet></router-outlet>
 				</div>
 			</section>

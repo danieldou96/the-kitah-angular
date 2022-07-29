@@ -81,6 +81,8 @@ export class CheckoutComponent implements OnInit {
       zipcode: new FormControl(this.billing?.zipcode ?? undefined),
       phone: new FormControl(this.billing?.phone ?? undefined),
       terms: new FormControl(false, [Validators.requiredTrue]),
+      noRefunds: new FormControl(false, [Validators.requiredTrue]),
+      personalUse: new FormControl(false, [Validators.requiredTrue]),
       saveForFuture: new FormControl(false),
     });
 

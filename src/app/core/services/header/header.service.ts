@@ -2,7 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { WINDOW } from '@ng-web-apis/common';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { BehaviorSubject, combineLatest, distinct, distinctUntilChanged, fromEvent, map, Observable, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, distinctUntilChanged, fromEvent, map, Observable } from 'rxjs';
 import { DocumentService } from '../document/document.service';
 
 @UntilDestroy()

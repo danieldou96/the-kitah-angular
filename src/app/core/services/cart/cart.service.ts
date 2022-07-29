@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { LOCAL_STORAGE } from '@ng-web-apis/common';
 import { HotToastService } from '@ngneat/hot-toast';
 import { combineLatest, first, map, merge, Observable, of, scan, shareReplay, startWith, Subject, switchMap, tap, withLatestFrom } from 'rxjs';
@@ -98,7 +97,7 @@ export class CartService {
         return total;
       })
     );
-    this.cartAdd$.subscribe(() => this.hotToastService.success('The product has been added to the cart'))
+    this.cartAdd$.subscribe(() => this.hotToastService.success('The product has been added to the cart'));
   }
 
   addCartItem(item: CartItem) {

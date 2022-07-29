@@ -13,8 +13,6 @@ import { WishlistComponent } from './pages/wishlist/wishlist.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { FollowersComponent } from './pages/followers/followers.component';
-import { ReviewsComponent } from './pages/reviews/reviews.component';
-import { SalesReportsComponent } from './pages/sales-reports/sales-reports.component';
 import { AnalyticsComponent } from './pages/analytics/analytics.component';
 import { NewProductComponent } from './pages/new-product/new-product.component';
 import { EditProductComponent } from './pages/edit-product/edit-product.component';
@@ -163,15 +161,6 @@ const vendorRoutes: Routes = [
         }
       },
       {
-        path: 'reviews',
-        canActivate: [StripeDetailsSubmittedGuard],
-        component: ReviewsComponent,
-        title: 'Reviews',
-        data: {
-          title: 'Reviews'
-        }
-      },
-      {
         path: 'followers',
         canActivate: [StripeDetailsSubmittedGuard],
         component: FollowersComponent,
@@ -215,8 +204,6 @@ const vendorRoutes: Routes = [
     DashboardComponent,
     ProductsComponent,
     FollowersComponent,
-    ReviewsComponent,
-    SalesReportsComponent,
     ResumeStripeFormComponent,
     AnalyticsComponent,
     NewProductComponent,

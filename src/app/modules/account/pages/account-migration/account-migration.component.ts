@@ -30,7 +30,7 @@ export class AccountMigrationComponent implements OnInit {
     private apiService: ApiService
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.migrationForm = this.fb.group({
       name: new FormControl('', [Validators.required, Validators.minLength(4)]),
       url: new FormControl('', [Validators.required, Validators.minLength(4)]),

@@ -239,3 +239,20 @@ a:hover {
   /*! CSS Used from: Embedded */
   #account-menu > ul > li > a > i:not(.opacity-60.mr-2){margin-right:0.5rem!important;opacity:.6!important;}
   /*! CSS Used fontfaces */
+
+  .account-side-menu {
+    //width: 100%;
+    padding: 0 15px;
+
+    &--buyer, &--vendor {
+      display: block;
+    }
+
+    &--buyer {
+
+    }
+    
+    &--vendor {
+      
+    }
+  }

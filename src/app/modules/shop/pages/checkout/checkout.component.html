@@ -6,7 +6,7 @@
       [formGroup]="checkoutForm"
       (submit)="submit()"
       ngxStripeCardGroup
-      [elementsOptions]="elementsOptions">
+      [elementsOptions]="elementsOptions" errorTailor>
       <div class="row">
         <section class="col-lg-8">
           <div class="d-flex justify-content-start align-items-center pt-3 pb-2 pb-md-3 my-1">
@@ -223,6 +223,16 @@
                           <a [routerLink]="['/terms']" class="woocommerce-terms-and-conditions-link" target="_blank">
                             terms and conditions <span class="required">*</span>
                           </a>
+                        </app-checkbox>
+                      </p>
+                      <p class="form-row validate-required">
+                        <app-checkbox formControlName="noRefunds">
+                          All sales are final sales-no refunds
+                        </app-checkbox>
+                      </p>
+                      <p class="form-row validate-required">
+                        <app-checkbox formControlName="personalUse">
+                          This purchase is for your personal use only in your classroom, you may not distribute to others
                         </app-checkbox>
                       </p>
                     </div>

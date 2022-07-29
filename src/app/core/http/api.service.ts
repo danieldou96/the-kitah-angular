@@ -265,6 +265,12 @@ export class ApiService {
   }
 
   /** @description Get updates list to be on the homepage */
+  public sendContactForm(contactForm: any): Observable<any> {
+    const url = this.apiUrl + `/contact`;
+    return this.http.post(url, contactForm);
+  }
+
+  /** @description Get updates list to be on the homepage */
   public submitReview(productId: number, reviewForm: { rate: number; text: string; }): Observable<any> {
     const url = this.apiUrl + `/reviews/`;
     return this.http.post<ApiResponse>(url, {

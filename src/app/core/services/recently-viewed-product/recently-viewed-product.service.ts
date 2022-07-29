@@ -1,14 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { LOCAL_STORAGE } from '@ng-web-apis/common';
-import { HotToastService } from '@ngneat/hot-toast';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { BehaviorSubject, combineLatest, first, map, merge, Observable, of, ReplaySubject, scan, shareReplay, startWith, Subject, switchMap, tap, withLatestFrom } from 'rxjs';
+import { combineLatest, first, map, Observable, of, scan, shareReplay, startWith, Subject, switchMap, tap, withLatestFrom } from 'rxjs';
 import { IRecentlyViewedProductItem } from 'src/app/shared/models/product';
 import { AuthService } from '../../authentication/auth.service';
 import { ApiService } from '../../http/api.service';
 
-@UntilDestroy()
 @Injectable({
   providedIn: 'root'
 })
@@ -21,7 +17,6 @@ export class RecentlyViewedProductService {
 
   constructor(
     private apiService: ApiService,
-    private router: Router,
     private authService: AuthService,
     @Inject(LOCAL_STORAGE) private localStorage: Storage
   ) {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { StoreService } from 'src/app/core/services/store/store.service';
 
 @Component({
@@ -6,11 +6,6 @@ import { StoreService } from 'src/app/core/services/store/store.service';
   templateUrl: './followers.component.html',
   styleUrls: ['./followers.component.scss']
 })
-export class FollowersComponent implements OnInit {
-
+export class FollowersComponent {
   constructor(public storeService: StoreService) { }
-
-  ngOnInit(): void {
-  }
-
 }

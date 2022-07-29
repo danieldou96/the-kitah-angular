@@ -1,26 +1,26 @@
-<ng-container *ngrxLet="storeService.followers$ as followers">
-  <div class="dokan-dashboard-content">
-    <h3 class="entry-title">Store Followers</h3>
-    <article class="dashboard-content-area">
-      <table class="dokan-table dokan-table-striped product-listing-table dokan-inline-editable-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngIf="followers.length == 0">
-            <td>
-              Your store does not have any follower. </td>
-          </tr>
-          <tr *ngFor="let follower of followers">
-            <td class="dokan-column-name-with-avatar">
-              <img [src]="follower.avatar ?? 'https://0.gravatar.com/avatar/3fed3483dab591b62319eac9511c6946?s=32&amp;d=mm&amp;r=g'" class="avatar avatar-32 photo" height="32" width="32" loading="lazy">
-              <span>{{ follower.name | titlecase }}</span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </article>
-  </div>
-</ng-container>
+<div class="followers" *ngrxLet="storeService.followers$ as followers">
+  <h3 class="followers__title">Store Followers</h3>
+  <table class="followers__table">
+    <thead>
+      <tr>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="followers.length == 0">
+        <td>Your store does not have any follower.</td>
+      </tr>
+      <tr *ngFor="let follower of followers">
+        <td>
+          <img
+            [src]="follower.avatar ?? 'https://0.gravatar.com/avatar/3fed3483dab591b62319eac9511c6946?s=32&amp;d=mm&amp;r=g'"
+            class="avatar avatar-32 photo"
+            height="32"
+            width="32"
+            loading="lazy">
+          <span>{{ follower.name | titlecase }}</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
