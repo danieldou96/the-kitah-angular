@@ -22,11 +22,11 @@ export class StripeDetailsSubmittedGuard implements CanActivate {
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.authService.isVendor$.pipe(
       switchMap(isVendor => {
-        /*if (isVendor) {
+        if (isVendor) {
           return this.apiService.checkIfStripeDetailsSubmitted();
-        } else {*/
+        } else {
           return of(true);
-        //}
+        }
       }),
       map(stripeDetailsSubmitted => {
         if (stripeDetailsSubmitted) {
