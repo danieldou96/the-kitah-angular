@@ -16,6 +16,7 @@ import { environment } from 'src/environments/environment';
 import { ErrorTailorModule } from '@ngneat/error-tailor';
 import { CookieService } from 'ngx-cookie-service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { ErrorInterceptor } from './core/interceptors/error/error.interceptor';
 import * as Hammer from '@egjs/hammerjs';
 
 @Injectable()
@@ -77,6 +78,11 @@ export class HammerConfig extends HammerGestureConfig {
       useClass: JwtInterceptor,
       multi: true
     },
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: ErrorInterceptor,
+			multi: true
+		},
     CookieService
   ],
   bootstrap: [AppComponent]

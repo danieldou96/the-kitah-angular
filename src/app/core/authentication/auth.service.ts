@@ -128,9 +128,7 @@ export class AuthService {
 							token: apiResponse.data.token,
 							user
 						});
-						if (user.role == ERoles.Vendor && apiResponse.data.stripeAccountLink) {
-							this.window.location.replace(apiResponse.data.stripeAccountLink);
-						}
+						this.router.navigateByUrl('/');
 						// Set automatically logout
 						this.expirationCounter(apiResponse.data.token);
 					}
