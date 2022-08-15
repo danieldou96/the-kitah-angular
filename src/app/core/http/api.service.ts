@@ -219,11 +219,9 @@ export class ApiService {
   }
 
   /** @description Get updates list to be on the homepage */
-  public getStripeDashboardLink(): Observable<string> {
+  public getStripeDashboardLink(): Observable<ApiResponse<string>> {
     const url = this.apiUrl + `/store/stripe-dashboard`;
-    return this.http.get<ApiResponse<string>>(url).pipe(
-      map(apiResponse => apiResponse.data)
-    );
+    return this.http.get<ApiResponse<string>>(url);
   }
 
   /** @description Get updates list to be on the homepage */

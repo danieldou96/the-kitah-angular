@@ -26,6 +26,5 @@ export interface IBilling {
   state?: string;
   zipcode: string;
   country: string;
-  phone: string;
   sourceId: string;
 }

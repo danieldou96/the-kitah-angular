@@ -13,8 +13,10 @@ import { HttpCacheInterceptorModule } from '@ngneat/cashew';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { NgxStripeModule } from 'ngx-stripe';
 import { environment } from 'src/environments/environment';
-import * as Hammer from '@egjs/hammerjs';
 import { ErrorTailorModule } from '@ngneat/error-tailor';
+import { CookieService } from 'ngx-cookie-service';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import * as Hammer from '@egjs/hammerjs';
 
 @Injectable()
 export class HammerConfig extends HammerGestureConfig {
@@ -45,6 +47,10 @@ export class HammerConfig extends HammerGestureConfig {
       }
     }),
     CoreModule,
+    NgxSkeletonLoaderModule.forRoot({
+      animation: 'pulse',
+      loadingText: 'Loading...'
+    }),
     HttpClientModule,
     SharedModule,
     HammerModule,
@@ -70,7 +76,8 @@ export class HammerConfig extends HammerGestureConfig {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true
-    }
+    },
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

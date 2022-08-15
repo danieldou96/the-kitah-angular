@@ -124,6 +124,11 @@
 	&__social-menu-link {
 		color: #fff;
 		text-decoration: none;
+		display: flex;
+		align-items: center;
+		height: 100%;
+		width: 100%;
+		justify-content: center;
 	}
 
 	&__links-item, &__links-link {

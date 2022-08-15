@@ -2,8 +2,10 @@ import { ChangeDetectionStrategy, Component, ElementRef, Inject, ViewChild } fro
 import { FormControl } from '@angular/forms';
 import { Router, Event, NavigationEnd } from '@angular/router';
 import { WINDOW } from '@ng-web-apis/common';
+import { HotToastService } from '@ngneat/hot-toast';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { filter, first, map, Observable } from 'rxjs';
+import { catchError, combineLatest, filter, first, map, Observable, of, switchMap } from 'rxjs';
+import { ApiResponse } from 'src/app/shared/models/api-response';
 import { ICartItem, IProduct } from 'src/app/shared/models/product';
 import { User } from 'src/app/shared/models/user';
 import { AuthService } from '../authentication/auth.service';
@@ -39,6 +41,7 @@ export class HeaderComponent {
     public storeService: StoreService,
     public cartService: CartService,
     public wishlistService: WishlistService,
+    public hotToastService: HotToastService,
     @Inject(WINDOW) private window: Window
   ) {
     this.stickyHeader$ = this.headerService.stickyHeader$;
@@ -72,6 +75,21 @@ export class HeaderComponent {
   }
 
   openStripeDashboard() {
-    this.apiService.getStripeDashboardLink().pipe(first()).subscribe(link => this.window.open(link, '_blank'));
+    this.apiService.getStripeDashboardLink().pipe(
+      first(),
+      catchError(err => of(err.error)),
+      switchMap(apiResponse => combineLatest([
+        of(apiResponse),
+        this.apiService.stripeAccountLink()
+      ]))
+    ).subscribe(([apiResponse, stripeAccountLink]: [ApiResponse<string>, string]) => {
+      if (apiResponse.statusCode !== 200) {
+        this.hotToastService.error(`${apiResponse.message} <a target="_blank" href="${stripeAccountLink}">Click here</a> to complete Stripe Onboarding.`, {
+          duration: 6000
+        });
+      } else {
+        this.window.open(apiResponse.data, '_blank');
+      }
+    });
   }
 }

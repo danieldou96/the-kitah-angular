@@ -1,6 +1,6 @@
 import { NgModule, Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot, Routes, TitleStrategy } from '@angular/router';
+import { RouterModule, RouterStateSnapshot, Routes, TitleStrategy } from '@angular/router';
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
 
 @Injectable()
@@ -56,11 +56,11 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
     initialNavigation: 'enabledBlocking',
-		relativeLinkResolution: 'legacy',
-		scrollPositionRestoration: 'enabled',
-		onSameUrlNavigation: 'reload'
-		//enableTracing: true
-	})],
+    relativeLinkResolution: 'legacy',
+    scrollPositionRestoration: 'enabled',
+    onSameUrlNavigation: 'reload'
+    //enableTracing: true
+})],
   exports: [RouterModule],
   providers: [
     {

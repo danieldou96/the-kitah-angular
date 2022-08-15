@@ -10,5 +10,4 @@ export class PageTitleComponent {
   @Input() store?: boolean;
   @Input() avatar?: string;
   @Input() memberSince?: Date;
-  @Input() sales?: number;
 }

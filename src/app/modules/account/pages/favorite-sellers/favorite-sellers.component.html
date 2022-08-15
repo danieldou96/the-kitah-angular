@@ -1,6 +1,6 @@
 <div class="favorite-sellers" *ngrxLet="favoriteSellersService.favoriteSellers$ as favoriteSellers">
   <div class="seller-listing-content" *ngIf="favoriteSellers.length == 0">
-    <p class="dokan-error">No vendor found!</p>
+    <p class="dokan-error">No vendors found!</p>
   </div>
   <div *ngIf="favoriteSellers.length > 0" id="dokan-seller-listing-wrap" class="grid-view">
     <div class="seller-listing-content">

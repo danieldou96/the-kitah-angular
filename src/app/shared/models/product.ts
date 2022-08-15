@@ -98,7 +98,6 @@ export interface IStore {
   country: string;
   avatar?: string;
   banner?: string;
-	phone: string;
   state: string;
   city: string;
   description: string;

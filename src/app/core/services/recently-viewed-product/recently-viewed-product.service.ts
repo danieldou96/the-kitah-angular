@@ -1,5 +1,5 @@
-import { Inject, Injectable } from '@angular/core';
-import { LOCAL_STORAGE } from '@ng-web-apis/common';
+import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { combineLatest, first, map, Observable, of, scan, shareReplay, startWith, Subject, switchMap, tap, withLatestFrom } from 'rxjs';
 import { IRecentlyViewedProductItem } from 'src/app/shared/models/product';
 import { AuthService } from '../../authentication/auth.service';
@@ -18,7 +18,7 @@ export class RecentlyViewedProductService {
   constructor(
     private apiService: ApiService,
     private authService: AuthService,
-    @Inject(LOCAL_STORAGE) private localStorage: Storage
+    private cookieService: CookieService
   ) {
     this._recentlyViewedProductsAdd$ = this._recentlyViewedProductsAddSubject$.pipe(
       startWith(null),
@@ -32,7 +32,7 @@ export class RecentlyViewedProductService {
           if (loggedInUser) {
             return this.apiService.getRecentlyViewedProducts();
           } else {
-            return of(JSON.parse(this.localStorage.getItem('recentlyViewedProducts') ?? '[]') as IRecentlyViewedProductItem[]);
+            return of(JSON.parse(this.cookieService.check('recentlyViewedProducts') ? this.cookieService.get('recentlyViewedProducts') : '[]') as IRecentlyViewedProductItem[]);
           }
         })
       )
@@ -53,7 +53,7 @@ export class RecentlyViewedProductService {
         }
 
         if (!loggedInUser) {
-          this.localStorage.setItem('recentlyViewedProducts', JSON.stringify(newRecentlyViewedProductsValue));
+          this.cookieService.set('recentlyViewedProducts', JSON.stringify(newRecentlyViewedProductsValue));
         } else {
           this.apiService.updateRecentlyViewedProducts(newRecentlyViewedProductsValue).pipe(
             first()

@@ -14,7 +14,7 @@
             <option value="title-asc">A - Z Order</option>
             <option value="title-desc">Z - A Order</option>
           </select>
-          <span class="shop-header__total-products">of {{ currentPage?.totalElements }} products </span>
+          <span class="shop-header__total-products">of {{ currentPage.totalElements }} products </span>
         </div>
         <div class="shop-header__pagination">
           <button class="shop-header__pagination-nav" *ngIf="currentPage?.current?.page != 1 && currentPage?.elements?.length! > 0" (click)="prevPage()">
@@ -37,108 +37,203 @@
         </div>
       </div>
       
-      <div *ngIf="true && currentPage?.elements?.length! > 0" class="list-view">
-        <ul class="list-view__products-list">
-          <li *ngFor="let product of currentPage?.elements" class="list-view__product-container">
-            <div class="list-view__product-card">
-              <div class="list-view__product">
-                <div class="list-view__product-image-container">
-                  <a class="list-view__product-image-link" [routerLink]="['/product/' + product.id]">
-                    <img width="350" height="263"
-                    [src]="product.mainPicture?.url ?? 'assets/img/product-placeholder.png'"
-                    class="list-view__product-image" loading="lazy">
-                  </a>
-                </div>
-                <div class="list-view__product-content">
-                  <div class="list-view__product-name">
-                    <a [routerLink]="['/product/' + product.id]">
-                      {{ product.name | titlecase }}
-                    </a>
+      <ng-container *ngIf="!currentPage">
+        <div class="list-view">
+          <ul class="list-view__products-list">
+            <li *ngFor="let number of [0,1,2,3,4]" class="list-view__product-container">
+              <div class="list-view__product-card">
+                <div class="list-view__product">
+                  <div class="list-view__product-image-container">
+                    <ngx-skeleton-loader
+                      count="1"
+                      appearance="line"
+                      [theme]="{ 'border-radius': '6px', height: '200px', width: '230px' }">
+                    </ngx-skeleton-loader>
                   </div>
-                  <div class="list-view__store">
-                    By <a [routerLink]="['/store/' + product.store?.url]" class="list-view__store-link">{{ product.store?.name }}</a>
-                  </div>
-                  <div class="list-view__product-description" [innerHTML]="product.description">
-                  </div>
-                  <div class="list-view__product-categories">
-                    <div class="list-view__product-grades">
-                      <span>Grades:</span> {{ (product.grades | pluck:'name').join(', ') }}
+                  <div class="list-view__product-content">
+                    <div class="list-view__product-name">
+                      <ngx-skeleton-loader
+                        count="1"
+                        appearance="line"
+                        [theme]="{ height: '27px', margin: '0px' }">
+                      </ngx-skeleton-loader>
                     </div>
-                    <div class="list-view__product-subjects">
-                      <span>Subjects:</span> {{ (product.subjects | pluck:'name').join(', ') }}
+                    <div class="list-view__store">
+                      <ngx-skeleton-loader
+                        count="1"
+                        appearance="line"
+                        [theme]="{ height: '22px' }">
+                      </ngx-skeleton-loader>
                     </div>
-                    <div class="list-view__product-resource-types">
-                      <span>Resource Types:</span> {{ (product.resourceTypes | pluck:'name').join(', ') }}
+                    <div class="list-view__product-description">
+                      <ngx-skeleton-loader
+                        count="3"
+                        appearance="line"
+                        [theme]="{ height: '15px', margin: '0px' }">
+                      </ngx-skeleton-loader>
+                    </div>
+                    <div class="list-view__product-categories">
+                      <div class="list-view__product-grades">
+                        <ngx-skeleton-loader
+                          count="1"
+                          appearance="line"
+                          [theme]="{ height: '19px', margin: '0px' }">
+                        </ngx-skeleton-loader>
+                      </div>
+                      <div class="list-view__product-subjects">
+                        <ngx-skeleton-loader
+                          count="1"
+                          appearance="line"
+                          [theme]="{ height: '19px', margin: '0px' }">
+                        </ngx-skeleton-loader>
+                      </div>
+                      <div class="list-view__product-resource-types">
+                        <ngx-skeleton-loader
+                          count="1"
+                          appearance="line"
+                          [theme]="{ height: '19px', margin: '0px' }">
+                        </ngx-skeleton-loader>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="list-view__product-details">
-                  <div class="list-view__product-price">
-                    <span *ngIf="product.price > 0">{{ product.price | currency }}</span>
-                    <span *ngIf="product.price == 0">Free</span>
+                  <div class="list-view__product-details">
+                    <div class="list-view__product-price">
+                      <ngx-skeleton-loader
+                        count="1"
+                        appearance="line"
+                        [theme]="{ height: '24px', width: '70px', margin: '0px' }">
+                      </ngx-skeleton-loader>
+                    </div>
+                    <div class="list-view__product-stars">
+                      <ngx-skeleton-loader
+                        count="1"
+                        appearance="line"
+                        [theme]="{ height: '24px', width: '160px', margin: '0px' }">
+                      </ngx-skeleton-loader>
+                    </div>
+                    <div class="list-view__product-format">
+                      <ngx-skeleton-loader
+                        count="1"
+                        appearance="line"
+                        [theme]="{ height: '24px', width: '90px', margin: '0px' }">
+                      </ngx-skeleton-loader>
+                    </div>
+                    <button type="button" class="list-view__product-add-to-cart">
+                      <i class="ci-cart"></i> Add to cart
+                    </button>
                   </div>
-                  <div class="list-view__product-stars" *ngIf="product.rating">
-                    <bar-rating [rate]="product.rating" [max]="5" [readOnly]="true">
-                      <ng-template ratingActive>
-                        <i class="ci-star-filled"></i>
-                      </ng-template>
-                      <ng-template ratingInactive>
-                        <i class="ci-star"></i>
-                      </ng-template>
-                      <ng-template ratingFraction>
-                        <i class="ci-star-half"></i>
-                      </ng-template>
-                    </bar-rating> {{ product.ratingCount! | shortNumber }}
-                  </div>
-                  <div class="list-view__product-format">
-                    <i class="ci-document"></i> {{ product.format | uppercase }}
-                  </div>
-                  <button type="button" (click)="cartService.addCartItem({ product })" class="list-view__product-add-to-cart"><i class="ci-cart"></i> Add to cart</button>
                 </div>
               </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div *ngIf="false && currentPage?.elements?.length! > 0" class="grid-view">
-      </div>
-      <div *ngIf="!currentPage?.elements?.length" class="container text-center py-5 my-2 my-md-4">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJAAAACuCAIAAABWVBMyAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA5xpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ1IDc5LjE2MzQ5OSwgMjAxOC8wOC8xMy0xNjo0MDoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpCNDNGNDRCMTBFQTQxMUVBODBCM0Q4MDExMTYzNDlEMyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpCNDNGNDRCMDBFQTQxMUVBODBCM0Q4MDExMTYzNDlEMyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOSBNYWNpbnRvc2giPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0iRTYwMTcxRTY4QkI1Njc3RjgwNEE4QkYyODkyRTgwNjgiIHN0UmVmOmRvY3VtZW50SUQ9IkU2MDE3MUU2OEJCNTY3N0Y4MDRBOEJGMjg5MkU4MDY4Ii8+IDxkYzpjcmVhdG9yPiA8cmRmOlNlcT4gPHJkZjpsaT5WZWN0b3JTdG9jay5jb20vMTc2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" width="72" class="d-block mx-auto mb-4" alt="No products found">
-        <p class="woocommerce-info pb-2">No products were found matching your selection.<br>Do you want to become the first seller of this product?</p>
-        <div class="no-products-actions">
-          <a class="classic-button" [routerLink]="['/dashboard/new-product']">
-            Sell your product
-          </a>
-          <button class="classic-button" (click)="resetFilters()">
-            Reset filters
-          </button>
+            </li>
+          </ul>
         </div>
-      </div>
-      <nav *ngIf="currentPage?.elements?.length! > 0" class="d-flex justify-content-between pt-2 cartzilla-shop-pagination w-100">
-        <ul class="pagination">
-          <li class="page-item">
-            <button *ngIf="currentPage?.current?.page != 1" class="page-link" (click)="prevPage()">
-              <i class="ci-arrow-left me-2"></i>Prev
+      </ng-container>
+      <ng-container *ngIf="currentPage">
+        <div *ngIf="true && currentPage.elements?.length! > 0" class="list-view">
+          <ul class="list-view__products-list">
+            <li *ngFor="let product of currentPage.elements" class="list-view__product-container">
+              <div class="list-view__product-card">
+                <div class="list-view__product">
+                  <div class="list-view__product-image-container">
+                    <a class="list-view__product-image-link" [routerLink]="['/product/' + product.id]">
+                      <img
+                        width="350"
+                        height="263"
+                        [src]="product.mainPicture?.url ?? 'assets/img/product-placeholder.png'"
+                        class="list-view__product-image" loading="lazy">
+                    </a>
+                  </div>
+                  <div class="list-view__product-content">
+                    <div class="list-view__product-name">
+                      <a [routerLink]="['/product/' + product.id]">
+                        {{ product.name | titlecase }}
+                      </a>
+                    </div>
+                    <div class="list-view__store">
+                      By <a [routerLink]="['/store/' + product.store?.url]" class="list-view__store-link">{{ product.store?.name }}</a>
+                    </div>
+                    <div class="list-view__product-description" [innerHTML]="product.description">
+                    </div>
+                    <div class="list-view__product-categories">
+                      <div class="list-view__product-grades">
+                        <span>Grades:</span> {{ (product.grades | pluck:'name').join(', ') }}
+                      </div>
+                      <div class="list-view__product-subjects">
+                        <span>Subjects:</span> {{ (product.subjects | pluck:'name').join(', ') }}
+                      </div>
+                      <div class="list-view__product-resource-types">
+                        <span>Resource Types:</span> {{ (product.resourceTypes | pluck:'name').join(', ') }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="list-view__product-details">
+                    <div class="list-view__product-price">
+                      <span *ngIf="product.price > 0">{{ product.price | currency }}</span>
+                      <span *ngIf="product.price == 0">Free</span>
+                    </div>
+                    <div class="list-view__product-stars" *ngIf="product.rating">
+                      <bar-rating [rate]="product.rating" [max]="5" [readOnly]="true">
+                        <ng-template ratingActive>
+                          <i class="ci-star-filled"></i>
+                        </ng-template>
+                        <ng-template ratingInactive>
+                          <i class="ci-star"></i>
+                        </ng-template>
+                        <ng-template ratingFraction>
+                          <i class="ci-star-half"></i>
+                        </ng-template>
+                      </bar-rating> {{ product.ratingCount! | shortNumber }}
+                    </div>
+                    <div class="list-view__product-format">
+                      <i class="ci-document"></i> {{ product.format | uppercase }}
+                    </div>
+                    <button type="button" (click)="cartService.addCartItem({ product })" class="list-view__product-add-to-cart"><i class="ci-cart"></i> Add to cart</button>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="false && currentPage.elements?.length! > 0" class="grid-view">
+        </div>
+        <div *ngIf="!currentPage.elements?.length" class="container text-center py-5 my-2 my-md-4">
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJAAAACuCAIAAABWVBMyAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA5xpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ1IDc5LjE2MzQ5OSwgMjAxOC8wOC8xMy0xNjo0MDoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpCNDNGNDRCMTBFQTQxMUVBODBCM0Q4MDExMTYzNDlEMyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpCNDNGNDRCMDBFQTQxMUVBODBCM0Q4MDExMTYzNDlEMyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOSBNYWNpbnRvc2giPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0iRTYwMTcxRTY4QkI1Njc3RjgwNEE4QkYyODkyRTgwNjgiIHN0UmVmOmRvY3VtZW50SUQ9IkU2MDE3MUU2OEJCNTY3N0Y4MDRBOEJGMjg5MkU4MDY4Ii8+IDxkYzpjcmVhdG9yPiA8cmRmOlNlcT4gPHJkZjpsaT5WZWN0b3JTdG9jay5jb20vMTc2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" width="72" class="d-block mx-auto mb-4" alt="No products found">
+          <p class="woocommerce-info pb-2">No products were found matching your selection.<br>Do you want to become the first seller of this product?</p>
+          <div class="no-products-actions">
+            <a class="classic-button" [routerLink]="['/dashboard/new-product']">
+              Sell your product
+            </a>
+            <button class="classic-button" (click)="resetFilters()">
+              Reset filters
             </button>
-          </li>
-        </ul>
-        <ul class="pagination">
-          <li class="page-item d-sm-none">
-            <span class="page-link page-link-static">1 / 2</span>
-          </li>
-          <li *ngFor="let pageNumber of pageNumbers" class="page-item d-none d-sm-block" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
-            <span *ngIf="pageNumber == currentPage?.current?.page" class="page-link current" [routerLink]="['./']">{{ pageNumber }}</span>
-            <a *ngIf="pageNumber != currentPage?.current?.page" class="page-link" [routerLink]="['./']" [queryParams]="{ page: pageNumber }" queryParamsHandling="merge">{{ pageNumber }}</a>
-          </li>
-        </ul>
-        <ul class="pagination">
-          <li class="page-item">
-            <button *ngIf="currentPage?.current?.page != currentPage?.totalPages" class="page-link" (click)="nextPage()">
-              Next <i class="ci-arrow-right ms-2"></i>
-            </button>
-          </li>
-        </ul>
-      </nav>
+          </div>
+        </div>
+        <nav *ngIf="currentPage.elements?.length! > 0" class="d-flex justify-content-between pt-2 cartzilla-shop-pagination w-100">
+          <ul class="pagination">
+            <li class="page-item">
+              <button *ngIf="currentPage.current?.page != 1" class="page-link" (click)="prevPage()">
+                <i class="ci-arrow-left me-2"></i>Prev
+              </button>
+            </li>
+          </ul>
+          <ul class="pagination">
+            <li class="page-item d-sm-none">
+              <span class="page-link page-link-static">1 / 2</span>
+            </li>
+            <li *ngFor="let pageNumber of pageNumbers" class="page-item d-none d-sm-block" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
+              <span *ngIf="pageNumber == currentPage.current?.page" class="page-link current" [routerLink]="['./']">{{ pageNumber }}</span>
+              <a *ngIf="pageNumber != currentPage.current?.page" class="page-link" [routerLink]="['./']" [queryParams]="{ page: pageNumber }" queryParamsHandling="merge">{{ pageNumber }}</a>
+            </li>
+          </ul>
+          <ul class="pagination">
+            <li class="page-item">
+              <button *ngIf="currentPage.current?.page != currentPage.totalPages" class="page-link" (click)="nextPage()">
+                Next <i class="ci-arrow-right ms-2"></i>
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </ng-container>
     </div>
     <div id="secondary" class="shop-sidebar col-lg-4" role="complementary">
       <div class="cz-sidebar rounded-lg box-shadow-lg" id="shop-sidebar">

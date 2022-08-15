@@ -8,8 +8,8 @@
 					width="350"
 					height="263"
 					class="woocommerce-placeholder wp-post-image"
-					[src]="product.mainPicture ?? 'assets/img/product-placeholder.png'"
-					alt="Placeholder"
+					[src]="product.mainPicture?.url ?? 'assets/img/product-placeholder.png'"
+					[alt]="product.name"
 					loading="lazy">
 			</a>
       <div class="card-body py-2">
@@ -54,7 +54,7 @@
 					height="263"
 					[src]="product.mainPicture?.url ?? 'assets/img/product-placeholder.png'"
 					class="woocommerce-placeholder wp-post-image"
-					alt="Placeholder"
+					[alt]="product.name"
 					loading="lazy">
 			</div>
 			<div class="card-body">
@@ -62,7 +62,7 @@
 					<div class="text-muted font-size-xs me-1">
 						<span class="cartzilla-store-name" *ngIf="product.store">
 							by <a class="product-meta font-weight-medium" [routerLink]="['/store/' + product.store?.url]">
-								{{ product.store?.name | titlecase }}
+								{{ product.store.name | titlecase }}
 							</a>
 						</span>
 					</div>
@@ -91,8 +91,8 @@
 						width="350"
 						height="263"
             class="woocommerce-placeholder wp-post-image"
-            [src]="product.mainPicture ?? 'assets/img/product-placeholder.png'"
-						alt="Placeholder"
+            [src]="product.mainPicture?.url ?? 'assets/img/product-placeholder.png'"
+						[alt]="product.name"
 						loading="lazy">
 				</a>
         <div class="card-body py-2">

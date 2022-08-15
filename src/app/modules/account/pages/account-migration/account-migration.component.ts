@@ -34,7 +34,6 @@ export class AccountMigrationComponent implements OnInit {
     this.migrationForm = this.fb.group({
       name: new FormControl('', [Validators.required, Validators.minLength(4)]),
       url: new FormControl('', [Validators.required, Validators.minLength(4)]),
-      phone: new FormControl('', [Validators.required]),
       country: new FormControl(null, [Validators.required]),
       zipcode: new FormControl(null ?? undefined),
       city: new FormControl(null ?? undefined),

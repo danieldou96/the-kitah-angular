@@ -125,7 +125,6 @@ const vendorRoutes: Routes = [
       },
       {
         path: 'products',
-        canActivate: [StripeDetailsSubmittedGuard],
         component: ProductsComponent,
         title: 'My products',
         data: {
@@ -135,7 +134,6 @@ const vendorRoutes: Routes = [
       },
       {
         path: 'new-product',
-        canActivate: [StripeDetailsSubmittedGuard],
         component: NewProductComponent,
         title: 'New product',
         data: {
@@ -144,7 +142,6 @@ const vendorRoutes: Routes = [
       },
       {
         path: 'edit-product/:id',
-        canActivate: [StripeDetailsSubmittedGuard],
         component: EditProductComponent,
         data: {
           title: 'Edit product'
@@ -162,7 +159,6 @@ const vendorRoutes: Routes = [
       },
       {
         path: 'followers',
-        canActivate: [StripeDetailsSubmittedGuard],
         component: FollowersComponent,
         title: 'Followers',
         data: {
@@ -171,7 +167,6 @@ const vendorRoutes: Routes = [
       },
       {
         path: 'settings',
-        canActivate: [StripeDetailsSubmittedGuard],
         component: SettingsComponent,
         resolve: { store: MyStoreResolver },
         title: 'Settings',

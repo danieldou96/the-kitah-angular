@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { LOCAL_STORAGE, WINDOW } from '@ng-web-apis/common';
+import { WINDOW } from '@ng-web-apis/common';
 import { HotToastService } from '@ngneat/hot-toast';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { CookieService } from 'ngx-cookie-service';
 import { catchError, first, map, merge, Observable, of, ReplaySubject, shareReplay, tap, timer } from 'rxjs';
 import { ERoles } from 'src/app/shared/enums/user';
 import { ApiResponse } from 'src/app/shared/models/api-response';
@@ -34,12 +35,12 @@ export class AuthService {
 		private hotToastService: HotToastService,
 		private http: HttpClient,
 		@Inject(WINDOW) private window: Window,
-		@Inject(LOCAL_STORAGE) private localStorage: Storage
+		private cookieService: CookieService
 	) {
 		this._loggedUserSubject$ = new ReplaySubject<UserToken | null>(1);
 		this.loggedInUser$ = merge(
 			this._loggedUserSubject$,
-			of(localStorage.getItem('currentUser')).pipe(
+			of(this.cookieService.get('currentUser')).pipe(
 				map(currentUserToken => currentUserToken ? {
 					token: currentUserToken,
 					user: decodeJwtData<User>(currentUserToken)!
@@ -87,8 +88,8 @@ export class AuthService {
 					const user = decodeJwtData<User>(apiResponse.token);
 					if (user) {
 						// Store user data in cookies
-						this.localStorage.setItem('currentUser', apiResponse.token);
-						this.localStorage.setItem('shoppingCart', '[]')
+						this.cookieService.set('currentUser', apiResponse.token);
+						this.cookieService.set('shoppingCart', '[]')
 						// Store the logged user data
 						this._loggedUserSubject$.next({
 							token: apiResponse.token,
@@ -120,14 +121,16 @@ export class AuthService {
 							duration: 3000
 						});
 						// Store user data in cookies
-						this.localStorage.setItem('currentUser', apiResponse.data.token);
-						this.localStorage.setItem('shoppingCart', '[]')
+						this.cookieService.set('currentUser', apiResponse.data.token);
+						this.cookieService.set('shoppingCart', '[]');
 						// Store the logged user data
 						this._loggedUserSubject$.next({
 							token: apiResponse.data.token,
 							user
 						});
-						this.window.location.replace(apiResponse.data.stripeAccountLink);
+						if (user.role == ERoles.Vendor && apiResponse.data.stripeAccountLink) {
+							this.window.location.replace(apiResponse.data.stripeAccountLink);
+						}
 						// Set automatically logout
 						this.expirationCounter(apiResponse.data.token);
 					}
@@ -147,7 +150,7 @@ export class AuthService {
 
 	public logout() {
 		// Remove user data
-		this.localStorage.removeItem('currentUser');
+		this.cookieService.delete('currentUser');
 		this._loggedUserSubject$.next(null);
 		// Redirect to login page
 		this.router.navigateByUrl('auth/login');

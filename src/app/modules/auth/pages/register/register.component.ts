@@ -73,12 +73,6 @@ export class RegisterComponent implements OnInit {
           [Validators.required, Validators.minLength(4)]
         )
       ]),
-      phone: new FormControl('', [
-        conditionalValidator(
-          () => this.registerForm.controls['registrationType'].value == ERoles.Vendor,
-          [Validators.required]
-        )
-      ]),
       country: new FormControl(null, [
         conditionalValidator(
           () => this.registerForm.controls['registrationType'].value == ERoles.Vendor,
@@ -96,7 +90,6 @@ export class RegisterComponent implements OnInit {
     ).subscribe(() => {
       this.formControls['shopName'].updateValueAndValidity({ emitEvent: false });
       this.formControls['shopUrl'].updateValueAndValidity({ emitEvent: false });
-      this.formControls['phone'].updateValueAndValidity({ emitEvent: false });
     });
 
     this.formControls['shopName'].valueChanges.pipe(

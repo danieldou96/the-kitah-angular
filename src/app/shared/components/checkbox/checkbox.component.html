@@ -1,5 +1,5 @@
 <label class="checkbox-container">
-	<input type="checkbox" class="checkbox" [(ngModel)]="checked" (ngModelChange)="toggle($event)">
+	<input type="checkbox" class="checkbox" [disabled]="disabled" [(ngModel)]="checked" (ngModelChange)="toggle($event)">
 	<span>
 		<ng-content></ng-content>
 	</span>

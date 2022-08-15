@@ -1878,6 +1878,10 @@ select:focus,
   .nav-link-style.nav-link-light{color:#4b566b!important;}
   /*! CSS Used fontfaces */
 
+  ngx-skeleton-loader {
+    display: contents;
+  }
+
   .list-view {
     &__product {
       display: grid;

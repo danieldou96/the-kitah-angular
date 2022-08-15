@@ -1,6 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { WINDOW } from '@ng-web-apis/common';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { first, Observable, shareReplay } from 'rxjs';
+import { ApiService } from 'src/app/core/http/api.service';
 import { CategoriesService } from 'src/app/core/services/categories/categories.service';
 import { ProductsService } from 'src/app/core/services/products/products.service';
 import { IFile, IProduct } from 'src/app/shared/models/product';
@@ -20,12 +23,17 @@ export class ProductFormComponent implements OnInit {
   generatedPreviewImages: IFile[] = [];
   fileUploaded = false;
   productFile!: IFile;
+  stripeDetailsSubmitted$: Observable<boolean>;
 
   constructor(
     private fb: FormBuilder,
+    private apiService: ApiService,
     private productsService: ProductsService,
-    public categoriesService: CategoriesService
-  ) { }
+    public categoriesService: CategoriesService,
+    @Inject(WINDOW) private readonly window: Window
+  ) {
+    this.stripeDetailsSubmitted$ = this.apiService.checkIfStripeDetailsSubmitted().pipe(shareReplay(1));
+  }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -55,6 +63,7 @@ export class ProductFormComponent implements OnInit {
       subjects: new FormControl(this.product?.subjects?.map(s => s.id) ?? [], [Validators.required, Validators.minLength(1)]),
       resourceTypes: new FormControl(this.product?.resourceTypes?.map(r => r.id) ?? [], [Validators.required, Validators.minLength(1)]),
       description: new FormControl(this.product?.description ?? null, [Validators.required]),
+      published: new FormControl(false, [Validators.required]),
       myOwn: new FormControl(false, [Validators.requiredTrue])
     });
     this.form.controls['previewsType'].valueChanges.pipe(
@@ -114,6 +123,12 @@ export class ProductFormComponent implements OnInit {
     return this.form.controls;
   }
 
+  resumeStripeForm() {
+    this.apiService.stripeAccountLink().pipe(
+      first()
+    ).subscribe(stripeAccountLink => this.window.open(stripeAccountLink, '_blank')?.focus());
+  }
+
   submit() {
     if (this.form.invalid) {
       Object.values(this.formControls).forEach(control => {
@@ -142,6 +157,7 @@ export class ProductFormComponent implements OnInit {
       grades: this.form.controls['grades'].value,
       subjects: this.form.controls['subjects'].value,
       resourceTypes: this.form.controls['resourceTypes'].value,
+      published: this.form.controls['published'].value,
     });
   }
 }

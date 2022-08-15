@@ -1,11 +1,11 @@
-import { Inject, Injectable } from '@angular/core';
-import { LOCAL_STORAGE } from '@ng-web-apis/common';
+import { Injectable } from '@angular/core';
 import { HotToastService } from '@ngneat/hot-toast';
 import { combineLatest, first, map, merge, Observable, of, scan, shareReplay, startWith, Subject, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ICartItem } from 'src/app/shared/models/product';
 import { AuthService } from '../../authentication/auth.service';
 import { ApiService } from '../../http/api.service';
 import cryptoRandomString from 'crypto-random-string';
+import { CookieService } from 'ngx-cookie-service';
 
 export interface CartTotals {
   subTot: number;
@@ -34,7 +34,7 @@ export class CartService {
     private apiService: ApiService,
     private authService: AuthService,
     private hotToastService: HotToastService,
-    @Inject(LOCAL_STORAGE) private localStorage: Storage
+    private cookieService: CookieService
   ) {
     this.cartActions$ = merge(this.cartRemove$, this.cartAdd$, this.checkoutTrigger$).pipe(
       startWith(null),
@@ -47,7 +47,7 @@ export class CartService {
           if (loggedInUser) {
             return this.apiService.getShoppingCart();
           } else {
-            return of(JSON.parse(this.localStorage.getItem('shoppingCart') ?? '[]') as ICartItem[]);
+            return of(JSON.parse(this.cookieService.check('shoppingCart') ? this.cookieService.get('shoppingCart') : '[]') as ICartItem[]);
           }
         })
       )
@@ -77,7 +77,7 @@ export class CartService {
         }
 
         if (!loggedInUser) {
-          this.localStorage.setItem('shoppingCart', JSON.stringify(newCartValue));
+          this.cookieService.set('shoppingCart', JSON.stringify(newCartValue));
         } else {
           this.apiService.updateShoppingCart(newCartValue).pipe(
             first()
