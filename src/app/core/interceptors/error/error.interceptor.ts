@@ -12,6 +12,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 		return next.handle(req).pipe(
 			catchError((error: HttpErrorResponse) => {
 				const hotToastService = this.injector.get(HotToastService);
+				hotToastService.close();
 				if (typeof error.error.message == 'string') {
 					hotToastService.error(error.error.message);
 				} else if (Array.isArray(error.error.message)) {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { first } from 'rxjs';
+import { catchError, first, of } from 'rxjs';
 import slugify from 'slugify';
 import { AuthService } from 'src/app/core/authentication/auth.service';
 import { ApiService } from 'src/app/core/http/api.service';
@@ -93,9 +93,12 @@ export class AccountMigrationComponent implements OnInit {
     }
 
     this.apiService.migrateAccount(this.migrationForm.value).pipe(
+      this.hotToastService.observe({
+        loading: 'Processing...',
+        success: 'Success! You are now a seller. Please log in again.'
+      }),
       first()
     ).subscribe(() => {
-      this.hotToastService.success('Success! You are now a seller. Please log in again.');
       this.authService.logout();
     });
   }
