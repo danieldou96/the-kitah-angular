@@ -1,3 +1,4 @@
+<app-filters-sidebar></app-filters-sidebar>
 <app-page-title [title]="(pageTitle$ | async)!"></app-page-title>
 <div class="container pb-5 mb-2 mb-md-4">
   <div class="row">
@@ -218,7 +219,7 @@
           </ul>
           <ul class="pagination">
             <li class="page-item d-sm-none">
-              <span class="page-link page-link-static">1 / 2</span>
+              <span class="page-link page-link-static">{{ currentPage.current?.page }} / {{ currentPage.totalPages }}</span>
             </li>
             <li *ngFor="let pageNumber of pageNumbers" class="page-item d-none d-sm-block" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
               <span *ngIf="pageNumber == currentPage.current?.page" class="page-link current" [routerLink]="['./']">{{ pageNumber }}</span>

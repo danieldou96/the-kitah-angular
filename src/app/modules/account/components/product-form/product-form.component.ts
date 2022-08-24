@@ -18,7 +18,7 @@ import { conditionalValidator } from 'src/app/shared/validators/validators';
 export class ProductFormComponent implements OnInit {
 
   @Input() product!: IProduct;
-  @Output() submitFormEvent = new EventEmitter();
+  @Output() submitFormEvent = new EventEmitter<IProduct>();
   form!: FormGroup;
   generatedPreviewImages: IFile[] = [];
   fileUploaded = false;
@@ -151,7 +151,7 @@ export class ProductFormComponent implements OnInit {
           this.form.controls['uploadedPreview2'].value ?? this.generatedPreviewImages[1] ?? null,
           this.form.controls['uploadedPreview3'].value ?? this.generatedPreviewImages[2] ?? null,
           this.form.controls['uploadedPreview4'].value ?? this.generatedPreviewImages[3] ?? null
-        ] as IFile[]).filter(g => g != null && g != undefined)
+        ] as IFile[]).filter(g => !!g) ?? []
       }),
       description: this.form.controls['description'].value,
       grades: this.form.controls['grades'].value,

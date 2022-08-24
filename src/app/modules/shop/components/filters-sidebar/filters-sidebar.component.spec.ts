@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DrawerComponent } from './drawer.component';
+import { FiltersSidebarComponent } from './filters-sidebar.component';
 
-describe('DrawerComponent', () => {
-  let component: DrawerComponent;
-  let fixture: ComponentFixture<DrawerComponent>;
+describe('FiltersSidebarComponent', () => {
+  let component: FiltersSidebarComponent;
+  let fixture: ComponentFixture<FiltersSidebarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DrawerComponent ]
+      declarations: [ FiltersSidebarComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DrawerComponent);
+    fixture = TestBed.createComponent(FiltersSidebarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

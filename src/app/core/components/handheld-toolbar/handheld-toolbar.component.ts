@@ -4,6 +4,7 @@ import { BehaviorSubject, filter, map, Observable, tap } from 'rxjs';
 import { AuthService } from '../../authentication/auth.service';
 import { CartService } from '../../services/cart/cart.service';
 import { HeaderService } from '../../services/header/header.service';
+import { ShopService } from '../../services/shop/shop.service';
 import { WishlistService } from '../../services/wishlist/wishlist.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class HandheldToolbarComponent {
     public authService: AuthService,
     public wishlistService: WishlistService,
     public cartService: CartService,
+    public shopService: ShopService,
     public headerService: HeaderService
   ) {
     this.headerService.mobileSidebarOpened$.pipe(

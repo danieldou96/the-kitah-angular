@@ -27,6 +27,7 @@ import { ProductTitleResolver } from 'src/app/core/resolvers/product/product-tit
 import { BillingResolver } from 'src/app/core/resolvers/billing/billing.resolver';
 import { SavedCardsListComponent } from './components/saved-cards-list/saved-cards-list.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { FiltersSidebarComponent } from './components/filters-sidebar/filters-sidebar.component';
 
 const routes: Routes = [
   {
@@ -87,7 +88,8 @@ const routes: Routes = [
     ProductFilterComponent,
     ProductFilterRowComponent,
     CheckoutSuccessComponent,
-    SavedCardsListComponent
+    SavedCardsListComponent,
+    FiltersSidebarComponent
   ],
   imports: [
     CommonModule,

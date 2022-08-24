@@ -1,40 +1,38 @@
-<ng-container *ngrxLet="handheldToolbarOpened$ as handheldToolbarOpened">
-	<div class="handheld-toolbar" [class.handheld-toolbar--hidden]="!handheldToolbarOpened">
-		<div class="handheld-toolbar__buttons">
-				<a class="handheld-toolbar__button" *ngIf="isShop$ | async">
-						<span class="handheld-toolbar__icon">
-								<i class="ci-filter-alt"></i>
-						</span>
-						<span class="handheld-toolbar__label">Filters</span>
-				</a>
-				<ng-container *ngrxLet="wishlistService.wishlist$ as wishlist">
-					<a [routerLink]="['/my-account/wishlist']" class="handheld-toolbar__button">
-							<span class="handheld-toolbar__icon">
-									<i class="ci-heart"></i>
-									<span class="handheld-toolbar__wishlist-pill">
-										{{ wishlist.length }}
-									</span>
-							</span>
-							<span class="handheld-toolbar__label">{{ (cartService.cartTotal$ | async) | currency }}</span>
-					</a>
-				</ng-container>
-				<a class="handheld-toolbar__button" (click)="headerService.mobileSidebarOpened$.next(true)">
-						<span class="handheld-toolbar__icon">
-								<i class="ci-menu"></i>
-						</span>
-						<span class="handheld-toolbar__label">Menu</span>
-				</a>
-				<ng-container *ngrxLet="cartService.cart$ as cart">
-					<a [routerLink]="['/cart']" class="handheld-toolbar__button">
-							<span class="handheld-toolbar__icon">
-									<i class="ci-cart"></i>
-									<span class="handheld-toolbar__cart-pill">
-										{{ cart.length }}
-									</span>
-							</span>
-							<span class="handheld-toolbar__label">{{ (cartService.cartTotal$ | async) | currency }}</span>
-					</a>
-				</ng-container>
-		</div>
+<div
+	*ngrxLet="handheldToolbarOpened$ as handheldToolbarOpened"
+	class="handheld-toolbar"
+	[class.handheld-toolbar--hidden]="!handheldToolbarOpened">
+	<div class="handheld-toolbar__buttons">
+		<a class="handheld-toolbar__button" *ngIf="isShop$ | async" (click)="shopService.filtersSidebarOpened$.next(true)">
+			<span class="handheld-toolbar__icon">
+				<i class="ci-filter-alt"></i>
+			</span>
+			<span class="handheld-toolbar__label">Filters</span>
+		</a>
+		<a *ngrxLet="wishlistService.wishlist$ as wishlist" [routerLink]="['/my-account/wishlist']"
+			class="handheld-toolbar__button">
+			<span class="handheld-toolbar__icon">
+				<i class="ci-heart"></i>
+				<span class="handheld-toolbar__wishlist-pill">
+					{{ wishlist.length }}
+				</span>
+			</span>
+			<span class="handheld-toolbar__label">Wishlist</span>
+		</a>
+		<a class="handheld-toolbar__button" (click)="headerService.mobileSidebarOpened$.next(true)">
+			<span class="handheld-toolbar__icon">
+				<i class="ci-menu"></i>
+			</span>
+			<span class="handheld-toolbar__label">Menu</span>
+		</a>
+		<a *ngrxLet="cartService.cart$ as cart" [routerLink]="['/cart']" class="handheld-toolbar__button">
+			<span class="handheld-toolbar__icon">
+				<i class="ci-cart"></i>
+				<span class="handheld-toolbar__cart-pill">
+					{{ cart.length }}
+				</span>
+			</span>
+			<span class="handheld-toolbar__label">{{ (cartService.cartTotal$ | async) | currency }}</span>
+		</a>
 	</div>
-</ng-container>
+</div>

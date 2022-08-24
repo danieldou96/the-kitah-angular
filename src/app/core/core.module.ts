@@ -6,9 +6,8 @@ import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.
 import { RouterModule } from '@angular/router';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { HandheldToolbarComponent } from './components/handheld-toolbar/handheld-toolbar.component';
-import { DrawerComponent } from './components/drawer/drawer.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { ReactiveComponentModule } from '@ngrx/component';
+import { LetModule } from '@ngrx/component';
 import { NgPipesModule } from 'ngx-pipes';
 import { MobileSidebarComponent } from './mobile-sidebar/mobile-sidebar.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -21,7 +20,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     DefaultLayoutComponent,
     NotFoundComponent,
     HandheldToolbarComponent,
-    DrawerComponent,
     MobileSidebarComponent
   ],
   imports: [
@@ -29,7 +27,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     RouterModule,
     ReactiveFormsModule,
     NgPipesModule,
-    ReactiveComponentModule,
+    LetModule,
     LayoutModule
   ],
   exports: [
