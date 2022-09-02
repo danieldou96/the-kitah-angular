@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { map, Observable } from 'rxjs';
 import { IOrder } from 'src/app/shared/models/order';
 
 @Component({
@@ -8,9 +9,12 @@ import { IOrder } from 'src/app/shared/models/order';
   styleUrls: ['./checkout-success.component.scss']
 })
 export class CheckoutSuccessComponent {
-  order: IOrder;
+
+  order$: Observable<IOrder>;
 
   constructor(private route: ActivatedRoute) {
-    this.order = this.route.snapshot.data['order'];
+    this.order$ = this.route.data.pipe(
+      map(data => data['order'])
+    );
   }
 }

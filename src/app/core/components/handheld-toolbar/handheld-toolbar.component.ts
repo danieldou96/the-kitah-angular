@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, filter, map, Observable, tap } from 'rxjs';
 import { AuthService } from '../../authentication/auth.service';
 import { CartService } from '../../services/cart/cart.service';
@@ -7,6 +8,7 @@ import { HeaderService } from '../../services/header/header.service';
 import { ShopService } from '../../services/shop/shop.service';
 import { WishlistService } from '../../services/wishlist/wishlist.service';
 
+@UntilDestroy()
 @Component({
   selector: 'app-handheld-toolbar',
   templateUrl: './handheld-toolbar.component.html',
@@ -26,14 +28,10 @@ export class HandheldToolbarComponent {
     public headerService: HeaderService
   ) {
     this.headerService.mobileSidebarOpened$.pipe(
-      tap(mobileSidebarOpened => {
-        if (mobileSidebarOpened) {
-          this.handheldToolbarOpened$.next(false);
-        } else {
-          this.handheldToolbarOpened$.next(true);
-        }
-      })
+      tap(mobileSidebarOpened => this.handheldToolbarOpened$.next(!mobileSidebarOpened)),
+      untilDestroyed(this)
     ).subscribe();
+    
     this.isShop$ = this.router.events.pipe(
       filter((e: Event): e is NavigationEnd => e instanceof NavigationEnd),
       map(e => e.url.startsWith('/shop'))

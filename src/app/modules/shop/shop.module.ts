@@ -25,9 +25,10 @@ import { AuthGuard } from 'src/app/core/guards/auth/auth.guard';
 import { StoreTitleResolver } from 'src/app/core/resolvers/store/store-title.resolver';
 import { ProductTitleResolver } from 'src/app/core/resolvers/product/product-title.resolver';
 import { BillingResolver } from 'src/app/core/resolvers/billing/billing.resolver';
-import { SavedCardsListComponent } from './components/saved-cards-list/saved-cards-list.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { FiltersSidebarComponent } from './components/filters-sidebar/filters-sidebar.component';
+import { SelectSavedCardsComponent } from './components/select-saved-cards/select-saved-cards.component';
+import { DynamicStateModule } from 'src/app/shared/modules/dynamic-state/dynamic-state.module';
 
 const routes: Routes = [
   {
@@ -88,7 +89,7 @@ const routes: Routes = [
     ProductFilterComponent,
     ProductFilterRowComponent,
     CheckoutSuccessComponent,
-    SavedCardsListComponent,
+    SelectSavedCardsComponent,
     FiltersSidebarComponent
   ],
   imports: [
@@ -101,6 +102,7 @@ const routes: Routes = [
     QueryParamModule,
     MatTabsModule,
     NgxStripeModule,
+    DynamicStateModule,
     RouterModule.forChild(routes)
   ]
 })

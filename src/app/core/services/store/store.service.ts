@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { withCache } from '@ngneat/cashew';
-import { filter, map, Observable, shareReplay, switchMap, switchMapTo } from 'rxjs';
+import { filter, map, Observable, shareReplay, switchMap } from 'rxjs';
 import { IProductAnalyticsActivity, IProductAnalyticsSales } from 'src/app/modules/account/pages/analytics/analytics.component';
 import { ApiResponse } from 'src/app/shared/models/api-response';
 import { PageRequest } from 'src/app/shared/models/pagination/page-request.model';
@@ -39,11 +39,11 @@ export class StoreService extends AbstractCrudService<IStore, number, PageReques
       shareReplay(1)
     );
     this.myProducts$ = this.myProducts().pipe(
-      map((apiResponse: ApiResponse) => apiResponse.data as IProduct[]),
+      map(apiResponse => apiResponse.data),
       shareReplay(1)
     );
     this.followers$ = this.myFollowers().pipe(
-      map((apiResponse: ApiResponse) => apiResponse.data as IFollower[]),
+      map(apiResponse => apiResponse.data),
       shareReplay(1)
     );
     this.salesAmount$ = this.authService.isVendor$.pipe(
@@ -75,37 +75,31 @@ export class StoreService extends AbstractCrudService<IStore, number, PageReques
   }
 
   myProducts() {
-    return this._http.get<ApiResponse>(`${this._base}/my-products`);
+    return this._http.get<ApiResponse<IProduct[]>>(`${this._base}/my-products`);
   }
 
   myFollowers() {
-    return this._http.get<ApiResponse>(`${this._base}/my-followers`);
+    return this._http.get<ApiResponse<IFollower[]>>(`${this._base}/my-followers`);
   }
 
   myStore() {
     const url = `${environment.apiUrl}/users/store`;
-    return this._http.get<ApiResponse>(url, {
+    return this._http.get<ApiResponse<IStore>>(url, {
       context: withCache()
-    }).pipe(
-      map((apiResponse: ApiResponse) => apiResponse.data as IStore)
-    );
+    }).pipe(map(apiResponse => apiResponse.data));
   }
 
   sales() {
     const url = `${this._base}/sales`;
-    return this._http.get<ApiResponse>(url, {
+    return this._http.get<ApiResponse<IProductAnalyticsSales[]>>(url, {
       context: withCache()
-    }).pipe(
-      map((apiResponse: ApiResponse) => apiResponse.data as IProductAnalyticsSales[])
-    );
+    }).pipe(map(apiResponse => apiResponse.data));
   }
 
   analytics() {
     const url = `${this._base}/analytics`;
-    return this._http.get<ApiResponse>(url, {
+    return this._http.get<ApiResponse<IProductAnalyticsActivity[]>>(url, {
       context: withCache()
-    }).pipe(
-      map((apiResponse: ApiResponse) => apiResponse.data as IProductAnalyticsActivity[])
-    );
+    }).pipe(map(apiResponse => apiResponse.data));
   }
 }

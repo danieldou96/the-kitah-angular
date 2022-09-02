@@ -39,10 +39,10 @@ export class ProductsService extends AbstractCrudService<IProduct, number, ShopP
         search: pageRequest.filters.search
       })
     };
-    return this._http.get<Page<IProduct, ShopPageRequest>>(this._base, {
+    return this._http.get<ApiResponse<Page<IProduct, ShopPageRequest>>>(this._base, {
       params: params,
       context: withCache()
-    });
+    }).pipe(map(apiResponse => apiResponse.data));
   }
   
   /** @description Saves user registration to the Kinus */
@@ -51,8 +51,8 @@ export class ProductsService extends AbstractCrudService<IProduct, number, ShopP
     formData.append("file", pictureFile);
 
     const url = `${environment.apiUrl}/products/upload/product_preview`;
-    return this._http.post<ApiResponse>(url, formData).pipe(
-      map((apiResponse: ApiResponse) => apiResponse.data as string)
+    return this._http.post<ApiResponse<string>>(url, formData).pipe(
+      map(apiResponse => apiResponse.data)
     );
   }
 
@@ -63,8 +63,8 @@ export class ProductsService extends AbstractCrudService<IProduct, number, ShopP
     formData.append("generateThumbnails", generateThumbnails.toString());
 
     const url = `${environment.apiUrl}/products/upload/product_file`;
-    return this._http.post<ApiResponse>(url, formData).pipe(
-      map((apiResponse: ApiResponse) => apiResponse.data as { generatedThumbnails?: IFile[]; fileUrl: string; })
+    return this._http.post<ApiResponse<{ generatedThumbnails?: IFile[]; fileUrl: string; }>>(url, formData).pipe(
+      map(apiResponse => apiResponse.data)
     );
   }
 }

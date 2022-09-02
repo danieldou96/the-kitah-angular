@@ -1,58 +1,189 @@
 <app-page-title title="Checkout"></app-page-title>
 <ng-container *ngrxLet="cartTotal$ as cartTotal">
   <div class="container pb-5 mb-2 mb-md-4">
-    <form
-      class="checkout woocommerce-checkout"
-      [formGroup]="checkoutForm"
-      (submit)="submit()"
-      ngxStripeCardGroup
-      [elementsOptions]="elementsOptions" errorTailor>
-      <div class="row">
-        <section class="col-lg-8">
-          <div class="d-flex justify-content-start align-items-center pt-3 pb-2 pb-md-3 my-1">
-            <a class="classic-light-button" [routerLink]="['/cart']">
-              <i class="ci-arrow-left me-2"></i>
-              Back to cart </a>
-          </div>
-          <div class="pt-3 pt-md-0">
-            <div class="woocommerce-billing-fields">
-              <div class="woocommerce-billing-fields__field-wrapper">
-                <div class="row mb-3" *ngIf="!editBilling">
-                  <div class="col-12">
-                    <div class="card">
-                      <div class="card-header edit-billing-header">
-                        <span>Billing details</span>
-                        <button class="classic-button edit-billing" (click)="editBillingDetails()">Edit</button>
+    <ng-container *ngrxLet="savedCards$ as savedCards">
+      <ng-container *ngrxLet="form$ as form">
+        <ng-container *ngrxLet="useNewCard$ as useNewCard">
+          <form
+            *ngIf="form.controls as formControls"
+            class="checkout woocommerce-checkout"
+            [formGroup]="form"
+            (ngSubmit)="submit()"
+            ngxStripeCardGroup
+            [elementsOptions]="(elementsOptions$ | async) ?? {}" errorTailor>
+            <div class="row">
+              <section class="col-lg-8">
+                <div class="d-flex justify-content-start align-items-center pt-3 pb-2 pb-md-3 my-1">
+                  <a class="classic-light-button" [routerLink]="['/cart']">
+                    <i class="ci-arrow-left me-2"></i>
+                    Back to cart </a>
+                </div>
+                <div class="pt-3 pt-md-0">
+                  <div class="woocommerce-billing-fields">
+                    <div *ngrxLet="editBilling$ as editBilling" class="woocommerce-billing-fields__field-wrapper">
+                      <div class="row mb-3" *ngIf="!editBilling">
+                        <div class="col-12">
+                          <div class="card">
+                            <div class="card-header edit-billing-header">
+                              <span>Billing details</span>
+                              <button class="classic-button edit-billing" (click)="setEditBillingDetails(true)">Edit</button>
+                            </div>
+                            <div class="card-body">
+                              <div class="billing-details">
+                                <div class="row">
+                                  <div class="col-12">
+                                    <div>{{ formControls['company'].value }}</div>
+                                  </div>
+                                  <div class="col-6">
+                                    <div>{{ formControls['firstname'].value }}</div>
+                                  </div>
+                                  <div class="col-6">
+                                    <div>{{ formControls['lastname'].value }}</div>
+                                  </div>
+                                  <div class="col-6">
+                                    <div>{{ formControls['street1'].value }}</div>
+                                  </div>
+                                  <div class="col-6">
+                                    <div>{{ formControls['street2'].value }}</div>
+                                  </div>
+                                  <div class="col-6">
+                                    <div>{{ formControls['city'].value }}</div>
+                                  </div>
+                                  <div class="col-6">
+                                    <div>{{ formControls['zipcode'].value }}</div>
+                                  </div>
+                                  <div class="col-6">
+                                    <div>{{ formControls['state'].value }}</div>
+                                  </div>
+                                  <div class="col-6">
+                                    <div>{{ formControls['country'].value }}</div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div class="card-body">
-                        <div class="billing-details">
+                      <div class="row mb-3" *ngIf="editBilling">
+                        <div class="col-12">
+                          <div class="card">
+                            <div class="card-header edit-billing-header">
+                              <span>Edit Billing details</span>
+                              <button class="classic-button edit-billing" (click)="setEditBillingDetails(false)">Save</button>
+                            </div>
+                            <div class="card-body" appDynamicState>
+                              <div class="row edit-billing-details-form-row">
+                                <div class="col-sm-6">
+                                  <label>
+                                    Firstname <abbr class="required" title="required">*</abbr>
+                                  </label>
+                                  <span class="woocommerce-input-wrapper">
+                                    <input type="text" class="input-text form-control" formControlName="firstname">
+                                  </span>
+                                </div>
+                                <div class="col-sm-6">
+                                  <label>
+                                    Lastname <abbr class="required"title="required">*</abbr>
+                                  </label>
+                                  <span class="woocommerce-input-wrapper">
+                                    <input type="text" class="input-text form-control" formControlName="lastname">
+                                  </span>
+                                </div>
+                                <div class="col-12">
+                                  <label>
+                                    Company name <span class="optional">(optional)</span>
+                                  </label>
+                                  <span class="woocommerce-input-wrapper">
+                                    <input type="text" class="input-text form-control" formControlName="company">
+                                  </span>
+                                </div>
+                                <div class="col-12">
+                                  <label>Street address </label>
+                                  <span class="woocommerce-input-wrapper">
+                                    <input type="text" class="input-text form-control" placeholder="House number and street name" formControlName="street1">
+                                  </span>
+                                </div>
+                                <div class="col-12">
+                                  <label class="screen-reader-text">Apartment, suite, unit, etc. <span class="optional">(optional)</span></label>
+                                  <span class="woocommerce-input-wrapper">
+                                    <input type="text" class="input-text form-control" placeholder="Apartment, suite, unit, etc. (optional)" formControlName="street2">
+                                  </span>
+                                </div>
+                                <div class="col-sm-6">
+                                  <label>City </label>
+                                  <span class="woocommerce-input-wrapper">
+                                    <input type="text" class="input-text form-control" formControlName="city">
+                                  </span>
+                                </div>
+                                <div class="col-sm-6">
+                                  <label>ZIP Code </label>
+                                  <span class="woocommerce-input-wrapper">
+                                    <input type="text" class="input-text form-control" formControlName="zipcode">
+                                  </span>
+                                </div>
+                                <div class="col-sm-6" [hidden]="!dynamicStateDirective?.requireState">
+                                  <label>State </label>
+                                  <span class="woocommerce-input-wrapper">
+                                    <app-state-input formControlName="state" [selectedCountry]="formControls['country'].value"></app-state-input>
+                                  </span>
+                                </div>
+                                <div [ngClass]="!dynamicStateDirective?.requireState ? 'col-sm-12' : 'col-sm-6'">
+                                  <label>Country </label>
+                                  <span class="woocommerce-input-wrapper">
+                                    <app-country-input formControlName="country"></app-country-input>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          Payment infos
+                        </div>
+                        <div class="card-body">
                           <div class="row">
+                            <div class="col-12 px-1">
+                              <app-select-saved-cards
+                                [cards]="savedCards"
+                                (deletedCard)="deleteCard($event)"
+                                formControlName="selectedSavedCard">
+                              </app-select-saved-cards>
+                            </div>
+                          </div>
+                          <div class="row pb-2" *ngIf="!useNewCard">
+                            <div class="col-12 px-1">
+                              <div class="use-new-card" [class.use-new-card--saved-cards]="savedCards.length > 0">
+                                <button class="use-new-card__button" (click)="useNewCardSubject$.next(true)">
+                                  Pay with a different card
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row pb-2" [class.pt-2]="savedCards.length > 0" [hidden]="!useNewCard">
                             <div class="col-12">
-                              <div>{{ formControls['company'].value }}</div>
+                              <label>Card Number </label>
+                              <span class="woocommerce-input-wrapper stripe">
+                                <ngx-stripe-card-number [options]="cardOptions"></ngx-stripe-card-number>
+                              </span>
                             </div>
-                            <div class="col-6">
-                              <div>{{ formControls['firstname'].value }}</div>
+                            <div class="col-sm-6">
+                              <label>Card Expiration </label>
+                              <span class="woocommerce-input-wrapper stripe">
+                                <ngx-stripe-card-expiry [options]="cardOptions"></ngx-stripe-card-expiry>
+                              </span>
                             </div>
-                            <div class="col-6">
-                              <div>{{ formControls['lastname'].value }}</div>
+                            <div class="col-sm-6">
+                              <label>Card CCV </label>
+                              <span class="woocommerce-input-wrapper stripe">
+                                <ngx-stripe-card-cvc [options]="cardOptions"></ngx-stripe-card-cvc>
+                              </span>
                             </div>
-                            <div class="col-6">
-                              <div>{{ formControls['street1'].value }}</div>
-                            </div>
-                            <div class="col-6">
-                              <div>{{ formControls['street2'].value }}</div>
-                            </div>
-                            <div class="col-6">
-                              <div>{{ formControls['city'].value }}</div>
-                            </div>
-                            <div class="col-6">
-                              <div>{{ formControls['zipcode'].value }}</div>
-                            </div>
-                            <div class="col-6">
-                              <div>{{ formControls['state'].value }}</div>
-                            </div>
-                            <div class="col-6">
-                              <div>{{ formControls['country'].value }}</div>
+                          </div>
+                          <div class="row" [hidden]="!useNewCard">
+                            <div class="col-12">
+                              <app-checkbox formControlName="saveForFuture">Save card for next time</app-checkbox>
                             </div>
                           </div>
                         </div>
@@ -60,184 +191,72 @@
                     </div>
                   </div>
                 </div>
-                <div class="row mb-3" *ngIf="editBilling">
-                  <div class="col-12">
-                    <div class="card">
-                      <div class="card-header edit-billing-header">
-                        <span>Edit Billing details</span>
-                        <button class="classic-button edit-billing" (click)="editBillingDetails()">Save</button>
+              </section>
+              <aside class="col-lg-4 pt-4 pt-lg-0">
+                <div class="cz-sidebar-static rounded-lg box-shadow-lg ms-lg-auto">
+                  <h2 class="h6 mb-3 pb-1 text-center">Your order</h2>
+                  <ng-container *ngrxLet="cart$ as cartItems">
+                    <div class="woocommerce-checkout-review-order">
+                      <div class="shop_table woocommerce-checkout-review-order-table">
+                        <div class="widget widget_products">
+                          <ul class="product_list_widget">
+                            <li *ngFor="let item of cartItems" class="cart_item media align-items-center">
+                              <a [routerLink]="['/product/' + item.product.id]" class="widget-product-thumb"><img width="350"
+                                  height="263"
+                                  [src]="item.product.mainPicture?.url ?? 'assets/img/product-placeholder.png'"
+                                  class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy"></a>
+                              <div class="media-body">
+                                <h6 class="widget-product-title">
+                                  <a [routerLink]="['/product/' + item.product.id]">{{ item.product.name }}</a>
+                                </h6>
+                                <div class="widget-product-meta">
+                                  <span class="text-accent me-1">
+                                    <span *ngIf="item.product.price > 0">{{ item.product.price | currency }}</span>
+                                    <span *ngIf="item.product.price == 0">Free</span>
+                                  </span>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="order-total text-center border-top py-4">
+                          <h3 class="font-weight-normal mb-0 total"><strong>{{ cartTotal | currency }}</strong>
+                          </h3>
+                        </div>
                       </div>
-                      <div class="card-body">
-                        <div class="row edit-billing-details-form-row">
-                          <div class="col-sm-6">
-                            <label>
-                              Firstname <abbr class="required" title="required">*</abbr>
-                            </label>
-                            <span class="woocommerce-input-wrapper">
-                              <input type="text" class="input-text form-control" formControlName="firstname">
-                            </span>
+                      <div class="woocommerce-checkout-payment">
+                        <div class="place-order border-top pt-4">
+                          <div class="woocommerce-terms-and-conditions-wrapper">
+                            <p class="form-row validate-required">
+                              <app-checkbox formControlName="terms">
+                                I have read and agree to the website
+                                <a [routerLink]="['/terms']" class="woocommerce-terms-and-conditions-link" target="_blank">
+                                  terms and conditions <span class="required">*</span>
+                                </a>
+                              </app-checkbox>
+                            </p>
+                            <p class="form-row validate-required">
+                              <app-checkbox formControlName="noRefunds">
+                                All sales are final sales-no refunds
+                              </app-checkbox>
+                            </p>
+                            <p class="form-row validate-required">
+                              <app-checkbox formControlName="personalUse">
+                                This purchase is for your personal use only in your classroom, you may not distribute to others
+                              </app-checkbox>
+                            </p>
                           </div>
-                          <div class="col-sm-6">
-                            <label>
-                              Lastname <abbr class="required"title="required">*</abbr>
-                            </label>
-                            <span class="woocommerce-input-wrapper">
-                              <input type="text" class="input-text form-control" formControlName="lastname">
-                            </span>
-                          </div>
-                          <div class="col-12">
-                            <label>
-                              Company name <span class="optional">(optional)</span>
-                            </label>
-                            <span class="woocommerce-input-wrapper">
-                              <input type="text" class="input-text form-control" formControlName="company">
-                            </span>
-                          </div>
-                          <div class="col-12">
-                            <label>Street address </label>
-                            <span class="woocommerce-input-wrapper">
-                              <input type="text" class="input-text form-control" placeholder="House number and street name" formControlName="street1">
-                            </span>
-                          </div>
-                          <div class="col-12">
-                            <label class="screen-reader-text">Apartment, suite, unit, etc. <span class="optional">(optional)</span></label>
-                            <span class="woocommerce-input-wrapper">
-                              <input type="text" class="input-text form-control" placeholder="Apartment, suite, unit, etc. (optional)" formControlName="street2">
-                            </span>
-                          </div>
-                          <div class="col-sm-6">
-                            <label>City </label>
-                            <span class="woocommerce-input-wrapper">
-                              <input type="text" class="input-text form-control" formControlName="city">
-                            </span>
-                          </div>
-                          <div class="col-sm-6">
-                            <label>ZIP Code </label>
-                            <span class="woocommerce-input-wrapper">
-                              <input type="text" class="input-text form-control" formControlName="zipcode">
-                            </span>
-                          </div>
-                          <div class="col-sm-6" *ngIf="states.length > 0">
-                            <label>State </label>
-                            <span class="woocommerce-input-wrapper">
-                              <select class="classic-select form-control" formControlName="state">
-                                <option>Select an option…</option>
-                                <option *ngFor="let state of states" [value]="state.abbreviation">{{ state.name }}</option>
-                              </select>
-                            </span>
-                          </div>
-                          <div [class.col-sm-6]="states.length > 0" [class.col-sm-12]="states.length == 0">
-                            <label>Country </label>
-                            <span class="woocommerce-input-wrapper">
-                              <select class="classic-select form-control" formControlName="country">
-                                <option>Select a country / region…</option>
-                                <option *ngFor="let country of countries" [value]="country.countryCode">{{ country.name }}</option>
-                              </select>
-                            </span>
-                          </div>
+                          <button type="submit" class="classic-button place-order">Place order</button>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </ng-container>
                 </div>
-                <div class="card">
-                  <div class="card-header">
-                    Payment infos
-                  </div>
-                  <div class="card-body">
-                    <div class="row edit-billing-details-form-row mb-3" *ngIf="cartTotal > 0">
-                      <div class="col-12">
-                        <label>Card Number </label>
-                        <span class="woocommerce-input-wrapper stripe">
-                          <ngx-stripe-card-number [options]="cardOptions"></ngx-stripe-card-number>
-                        </span>
-                      </div>
-                      <div class="col-sm-6">
-                        <label>Card Expiration </label>
-                        <span class="woocommerce-input-wrapper stripe">
-                          <ngx-stripe-card-expiry [options]="cardOptions"></ngx-stripe-card-expiry>
-                        </span>
-                      </div>
-                      <div class="col-sm-6">
-                        <label>Card CCV </label>
-                        <span class="woocommerce-input-wrapper stripe">
-                          <ngx-stripe-card-cvc [options]="cardOptions"></ngx-stripe-card-cvc>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-12">
-                        <app-checkbox formControlName="saveForFuture">Save card for next time</app-checkbox>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              </aside>
             </div>
-          </div>
-        </section>
-        <aside class="col-lg-4 pt-4 pt-lg-0">
-          <div class="cz-sidebar-static rounded-lg box-shadow-lg ms-lg-auto">
-            <h2 class="h6 mb-3 pb-1 text-center">Your order</h2>
-            <ng-container *ngrxLet="cart$ as cartItems">
-              <div class="woocommerce-checkout-review-order">
-                <div class="shop_table woocommerce-checkout-review-order-table">
-                  <div class="widget widget_products">
-                    <ul class="product_list_widget">
-                      <li *ngFor="let item of cartItems" class="cart_item media align-items-center">
-                        <a [routerLink]="['/product/' + item.product.id]" class="widget-product-thumb"><img width="350"
-                            height="263"
-                            [src]="item.product.mainPicture?.url ?? 'assets/img/product-placeholder.png'"
-                            class="woocommerce-placeholder wp-post-image" alt="Placeholder" loading="lazy"></a>
-                        <div class="media-body">
-                          <h6 class="widget-product-title">
-                            <a [routerLink]="['/product/' + item.product.id]">{{ item.product.name }}</a>
-                          </h6>
-                          <div class="widget-product-meta">
-                            <span class="text-accent me-1">
-                              <span *ngIf="item.product.price > 0">{{ item.product.price | currency }}</span>
-                              <span *ngIf="item.product.price == 0">Free</span>
-                            </span>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="order-total text-center border-top py-4">
-                    <h3 class="font-weight-normal mb-0 total"><strong>{{ cartTotal | currency }}</strong>
-                    </h3>
-                  </div>
-                </div>
-                <div class="woocommerce-checkout-payment">
-                  <div class="place-order border-top pt-4">
-                    <div class="woocommerce-terms-and-conditions-wrapper">
-                      <p class="form-row validate-required">
-                        <app-checkbox formControlName="terms">
-                          I have read and agree to the website
-                          <a [routerLink]="['/terms']" class="woocommerce-terms-and-conditions-link" target="_blank">
-                            terms and conditions <span class="required">*</span>
-                          </a>
-                        </app-checkbox>
-                      </p>
-                      <p class="form-row validate-required">
-                        <app-checkbox formControlName="noRefunds">
-                          All sales are final sales-no refunds
-                        </app-checkbox>
-                      </p>
-                      <p class="form-row validate-required">
-                        <app-checkbox formControlName="personalUse">
-                          This purchase is for your personal use only in your classroom, you may not distribute to others
-                        </app-checkbox>
-                      </p>
-                    </div>
-                    <button type="submit" class="classic-button place-order">Place order</button>
-                  </div>
-                </div>
-              </div>
-            </ng-container>
-          </div>
-        </aside>
-      </div>
-    </form>
+          </form>
+          </ng-container>
+        </ng-container>
+      </ng-container>
   </div>
 </ng-container>

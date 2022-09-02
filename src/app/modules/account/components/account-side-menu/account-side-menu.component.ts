@@ -1,4 +1,4 @@
-import { animate, style, transition, trigger } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Inject } from '@angular/core';
 import { WINDOW } from '@ng-web-apis/common';
 import { HotToastService } from '@ngneat/hot-toast';
@@ -17,16 +17,18 @@ import { User } from 'src/app/shared/models/user';
   styleUrls: ['./account-side-menu.component.scss'],
   animations: [
     trigger('slideInOut', [
-      transition(':enter', [
-        style({ overflow: 'hidden', height: '0px' }),
-        animate('.3s ease-in-out', 
-        style({ overflow: 'hidden', height: '*' }))
-      ]),
-      transition(':leave', [
-        style({ overflow: 'hidden', height: '*' }),
-        animate('.3s ease-in-out', 
-        style({ overflow: 'hidden', height: '0px' }))
-      ])
+      state('true', style({
+        overflow: 'hidden',
+        height: '*',
+        opacity: 1
+      })),
+      state('false', style({
+        overflow: 'hidden',
+        height: '0px',
+        opacity: 0
+      })),
+      transition('true => false', animate('.3s ease-in-out')),
+      transition('false => true', animate('.3s ease-in-out'))
     ])
   ]
 })

@@ -1,20 +1,27 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { map, Observable } from 'rxjs';
-import { ApiResponse } from 'src/app/shared/models/api-response';
-import { IProduct } from 'src/app/shared/models/product';
+import { Observable, of, switchMap } from 'rxjs';
 import { ApiService } from '../../http/api.service';
+import { CartService } from '../../services/cart/cart.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StripeTokenResolver implements Resolve<Observable<string>> {
+export class StripeTokenResolver implements Resolve<Observable<string | null>> {
 
-  constructor(private apiService: ApiService) { }
+  constructor(
+    private apiService: ApiService,
+    private cartService: CartService
+  ) { }
 
   resolve(route: ActivatedRouteSnapshot) {
-    return this.apiService.getStripeIntentSecret().pipe(
-      map((apiResponse: ApiResponse) => apiResponse.data as string)
+    return this.cartService.cartTotal$.pipe(
+      switchMap(cartTotal => {
+        if (cartTotal == 0) {
+          return of(null);
+        }
+        return this.apiService.getStripeIntentSecret();
+      })
     );
   }
 }

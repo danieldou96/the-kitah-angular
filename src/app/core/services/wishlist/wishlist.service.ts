@@ -32,7 +32,12 @@ export class WishlistService {
     this.wishlist$ = combineLatest([
       this.wishlistActions$,
       this.authService.loggedInUser$.pipe(
-        switchMap(loggedInUser => loggedInUser ? this.apiService.getWishlist() : of([]))
+        switchMap(loggedInUser => {
+          if (!loggedInUser) {
+            return of([]);
+          }
+          return this.apiService.getWishlist();
+        })
       )
     ]).pipe(
       scan((acc: WishlistItem[], [item, initialValue]: [(WishlistItem | null), IProduct[]]) => {

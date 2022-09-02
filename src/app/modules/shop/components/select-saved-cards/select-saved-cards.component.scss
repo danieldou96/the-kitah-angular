@@ -1,0 +1,84 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins/breakpoints";
+
+.saved-cards {
+	display: flex;
+	flex-direction: column;
+}
+
+.card {
+	display: flex;
+	flex-direction: row;
+  gap: 20px;
+  position: relative;
+  align-items: center;
+  padding: 16px;
+  padding-left: 30px;
+  border: 1px solid #d6d6d6;
+  width: 100%;
+	background-color: #fafafa;
+	cursor: pointer;
+	transition: .2s;
+
+	@include media-breakpoint-down(md) {
+		gap: 12px;
+		padding: 14px;
+		justify-content: center;
+	}
+
+	&:last-child {
+		border-radius: 0 0 4px 4px;
+	}
+
+	&:first-child {
+		border-radius: 4px 4px 0 0;
+	}
+
+	&--selected {
+		background-color: #fff;
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 6px;
+			background-color: #dea249;
+		}
+	
+		&:last-child::before {
+			border-radius: 0 0 0 3px;
+		}
+
+		&:first-child::before {
+			border-radius: 3px 0 0 0;
+		}
+	}
+
+	&__logo {
+		img {
+			height: 25px;
+			width: auto;
+		}
+	}
+
+	&__brand {
+		color: #666;
+	}
+
+	&__number {
+		color: #666;
+	}
+
+	&__expiry {
+		color: #999;
+		font-size: .9em;
+	}
+
+	&__delete-button {
+		background: none;
+		color: #dc3545;
+	}
+}

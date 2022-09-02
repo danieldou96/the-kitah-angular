@@ -10,6 +10,7 @@ import { IProduct } from 'src/app/shared/models/product';
 import { environment } from 'src/environments/environment';
 import { CartItem } from '../services/cart/cart.service';
 import { IBilling, User } from 'src/app/shared/models/user';
+import { StripeCard } from 'src/app/modules/shop/components/select-saved-cards/select-saved-cards.component';
 
 @Injectable({
   providedIn: 'root'
@@ -29,9 +30,7 @@ export class ApiService {
     formData.append("avatar", avatarFile);
 
     const url = `${this.apiUrl}/users/upload_avatar`;
-    return this.http.post<ApiResponse>(url, formData).pipe(
-      map((apiResponse: ApiResponse) => apiResponse.data as string)
-    );
+    return this.http.post<ApiResponse<string>>(url, formData).pipe(map(apiResponse => apiResponse.data));
   }
   
   public uploadBanner(bannerFile: File): Observable<string> {
@@ -39,63 +38,63 @@ export class ApiService {
     formData.append("banner", bannerFile);
 
     const url = `${this.apiUrl}/store/upload_banner`;
-    return this.http.post<ApiResponse>(url, formData).pipe(
-      map((apiResponse: ApiResponse) => apiResponse.data as string)
-    );
+    return this.http.post<ApiResponse<string>>(url, formData).pipe(map(apiResponse => apiResponse.data));
   }
 
   /** @description Get updates list to be on the homepage */
   public updateAccountDetails(id: number, accountDetailsForm: any): Observable<User> {
     const url = this.apiUrl + `/users/${id}`;
-    return this.http.put<User>(url, { ...accountDetailsForm });
+    return this.http.put<ApiResponse<User>>(url, { ...accountDetailsForm }).pipe(
+      map(apiResponse => apiResponse.data)
+    );
   }
 
   /** @description Get updates list to be on the homepage */
   public updateStoreDetails(id: number, storeDetailsForm: any): Observable<IStore> {
     const url = this.apiUrl + `/store/${id}`;
-    return this.http.put<IStore>(url, { ...storeDetailsForm });
+    return this.http.put<ApiResponse<IStore>>(url, { ...storeDetailsForm }).pipe(
+      map(apiResponse => apiResponse.data)
+    );
   }
 
   /** @description Get updates list to be on the homepage */
   public getGrades(): Observable<IGrade[]> {
     const url = this.apiUrl + `/grades`;
-    return this.http.get<IGrade[]>(url, {
+    return this.http.get<ApiResponse<IGrade[]>>(url, {
       context: withCache()
-    });
+    }).pipe(map(apiResponse => apiResponse.data));
   }
 
   /** @description Get updates list to be on the homepage */
   public getSubjects(): Observable<ISubject[]> {
     const url = this.apiUrl + `/subjects`;
-    return this.http.get<ISubject[]>(url, {
+    return this.http.get<ApiResponse<ISubject[]>>(url, {
       context: withCache()
-    });
+    }).pipe(map(apiResponse => apiResponse.data));
   }
 
   /** @description Get updates list to be on the homepage */
   public getResourceTypes(): Observable<IResourceType[]> {
     const url = this.apiUrl + `/resource-types`;
-    return this.http.get<IResourceType[]>(url, {
+    return this.http.get<ApiResponse<IResourceType[]>>(url, {
       context: withCache()
-    });
+    }).pipe(map(apiResponse => apiResponse.data));
   }
 
   /** @description Get updates list to be on the homepage */
   public getStoreByUrl(storeUrl: string): Observable<IStore> {
     const url = this.apiUrl + `/store/${storeUrl}`;
-    return this.http.get<ApiResponse>(url, {
+    return this.http.get<ApiResponse<IStore>>(url, {
       context: withCache()
-    }).pipe(
-      map((apiResponse: ApiResponse) => apiResponse.data as IStore)
-    );
+    }).pipe(map(apiResponse => apiResponse.data));
   }
 
   /** @description Get updates list to be on the homepage */
   public getMyStore(): Observable<IStore> {
     const url = this.apiUrl + `/auth/store`;
-    return this.http.get<IStore>(url, {
+    return this.http.get<ApiResponse<IStore>>(url, {
       context: withCache()
-    });
+    }).pipe(map(apiResponse => apiResponse.data));
   }
 
   // -------------------------------------------------------------------------------------
@@ -115,9 +114,7 @@ export class ApiService {
       recentlyViewedProducts: IProduct[];
     }>>(url, {
       context: withCache()
-    }).pipe(
-      map(apiResponse => apiResponse.data)
-    );
+    }).pipe(map(apiResponse => apiResponse.data));
   }
 
   /** @description Get updates list to be on the homepage */
@@ -127,15 +124,13 @@ export class ApiService {
     members: number;
   }> {
     const url = this.apiUrl + `/homepage/stats`;
-    return this.http.get<ApiResponse>(url, {
+    return this.http.get<ApiResponse<{
+      products: number;
+      vendors: number;
+      members: number;
+    }>>(url, {
       context: withCache()
-    }).pipe(
-      map((apiResponse: ApiResponse) => apiResponse.data as {
-        products: number;
-        vendors: number;
-        members: number;
-      })
-    );
+    }).pipe(map(apiResponse => apiResponse.data));
   }
 
   /** @description Get updates list to be on the homepage */
@@ -157,9 +152,7 @@ export class ApiService {
   /** @description Get updates list to be on the homepage */
   public getWishlist(): Observable<IProduct[]> {
     const url = this.apiUrl + `/wishlist`;
-    return this.http.get<ApiResponse>(url).pipe(
-      map((apiResponse: ApiResponse) => apiResponse.data as IProduct[])
-    );
+    return this.http.get<ApiResponse<IProduct[]>>(url).pipe(map(apiResponse => apiResponse.data));
   }
 
   /** @description Get updates list to be on the homepage */
@@ -177,9 +170,7 @@ export class ApiService {
   /** @description Get updates list to be on the homepage */
   public getFavoriteSellers(): Observable<IStore[]> {
     const url = this.apiUrl + `/favorite-sellers`;
-    return this.http.get<ApiResponse>(url).pipe(
-      map((apiResponse: ApiResponse) => apiResponse.data as IStore[])
-    );
+    return this.http.get<ApiResponse<IStore[]>>(url).pipe(map(apiResponse => apiResponse.data));
   }
 
   /** @description Get updates list to be on the homepage */
@@ -197,25 +188,19 @@ export class ApiService {
   /** @description Get updates list to be on the homepage */
   public getShoppingCart(): Observable<ICartItem[]> {
     const url = this.apiUrl + `/cart`;
-    return this.http.get<ApiResponse>(url).pipe(
-      map((apiResponse: ApiResponse) => apiResponse.data as ICartItem[])
-    );
+    return this.http.get<ApiResponse<ICartItem[]>>(url).pipe(map(apiResponse => apiResponse.data));
   }
 
   /** @description Get updates list to be on the homepage */
   public getRecentlyViewedProducts(): Observable<IRecentlyViewedProductItem[]> {
     const url = this.apiUrl + `/recently-viewed-products`;
-    return this.http.get<ApiResponse>(url).pipe(
-      map((apiResponse: ApiResponse) => apiResponse.data as IRecentlyViewedProductItem[])
-    );
+    return this.http.get<ApiResponse<IRecentlyViewedProductItem[]>>(url).pipe(map(apiResponse => apiResponse.data));
   }
 
   /** @description Get updates list to be on the homepage */
   public getUserBilling(): Observable<IBilling> {
     const url = this.apiUrl + `/users/billing`;
-    return this.http.get<ApiResponse>(url).pipe(
-      map((apiResponse: ApiResponse) => apiResponse.data as IBilling)
-    );
+    return this.http.get<ApiResponse<IBilling>>(url).pipe(map(apiResponse => apiResponse.data));
   }
 
   /** @description Get updates list to be on the homepage */
@@ -229,9 +214,7 @@ export class ApiService {
     const url = this.apiUrl + `/store/stripe-details-submitted`;
     return this.http.get<ApiResponse<boolean>>(url, {
       context: withCache()
-    }).pipe(
-      map(apiResponse => apiResponse.data)
-    );
+    }).pipe(map(apiResponse => apiResponse.data));
   }
 
   /** @description Get updates list to be on the homepage */
@@ -255,11 +238,33 @@ export class ApiService {
   }
 
   /** @description Get updates list to be on the homepage */
+  public verifyEmail(link: string): Observable<boolean> {
+    const url = this.apiUrl + `/users/verify`;
+    return this.http.post<ApiResponse<boolean>>(url, {
+      link
+    }).pipe(map(apiResponse => apiResponse.data));
+  }
+
+  /** @description Get updates list to be on the homepage */
+  public resetPassword(link: string, password: string): Observable<boolean> {
+    const url = this.apiUrl + `/auth/reset-password`;
+    return this.http.post<ApiResponse<boolean>>(url, {
+      link, password
+    }).pipe(map(apiResponse => apiResponse.data));
+  }
+
+  /** @description Get updates list to be on the homepage */
+  public forgotPassword(email: string): Observable<any> {
+    const url = this.apiUrl + `/auth/forgot-password`;
+    return this.http.post<ApiResponse>(url, {
+      email
+    });
+  }
+
+  /** @description Get updates list to be on the homepage */
   public stripeAccountLink(): Observable<string> {
     const url = this.apiUrl + `/store/stripe_refresh`;
-    return this.http.post<ApiResponse<string>>(url, {}).pipe(
-      map(apiResponse => apiResponse.data)
-    );
+    return this.http.post<ApiResponse<string>>(url, {}).pipe(map(apiResponse => apiResponse.data));
   }
 
   /** @description Get updates list to be on the homepage */
@@ -278,20 +283,29 @@ export class ApiService {
   }
 
   /** @description Get updates list to be on the homepage */
-  public checkout(token: string | undefined, checkoutForm: any): Observable<number> {
+  public checkout(checkoutForm: any): Observable<number> {
     const url = this.apiUrl + `/checkout`;
-    return this.http.post<ApiResponse>(url, {
-      token,
-      ...checkoutForm
-    }).pipe(
-      map((apiResponse: ApiResponse) => apiResponse.data as number)
+    return this.http.post<ApiResponse<number>>(url, checkoutForm).pipe(map(apiResponse => apiResponse.data));
+  }
+
+  /** @description Get updates list to be on the homepage */
+  public getStripeIntentSecret(): Observable<string> {
+    const url = this.apiUrl + `/checkout/secret`;
+    return this.http.post<ApiResponse<string>>(url, {}).pipe(
+      map(apiResponse => apiResponse.data)
     );
   }
 
   /** @description Get updates list to be on the homepage */
-  public getStripeIntentSecret(): Observable<any> {
-    const url = this.apiUrl + `/checkout/secret`;
-    return this.http.post(url, {});
+  public getSavedCards(): Observable<StripeCard[]> {
+    const url = `${this.apiUrl}/payment/saved-cards`;
+    return this.http.post<ApiResponse<any[]>>(url, {}).pipe(map(apiResponse => apiResponse.data));
+  }
+
+  /** @description Get updates list to be on the homepage */
+  public deleteSavedCard(cardId: string): Observable<any> {
+    const url = `${this.apiUrl}/payment/delete-card/${cardId}`;
+    return this.http.delete<ApiResponse<any>>(url).pipe(map(apiResponse => apiResponse.data));
   }
 
   /** @description Get updates list to be on the homepage */

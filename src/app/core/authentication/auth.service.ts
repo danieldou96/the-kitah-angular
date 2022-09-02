@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import { WINDOW } from '@ng-web-apis/common';
 import { HotToastService } from '@ngneat/hot-toast';
@@ -32,7 +32,7 @@ export class AuthService {
 
 	constructor(
 		private router: Router,
-		private hotToastService: HotToastService,
+		private injector: Injector,
 		private http: HttpClient,
 		@Inject(WINDOW) private window: Window,
 		private cookieService: CookieService
@@ -72,6 +72,7 @@ export class AuthService {
 
 	/** @description Login to Chabad.org Shliach account */
 	public login(username: string, password: string): Observable<{ token: string; }> {
+		const hotToastService = this.injector.get(HotToastService);
 		const url = `${environment.apiUrl}/auth/login`;
 
 		const navigation = this.router.getCurrentNavigation();
@@ -88,8 +89,8 @@ export class AuthService {
 					const user = decodeJwtData<User>(apiResponse.token);
 					if (user) {
 						// Store user data in cookies
-						this.cookieService.set('currentUser', apiResponse.token);
-						this.cookieService.set('shoppingCart', '[]')
+						this.cookieService.set('currentUser', apiResponse.token, undefined, '/');
+						this.cookieService.set('shoppingCart', '[]', undefined, '/')
 						// Store the logged user data
 						this._loggedUserSubject$.next({
 							token: apiResponse.token,
@@ -100,9 +101,6 @@ export class AuthService {
 						this.expirationCounter(apiResponse.token);
 					} else {
 						console.error('The User is not valid');
-						this.hotToastService.error('Username or password is not correct.', {
-							duration: 3000
-						});
 					}
 				})
 			);
@@ -110,6 +108,7 @@ export class AuthService {
 
 	/** @description Login to Chabad.org Shliach account */
 	public register(registerForm: any): Observable<ApiResponse<{ token: string; stripeAccountLink: string; }>> {
+		const hotToastService = this.injector.get(HotToastService);
 		const url = `${environment.apiUrl}/auth/register`;
 		return this.http.post<ApiResponse<{ token: string; stripeAccountLink: string; }>>(url, registerForm).pipe(
 			catchError(err => of(err.error)),
@@ -117,12 +116,12 @@ export class AuthService {
 				if (apiResponse.data?.token) {
 					const user = decodeJwtData<User>(apiResponse.data.token);
 					if (user) {
-						this.hotToastService.success('The user has been created successfully.', {
+						hotToastService.success('The user has been created successfully.', {
 							duration: 3000
 						});
 						// Store user data in cookies
-						this.cookieService.set('currentUser', apiResponse.data.token);
-						this.cookieService.set('shoppingCart', '[]');
+						this.cookieService.set('currentUser', apiResponse.data.token, undefined, '/');
+						this.cookieService.set('shoppingCart', '[]', undefined, '/');
 						// Store the logged user data
 						this._loggedUserSubject$.next({
 							token: apiResponse.data.token,
@@ -133,7 +132,7 @@ export class AuthService {
 						this.expirationCounter(apiResponse.data.token);
 					}
 				} else {
-					this.hotToastService.error(apiResponse.message, {
+					hotToastService.error(apiResponse.message, {
 						duration: 3000
 					});
 				}
@@ -143,12 +142,14 @@ export class AuthService {
 
 	public profile() {
 		const url = `${environment.apiUrl}/auth/profile`;
-		return this.http.get<User>(url);
+		return this.http.get<ApiResponse<User>>(url).pipe(
+			map(apiResponse => apiResponse.data)
+		);
 	}
 
 	public logout() {
 		// Remove user data
-		this.cookieService.delete('currentUser');
+		this.cookieService.delete('currentUser', '/');
 		this._loggedUserSubject$.next(null);
 		// Redirect to login page
 		this.router.navigateByUrl('auth/login');
@@ -156,13 +157,19 @@ export class AuthService {
 
 	/** @description Automatically logout the user when his token expires */
 	private expirationCounter(token: string) {
-		const expiration = decodeJwtData<any>(token)?.exp!;
-		const now = Math.floor(new Date().getTime() / 100000);
-		const timeout = expiration - now;
+		const decodedToken = decodeJwtData<User & { iat: number; exp: number }>(token);
 
-		timer(timeout).pipe(
-			untilDestroyed(this)
-		).subscribe(() => {
+		if (!decodedToken) {
+			return;
+		}
+
+		let expiration = decodedToken.exp;
+		let now = (Math.floor((new Date).getTime() / 1000));
+		let timeout = expiration - now;
+
+    timer(timeout * 1000).pipe(first()).subscribe(() => {
+			const hotToastService = this.injector.get(HotToastService);
+			hotToastService.info('Your session has expired.<br>You have been logged out.', { duration: 6000 });
 			this.logout();
 		});
 	}

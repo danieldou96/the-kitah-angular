@@ -44,11 +44,10 @@ export class CartService {
       this.cartActions$,
       this.authService.loggedInUser$.pipe(
         switchMap(loggedInUser => {
-          if (loggedInUser) {
-            return this.apiService.getShoppingCart();
-          } else {
+          if (!loggedInUser) {
             return of(JSON.parse(this.cookieService.check('shoppingCart') ? this.cookieService.get('shoppingCart') : '[]') as ICartItem[]);
           }
+          return this.apiService.getShoppingCart();
         })
       )
     ]).pipe(
@@ -77,7 +76,7 @@ export class CartService {
         }
 
         if (!loggedInUser) {
-          this.cookieService.set('shoppingCart', JSON.stringify(newCartValue));
+          this.cookieService.set('shoppingCart', JSON.stringify(newCartValue), undefined, '/');
         } else {
           this.apiService.updateShoppingCart(newCartValue).pipe(
             first()

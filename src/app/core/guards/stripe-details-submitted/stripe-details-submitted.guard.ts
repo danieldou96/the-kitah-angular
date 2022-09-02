@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
-import {
-	CanActivate,
-	ActivatedRouteSnapshot,
-	RouterStateSnapshot,
-  Router
-} from '@angular/router';
-import { filter, map, of, switchMap, withLatestFrom } from 'rxjs';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { map, of, switchMap } from 'rxjs';
 import { AuthService } from '../../authentication/auth.service';
 import { ApiService } from '../../http/api.service';
 
@@ -29,11 +24,10 @@ export class StripeDetailsSubmittedGuard implements CanActivate {
         }
       }),
       map(stripeDetailsSubmitted => {
-        if (stripeDetailsSubmitted) {
-          return true;
-        } else {
+        if (!stripeDetailsSubmitted) {
           return this.router.createUrlTree(['dashboard/resume-stripe-form']);
         }
+        return true;
       })
     );
 	}

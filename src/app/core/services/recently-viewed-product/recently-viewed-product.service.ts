@@ -29,11 +29,10 @@ export class RecentlyViewedProductService {
       this._recentlyViewedProductsAdd$,
       this.authService.loggedInUser$.pipe(
         switchMap(loggedInUser => {
-          if (loggedInUser) {
-            return this.apiService.getRecentlyViewedProducts();
-          } else {
+          if (!loggedInUser) {
             return of(JSON.parse(this.cookieService.check('recentlyViewedProducts') ? this.cookieService.get('recentlyViewedProducts') : '[]') as IRecentlyViewedProductItem[]);
           }
+          return this.apiService.getRecentlyViewedProducts();
         })
       )
     ]).pipe(
@@ -53,7 +52,7 @@ export class RecentlyViewedProductService {
         }
 
         if (!loggedInUser) {
-          this.cookieService.set('recentlyViewedProducts', JSON.stringify(newRecentlyViewedProductsValue));
+          this.cookieService.set('recentlyViewedProducts', JSON.stringify(newRecentlyViewedProductsValue), undefined, '/');
         } else {
           this.apiService.updateRecentlyViewedProducts(newRecentlyViewedProductsValue).pipe(
             first()

@@ -3,7 +3,7 @@
   <div *ngIf="loggedInUser?.role == 'buyer'" class="container pb-5 mb-2 mb-md-3">
     <div class="row">
       <app-account-side-menu></app-account-side-menu>
-      <section class="col-lg-8">
+      <section class="col-12 col-lg-8">
         <div class="d-flex justify-content-end align-items-center pt-lg-2 pb-4 pb-lg-5 mb-lg-3">
           <a class="classic-button" (click)="logout()">
             <i class="ci-sign-out me-2"></i> Logout
@@ -16,7 +16,7 @@
   <div *ngIf="loggedInUser?.role == 'vendor' || loggedInUser?.role == 'admin'" class="container mb-5 pb-3">
 		<div class="dashboard">
 			<app-account-side-menu></app-account-side-menu>
-			<section class="col-lg-8 dashboard__container">
+			<section class="col-12 col-lg-8 dashboard__container">
 				<div class="dashboard__page">
 					<router-outlet></router-outlet>
 				</div>

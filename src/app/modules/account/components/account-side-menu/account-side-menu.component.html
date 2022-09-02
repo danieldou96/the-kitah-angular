@@ -1,7 +1,7 @@
 <div
 	*ngrxLet="loggedInUser$ as loggedInUser"
-	class="account-side-menu"
-	[ngClass]="loggedInUser?.role == 'buyer' ? 'col-lg-4 pt-4 pt-lg-0' : 'col-lg-4 ps-0'">
+	class="account-side-menu col-12 col-lg-4"
+	[ngClass]="loggedInUser?.role == 'buyer' ? 'pt-4 pt-lg-0' : 'ps-0'">
 	<aside *ngIf="loggedInUser?.role == 'buyer'" class="account-side-menu--buyer">
 		<div class="cz-sidebar-static rounded-lg box-shadow-lg px-0 pb-0 mb-5 mb-lg-0">
 			<div class="px-4 mb-4">
@@ -76,78 +76,80 @@
 				<i class="ci-menu me-2"></i>
 				Account menu </button>
 		</div>
-		<div class="cz-sidebar-static h-100 p-0" *ngIf="((documentService.isSmallScreen$ | async) && (mobileMenuOpened$ | async)) || !(documentService.isSmallScreen$ | async)" [@slideInOut]>
-		  <div id="account-menu" class="secondary-nav collapse border-right">
-		    <div class="bg-secondary p-4">
-		      <h3 class="font-size-sm mb-0 text-muted">Account</h3>
-		    </div>
-		    <ul class="dokan-dashboard-menu list-unstyled mb-0">
-					<!--<li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"
-						class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--orders border-top mb-0">
-						<a [routerLink]="['/my-account/orders']" class="nav-link-style d-flex align-items-center px-4 py-3">
-							<i class="ci-bag align-middle opacity-60 me-2"></i>
-							Orders <span class="font-size-sm text-muted ms-auto">0</span>
-						</a>
-					</li>-->
-					<li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"
-						class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--downloads border-top mb-0">
-						<a [routerLink]="['/my-account/downloads']" class="nav-link-style d-flex align-items-center px-4 py-3">
-							<i class="ci-cloud-download align-middle opacity-60 me-2"></i>
-							Downloads <!--<span class="font-size-sm text-muted ms-auto">0</span>-->
-						</a>
-					</li>
-					<ng-container *ngrxLet="wishlistService.wishlist$ as wishlist">
+		<ng-container *ngrxLet="documentService.isSmallScreen$ as isSmallScreen">
+			<div class="cz-sidebar-static p-0" [@slideInOut]="!isSmallScreen || (mobileMenuOpened$ | async)">
+				<div id="account-menu" class="secondary-nav collapse border-right">
+					<div class="bg-secondary p-4">
+						<h3 class="font-size-sm mb-0 text-muted">Account</h3>
+					</div>
+					<ul class="dokan-dashboard-menu list-unstyled mb-0">
+						<!--<li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"
+							class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--orders border-top mb-0">
+							<a [routerLink]="['/my-account/orders']" class="nav-link-style d-flex align-items-center px-4 py-3">
+								<i class="ci-bag align-middle opacity-60 me-2"></i>
+								Orders <span class="font-size-sm text-muted ms-auto">0</span>
+							</a>
+						</li>-->
+						<li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"
+							class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--downloads border-top mb-0">
+							<a [routerLink]="['/my-account/downloads']" class="nav-link-style d-flex align-items-center px-4 py-3">
+								<i class="ci-cloud-download align-middle opacity-60 me-2"></i>
+								Downloads <!--<span class="font-size-sm text-muted ms-auto">0</span>-->
+							</a>
+						</li>
+						<ng-container *ngrxLet="wishlistService.wishlist$ as wishlist">
+							<li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"
+								class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--edit-account border-top mb-0">
+								<a [routerLink]="['/my-account/wishlist']" class="nav-link-style d-flex align-items-center px-4 py-3">
+									<i class="ci-heart align-middle opacity-60 me-2"></i>
+									My wishlist <span class="font-size-sm text-muted ms-auto">{{ wishlist.length }}</span></a>
+							</li>
+						</ng-container>
 						<li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"
 							class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--edit-account border-top mb-0">
-							<a [routerLink]="['/my-account/wishlist']" class="nav-link-style d-flex align-items-center px-4 py-3">
-								<i class="ci-heart align-middle opacity-60 me-2"></i>
-								My wishlist <span class="font-size-sm text-muted ms-auto">{{ wishlist.length }}</span></a>
+							<a [routerLink]="['/my-account/favorite-sellers']" class="nav-link-style d-flex align-items-center px-4 py-3">
+								<i class="ci-store align-middle opacity-60 me-2"></i>
+								My favorite sellers </a>
 						</li>
-					</ng-container>
-					<li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"
-						class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--edit-account border-top mb-0">
-						<a [routerLink]="['/my-account/favorite-sellers']" class="nav-link-style d-flex align-items-center px-4 py-3">
-							<i class="ci-store align-middle opacity-60 me-2"></i>
-							My favorite sellers </a>
-					</li>
-					<li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"
-						class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--edit-account border-top mb-0">
-						<a [routerLink]="['/my-account/edit-account']" class="nav-link-style d-flex align-items-center px-4 py-3">
-							<i class="ci-user align-middle opacity-60 me-2"></i>
-							Account details </a>
-					</li>
-		    </ul>
-		    <div class="bg-secondary p-4">
-		      <h3 class="font-size-sm mb-0 text-muted">Seller Dashboard</h3>
-		    </div>
-		    <ul class="dokan-dashboard-menu list-unstyled mb-0">
-		      <li class="border-bottom mb-0 dashboard" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">
-						<a (click)="openStripeDashboard()" class="nav-link-style d-flex align-items-center px-4 py-3">
-							<i class="ci-wallet opacity-60 me-2"></i> Stripe Dashboard
-						</a>
-					</li>
-		      <!--<li class="border-bottom mb-0 dashboard" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/dashboard']"
-		          class="nav-link-style d-flex align-items-center px-4 py-3"><i class="ci-dollar opacity-60 me-2"></i>
-		          Sales <span class="font-size-sm text-muted ms-auto">{{ (storeService.salesAmount$ | async) | currency }}</span></a></li> -->
-					<ng-container *ngrxLet="storeService.myProducts$ as myProducts">
-						<li class="border-bottom mb-0 products" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/dashboard/products']"
-								class="nav-link-style d-flex align-items-center px-4 py-3"><i class="ci-package opacity-60 me-2"></i>
-								Products <span class="font-size-sm text-muted ms-auto">{{ myProducts.length }}</span></a></li>
-					</ng-container>
-		      <li class="border-bottom mb-0 analytics" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/dashboard/analytics']"
-						class="nav-link-style d-flex align-items-center px-4 py-3"><i class="fal fa-chart-area opacity-60 me-2"></i> My Products Statistics</a>
-					</li>
-		      <li class="border-bottom mb-0 reports" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/dashboard/followers']"
-		          class="nav-link-style d-flex align-items-center px-4 py-3"><i class="ci-heart opacity-60 me-2"></i>
-		          Followers</a></li>
-					<li class="border-bottom mb-0 settings" routerLinkActive="is-active"><a
-							[routerLink]="['/dashboard/settings']"
-							class="nav-link-style d-flex align-items-center px-4 py-3"><i class="ci-settings opacity-60 me-2"></i>
-							Settings</a></li>
-		      <li class="border-top mb-0 "><a (click)="logout()"
-		          class="nav-link-style d-flex align-items-center px-4 py-3"><i class="ci-sign-out opacity-60 me-2"></i> Sign out</a></li>
-		    </ul>
-		  </div>
-		</div>
+						<li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"
+							class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--edit-account border-top mb-0">
+							<a [routerLink]="['/my-account/edit-account']" class="nav-link-style d-flex align-items-center px-4 py-3">
+								<i class="ci-user align-middle opacity-60 me-2"></i>
+								Account details </a>
+						</li>
+					</ul>
+					<div class="bg-secondary p-4">
+						<h3 class="font-size-sm mb-0 text-muted">Seller Dashboard</h3>
+					</div>
+					<ul class="dokan-dashboard-menu list-unstyled mb-0">
+						<li class="border-bottom mb-0 dashboard" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">
+							<a (click)="openStripeDashboard()" class="nav-link-style d-flex align-items-center px-4 py-3">
+								<i class="ci-wallet opacity-60 me-2"></i> Stripe Dashboard
+							</a>
+						</li>
+						<!--<li class="border-bottom mb-0 dashboard" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/dashboard']"
+								class="nav-link-style d-flex align-items-center px-4 py-3"><i class="ci-dollar opacity-60 me-2"></i>
+								Sales <span class="font-size-sm text-muted ms-auto">{{ (storeService.salesAmount$ | async) | currency }}</span></a></li> -->
+						<ng-container *ngrxLet="storeService.myProducts$ as myProducts">
+							<li class="border-bottom mb-0 products" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/dashboard/products']"
+									class="nav-link-style d-flex align-items-center px-4 py-3"><i class="ci-package opacity-60 me-2"></i>
+									Products <span class="font-size-sm text-muted ms-auto">{{ myProducts.length }}</span></a></li>
+						</ng-container>
+						<li class="border-bottom mb-0 analytics" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/dashboard/analytics']"
+							class="nav-link-style d-flex align-items-center px-4 py-3"><i class="fal fa-chart-area opacity-60 me-2"></i> My Products Statistics</a>
+						</li>
+						<li class="border-bottom mb-0 reports" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/dashboard/followers']"
+								class="nav-link-style d-flex align-items-center px-4 py-3"><i class="ci-heart opacity-60 me-2"></i>
+								Followers</a></li>
+						<li class="border-bottom mb-0 settings" routerLinkActive="is-active"><a
+								[routerLink]="['/dashboard/settings']"
+								class="nav-link-style d-flex align-items-center px-4 py-3"><i class="ci-settings opacity-60 me-2"></i>
+								Settings</a></li>
+						<li class="border-top mb-0 "><a (click)="logout()"
+								class="nav-link-style d-flex align-items-center px-4 py-3"><i class="ci-sign-out opacity-60 me-2"></i> Sign out</a></li>
+					</ul>
+				</div>
+			</div>
+		</ng-container>
 	</aside>
 </div>

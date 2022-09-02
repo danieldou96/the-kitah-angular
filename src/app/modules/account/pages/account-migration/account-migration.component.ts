@@ -95,7 +95,8 @@ export class AccountMigrationComponent implements OnInit {
     this.apiService.migrateAccount(this.migrationForm.value).pipe(
       this.hotToastService.observe({
         loading: 'Processing...',
-        success: 'Success! You are now a seller. Please log in again.'
+        success: 'Success! You are now a seller. Please log in again.',
+        error: 'Error!'
       }),
       first()
     ).subscribe(() => {

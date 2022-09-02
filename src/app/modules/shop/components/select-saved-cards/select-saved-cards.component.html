@@ -1,0 +1,27 @@
+<div class="saved-cards" *ngFor="let card of cards">
+	<div class="card" [class.card--selected]="selectedCard.value == card.id" (click)="selectCard(card.id)">
+		<div class="card__logo">
+			<img *ngIf="card.brand == 'Visa'" src="https://js.stripe.com/v3/fingerprinted/img/visa-729c05c240c4bdb47b03ac81d9945bfe.svg">
+			<img *ngIf="card.brand == 'MasterCard'" src="https://js.stripe.com/v3/fingerprinted/img/mastercard-4d8844094130711885b5e41b28c9848f.svg">
+			<img *ngIf="card.brand == 'American Express'" src="https://js.stripe.com/v3/fingerprinted/img/amex-a49b82f46c5cd6a96a6e418a6ca1717c.svg">
+			<img *ngIf="card.brand == 'Discover'" src="https://js.stripe.com/v3/fingerprinted/img/discover-ac52cd46f89fa40a29a0bfb954e33173.svg">
+			<img *ngIf="card.brand == 'Diners Club'" src="https://js.stripe.com/v3/fingerprinted/img/diners-fbcbd3360f8e3f629cdaa80e93abdb8b.svg">
+			<img *ngIf="card.brand == 'JCB'" src="https://js.stripe.com/v3/fingerprinted/img/jcb-271fd06e6e7a2c52692ffa91a95fb64f.svg">
+			<img *ngIf="card.brand == 'UnionPay'" src="https://js.stripe.com/v3/fingerprinted/img/unionpay-8a10aefc7295216c338ba4e1224627a1.svg">
+		</div>
+		<div class="card__type">
+			{{ card.brand }}
+		</div>
+		<div class="card__number">
+			{{ card.last4 }}
+		</div>
+		<div class="card__expiry">
+			Exp {{ card.expMonth }}/{{ card.expYear }}
+		</div>
+		<div class="card__delete">
+			<button type="button" class="card__delete-button" (click)="deleteCard(card.id)">
+				<i class="fal fa-trash-alt"></i>
+			</button>
+		</div>
+	</div>
+</div>

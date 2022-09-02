@@ -6,10 +6,11 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { AuthService } from 'src/app/core/authentication/auth.service';
 import { ERoles } from 'src/app/shared/enums/user';
 import { conditionalValidator } from 'src/app/shared/validators/validators';
-import slugify from 'slugify';
 import { first } from 'rxjs';
 import { countries, IState, StatesAU, StatesCA, StatesUS } from 'src/app/shared/data/phone-country-code';
 import { DocumentService } from 'src/app/core/services/document/document.service';
+import slugify from 'slugify';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @UntilDestroy()
 @Component({
@@ -37,6 +38,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private hotToastService: HotToastService,
     private documentService: DocumentService,
     private router: Router,
     private authService: AuthService
@@ -145,6 +147,11 @@ export class RegisterComponent implements OnInit {
     }
 
     this.authService.register(this.registerForm.value).pipe(
+      this.hotToastService.observe({
+        loading: 'Processing...',
+        success: 'Success!',
+        error: 'Error!'
+      }),
       first()
     ).subscribe();
   }

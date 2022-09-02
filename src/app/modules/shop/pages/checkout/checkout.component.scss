@@ -480,3 +480,26 @@
 .total {
   font-size: 2rem;
 }
+
+.use-new-card {
+	padding: 16px;
+	background-color: #fafafa;
+	border: 1px solid #d6d6d6;
+  border-radius: 4px;
+
+	&--saved-cards {
+		border-top: 0;
+		border-radius: 0 0 4px 4px;
+	}
+
+	&__button {
+		display: inline-block;
+		color: #0084B4;
+    background: none;
+		cursor: pointer;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}

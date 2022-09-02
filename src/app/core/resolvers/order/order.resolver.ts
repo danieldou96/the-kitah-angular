@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
-import { map, Observable } from 'rxjs';
+import { map, Observable, of, tap } from 'rxjs';
 import { ApiResponse } from 'src/app/shared/models/api-response';
 import { IOrder } from 'src/app/shared/models/order';
 import { OrdersService } from '../../services/orders/orders.service';
@@ -8,7 +8,7 @@ import { OrdersService } from '../../services/orders/orders.service';
 @Injectable({
   providedIn: 'root'
 })
-export class OrderResolver implements Resolve<Observable<IOrder>> {
+export class OrderResolver implements Resolve<Observable<IOrder | void>> {
 
   constructor(
     private router: Router,
@@ -16,8 +16,20 @@ export class OrderResolver implements Resolve<Observable<IOrder>> {
   ) { }
 
   resolve(route: ActivatedRouteSnapshot) {
-    return this.orderService.findOne<ApiResponse>(route.params['id'] ?? this.router.getCurrentNavigation()!.extras!.state!['orderId']).pipe(
-      map((apiResponse: ApiResponse) => apiResponse.data as IOrder)
+    const currentNavigation = this.router.getCurrentNavigation();
+
+    if (currentNavigation && currentNavigation.extras && currentNavigation.extras.state) {
+      const orderId = currentNavigation.extras.state['orderId'];
+
+      if (orderId) {
+        return this.orderService.findOne<ApiResponse<IOrder>>(orderId).pipe(
+          map(apiResponse => apiResponse.data)
+        );
+      }
+    }
+
+    return of(void 0).pipe(
+      tap(() => this.router.navigateByUrl('/'))
     );
   }
 }

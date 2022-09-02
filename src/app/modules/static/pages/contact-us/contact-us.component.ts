@@ -34,6 +34,12 @@ export class ContactUsComponent {
 
     this.apiService.sendContactForm(this.contactForm.value).pipe(
       first()
-    ).subscribe(() => this.hotToastService.success('Your message has been sent.'));
+    ).subscribe(() => {
+      this.contactForm.reset();
+      Object.keys(this.contactForm.controls).forEach(key => {
+        this.contactForm.get(key)?.setErrors(null);
+      });
+      this.hotToastService.success('Your message has been sent.');
+    });
   }
 }

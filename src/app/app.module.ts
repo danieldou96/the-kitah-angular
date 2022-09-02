@@ -18,6 +18,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { ErrorInterceptor } from './core/interceptors/error/error.interceptor';
 import * as Hammer from '@egjs/hammerjs';
+import { UnauthorizedInterceptor } from './core/interceptors/unauthorized/unauthorized.interceptor';
 
 @Injectable()
 export class HammerConfig extends HammerGestureConfig {
@@ -81,6 +82,11 @@ export class HammerConfig extends HammerGestureConfig {
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: ErrorInterceptor,
+			multi: true
+		},
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: UnauthorizedInterceptor,
 			multi: true
 		},
     CookieService

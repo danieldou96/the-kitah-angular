@@ -7,6 +7,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { StripeRefreshComponent } from './pages/stripe-refresh/stripe-refresh.component';
 import { StripeAccountLinkResolver } from 'src/app/core/resolvers/stripe-account-link/stripe-account-link.resolver';
+import { VerifyEmailResolver } from 'src/app/core/resolvers/verify-email/verify-email.resolver';
+import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -21,6 +24,19 @@ const routes: Routes = [
     resolve: {
       stripeAccountLink: StripeAccountLinkResolver
     }
+	},
+  {
+		path: 'verify/:link',
+		component: VerifyEmailComponent,
+    title: 'Verify Email',
+    resolve: {
+      link: VerifyEmailResolver
+    }
+	},
+  {
+		path: 'reset-password/:link',
+		component: ResetPasswordComponent,
+    title: 'Reset Password'
 	},
   {
 		path: 'register',
@@ -39,6 +55,8 @@ const routes: Routes = [
     LoginComponent,
     RegisterComponent,
     ForgotPasswordComponent,
+    ResetPasswordComponent,
+    VerifyEmailComponent,
     StripeRefreshComponent
   ],
   imports: [

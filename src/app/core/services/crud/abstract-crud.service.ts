@@ -1,8 +1,9 @@
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { CrudOperations } from './crud-operations.interface';
 import { PageRequest } from 'src/app/shared/models/pagination/page-request.model';
 import { Page } from 'src/app/shared/models/pagination/page.model';
+import { ApiResponse } from 'src/app/shared/models/api-response';
 
 export abstract class AbstractCrudService<T, ID, P> implements CrudOperations<T, ID, P> {
   constructor(
@@ -11,19 +12,19 @@ export abstract class AbstractCrudService<T, ID, P> implements CrudOperations<T,
   ) {}
 
   save<RT>(t: T): Observable<RT> {
-    return this._http.post<RT>(this._base, t);
+    return this._http.post<ApiResponse<RT>>(this._base, t).pipe(map(apiResponse => apiResponse.data));
   }
 
   update<RT>(id: ID, t: T): Observable<RT> {
-    return this._http.put<RT>(this._base + "/" + id, t, {});
+    return this._http.put<ApiResponse<RT>>(this._base + "/" + id, t, {}).pipe(map(apiResponse => apiResponse.data));
   }
 
   findOne<RT>(id: ID): Observable<RT> {
-    return this._http.get<RT>(this._base + "/" + id);
+    return this._http.get<ApiResponse<RT>>(this._base + "/" + id).pipe(map(apiResponse => apiResponse.data));
   }
 
   findAll<RT>(): Observable<RT> {
-    return this._http.get<RT>(this._base);
+    return this._http.get<ApiResponse<RT>>(this._base).pipe(map(apiResponse => apiResponse.data));
   }
 
   findAllPaginated(pageRequest?: PageRequest): Observable<Page<T, P>> {
@@ -33,10 +34,10 @@ export abstract class AbstractCrudService<T, ID, P> implements CrudOperations<T,
       sortCol: pageRequest.sort.column,
       sortDir: pageRequest.sort.direction
     };
-    return this._http.get<Page<T, P>>(this._base, { params });
+    return this._http.get<ApiResponse<Page<T, P>>>(this._base, { params }).pipe(map(apiResponse => apiResponse.data));
   }
 
   delete(id: ID): Observable<T> {
-    return this._http.delete<T>(this._base + '/' + id);
+    return this._http.delete<ApiResponse<T>>(this._base + '/' + id).pipe(map(apiResponse => apiResponse.data));
   }
 }

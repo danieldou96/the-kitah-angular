@@ -4,6 +4,8 @@ import { map, Observable } from 'rxjs';
 import { ApiService } from 'src/app/core/http/api.service';
 import { OrdersService } from 'src/app/core/services/orders/orders.service';
 import { IOrder, IOrderItem } from 'src/app/shared/models/order';
+import * as mime from 'mime';
+import { DOCUMENT } from '@angular/common';
 
 interface IDownload extends IOrderItem {
   name: string;
@@ -22,7 +24,7 @@ export class DownloadsComponent {
   constructor(
     private apiService: ApiService,
     private ordersService: OrdersService,
-    @Inject(WINDOW) private window: Window
+    @Inject(DOCUMENT) private document: Document
   ) {
     this.downloads$ = this.ordersService.findAll<IOrder[]>().pipe(
       map(orders => {
@@ -38,11 +40,16 @@ export class DownloadsComponent {
 
   downloadFile(productId: number, productFileName: string) {
     this.apiService.downloadProductFile(productId).subscribe(file => {
+      console.log(mime.getType(productFileName))
+      // It is necessary to create a new blob object with mime-type explicitly set
+      // otherwise only Chrome works like it should
+      var newBlob = new Blob([file], { type: mime.getType(productFileName) ?? undefined });
+      
       // For other browsers: 
       // Create a link pointing to the ObjectURL containing the blob.
-      const data = window.URL.createObjectURL(file);
+      const data = window.URL.createObjectURL(newBlob);
       
-      const link = document.createElement('a');
+      var link = this.document.createElement('a');
       link.href = data;
       link.download = `${productFileName}`;
       // this is necessary as link.click() does not work on the latest firefox

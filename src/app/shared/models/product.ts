@@ -101,6 +101,7 @@ export interface IStore {
   state: string;
   city: string;
   description: string;
+	newOrderNotification: boolean;
 	user: User;
 	products: IProduct[];
 	createdAt?: Date;

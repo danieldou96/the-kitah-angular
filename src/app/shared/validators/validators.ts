@@ -4,9 +4,8 @@ export function minArrayLength(minLength: number): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
 		if (control.value.length >= minLength) {
 			return null;
-		} else {
-			return { 'minArrayLength' : { value: control.value } };
 		}
+		return { 'minArrayLength' : { value: control.value } };
   };
 }
 
@@ -26,12 +25,10 @@ export function expirationDate(): ValidatorFn {
 			const notExpired = expiry.getTime() > current.getTime();
 			if (notExpired) {
 				return null;
-			} else {
-				return { 'expirationDate' : { value: control.value } };
 			}
-		} else {
-			return null;
+			return { 'expirationDate' : { value: control.value } };
 		}
+		return null;
   };
 }
 

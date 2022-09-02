@@ -1,0 +1,3 @@
+<ng-select [clearable]="false" [formControl]="state" placeholder="State">
+	<ng-option *ngFor="let state of states" [value]="state.abbreviation">{{ state.name }}</ng-option>
+</ng-select>

@@ -34,6 +34,7 @@ export class SettingsComponent implements OnInit {
       avatar: new FormControl(this.store.avatar ?? null),
       name: new FormControl(this.store.name ?? null, [Validators.required]),
       url: new FormControl(this.store.url ?? null, [Validators.required]),
+      newOrderNotification: new FormControl(this.store.newOrderNotification ?? false),
       description: new FormControl(this.store.description ?? null),
     });
 

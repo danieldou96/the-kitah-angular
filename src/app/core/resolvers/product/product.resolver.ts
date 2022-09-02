@@ -13,8 +13,6 @@ export class ProductResolver implements Resolve<Observable<IProduct>> {
   constructor(private productService: ProductsService) { }
 
   resolve(route: ActivatedRouteSnapshot) {
-    return this.productService.findOne<ApiResponse>(route.params['id']).pipe(
-      map((apiResponse: ApiResponse) => apiResponse.data as IProduct)
-    );
+    return this.productService.findOne<IProduct>(route.params['id']);
   }
 }
