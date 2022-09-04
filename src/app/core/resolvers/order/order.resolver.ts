@@ -22,9 +22,7 @@ export class OrderResolver implements Resolve<Observable<IOrder | void>> {
       const orderId = currentNavigation.extras.state['orderId'];
 
       if (orderId) {
-        return this.orderService.findOne<ApiResponse<IOrder>>(orderId).pipe(
-          map(apiResponse => apiResponse.data)
-        );
+        return this.orderService.findOne<IOrder>(orderId);
       }
     }
 
