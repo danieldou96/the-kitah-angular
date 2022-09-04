@@ -177,10 +177,12 @@ export class CheckoutComponent {
             }).pipe(
               tap(stripeResult => {
                 if (stripeResult.error) {
+                  this.hotToastService.error(stripeResult.error.message);
                   console.error(stripeResult.error);
                   return;
                 }
               }),
+              filter(stripeResult => !stripeResult.error),
               map(stripeResult => stripeResult.token?.id!)
             );
           }
