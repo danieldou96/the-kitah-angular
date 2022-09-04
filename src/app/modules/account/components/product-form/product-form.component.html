@@ -127,12 +127,12 @@
 			</editor>
 		</div>
 	</div>
-	<div class="row mt-3">
+	<div class="row mt-3" *ngrxLet="stripeDetailsSubmitted$ as stripeDetailsSubmitted">
 		<div class="col-12">
 			<p class="m-0">
-				<app-checkbox formControlName="published" [disabled]="!(stripeDetailsSubmitted$ | async)!">Published</app-checkbox>
+				<app-checkbox formControlName="published" [disabled]="!stripeDetailsSubmitted">Published</app-checkbox>
 			</p>
-			<p class="m-1">
+			<p class="m-1" *ngIf="!stripeDetailsSubmitted">
 				To publish a product, you must first submit your information to Stripe in order to properly receive payments. <a style="cursor: pointer" (click)="resumeStripeForm()">Click here</a> to be redirected to your Stripe form.
 			</p>
 		</div>
