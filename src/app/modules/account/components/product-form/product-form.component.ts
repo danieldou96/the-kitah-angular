@@ -101,10 +101,6 @@ export class ProductFormComponent implements OnInit {
 
   fileDropped(file: any) {
     if (file) {
-      // Max 50mb
-      if (file.size > 50000000) {
-        console.error(`Please upload a file of maximum 5mb`);
-      }
       this.productsService.uploadProductFile(file, this.form.controls['previewsType'].value == 'auto').pipe(
         this.hotToastService.observe(
           {
