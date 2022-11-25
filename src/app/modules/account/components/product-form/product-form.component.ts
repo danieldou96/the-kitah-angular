@@ -79,11 +79,15 @@ export class ProductFormComponent implements OnInit {
     const file = event.target.files[0] as File;
     
     if (file) {
-      // Max 50mb
-      if (file.size > 50000000) {
-        console.error(`Please upload a file of maximum 5mb`);
-      }
       this.productsService.uploadProductFile(file, this.form.controls['previewsType'].value == 'auto').pipe(
+        this.hotToastService.observe(
+          {
+            loading: 'Uploading...',
+            success: (s) => 'The file has been successfully uploaded',
+            error: (e) => e || 'Error!',
+          }
+        ),
+        catchError(error => of(error)),
         untilDestroyed(this)
       ).subscribe(result => {
         this.form.patchValue({ file });
