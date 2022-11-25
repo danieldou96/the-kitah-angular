@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WINDOW } from '@ng-web-apis/common';
@@ -84,7 +85,12 @@ export class ProductFormComponent implements OnInit {
           {
             loading: 'Uploading...',
             success: (s) => 'The file has been successfully uploaded',
-            error: (e) => e || 'Error!',
+            error: (e: HttpErrorResponse) => {
+              if (e.error?.message) {
+                return e.error.message;
+              }
+              return 'Error!';
+            },
           }
         ),
         catchError(error => of(error)),
@@ -110,7 +116,12 @@ export class ProductFormComponent implements OnInit {
           {
             loading: 'Uploading...',
             success: (s) => 'The file has been successfully uploaded',
-            error: (e) => e || 'Error!',
+            error: (e: HttpErrorResponse) => {
+              if (e.error?.message) {
+                return e.error.message;
+              }
+              return 'Error!';
+            },
           }
         ),
         catchError(error => of(error)),
