@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WINDOW } from '@ng-web-apis/common';
+import { HotToastService } from '@ngneat/hot-toast';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { first, Observable, shareReplay } from 'rxjs';
+import { catchError, first, Observable, of, shareReplay } from 'rxjs';
 import { ApiService } from 'src/app/core/http/api.service';
 import { CategoriesService } from 'src/app/core/services/categories/categories.service';
 import { ProductsService } from 'src/app/core/services/products/products.service';
@@ -27,6 +28,7 @@ export class ProductFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private hotToastService: HotToastService,
     private apiService: ApiService,
     private productsService: ProductsService,
     public categoriesService: CategoriesService,
@@ -104,6 +106,14 @@ export class ProductFormComponent implements OnInit {
         console.error(`Please upload a file of maximum 5mb`);
       }
       this.productsService.uploadProductFile(file, this.form.controls['previewsType'].value == 'auto').pipe(
+        this.hotToastService.observe(
+          {
+            loading: 'Uploading...',
+            success: (s) => 'The file has been successfully uploaded',
+            error: (e) => e || 'Error!',
+          }
+        ),
+        catchError(error => of(error)),
         untilDestroyed(this)
       ).subscribe(result => {
         this.form.patchValue({ file });
