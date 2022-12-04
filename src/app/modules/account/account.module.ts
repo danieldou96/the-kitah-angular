@@ -37,6 +37,7 @@ import { MyStoreResolver } from 'src/app/core/resolvers/store/my-store.resolver'
 import { StripeDetailsSubmittedGuard } from 'src/app/core/guards/stripe-details-submitted/stripe-details-submitted.guard';
 import { ResumeStripeFormComponent } from './pages/resume-stripe-form/resume-stripe-form.component';
 import { StripeAccountLinkResolver } from 'src/app/core/resolvers/stripe-account-link/stripe-account-link.resolver';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 const buyerRoutes: Routes = [
   {
@@ -214,6 +215,7 @@ const vendorRoutes: Routes = [
     CommonModule,
     SharedModule,
     NgSelectModule,
+    MatProgressBarModule,
     EditorModule,
     RouterModule.forChild([...buyerRoutes, ...vendorRoutes]),
     MatTabsModule,

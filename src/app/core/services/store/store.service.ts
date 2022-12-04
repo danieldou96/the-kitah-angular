@@ -5,7 +5,7 @@ import { filter, map, Observable, shareReplay, switchMap } from 'rxjs';
 import { IProductAnalyticsActivity, IProductAnalyticsSales } from 'src/app/modules/account/pages/analytics/analytics.component';
 import { ApiResponse } from 'src/app/shared/models/api-response';
 import { PageRequest } from 'src/app/shared/models/pagination/page-request.model';
-import { IProduct, IStore, IWithdraw } from 'src/app/shared/models/product';
+import { IProduct, IStore } from 'src/app/shared/models/product';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../../authentication/auth.service';
 import { AbstractCrudService } from '../crud/abstract-crud.service';
@@ -24,7 +24,6 @@ export class StoreService extends AbstractCrudService<IStore, number, PageReques
   public sales$: Observable<IProductAnalyticsSales[]>;
   public analytics$: Observable<IProductAnalyticsActivity[]>;
   public monthSalesAmount$: Observable<number>;
-  public withdraws$: Observable<IWithdraw[]>;
   public salesAmount$: Observable<number>;
   public followers$: Observable<IFollower[]>;
   public myProducts$: Observable<IProduct[]>;
@@ -60,11 +59,6 @@ export class StoreService extends AbstractCrudService<IStore, number, PageReques
       filter(isVendor => isVendor),
       switchMap(() => this.store$),
       map(store => store.monthSalesAmount ?? 0)
-    );
-    this.withdraws$ = this.authService.isVendor$.pipe(
-      filter(isVendor => isVendor),
-      switchMap(() => this.store$),
-      map(store => store.withdraws ?? [])
     );
     this.sales$ = this.sales().pipe(
       shareReplay(1)

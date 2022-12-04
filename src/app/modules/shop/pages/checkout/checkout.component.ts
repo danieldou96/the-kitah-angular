@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -210,7 +211,12 @@ export class CheckoutComponent {
       this.hotToastService.observe({
         loading: 'Processing...',
         success: 'Order placed successfully!',
-        error: 'Error!'
+        error: (e: HttpErrorResponse) => {
+          if (e.error?.message) {
+            return e.error.message;
+          }
+          return 'Error!';
+        }
       })
     );
   }

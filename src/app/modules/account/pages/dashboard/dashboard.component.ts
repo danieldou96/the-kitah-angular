@@ -29,7 +29,6 @@ export class DashboardComponent {
   firstDay: Date;
   lastDay: Date;
 
-  lastWithdrawDate$: Observable<Date | null>;
   salesChartsData$: Observable<SalesChartData[]>;
 
   constructor(
@@ -39,14 +38,6 @@ export class DashboardComponent {
     const date = new Date();
     this.firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
     this.lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    this.lastWithdrawDate$ = this.storeService.withdraws$.pipe(
-      map(withdraws => {
-        if (withdraws.length == 0) {
-          return null;
-        }
-        return new Date(Math.max(...withdraws.map(e => e.date.getTime())))
-      })
-    );
     this.salesChartsData$ = this.storeService.store$.pipe(
       map(store => {
         const orders = store.orders;

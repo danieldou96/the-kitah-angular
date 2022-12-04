@@ -57,14 +57,15 @@ export class ProductsService extends AbstractCrudService<IProduct, number, ShopP
   }
 
   /** @description Saves user registration to the Kinus */
-  public uploadProductFile(pictureFile: File, generateThumbnails: boolean = true): Observable<{ generatedThumbnails?: IFile[]; fileUrl: string; }> {
+  public uploadProductFile(pictureFile: File, generateThumbnails: boolean = true) {
     const formData = new FormData();
     formData.append("file", pictureFile);
     formData.append("generateThumbnails", generateThumbnails.toString());
 
     const url = `${environment.apiUrl}/products/upload/product_file`;
-    return this._http.post<ApiResponse<{ generatedThumbnails?: IFile[]; fileUrl: string; }>>(url, formData).pipe(
-      map(apiResponse => apiResponse.data)
-    );
+    return this._http.post<ApiResponse<{ generatedThumbnails?: IFile[]; fileUrl: string; }>>(url, formData, {
+      reportProgress: true,
+      observe: 'events',
+    });
   }
 }

@@ -1,12 +1,13 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { catchError, first, of } from 'rxjs';
-import slugify from 'slugify';
+import { first } from 'rxjs';
 import { AuthService } from 'src/app/core/authentication/auth.service';
 import { ApiService } from 'src/app/core/http/api.service';
 import { countries, IState, StatesAU, StatesCA, StatesUS } from 'src/app/shared/data/phone-country-code';
+import slugify from 'slugify';
 
 @UntilDestroy()
 @Component({
@@ -96,7 +97,12 @@ export class AccountMigrationComponent implements OnInit {
       this.hotToastService.observe({
         loading: 'Processing...',
         success: 'Success! You are now a seller. Please log in again.',
-        error: 'Error!'
+        error: (e: HttpErrorResponse) => {
+          if (e.error?.message) {
+            return e.error.message;
+          }
+          return 'Error!';
+        }
       }),
       first()
     ).subscribe(() => {

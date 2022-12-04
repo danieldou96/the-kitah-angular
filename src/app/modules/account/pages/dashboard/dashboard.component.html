@@ -8,16 +8,6 @@
         <p class="summary-card__subtext">Sales {{ firstDay | date: 'shortDate' }} – {{ lastDay | date: 'shortDate' }}</p>
       </div>
     </div>
-    <div class="col-md-4 col-sm-6 px-2 mb-4">
-      <div class="summary-card">
-        <h3 class="summary-card__title">Your balance</h3>
-        <p class="summary-card__amount">{{ (storeService.balance$ | async) | currency }}</p>
-        <ng-container *ngrxLet="lastWithdrawDate$ as lastWithdrawDate">
-          <p class="summary-card__subtext" *ngIf="lastWithdrawDate">Last withdraw on: {{ lastWithdrawDate | date: 'shortDate' }}</p>
-          <p class="summary-card__subtext" *ngIf="!lastWithdrawDate">No withdrawal made yet</p>
-        </ng-container>
-      </div>
-    </div>
     <div class="col-md-4 col-sm-12 px-2 mb-4">
       <div class="summary-card">
         <h3 class="summary-card__title">Lifetime earnings</h3>

@@ -11,6 +11,7 @@ import { countries, IState, StatesAU, StatesCA, StatesUS } from 'src/app/shared/
 import { DocumentService } from 'src/app/core/services/document/document.service';
 import slugify from 'slugify';
 import { HotToastService } from '@ngneat/hot-toast';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @UntilDestroy()
 @Component({
@@ -150,7 +151,12 @@ export class RegisterComponent implements OnInit {
       this.hotToastService.observe({
         loading: 'Processing...',
         success: 'Success!',
-        error: 'Error!'
+        error: (e: HttpErrorResponse) => {
+          if (e.error?.message) {
+            return e.error.message;
+          }
+          return 'Error!';
+        }
       }),
       first()
     ).subscribe();

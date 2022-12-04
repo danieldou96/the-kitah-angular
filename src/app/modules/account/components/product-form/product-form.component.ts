@@ -1,13 +1,14 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WINDOW } from '@ng-web-apis/common';
 import { HotToastService } from '@ngneat/hot-toast';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { catchError, first, Observable, of, shareReplay } from 'rxjs';
+import { catchError, finalize, first, Observable, of, shareReplay, tap } from 'rxjs';
 import { ApiService } from 'src/app/core/http/api.service';
 import { CategoriesService } from 'src/app/core/services/categories/categories.service';
 import { ProductsService } from 'src/app/core/services/products/products.service';
+import { UploadService } from 'src/app/core/services/upload/upload.service';
 import { IFile, IProduct } from 'src/app/shared/models/product';
 import { conditionalValidator } from 'src/app/shared/validators/validators';
 
@@ -26,9 +27,11 @@ export class ProductFormComponent implements OnInit {
   fileUploaded = false;
   productFile!: IFile;
   stripeDetailsSubmitted$: Observable<boolean>;
+  uploadProgress: number | null = null;
 
   constructor(
     private fb: FormBuilder,
+    public uploadService: UploadService,
     private hotToastService: HotToastService,
     private apiService: ApiService,
     private productsService: ProductsService,
@@ -80,8 +83,16 @@ export class ProductFormComponent implements OnInit {
     const file = event.target.files[0] as File;
     
     if (file) {
+      /*this.uploadService.uploadFile(file, file.name);
+      return;*/
       this.productsService.uploadProductFile(file, this.form.controls['previewsType'].value == 'auto').pipe(
-        this.hotToastService.observe(
+        tap(t=>console.log(t)),
+        tap(event => {
+          if (event.type == HttpEventType.UploadProgress) {
+            this.uploadProgress = Math.round(100 * (event.loaded / event.total!));
+          }
+        }),
+        /*this.hotToastService.observe(
           {
             loading: 'Uploading...',
             success: (s) => 'The file has been successfully uploaded',
@@ -90,21 +101,27 @@ export class ProductFormComponent implements OnInit {
                 return e.error.message;
               }
               return 'Error!';
-            },
+            }
           }
         ),
-        catchError(error => of(error)),
+        catchError(error => of(error)),*/
+        finalize(() => {
+          this.uploadProgress = null;
+        }),
         untilDestroyed(this)
-      ).subscribe(result => {
-        this.form.patchValue({ file });
-        this.form.patchValue({ previews: result.generatedThumbnails ?? [] });
-        this.fileUploaded = true;
-        this.productFile = {
-          url: result.fileUrl,
-          size: file.size,
-          name: file.name
-        };
-        this.generatedPreviewImages = result.generatedThumbnails ?? [];
+      ).subscribe(event => {
+        if (event.type == HttpEventType.Response) {
+          const result = event.body?.data!;
+          this.form.patchValue({ file });
+          this.form.patchValue({ previews: result.generatedThumbnails ?? [] });
+          this.fileUploaded = true;
+          this.productFile = {
+            url: result.fileUrl,
+            size: file.size,
+            name: file.name
+          };
+          this.generatedPreviewImages = result.generatedThumbnails ?? [];
+        }
       });
     }
   }
@@ -121,7 +138,7 @@ export class ProductFormComponent implements OnInit {
                 return e.error.message;
               }
               return 'Error!';
-            },
+            }
           }
         ),
         catchError(error => of(error)),

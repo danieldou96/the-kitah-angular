@@ -91,7 +91,6 @@ export interface IStore {
   balance?: number;
   salesAmount?: number;
   monthSalesAmount?: number;
-  withdraws?: IWithdraw[];
   orders?: IOrder[];
   name: string;
   url: string;
@@ -106,14 +105,4 @@ export interface IStore {
 	products: IProduct[];
 	createdAt?: Date;
 	updatedAt?: Date;
-}
-
-export interface IWithdraw {
-  id: number;
-  amount: number;
-  date: Date;
-	store?: IStore;
-	status: 'processing' | 'finished';
-	createdAt: Date;
-	updatedAt: Date;
 }
