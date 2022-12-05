@@ -41,7 +41,7 @@ export class UploadService {
       onChunkComplete: (_chunkSize: number, bytesAccepted: number, bytesTotal: number) => {
         this._uploadStatus$.next({
           progress: Math.floor(bytesAccepted / bytesTotal * 100),
-          path: upload?.url?.replace(`${environment.apiUrl}/uploads/`, '')
+          path: upload?.url?.replace(`${environment.apiUrl}/uploads`, '')
         });
       },
       onSuccess: async () => {
