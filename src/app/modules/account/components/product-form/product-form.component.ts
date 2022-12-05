@@ -86,6 +86,7 @@ export class ProductFormComponent implements OnInit {
     if (file) {
       this.uploadService.uploadFile(file, file.name);
       this.uploadService.fileStatus$.pipe(
+        take(1),
         filter(fileStatus => fileStatus.progress == 100),
         switchMap(fileStatus => combineLatest([
           this.productsService.getFilePreviews(fileStatus.path!, 0, 4).pipe(
@@ -163,6 +164,7 @@ export class ProductFormComponent implements OnInit {
     if (file) {
       this.uploadService.uploadFile(file, file.name);
       this.uploadService.fileStatus$.pipe(
+        take(1),
         filter(fileStatus => fileStatus.progress == 100),
         switchMap(fileStatus => combineLatest([
           this.productsService.getFilePreviews(fileStatus.path!, 0, 4).pipe(
