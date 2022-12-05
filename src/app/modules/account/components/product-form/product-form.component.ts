@@ -4,7 +4,7 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { WINDOW } from '@ng-web-apis/common';
 import { HotToastService } from '@ngneat/hot-toast';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { catchError, combineLatest, filter, finalize, first, Observable, of, shareReplay, switchMap, tap } from 'rxjs';
+import { catchError, combineLatest, filter, finalize, first, Observable, of, shareReplay, switchMap, take, tap } from 'rxjs';
 import { ApiService } from 'src/app/core/http/api.service';
 import { CategoriesService } from 'src/app/core/services/categories/categories.service';
 import { ProductsService } from 'src/app/core/services/products/products.service';
@@ -89,10 +89,11 @@ export class ProductFormComponent implements OnInit {
         filter(fileStatus => fileStatus.progress == 100),
         switchMap(fileStatus => combineLatest([
           this.productsService.getFilePreviews(fileStatus.path!, 0, 4).pipe(
+            take(1),
             this.hotToastService.observe(
               {
                 loading: 'Processing...',
-                success: (s) => 'The file has been successfully uploaded',
+                success: (s) => 'The file has been successfully uploaded.',
                 error: (e: HttpErrorResponse) => {
                   if (e.error?.message) {
                     return e.error.message;
@@ -165,10 +166,11 @@ export class ProductFormComponent implements OnInit {
         filter(fileStatus => fileStatus.progress == 100),
         switchMap(fileStatus => combineLatest([
           this.productsService.getFilePreviews(fileStatus.path!, 0, 4).pipe(
+            take(1),
             this.hotToastService.observe(
               {
                 loading: 'Processing...',
-                success: (s) => 'The file has been successfully uploaded',
+                success: (s) => 'The file has been successfully uploaded.',
                 error: (e: HttpErrorResponse) => {
                   if (e.error?.message) {
                     return e.error.message;

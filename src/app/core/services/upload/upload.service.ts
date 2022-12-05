@@ -31,7 +31,7 @@ export class UploadService {
       endpoint: `${environment.apiUrl}/uploads/files/`,
       retryDelays: [0, 3000, 6000, 12000, 24000],
       //chunkSize: 99000000,
-      chunkSize: 10000000,
+      chunkSize: 1000000,
       headers: { Authorization: `Bearer ${this.authService.loggedInUser?.token}` },
       metadata: { filename, filetype: file.type },
       onError: error => {
