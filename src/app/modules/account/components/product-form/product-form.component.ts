@@ -88,7 +88,20 @@ export class ProductFormComponent implements OnInit {
       this.uploadService.fileStatus$.pipe(
         filter(fileStatus => fileStatus.progress == 100),
         switchMap(fileStatus => combineLatest([
-          this.productsService.getFilePreviews(fileStatus.path!, 0, 4),
+          this.productsService.getFilePreviews(fileStatus.path!, 0, 4).pipe(
+            this.hotToastService.observe(
+              {
+                loading: 'Processing...',
+                success: (s) => 'The file has been successfully uploaded',
+                error: (e: HttpErrorResponse) => {
+                  if (e.error?.message) {
+                    return e.error.message;
+                  }
+                  return 'Error!';
+                }
+              }
+            )
+          ),
           of(fileStatus.path)
         ])),
         untilDestroyed(this)
@@ -151,7 +164,20 @@ export class ProductFormComponent implements OnInit {
       this.uploadService.fileStatus$.pipe(
         filter(fileStatus => fileStatus.progress == 100),
         switchMap(fileStatus => combineLatest([
-          this.productsService.getFilePreviews(fileStatus.path!, 0, 4),
+          this.productsService.getFilePreviews(fileStatus.path!, 0, 4).pipe(
+            this.hotToastService.observe(
+              {
+                loading: 'Processing...',
+                success: (s) => 'The file has been successfully uploaded',
+                error: (e: HttpErrorResponse) => {
+                  if (e.error?.message) {
+                    return e.error.message;
+                  }
+                  return 'Error!';
+                }
+              }
+            )
+          ),
           of(fileStatus.path)
         ])),
         untilDestroyed(this)
