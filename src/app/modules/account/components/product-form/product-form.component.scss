@@ -128,3 +128,24 @@ input[type="radio"] {
 	display: flex;
   gap: 15px;
 }
+
+.progress {
+	background-color: #d8d8d8;
+	border-radius: 20px;
+	position: relative;
+	height: 20px;
+	width: 100%;
+
+	&__bar {
+		background: linear-gradient(to left, #f5984b, #dea249);
+		border-radius: 20px;
+		color: #fff;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+		font-size: 12px;
+		width: 0;
+		transition: 250ms ease;
+	}
+}

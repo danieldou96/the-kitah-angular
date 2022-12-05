@@ -28,17 +28,23 @@
 			</div>
 		</div>
 	</div>
-	<mat-progress-bar mode="determinate" [value]="uploadProgress" *ngIf="uploadProgress"></mat-progress-bar>
-	<!--<div *ngFor="let fileStatus of uploadService.uploadProgress | async">
-		<p>Uploading File: {{fileStatus.filename}}</p>
-		<progress color="primary" mode="determinate"
+	<ng-container *ngrxLet="uploadService.fileStatus$ as fileStatus">
+		<p class="mb-2" style="font-size:14px;">Uploading File: {{fileStatus.filename}}</p>
+		<div class="progress">
+			<div *ngIf="fileStatus.progress" class="progress__bar" [style.width.%]="fileStatus.progress">
+				<ng-container *ngIf="fileStatus.progress < 100">{{ fileStatus.progress }}%</ng-container>
+				<ng-container *ngIf="fileStatus.progress == 100">Upload finished</ng-container>
+			</div>
+		</div>
+	</ng-container>
+		<!--<mat-progress-bar *ngIf="fileStatus.progress" mode="determinate" [value]="fileStatus.progress"></mat-progress-bar>-->
+		<!--<progress color="primary" mode="determinate"
 											[value]="fileStatus.progress"></progress>
 		<p>Progress: {{fileStatus.progress}}%</p>
 		<p>UUID: {{fileStatus.uuid}}</p>
 		<div *ngIf="fileStatus.progress == 100">
 			<a href="https://master.tus.io/files/{{fileStatus.uuid}}">Uploaded File</a>
-		</div>
-</div>-->
+		</div>-->
 	<div class="row my-3">
 		<div class="col-12">
 			<label>

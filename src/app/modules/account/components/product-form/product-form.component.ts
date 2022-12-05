@@ -4,7 +4,7 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { WINDOW } from '@ng-web-apis/common';
 import { HotToastService } from '@ngneat/hot-toast';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { catchError, finalize, first, Observable, of, shareReplay, tap } from 'rxjs';
+import { catchError, combineLatest, filter, finalize, first, Observable, of, shareReplay, switchMap, tap } from 'rxjs';
 import { ApiService } from 'src/app/core/http/api.service';
 import { CategoriesService } from 'src/app/core/services/categories/categories.service';
 import { ProductsService } from 'src/app/core/services/products/products.service';
@@ -27,6 +27,7 @@ export class ProductFormComponent implements OnInit {
   fileUploaded = false;
   productFile!: IFile;
   stripeDetailsSubmitted$: Observable<boolean>;
+
   uploadProgress: number | null = null;
 
   constructor(
@@ -83,8 +84,26 @@ export class ProductFormComponent implements OnInit {
     const file = event.target.files[0] as File;
     
     if (file) {
-      /*this.uploadService.uploadFile(file, file.name);
-      return;*/
+      this.uploadService.uploadFile(file, file.name);
+      this.uploadService.fileStatus$.pipe(
+        filter(fileStatus => fileStatus.progress == 100),
+        switchMap(fileStatus => combineLatest([
+          this.productsService.getFilePreviews(fileStatus.path!, 0, 4),
+          of(fileStatus.path)
+        ])),
+        untilDestroyed(this)
+      ).subscribe(([previews, path]) => {
+          this.form.patchValue({ file });
+          this.form.patchValue({ previews });
+          this.fileUploaded = true;
+          this.productFile = {
+            url: path!,
+            size: file.size,
+            name: file.name
+          };
+          this.generatedPreviewImages = previews;
+      });
+      return;
       this.productsService.uploadProductFile(file, this.form.controls['previewsType'].value == 'auto').pipe(
         tap(t=>console.log(t)),
         tap(event => {
@@ -128,6 +147,26 @@ export class ProductFormComponent implements OnInit {
 
   fileDropped(file: any) {
     if (file) {
+      this.uploadService.uploadFile(file, file.name);
+      this.uploadService.fileStatus$.pipe(
+        filter(fileStatus => fileStatus.progress == 100),
+        switchMap(fileStatus => combineLatest([
+          this.productsService.getFilePreviews(fileStatus.path!, 0, 4),
+          of(fileStatus.path)
+        ])),
+        untilDestroyed(this)
+      ).subscribe(([previews, path]) => {
+          this.form.patchValue({ file });
+          this.form.patchValue({ previews });
+          this.fileUploaded = true;
+          this.productFile = {
+            url: path!,
+            size: file.size,
+            name: file.name
+          };
+          this.generatedPreviewImages = previews;
+      });
+      return;
       this.productsService.uploadProductFile(file, this.form.controls['previewsType'].value == 'auto').pipe(
         this.hotToastService.observe(
           {

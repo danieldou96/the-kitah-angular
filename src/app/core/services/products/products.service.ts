@@ -50,19 +50,24 @@ export class ProductsService extends AbstractCrudService<IProduct, number, ShopP
     const formData = new FormData();
     formData.append("file", pictureFile);
 
-    const url = `${environment.apiUrl}/products/upload/product_preview`;
+    const url = `${this._base}/upload/product_preview`;
     return this._http.post<ApiResponse<string>>(url, formData).pipe(
       map(apiResponse => apiResponse.data)
     );
   }
 
   /** @description Saves user registration to the Kinus */
+  public getFilePreviews(path: string, from: number = 0, pages: number = 4) {
+    return this._http.post<ApiResponse<IFile[]>>(`${this._base}/file_previews`, { path, from, pages }).pipe(map(apiResponse => apiResponse.data));
+  }
+
+  /** @description Saves user registration to the Kinus */
   public uploadProductFile(pictureFile: File, generateThumbnails: boolean = true) {
     const formData = new FormData();
-    formData.append("file", pictureFile);
+    formData.append("file", pictureFile, pictureFile.name);
     formData.append("generateThumbnails", generateThumbnails.toString());
 
-    const url = `${environment.apiUrl}/products/upload/product_file`;
+    const url = `${this._base}/upload/product_file`;
     return this._http.post<ApiResponse<{ generatedThumbnails?: IFile[]; fileUrl: string; }>>(url, formData, {
       reportProgress: true,
       observe: 'events',
