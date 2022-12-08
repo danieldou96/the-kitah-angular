@@ -45,7 +45,7 @@ export class ProductFormComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       title: new FormControl(this.product?.name ?? null, [Validators.required]),
-      price: new FormControl(this.product?.price ?? null, [Validators.required]),
+      price: new FormControl(this.product?.price ?? null, [Validators.min(0), Validators.required]),
       file: new FormControl(this.product?.file ?? null, [Validators.required]),
       previewsType: new FormControl(this.product?.previewsType ? 'later' : 'auto', [Validators.required]),
       previews: new FormControl(this.product?.previewsType == 'auto' ? [
