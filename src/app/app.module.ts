@@ -19,6 +19,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { ErrorInterceptor } from './core/interceptors/error/error.interceptor';
 import * as Hammer from '@egjs/hammerjs';
 import { UnauthorizedInterceptor } from './core/interceptors/unauthorized/unauthorized.interceptor';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @Injectable()
 export class HammerConfig extends HammerGestureConfig {
@@ -54,6 +55,7 @@ export class HammerConfig extends HammerGestureConfig {
       loadingText: 'Loading...'
     }),
     HttpClientModule,
+    MatDialogModule,
     SharedModule,
     HammerModule,
     AppRoutingModule,

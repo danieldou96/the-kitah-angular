@@ -246,6 +246,14 @@ export class ApiService {
   }
 
   /** @description Get updates list to be on the homepage */
+  public subscribeEmail(email: string): Observable<any> {
+    const url = this.apiUrl + `/homepage/subscribe`;
+    return this.http.post<ApiResponse<any>>(url, {
+      email
+    }).pipe(map(apiResponse => apiResponse.data));
+  }
+
+  /** @description Get updates list to be on the homepage */
   public resetPassword(link: string, password: string): Observable<boolean> {
     const url = this.apiUrl + `/auth/reset-password`;
     return this.http.post<ApiResponse<boolean>>(url, {

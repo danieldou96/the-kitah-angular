@@ -1,0 +1,32 @@
+<div class="dialog">
+  <h4 class="dialog__title">{{ data.title }}</h4>
+  <div class="dialog__description">
+    {{ data.description }}
+  </div>
+	<div *ngIf="!subscribed" class="dialog__cta">
+		<div class="dialog__email">
+			<div class="dialog__email-input">
+				<input type="email" class="classic-input" (keyup.enter)="submit()" [formControl]="email" placeholder="Email">
+				<div *ngIf="submitted && email.errors" class="invalid-feedback">
+					<div *ngIf="email.errors['required']">The Email is required.</div>
+					<div *ngIf="email.errors['email']">Enter a valid Email</div>
+				</div>
+			</div>
+			<button class="classic-button" (click)="submit()">Submit</button>
+		</div>
+		<a class="dialog__decline" (click)="close()">
+			{{ data.declineText }}
+		</a>
+	</div>
+	<div *ngIf="subscribed" class="dialog__subscribed">
+		Thank you!
+	</div>
+  <button
+    title="Close (Esc)"
+    type="button"
+    class="dialog__close"
+    (click)="close()"
+    mat-dialog-close>
+    ×
+  </button>
+</div>

@@ -14,6 +14,7 @@ import { SwiperModule } from 'swiper/angular';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { ErrorTailorModule } from '@ngneat/error-tailor';
 import { PasswordInputComponent } from './components/password-input/password-input.component';
+import { AdsPopupComponent } from './components/ads-popup/ads-popup.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { PasswordInputComponent } from './components/password-input/password-inp
     CheckboxComponent,
     ProductCardComponent,
     ProductsGridComponent,
-    PasswordInputComponent
+    PasswordInputComponent,
+    AdsPopupComponent
   ],
   imports: [
     CommonModule,

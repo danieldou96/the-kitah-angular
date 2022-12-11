@@ -1,7 +1,8 @@
-import { NgModule, Injectable } from '@angular/core';
+import { NgModule, Injectable, APP_INITIALIZER } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RouterModule, RouterStateSnapshot, Routes, TitleStrategy } from '@angular/router';
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
+import { AdsPopupService } from './core/services/ads-popup/ads-popup.service';
 
 @Injectable()
 export class TemplatePageTitleStrategy extends TitleStrategy {
@@ -63,6 +64,12 @@ const routes: Routes = [
 })],
   exports: [RouterModule],
   providers: [
+		{
+			provide: APP_INITIALIZER,
+			useFactory: (adsPopupService: AdsPopupService) => () => adsPopupService.openAdsPopup(),
+			deps: [AdsPopupService],
+			multi: true,
+		},
     {
       provide: TitleStrategy,
       useClass: TemplatePageTitleStrategy
