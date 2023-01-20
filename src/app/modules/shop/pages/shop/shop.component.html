@@ -211,11 +211,11 @@
               <div class="pagination">
                   <div class="page-item" [class.disabled]="p.isFirstPage()">
                       <a *ngIf="!p.isFirstPage()" (click)="p.previous()" class="page-link">
-                        <i class="ci-arrow-left me-2"></i><span *ngIf="!documentService.isMobile">Prev</span>
+                        <i class="ci-arrow-left"></i><span *ngIf="!documentService.isMobile">Prev</span>
                       </a>
                   </div>
                   <div *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value" class="page-item">
-                      <a (click)="p.setCurrent(page.value)" queryParamsHandling="merge" *ngIf="p.getCurrent() !== page.value" class="page-link">
+                      <a (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value" class="page-link">
                           <span>{{ page.label }}</span>
                       </a>
                       <div *ngIf="p.getCurrent() === page.value" class="page-link current">
@@ -224,7 +224,7 @@
                   </div>
                   <div class="page-item" [class.disabled]="p.isLastPage()">
                       <a *ngIf="!p.isLastPage()" (click)="p.next()" class="page-link">
-                        <span *ngIf="!documentService.isMobile">Next</span><i class="ci-arrow-right ms-2"></i>
+                        <span *ngIf="!documentService.isMobile">Next</span><i class="ci-arrow-right"></i>
                       </a>
                   </div>
               </div>
