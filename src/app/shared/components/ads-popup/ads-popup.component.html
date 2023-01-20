@@ -1,9 +1,7 @@
 <div class="dialog">
   <h4 class="dialog__title">{{ data.title }}</h4>
-  <div class="dialog__description">
-    {{ data.description }}
-  </div>
-	<div *ngIf="!subscribed" class="dialog__cta">
+  <div class="dialog__description" [innerHTML]="data.description"></div>
+	<!--<div *ngIf="!subscribed" class="dialog__cta">
 		<div class="dialog__email">
 			<div class="dialog__email-input">
 				<input type="email" class="classic-input" (keyup.enter)="submit()" [formControl]="email" placeholder="Email">
@@ -17,7 +15,10 @@
 		<a class="dialog__decline" (click)="close()">
 			{{ data.declineText }}
 		</a>
-	</div>
+	</div>-->
+	<a class="dialog__decline" (click)="close()">
+		{{ data.declineText }}
+	</a>
 	<div *ngIf="subscribed" class="dialog__subscribed">
 		Thank you!
 	</div>
