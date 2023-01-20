@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { QueryParam, QueryParamBuilder, QueryParamGroup } from '@ngqp/core';
-import { first, map, Observable, skip, take } from 'rxjs';
+import { map, Observable, skip, take } from 'rxjs';
 import { ApiService } from 'src/app/core/http/api.service';
 import { CartService } from 'src/app/core/services/cart/cart.service';
+import { DocumentService } from 'src/app/core/services/document/document.service';
 import { ProductsService } from 'src/app/core/services/products/products.service';
 import { categoryToFilterItem } from 'src/app/shared/models/category';
 import { IFilterItem } from 'src/app/shared/models/filter';
@@ -13,7 +13,6 @@ import { Page } from 'src/app/shared/models/pagination/page.model';
 import { Sort } from 'src/app/shared/models/pagination/sort.model';
 import { IProduct } from 'src/app/shared/models/product';
 import { ShopFilters, ShopPageRequest } from 'src/app/shared/models/shop';
-import { getAllNumbersBetween } from 'src/app/shared/utils';
 
 enum ESort {
   Popularity = 'popularity',
@@ -32,6 +31,7 @@ enum ESort {
 })
 export class ShopComponent implements OnInit {
 
+  @ViewChild('paginateNav') paginateNavElement!: ElementRef<HTMLElement>;
   public currentPage!: Page<IProduct, ShopPageRequest>;
   public currentFilters!: ShopFilters;
   viewMode: 'list' | 'grid' = 'list';
@@ -48,6 +48,7 @@ export class ShopComponent implements OnInit {
   constructor(
     private router: Router,
     public route: ActivatedRoute,
+    public documentService: DocumentService,
     private apiService: ApiService,
     private qpb: QueryParamBuilder,
     public cartService: CartService,
@@ -146,22 +147,30 @@ export class ShopComponent implements OnInit {
     });
   }
 
-  isLinkActive(url: string): boolean {
-    const queryParamsIndex = this.router.url.indexOf('?');
-    const baseUrl = queryParamsIndex === -1 ? this.router.url : this.router.url.slice(0, queryParamsIndex);
-    return baseUrl === url;
-  }
-
-  get pageNumbers() {
-    return getAllNumbersBetween(this.currentPage?.totalPages!);
-  }
-
   public nextPage(): void {
     this._fetchPageOfProducts(new ShopPageRequest(this.currentFilters, this.currentPage.next?.page, this.currentPage.next?.size, this.currentPage.next?.sort));
   }
 
   public prevPage(): void {
     this._fetchPageOfProducts(new ShopPageRequest(this.currentFilters, this.currentPage.previous?.page, this.currentPage.previous?.size, this.currentPage.previous?.sort));
+  }
+
+  pageChange(page: number) {
+    this._fetchPageOfProducts(
+      new ShopPageRequest(
+        this.currentFilters,
+        page,
+        this.currentPage.current?.size,
+        this.currentPage.current?.sort
+      )
+    );
+  }
+
+  get maxPaginationItems() {
+    if (this.documentService.isMobile) {
+      return Math.floor(this.paginateNavElement?.nativeElement?.getBoundingClientRect().width / 40.75) - 2;
+    }
+    return Math.floor((this.paginateNavElement?.nativeElement?.getBoundingClientRect().width * 0.6) / 40.75) - 2;
   }
 
   private _fetchPageOfProducts(pageRequest?: ShopPageRequest) {

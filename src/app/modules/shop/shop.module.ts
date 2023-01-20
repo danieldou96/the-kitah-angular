@@ -29,6 +29,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { FiltersSidebarComponent } from './components/filters-sidebar/filters-sidebar.component';
 import { SelectSavedCardsComponent } from './components/select-saved-cards/select-saved-cards.component';
 import { DynamicStateModule } from 'src/app/shared/modules/dynamic-state/dynamic-state.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const routes: Routes = [
   {
@@ -98,6 +99,7 @@ const routes: Routes = [
     BarRatingModule,
     GalleryModule,
     NgxSkeletonLoaderModule,
+    NgxPaginationModule,
     SwiperModule,
     QueryParamModule,
     MatTabsModule,

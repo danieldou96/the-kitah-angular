@@ -950,9 +950,6 @@
   .card-img-top {
     flex-shrink: 0;
     width: 100%;
-  }
-
-  .card-img-top {
     border-top-left-radius: calc(0.4375rem - 1px);
     border-top-right-radius: calc(0.4375rem - 1px);
   }
@@ -962,6 +959,9 @@
     padding-left: 0;
     list-style: none;
     border-radius: 0.3125rem;
+    justify-content: center;
+    margin-bottom: 0;
+    user-select: none;
   }
 
   .page-link {
@@ -973,20 +973,27 @@
     color: #4b566b;
     background-color: #fff;
     border: 1px solid transparent;
+    white-space: nowrap;
+    border-radius: 0.3125rem;
+    font-size: 0.9375rem;
+
+    &:hover {
+      z-index: 2;
+      color: #4b566b;
+      text-decoration: none;
+      background-color: #f3f5f9;
+      border-color: #f3f5f9;
+    }
+
+    &:focus {
+      z-index: 3;
+      outline: 0;
+      box-shadow: 0 0 0 0 rgba(254, 105, 106, 0.25);
+    }
   }
 
-  .page-link:hover {
-    z-index: 2;
-    color: #4b566b;
-    text-decoration: none;
-    background-color: #f3f5f9;
-    border-color: #f3f5f9;
-  }
-
-  .page-link:focus {
-    z-index: 3;
-    outline: 0;
-    box-shadow: 0 0 0 0 rgba(254, 105, 106, 0.25);
+  pagination-template {
+    width: 100%;
   }
 
   .page-item:first-child .page-link {
@@ -1015,11 +1022,11 @@
     color: #4b566b;
     text-shadow: none;
     opacity: .5;
-  }
 
-  .close:hover {
-    color: #4b566b;
-    text-decoration: none;
+    &:hover {
+      color: #4b566b;
+      text-decoration: none;
+    }
   }
 
   button.close {
@@ -1200,11 +1207,6 @@
     width: 100%;
   }
 
-  .pagination {
-    margin-bottom: 0;
-    user-select: none;
-  }
-
   .page-link {
     position: relative;
     transition: color 0.25s ease-in-out, border-color 0.25s ease-in-out, background-color 0.25s ease-in-out;
@@ -1233,11 +1235,6 @@
 
   .page-item.active>.page-link {
     box-shadow: 0 0.5rem 1.125rem -0.425rem rgba(254, 105, 106, 0.9);
-  }
-
-  .pagination .page-link {
-    border-radius: 0.3125rem;
-    font-size: 0.9375rem;
   }
 
   .close {
@@ -1878,6 +1875,12 @@ select:focus,
   .nav-link-style.nav-link-light{color:#4b566b!important;}
   /*! CSS Used fontfaces */
 
+  .cartzilla-shop-pagination {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
   ngx-skeleton-loader {
     display: contents;
   }

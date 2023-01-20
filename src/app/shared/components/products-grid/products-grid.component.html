@@ -1,14 +1,14 @@
 <swiper
 	*ngIf="slider"
-	[slidesPerView]="(documentService.isSmallScreen$ | async) ? 1 : 4"
-	[loop]="products.length > 3 ? true : false"
+	[slidesPerView]="(documentService.isMobile$ | async) ? 1 : 4"
+	[loop]="products.length > 3"
 	[spaceBetween]="30"
 	[autoplay]="{
 		delay: 4000,
 		disableOnInteraction: false,
 		pauseOnMouseEnter: true
 	}"
-	[grabCursor]="products.length > 4 ? true : false"
+	[grabCursor]="products.length > 4"
 	[centeredSlides]="centered"
 	[pagination]="{
 		dynamicBullets: true,
@@ -23,8 +23,8 @@
 <div class="products" *ngIf="!slider">
 	<app-product-card
 		class="products__item"
-		[style.flex]="'0 0 ' + (100 / ((documentService.isSmallScreen$ | async) ? 1 : maxPerRow)) + '%'"
-		[style.maxWidth.%]="(100 / ((documentService.isSmallScreen$ | async) ? 1 : maxPerRow))"
+		[style.flex]="'0 0 ' + (100 / ((documentService.isMobile$ | async) ? 1 : maxPerRow)) + '%'"
+		[style.maxWidth.%]="(100 / ((documentService.isMobile$ | async) ? 1 : maxPerRow))"
 		*ngFor="let product of products"
 		[product]="product"
 		mode="grid-2">

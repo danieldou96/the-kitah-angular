@@ -23,12 +23,12 @@ export class HeaderService {
   ) {
     this.renderer = this.rendererFactory.createRenderer(null, null);
     this.stickyHeader$ = combineLatest([
-      this.documentService.isSmallScreen$,
+      this.documentService.isMobile$,
       fromEvent(this.window, 'scroll'),
     ]).pipe(
-      map(([isSmallScreen]) => {
+      map(([isMobile]) => {
         const scrollPosition = this.window.scrollY;
-        if (!isSmallScreen && scrollPosition > 400) {
+        if (!isMobile && scrollPosition > 400) {
           return true;
         }
         return false;

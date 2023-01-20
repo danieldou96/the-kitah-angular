@@ -40,7 +40,6 @@ export class DownloadsComponent {
 
   downloadFile(productId: number, productFileName: string) {
     this.apiService.downloadProductFile(productId).subscribe(file => {
-      console.log(mime.getType(productFileName))
       // It is necessary to create a new blob object with mime-type explicitly set
       // otherwise only Chrome works like it should
       var newBlob = new Blob([file], { type: mime.getType(productFileName) ?? undefined });
@@ -51,11 +50,11 @@ export class DownloadsComponent {
       
       var link = this.document.createElement('a');
       link.href = data;
-      link.download = `${productFileName}`;
+      link.download = productFileName;
       // this is necessary as link.click() does not work on the latest firefox
       link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
       
-      setTimeout(function () {
+      setTimeout(() => {
           // For Firefox it is necessary to delay revoking the ObjectURL
           window.URL.revokeObjectURL(data);
           link.remove();

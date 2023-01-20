@@ -52,6 +52,7 @@
     "ngx-bar-rating": "^4.0.1",
     "ngx-cookie-service": "^14.0.1",
     "ngx-filesize": "^2.0.16",
+    "ngx-pagination": "^6.0.3",
     "ngx-pipes": "^3.1.0",
     "ngx-skeleton-loader": "^5.0.0",
     "ngx-stripe": "^14.1.0",

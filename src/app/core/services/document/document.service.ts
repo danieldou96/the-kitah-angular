@@ -1,42 +1,47 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
+import { EScreenSize } from 'src/app/shared/models/screen-size';
 
-@UntilDestroy()
 @Injectable({
 	providedIn: 'root'
 })
 export class DocumentService {
 
-	// BreakpointObserver to check if the screen
-	// is smaller than the "sm" screen size
-	public isSmallScreen = this.breakpointObserver.isMatched(`(max-width: 576px)`);
-	public isSmallScreen$ = this.breakpointObserver.observe(`(max-width: 576px)`).pipe(
-    map(breakpointObserver => breakpointObserver.matches)
-  );
+	public readonly isMobile$ = this.breakpointObserver.observe(
+		`(max-width: ${EScreenSize.md}px)`
+	).pipe(
+		map(breakpointObserver => breakpointObserver.matches),
+		shareReplay(1)
+	);
+	public readonly isTablet$ = this.breakpointObserver.observe(
+		`(min-width: ${EScreenSize.md}px) and (max-width: ${EScreenSize.lg}px)`
+	).pipe(
+		map(breakpointObserver => breakpointObserver.matches),
+		shareReplay(1)
+	);
+	public readonly isDesktop$ = this.breakpointObserver.observe(
+		`(min-width: ${EScreenSize.lg}px)`
+	).pipe(
+		map(breakpointObserver => breakpointObserver.matches),
+		shareReplay(1)
+	);
+
+	public get isMobile(): boolean {
+		return this.breakpointObserver.isMatched(`(max-width: ${EScreenSize.md}px)`);
+	}
+	public get isTablet(): boolean {
+		return this.breakpointObserver.isMatched(`(min-width: ${EScreenSize.md}px) and (max-width: ${EScreenSize.lg}px)`);
+	}
+	public get isDesktop(): boolean {
+		return this.breakpointObserver.isMatched(`(min-width: ${EScreenSize.lg}px)`);
+	}
 
 	constructor(
 		private breakpointObserver: BreakpointObserver,
 		@Inject(DOCUMENT) private document: Document
-	) {
-		// Set document title on every route change
-		/*this.router.events.pipe(
-			filter((e: Event): e is ActivationEnd => e instanceof ActivationEnd),
-			filter(activationEnd => activationEnd.snapshot.data.title !== undefined),
-			map(activationEnd => activationEnd.snapshot.data.title as string),
-			// Replace "{{ Kinus }}" to match to the current Kinus
-			map(documentTitle => documentTitle.replace(
-				'{{ Kinus }}',
-				this.titleCasePipe.transform(
-					this.kinusInfosService.kinusInfos.kinus
-				))
-			),
-			untilDestroyed(this)
-		).subscribe((routeTitle: string) => this.titleService.setTitle(routeTitle));*/
-	}
+	) { }
 
 	/** @description Scroll to the selector corresponding to the errors in the form */
 	public scrollToError() {

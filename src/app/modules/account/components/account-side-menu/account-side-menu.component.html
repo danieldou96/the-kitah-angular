@@ -76,8 +76,8 @@
 				<i class="ci-menu me-2"></i>
 				Account menu </button>
 		</div>
-		<ng-container *ngrxLet="documentService.isSmallScreen$ as isSmallScreen">
-			<div class="cz-sidebar-static p-0" [@slideInOut]="!isSmallScreen || (mobileMenuOpened$ | async)">
+		<ng-container *ngrxLet="documentService.isMobile$ as isMobile">
+			<div class="cz-sidebar-static p-0" [@slideInOut]="!isMobile || (mobileMenuOpened$ | async)">
 				<div id="account-menu" class="secondary-nav collapse border-right">
 					<div class="bg-secondary p-4">
 						<h3 class="font-size-sm mb-0 text-muted">Account</h3>
