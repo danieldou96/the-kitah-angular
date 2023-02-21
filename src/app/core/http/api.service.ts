@@ -229,9 +229,7 @@ export class ApiService {
   public updateRecentlyViewedProducts(recentlyViewedProductIds: IProduct[]): Observable<any> {
     const url = this.apiUrl + `/recently-viewed-products/update`;
     return this.http.put(url, {
-      products: recentlyViewedProductIds.map(product => ({
-        productId: product.id
-      }))
+      products: recentlyViewedProductIds.map(product => product.id)
     });
   }
 
