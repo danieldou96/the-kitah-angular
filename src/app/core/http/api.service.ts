@@ -226,6 +226,12 @@ export class ApiService {
   }
 
   /** @description Get updates list to be on the homepage */
+  public addNewRecentlyViewedProducts(recentlyViewedProductId: number): Observable<any> {
+    const url = this.apiUrl + `/recently-viewed-products/add`;
+    return this.http.put(url, { productId: recentlyViewedProductId });
+  }
+
+  /** @description Get updates list to be on the homepage */
   public updateRecentlyViewedProducts(recentlyViewedProductIds: IProduct[]): Observable<any> {
     const url = this.apiUrl + `/recently-viewed-products/update`;
     return this.http.put(url, {

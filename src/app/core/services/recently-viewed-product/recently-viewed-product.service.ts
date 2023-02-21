@@ -54,7 +54,7 @@ export class RecentlyViewedProductService {
         if (!loggedInUser) {
           this.cookieService.set('recentlyViewedProducts', JSON.stringify(newRecentlyViewedProductsValue), undefined, '/');
         } else {
-          this.apiService.updateRecentlyViewedProducts(newRecentlyViewedProductsValue).pipe(
+          this.apiService.addNewRecentlyViewedProducts(item.id!).pipe(
             first()
           ).subscribe();
         }
