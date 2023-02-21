@@ -3,12 +3,10 @@ import { Injectable } from '@angular/core';
 import { withCache } from '@ngneat/cashew';
 import { map, Observable } from 'rxjs';
 import { ApiResponse } from 'src/app/shared/models/api-response';
-import { ICartItem, IGrade, IRecentlyViewedProductItem, IResourceType, IStore, ISubject } from 'src/app/shared/models/product';
+import { IGrade, IProduct, IResourceType, IStore, ISubject, ICartItem } from 'src/app/shared/models/product';
 import { Page } from 'src/app/shared/models/pagination/page.model';
 import { SortDirection } from 'src/app/shared/models/pagination/sort-direction.enum';
-import { IProduct } from 'src/app/shared/models/product';
 import { environment } from 'src/environments/environment';
-import { CartItem } from '../services/cart/cart.service';
 import { IBilling, User } from 'src/app/shared/models/user';
 import { StripeCard } from 'src/app/modules/shop/components/select-saved-cards/select-saved-cards.component';
 
@@ -192,9 +190,9 @@ export class ApiService {
   }
 
   /** @description Get updates list to be on the homepage */
-  public getRecentlyViewedProducts(): Observable<IRecentlyViewedProductItem[]> {
+  public getRecentlyViewedProducts(): Observable<IProduct[]> {
     const url = this.apiUrl + `/recently-viewed-products`;
-    return this.http.get<ApiResponse<IRecentlyViewedProductItem[]>>(url).pipe(map(apiResponse => apiResponse.data));
+    return this.http.get<ApiResponse<IProduct[]>>(url).pipe(map(apiResponse => apiResponse.data));
   }
 
   /** @description Get updates list to be on the homepage */
@@ -218,7 +216,7 @@ export class ApiService {
   }
 
   /** @description Get updates list to be on the homepage */
-  public updateShoppingCart(cartItems: CartItem[]): Observable<any> {
+  public updateShoppingCart(cartItems: ICartItem[]): Observable<any> {
     const url = this.apiUrl + `/cart/update`;
     return this.http.put(url, {
       cartItems: cartItems.map(i => ({
@@ -228,11 +226,11 @@ export class ApiService {
   }
 
   /** @description Get updates list to be on the homepage */
-  public updateRecentlyViewedProducts(recentlyViewedProductItems: IRecentlyViewedProductItem[]): Observable<any> {
+  public updateRecentlyViewedProducts(recentlyViewedProductIds: IProduct[]): Observable<any> {
     const url = this.apiUrl + `/recently-viewed-products/update`;
     return this.http.put(url, {
-      recentlyViewedProductItems: recentlyViewedProductItems.map(i => ({
-        productId: i.product.id
+      products: recentlyViewedProductIds.map(product => ({
+        productId: product.id
       }))
     });
   }

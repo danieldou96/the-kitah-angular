@@ -1,4 +1,3 @@
-import { IGalleryItem } from "./gallery-item";
 import { IOrder } from "./order";
 import { User } from "./user";
 
@@ -33,9 +32,17 @@ export interface ICartItem {
 	product: IProduct;
 }
 
-export interface IRecentlyViewedProductItem {
-  id?: number;
-	product: IProduct;
+export interface ICart {
+	cartItems: ICartItem[];
+  discountCodes: IDiscountCode[];
+}
+
+export interface IDiscountCode {
+  id: number;
+  type: 'percent' |'fixed';
+  code: string;
+  amount: number;
+  usageLimit: number;
 }
 
 /*export interface IGalleryItem {

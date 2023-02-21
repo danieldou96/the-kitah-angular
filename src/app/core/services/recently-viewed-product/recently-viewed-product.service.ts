@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { combineLatest, first, map, Observable, of, scan, shareReplay, startWith, Subject, switchMap, tap, withLatestFrom } from 'rxjs';
-import { IRecentlyViewedProductItem } from 'src/app/shared/models/product';
+import { IProduct } from 'src/app/shared/models/product';
 import { AuthService } from '../../authentication/auth.service';
 import { ApiService } from '../../http/api.service';
 
@@ -10,10 +10,10 @@ import { ApiService } from '../../http/api.service';
 })
 export class RecentlyViewedProductService {
 
-  recentlyViewedProducts$: Observable<IRecentlyViewedProductItem[]>;
+  recentlyViewedProducts$: Observable<IProduct[]>;
 
-  private _recentlyViewedProductsAddSubject$ = new Subject<IRecentlyViewedProductItem | null>();
-  private _recentlyViewedProductsAdd$: Observable<IRecentlyViewedProductItem | null>;
+  private _recentlyViewedProductsAddSubject$ = new Subject<IProduct | null>();
+  private _recentlyViewedProductsAdd$: Observable<IProduct | null>;
 
   constructor(
     private apiService: ApiService,
@@ -30,16 +30,16 @@ export class RecentlyViewedProductService {
       this.authService.loggedInUser$.pipe(
         switchMap(loggedInUser => {
           if (!loggedInUser) {
-            return of(JSON.parse(this.cookieService.check('recentlyViewedProducts') ? this.cookieService.get('recentlyViewedProducts') : '[]') as IRecentlyViewedProductItem[]);
+            return of(JSON.parse(this.cookieService.check('recentlyViewedProducts') ? this.cookieService.get('recentlyViewedProducts') : '[]') as IProduct[]);
           }
           return this.apiService.getRecentlyViewedProducts();
         })
       )
     ]).pipe(
-      scan((acc: IRecentlyViewedProductItem[], [item, initialValue]: [(IRecentlyViewedProductItem | null), IRecentlyViewedProductItem[]]) => {
+      scan((acc: IProduct[], [item, initialValue]: [(IProduct | null), IProduct[]]) => {
         if (!!item) {
           // Insert new item
-          return [item, ...acc].filter((v,i,a)=>a.findIndex(v2=>(v2.product.id===v.product.id))===i);
+          return [item, ...acc].filter((v,i,a)=>a.findIndex(v2=>(v2.id===v.id))===i);
         }
 
         // Set inital value from db/localStorage
@@ -64,7 +64,7 @@ export class RecentlyViewedProductService {
     );
   }
 
-  addItem(item: IRecentlyViewedProductItem) {
+  addItem(item: IProduct) {
     this._recentlyViewedProductsAddSubject$.next(item);
   }
 }
