@@ -42,7 +42,7 @@ export class ProductComponent {
   ) {
     this.product$ = this.activatedRoute.data.pipe(
       map(data => data['product']),
-      tap(product => this.recentlyViewedProductsService.addItem({ product }))
+      tap(product => this.recentlyViewedProductsService.addItem(product))
     );
 
 		// Gallery items to be shown on the gallery slider
