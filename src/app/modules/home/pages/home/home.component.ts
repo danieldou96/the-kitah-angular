@@ -30,8 +30,6 @@ export class HomeComponent {
     this.monthlyProducts$ = this.apiService.getHomepageProducts().pipe(
       map(h => h.monthlyProducts)
     );
-    this.recentlyViewedProducts$ = this.recentlyViewedProductsService.recentlyViewedProducts$.pipe(
-      map(products => products.map(p => p.product))
-    );
+    this.recentlyViewedProducts$ = this.recentlyViewedProductsService.recentlyViewedProducts$;
   }
 }
