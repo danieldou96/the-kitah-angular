@@ -4,7 +4,7 @@ export class Sort {
   public direction: SortDirection;
   public column: string;
 
-  constructor(column: string = 'id', direction: SortDirection = SortDirection.ASCENDING) {
+  constructor(column: string = 'createdAt', direction: SortDirection = SortDirection.ASCENDING) {
     this.direction = direction; 
     this.column = column;
   }
